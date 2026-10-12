@@ -4,7 +4,7 @@
 
 DeepScientist 的主线流程是：
 
-1. 选择任务：自己描述，或从 BenchStore 选一个 benchmark
+1. 选择任务：描述研究目标，并提供论文、代码、数据或 benchmark 参考资料
 2. 启动规划：SetupAgent 先整理目标、材料、限制和启动合同
 3. 执行研究：进入 quest 工作区，持续运行 scout、idea、experiment、write 等阶段
 4. 审计结果：用 Canvas、Files、Diff、Memory 和 Copilot 回看证据链

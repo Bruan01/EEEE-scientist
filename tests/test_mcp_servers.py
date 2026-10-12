@@ -397,7 +397,6 @@ def test_artifact_mcp_server_tools_cover_core_flows(temp_home: Path) -> None:
             "get_quest_state",
             "get_global_status",
             "get_research_map_status",
-            "get_benchstore_catalog",
             "get_start_setup_context",
             "get_method_scoreboard",
             "get_optimization_frontier",

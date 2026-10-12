@@ -10,7 +10,6 @@
     "test:e2e:copilot-workspace": "playwright test e2e/copilot-workspace.spec.ts",
     "test:e2e:copilot-agent-queue": "playwright test e2e/copilot-agent-queue.spec.ts",
     "test:e2e:copilot-tool-events": "playwright test e2e/copilot-tool-events.spec.ts",
-    "test:e2e:benchstore": "playwright test e2e/benchstore.spec.ts",
     "test:e2e:admin": "playwright test e2e/settings-control-center.spec.ts",
     "test:e2e:settings-control": "playwright test e2e/settings-control-center.spec.ts",
     "test:e2e:deepxiv-settings": "playwright test e2e/deepxiv-settings.spec.ts",

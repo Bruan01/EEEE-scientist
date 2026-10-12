@@ -38,8 +38,6 @@ import { DefaultAppLayout } from '../layouts/DefaultAppLayout.js'
 import type {
   AdminTask,
   BaselineRegistryEntry,
-  BenchStoreCatalogPayload,
-  BenchStoreEntry,
   ConfigFileEntry,
   ConfigTestPayload,
   ConfigValidationPayload,
@@ -221,13 +219,8 @@ const buildHelpPanel = (): UtilityPanel => ({
       ],
     },
     {
-      title: 'BenchStore And Ops',
+      title: 'Ops',
       lines: [
-        '/benchstore               List benchmark catalog entries.',
-        '/benchstore show <id>     Show benchmark detail.',
-        '/benchstore install <id>  Start the install task.',
-        '/benchstore setup <id>    Preview the setup packet.',
-        '/benchstore launch <id>   Launch a benchmark quest.',
         '/doctor                   Start a system doctor task.',
         '/tasks [task_id]          List or inspect system tasks.',
       ],
@@ -254,52 +247,6 @@ const buildHelpPanel = (): UtilityPanel => ({
     },
   ],
   footer: 'Esc closes this panel. Unknown slash commands are blocked locally instead of hitting the skeleton fallback.',
-})
-
-const buildBenchCatalogPanel = (payload: BenchStoreCatalogPayload): UtilityPanel => {
-  const items = payload.items.slice(0, 30).map((entry, index) => {
-    const title = entry.name || entry.id
-    const summary = entry.one_line || entry.task_description || entry.snapshot_status || ''
-    return `${index + 1}. ${entry.id} · ${title}${summary ? ` · ${summary}` : ''}`
-  })
-  return {
-    kind: 'benchstore',
-    title: 'BenchStore',
-    subtitle: `${payload.total ?? payload.items.length} benchmark entries${payload.device_summary ? ` · ${payload.device_summary}` : ''}`,
-    lines: items.length > 0 ? items : ['No benchmark entries are available.'],
-    footer: 'Use /benchstore show <id>, /benchstore install <id>, or /benchstore launch <id>.',
-  }
-}
-
-const buildBenchEntryPanel = (entry: BenchStoreEntry): UtilityPanel => ({
-  kind: 'benchstore',
-  title: entry.name || entry.id,
-  subtitle: entry.id,
-  sections: [
-    {
-      title: 'Summary',
-      lines: [
-        entry.one_line || entry.task_description || 'No summary.',
-        `status: ${entry.snapshot_status || 'unknown'}`,
-        `support: ${entry.support_level || 'unknown'}`,
-        `cost/time/difficulty: ${[entry.cost_band, entry.time_band, entry.difficulty].filter(Boolean).join(' / ') || 'unknown'}`,
-      ],
-    },
-    {
-      title: 'Compatibility',
-      lines: [
-        stringifyBrief(entry.compatibility || entry.recommendation || 'No compatibility payload.'),
-      ],
-    },
-    {
-      title: 'Risk',
-      lines: [
-        ...(entry.risk_flags?.length ? [`flags: ${entry.risk_flags.join(', ')}`] : []),
-        ...(entry.risk_notes?.length ? entry.risk_notes : ['No risk notes.']),
-      ],
-    },
-  ],
-  footer: 'Use /benchstore setup <id>, /benchstore install <id>, or /benchstore launch <id>.',
 })
 
 const buildTaskLine = (task: AdminTask): string => {
@@ -479,9 +426,6 @@ const describeDebugWebAnalog = (args: {
   selectedConnectorName: ManagedConnectorName | null
 }) => {
   if (args.utilityPanel) {
-    if (args.utilityPanel.kind === 'benchstore') {
-      return 'Web BenchStore page'
-    }
     if (args.utilityPanel.kind === 'tasks') {
       return 'Web admin tasks'
     }
@@ -641,17 +585,6 @@ const previewDebugRoute = (args: {
       reason: 'Handled locally by the TUI command registry.',
       command: slash.name,
       arg: 'none',
-      parsedCommand,
-    }
-  }
-
-  if (slash?.name === '/benchstore') {
-    return {
-      kind: 'local-benchstore',
-      target: slash.arg ? `benchstore ${visibleArg(slash.arg)}` : 'benchstore catalog',
-      reason: 'Handled locally by the TUI command registry.',
-      command: slash.name,
-      arg: slash.arg ? visibleArg(slash.arg) : 'list',
       parsedCommand,
     }
   }
@@ -2192,7 +2125,6 @@ export const AppContainer: React.FC<{
       { name: '/use', description: 'Bind a quest, for example `/use 001`.' },
       { name: '/new', description: 'Create and auto-start a new quest.' },
       { name: '/run', description: 'Run a skill in the active quest.' },
-      { name: '/benchstore', description: 'List, install, setup, or launch benchmark entries.' },
       { name: '/doctor', description: 'Start a system doctor task.' },
       { name: '/tasks', description: 'List or inspect system tasks.' },
       { name: '/baseline', description: 'List, attach, or clear quest baselines.' },
@@ -3424,93 +3356,6 @@ export const AppContainer: React.FC<{
     [baseUrl, showUtilityPanel]
   )
 
-  const handleBenchstoreCommand = useCallback(
-    async (arg: string) => {
-      const tokens = splitCommandTokens(arg)
-      const action = tokens[0]?.toLowerCase() || 'list'
-      const locale = parseLocaleFlag(tokens)
-      if (action === 'list' || action === 'ls') {
-        const payload = await client.benchstoreEntries(baseUrl, locale)
-        showUtilityPanel(buildBenchCatalogPanel(payload), 'BenchStore catalog loaded.')
-        return
-      }
-      if (action === 'show' || action === 'detail') {
-        const entryId = tokens[1]
-        if (!entryId) {
-          setStatusLine('Usage · /benchstore show <entry_id>')
-          return
-        }
-        const payload = await client.benchstoreEntry(baseUrl, entryId, locale)
-        showUtilityPanel(buildBenchEntryPanel(payload.entry), `BenchStore · ${entryId}`)
-        return
-      }
-      if (action === 'setup') {
-        const entryId = tokens[1]
-        if (!entryId) {
-          setStatusLine('Usage · /benchstore setup <entry_id>')
-          return
-        }
-        const payload = await client.benchstoreSetupPacket(baseUrl, entryId, locale)
-        const packet = payload.setup_packet
-        showUtilityPanel(
-          {
-            kind: 'benchstore',
-            title: `BenchStore Setup · ${entryId}`,
-            subtitle: packet.project_title || packet.assistant_label || undefined,
-            sections: [
-              {
-                title: 'Launch',
-                lines: [
-                  `goal: ${packet.launch_payload?.goal || packet.benchmark_goal || 'missing'}`,
-                  `initial_message: ${stringifyBrief(packet.launch_payload?.initial_message || packet.startup_instruction || '')}`,
-                  `device_fit: ${packet.device_fit || 'unknown'}`,
-                ],
-              },
-              {
-                title: 'Paths',
-                lines: [
-                  `benchmark: ${packet.benchmark_local_path || 'not installed'}`,
-                  `datasets: ${(packet.local_dataset_paths || []).join(', ') || 'none'}`,
-                ],
-              },
-              {
-                title: 'Suggested Form',
-                lines: [stringifyBrief(packet.suggested_form || {}, 800)],
-              },
-            ],
-            footer: 'Use /benchstore launch <id> to create and start the benchmark quest.',
-          },
-          `BenchStore setup packet loaded for ${entryId}.`
-        )
-        return
-      }
-      if (action === 'install') {
-        const entryId = tokens[1]
-        if (!entryId) {
-          setStatusLine('Usage · /benchstore install <entry_id>')
-          return
-        }
-        const payload = await client.installBenchstoreEntry(baseUrl, entryId)
-        showUtilityPanel(buildTaskPanel(payload.task), `BenchStore install task started · ${payload.task.task_id}`)
-        return
-      }
-      if (action === 'launch' || action === 'run') {
-        const entryId = tokens[1]
-        if (!entryId) {
-          setStatusLine('Usage · /benchstore launch <entry_id>')
-          return
-        }
-        const payload = await client.launchBenchstoreEntry(baseUrl, entryId, locale)
-        setStatusLine(`BenchStore launched ${payload.snapshot.quest_id}.`)
-        await focusQuest(payload.snapshot.quest_id)
-        return
-      }
-      const payload = await client.benchstoreEntries(baseUrl, locale)
-      showUtilityPanel(buildBenchCatalogPanel(payload), `Unknown BenchStore action · ${action}`)
-    },
-    [baseUrl, focusQuest, showUtilityPanel]
-  )
-
   const handleTasksCommand = useCallback(
     async (arg: string) => {
       const token = splitCommandTokens(arg)[0]
@@ -3907,10 +3752,6 @@ export const AppContainer: React.FC<{
           setStatusLine('Home · request mode · quest unbound.')
           return
         }
-        if (slash?.name === '/benchstore') {
-          await handleBenchstoreCommand(slash.arg)
-          return
-        }
         if (slash?.name === '/doctor') {
           await handleDoctorCommand()
           return
@@ -4245,7 +4086,6 @@ export const AppContainer: React.FC<{
       closeQuestPanel,
       focusQuest,
       handleBaselineCommand,
-      handleBenchstoreCommand,
       handleConfigBrowseSelection,
       handleConfigSlashCommand,
       handleDoctorCommand,

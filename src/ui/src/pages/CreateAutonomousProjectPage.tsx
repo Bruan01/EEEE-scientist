@@ -123,7 +123,6 @@ export function CreateAutonomousProjectPage() {
         error={error}
         onBack={() => navigate('/')}
         onClose={() => navigate('/')}
-        onOpenBenchStore={() => navigate('/', { state: { landingDialog: 'benchstore' } })}
         onCreate={handleCreate}
       />
     </div>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ArrowUpRight, BookOpen, Sparkles, X } from 'lucide-react'
+import { ArrowUpRight, Sparkles, X } from 'lucide-react'
 
 import { QuestCopilotComposer } from '@/components/workspace/QuestCopilotComposer'
 import { Button } from '@/components/ui/button'
@@ -19,7 +19,6 @@ type AutonomousSetupIntakeSurfaceProps = {
   error?: string | null
   onSwitchToForm: () => void
   onSwitchToCopilot: () => void
-  onOpenBenchStore?: () => void
   onClose?: () => void
 }
 
@@ -37,7 +36,6 @@ function copy(locale: 'en' | 'zh') {
         assistantLabel: 'SetupAgent 只做启动规划，不会直接开始研究执行',
         manualAutonomous: '手动进入全自动',
         manualCopilot: '手动进入协作模式',
-        benchText: '还不确定任务 → 点击“BenchStore”阅读开放任务',
         closeLabel: '关闭',
       }
     : {
@@ -52,7 +50,6 @@ function copy(locale: 'en' | 'zh') {
         assistantLabel: 'SetupAgent plans the launch only. It will not start research execution yet.',
         manualAutonomous: 'Manual autonomous',
         manualCopilot: 'Manual Copilot',
-        benchText: 'Not sure yet → click “BenchStore” to browse open tasks',
         closeLabel: 'Close',
       }
 }
@@ -146,16 +143,6 @@ export function AutonomousSetupIntakeSurface(props: AutonomousSetupIntakeSurface
             ) : null}
           </div>
 
-          <div className="mx-auto flex w-full max-w-3xl items-center justify-center text-center text-sm leading-6 text-[rgba(86,82,77,0.78)]">
-            <button
-              type="button"
-              className="inline-flex max-w-full items-center gap-1.5 rounded-full border border-[rgba(45,42,38,0.08)] bg-white/62 px-4 py-2 text-[rgba(45,42,38,0.9)] transition hover:bg-white"
-              onClick={props.onOpenBenchStore}
-            >
-              <BookOpen className="h-3.5 w-3.5" />
-              {t.benchText}
-            </button>
-          </div>
         </div>
       </div>
     </div>

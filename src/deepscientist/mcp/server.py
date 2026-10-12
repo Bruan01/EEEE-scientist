@@ -1822,26 +1822,9 @@ def build_artifact_server(context: McpContext) -> FastMCP:
         )
 
     @server.tool(
-        name="get_benchstore_catalog",
-        description=(
-            "Read the BenchStore catalog with current-device recommendation hints. "
-            "Use detail='summary' for compact recommendations or detail='full' for the full structured catalog."
-        ),
-        annotations=_read_only_tool_annotations(title="Get BenchStore catalog"),
-    )
-    def get_benchstore_catalog(
-        detail: str = "summary",
-        comment: str | dict[str, Any] | None = None,
-    ) -> dict[str, Any]:
-        return service.get_benchstore_catalog(
-            context.require_quest_root(),
-            detail=detail,
-        )
-
-    @server.tool(
         name="get_start_setup_context",
         description=(
-            "Read the current autonomous start-setup context, including the suggested form and selected benchmark context when present."
+            "Read the current autonomous start-setup context, including the suggested form and provided-materials state when present."
         ),
         annotations=_read_only_tool_annotations(title="Get start setup context"),
     )

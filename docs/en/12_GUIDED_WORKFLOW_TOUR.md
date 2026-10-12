@@ -45,7 +45,7 @@ For a first run, click `Start Research`.
 If you only want one practical rule:
 
 - click `Start Research` when you already know what project you want to start
-- click `BenchStore` when you want the system to help you choose a benchmark first
+- use the Start Research intake when you want SetupAgent to help choose a direction or inspect provided materials
 - click `Settings` when you are not starting a project yet and only want to configure the system
 
 ## 3. Understand what the dialog is doing

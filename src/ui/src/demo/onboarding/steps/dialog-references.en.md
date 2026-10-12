@@ -8,4 +8,4 @@ The most useful references are usually:
 - known runnable reference implementation
 - conclusions from previous quests or Memory records
 
-If the task came from BenchStore, this area is usually prefilled with paper, download URL, and local install path. You can still add your own materials.
+You can put paper links, download URLs, repositories, local paths, or previous quest outputs here. SetupAgent will inspect the materials you provide and help complete the launch context.

@@ -2903,14 +2903,14 @@ class QuestService:
             if prefix == "S":
                 return "settings"
             if prefix == "B":
-                return "benchstore"
+                return "research"
 
         contract = startup_contract if isinstance(startup_contract, dict) else {}
         custom_profile = str(contract.get("custom_profile") or "").strip().lower()
         if custom_profile in {"admin_ops", "settings_issue"}:
             return "settings"
-        if isinstance(contract.get("benchstore_context"), dict) or isinstance(contract.get("start_setup_session"), dict):
-            return "benchstore"
+        if str(contract.get("quest_class") or "").strip().lower() == "settings":
+            return "settings"
         return "research"
 
     @staticmethod

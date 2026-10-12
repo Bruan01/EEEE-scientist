@@ -558,7 +558,7 @@ Important: the JSONL log redacts config buffers, but terminal recording tools su
 
 Use debug mode when:
 
-- `/config`, `/benchstore`, `/tasks`, or another command does not appear to open the expected surface
+- `/config`, `/tasks`, or another command does not appear to open the expected surface
 - you need to know whether a slash command is local, backend-forwarded, or blocked
 - you are in the config editor and need to know which draft Enter would save
 - TUI and Web look inconsistent and you need the `web_analog`
@@ -601,7 +601,7 @@ For a strict Web/TUI comparison:
 3. compare TUI `surface`, `web_analog`, and `route.target` with Web `surface`, `route`, `selected`, `flags`, and `actions`
 4. confirm neither snapshot contains real token, secret, password, API key, credential, auth AK, or app secret values
 
-Current scope: the first Web implementation covers Settings, especially connector and config pages. Quest workspace and BenchStore snapshots are planned follow-ups.
+Current scope: the first Web implementation covers Settings, especially connector and config pages. Quest workspace snapshots are planned follow-ups.
 
 ## 16. Troubleshooting
 

@@ -70,9 +70,6 @@ Important current docs by topic:
   - `docs/en/17_WHATSAPP_CONNECTOR_GUIDE.md`
   - `docs/en/18_FEISHU_CONNECTOR_GUIDE.md`
   - `docs/en/19_EXTERNAL_CONTROLLER_GUIDE.md`
-- BenchStore:
-  - `docs/en/22_BENCHSTORE_YAML_REFERENCE.md`
-  - `docs/en/23_BENCHSTORE_GITHUB_RELEASES_SPEC.md`
 
 Supplementary contributor notes:
 
@@ -164,7 +161,6 @@ Important top-level directories:
 - `assets/`
 - `bin/`
 - `docs/`
-- `AISB/`
 - `src/deepscientist/`
 - `src/prompts/`
 - `src/skills/`
@@ -198,9 +194,6 @@ Important subsystem areas:
   - `src/deepscientist/config/models.py`
   - `src/deepscientist/config/service.py`
 - managed local tools: `src/deepscientist/runtime_tools/`
-- BenchStore:
-  - `src/deepscientist/benchstore/`
-  - `AISB/catalog/`
 
 ## Runtime Home And Quest Layout
 
@@ -449,13 +442,6 @@ When changing managed local runtime tools:
   - `docs/en/91_DEVELOPMENT.md`
 - update user docs if install or troubleshooting behavior is user-visible
 - update tests for registration, status, install, and binary resolution
-
-When changing BenchStore catalog or packaging behavior:
-
-- update `AISB/catalog/` entries or BenchStore runtime code together
-- follow `docs/en/22_BENCHSTORE_YAML_REFERENCE.md`
-- follow `docs/en/23_BENCHSTORE_GITHUB_RELEASES_SPEC.md` for downloadable bundles
-- update BenchStore API/UI tests when behavior changes
 
 When changing API surface used by web and TUI:
 

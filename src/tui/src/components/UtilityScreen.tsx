@@ -19,7 +19,7 @@ export type UtilitySection = {
 }
 
 export type UtilityPanel = {
-  kind: 'help' | 'benchstore' | 'tasks' | 'baselines' | 'config' | 'run' | 'status' | 'debug'
+  kind: 'help' | 'tasks' | 'baselines' | 'config' | 'run' | 'status' | 'debug'
   title: string
   subtitle?: string
   lines?: Array<string | UtilityLine>

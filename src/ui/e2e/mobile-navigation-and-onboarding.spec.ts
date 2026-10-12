@@ -183,7 +183,6 @@ test.describe('mobile navigation and onboarding', () => {
     await page.getByRole('button', { name: 'Next' }).click()
     await expect(page.locator('[data-onboarding-id="landing-start-research"]')).toBeVisible()
     await page.getByRole('button', { name: 'Next' }).click()
-    await expect(page.locator('[data-onboarding-id="landing-benchstore"]')).toBeVisible()
     await page.getByRole('button', { name: 'Next' }).click()
     await page.getByRole('button', { name: 'Next' }).click()
     await expect(page).toHaveURL(appUrl('/'))

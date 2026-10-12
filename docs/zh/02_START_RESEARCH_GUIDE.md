@@ -278,6 +278,8 @@ type StartResearchContractFields = {
 
 ### Baseline 与参考资料
 
+当前启动流程不再内置 BenchStore 下载目录。你可以直接下载数据后填写本地绝对路径，上传文件，或把论文 / 代码 / 数据链接交给 SetupAgent；在网络访问和下载权限明确时，SetupAgent 可以通过 `bash_exec` 准备材料，否则会请你提供本地路径或确认后再下载。材料进入 quest 后，Baseline、Scout、Experiment、Analysis 和写作流程不变。
+
 **`baseline_id`**
 
 - 从 registry 中选择一个可复用 baseline。

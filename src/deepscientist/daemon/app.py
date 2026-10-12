@@ -35,7 +35,6 @@ from ..admin.repairs import AdminRepairService
 from ..admin.service import AdminService
 from ..acp import build_session_update
 from ..artifact import ArtifactService
-from ..benchstore import BenchStoreService
 from ..bash_exec import BashExecService
 from ..bash_exec.models import TerminalClient
 from ..bash_exec.service import DEFAULT_TERMINAL_SESSION_ID
@@ -218,7 +217,6 @@ class DaemonApp:
         self.memory_service = MemoryService(home)
         self.annotation_service = AnnotationService(home)
         self.artifact_service = ArtifactService(home)
-        self.benchstore_service = BenchStoreService(home, repo_root=self.repo_root)
         self.bash_exec_service = BashExecService(home)
         self.team_service = SingleTeamService(home)
         self.cloud_service = CloudLinkService(home)
@@ -1150,24 +1148,6 @@ class DaemonApp:
         if not isinstance(payload, dict):
             raise RuntimeError("DeepScientist update request returned an invalid payload.")
         return payload
-
-    def start_benchstore_install(self, entry_id: str) -> dict[str, Any]:
-        entry_payload = self.benchstore_service.get_entry(entry_id)
-        entry = entry_payload.get("entry") if isinstance(entry_payload.get("entry"), dict) else {}
-        normalized_id = str(entry.get("id") or entry_id).strip() or str(entry_id).strip()
-        entry_name = str(entry.get("name") or normalized_id).strip() or normalized_id
-        return self.admin_task_service.start_task(
-            "benchstore_install",
-            metadata={
-                "entry_id": normalized_id,
-                "entry_name": entry_name,
-            },
-            target=lambda reporter, current_task: self.benchstore_service.run_install_task(
-                entry_id=normalized_id,
-                reporter=reporter,
-                task_id=str(current_task.get("task_id") or ""),
-            ),
-        )
 
     def _process_terminal_attach_request(
         self,
@@ -8787,13 +8767,6 @@ class DaemonApp:
                         "annotations_project",
                     }:
                         payload = result(**params, path=self.path)
-                    elif route_name in {
-                        "benchstore_entries",
-                        "benchstore_entry",
-                        "benchstore_entry_image",
-                        "benchstore_entry_setup_packet",
-                    }:
-                        payload = result(**params, path=self.path) if params else result(self.path)
                     elif method == "GET":
                         payload = result(**params) if params else result()
                     elif route_alias in {
@@ -8818,8 +8791,6 @@ class DaemonApp:
                         payload = result(**params, body=body)
                     elif route_name == "memory":
                         payload = result(app.handlers.parse_query(self.path))
-                    elif route_name == "benchstore_entry_launch":
-                        payload = result(**params, path=self.path, body=body)
                     else:
                         payload = result(**params) if params else result()
                 except Exception as exc:

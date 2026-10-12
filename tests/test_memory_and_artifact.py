@@ -425,7 +425,7 @@ def test_apply_start_setup_form_patch_persists_and_merges_suggested_form(temp_ho
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "Original setup title",

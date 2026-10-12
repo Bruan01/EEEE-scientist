@@ -6,7 +6,7 @@ In this tutorial, we use the manual entry so you can see the full launch form an
 
 In normal use, this intake is the best place for:
 
-- benchmark context carried over from BenchStore Start
+- paper, code, data, or benchmark context provided by the user
 - your manually written research goal
 - dropped papers, code, data, or config files
 - current machine and runner constraints

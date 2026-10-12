@@ -1,6 +1,6 @@
 import type { QuestSummary } from '@/types'
 
-type QuestClass = 'research' | 'settings' | 'benchstore'
+type QuestClass = 'research' | 'settings'
 
 function startupContractOf(summary: QuestSummary): Record<string, unknown> | null {
   return summary.startup_contract && typeof summary.startup_contract === 'object'
@@ -10,24 +10,17 @@ function startupContractOf(summary: QuestSummary): Record<string, unknown> | nul
 
 export function classifyQuest(summary: QuestSummary): QuestClass {
   const declared = String(summary.quest_class || '').trim().toLowerCase()
-  if (declared === 'settings' || declared === 'benchstore' || declared === 'research') {
-    return declared as QuestClass
+  if (declared === 'settings' || declared === 'research') {
+    return declared
   }
-
   const questId = String(summary.quest_id || '').trim()
   if (/^S-\d+$/i.test(questId)) return 'settings'
-  if (/^B-\d+$/i.test(questId)) return 'benchstore'
+  if (/^B-\d+$/i.test(questId)) return 'research'
 
   const startupContract = startupContractOf(summary)
   const customProfile = String(startupContract?.custom_profile || '').trim().toLowerCase()
   if (customProfile === 'admin_ops' || customProfile === 'settings_issue') {
     return 'settings'
-  }
-  if (
-    startupContract &&
-    (typeof startupContract.benchstore_context === 'object' || typeof startupContract.start_setup_session === 'object')
-  ) {
-    return 'benchstore'
   }
   return 'research'
 }

@@ -253,36 +253,6 @@ def test_tui_new_command_creates_and_auto_starts_quest() -> None:
     ]
 
 
-def test_tui_benchstore_command_lists_catalog() -> None:
-    state: dict[str, Any] = {}
-    get_routes = {
-        **default_quest_routes(),
-        **default_connector_routes(state),
-        "/api/benchstore/entries": lambda _current, _body: {
-            "ok": True,
-            "total": 1,
-            "device_summary": "test device",
-            "items": [
-                {
-                    "id": "toy.bench",
-                    "name": "Toy Benchmark",
-                    "one_line": "Small benchmark fixture",
-                    "snapshot_status": "runnable",
-                }
-            ],
-        },
-    }
-
-    with MockDaemon(state=state, get_routes=get_routes) as daemon:
-        with spawn_tui(daemon.base_url) as child:
-            child.expect("request mode")
-            child.send("/benchstore")
-            press_enter(child)
-            child.expect("BenchStore")
-            child.expect("toy.bench")
-            child.expect("Small benchmark fixture")
-
-
 def test_tui_doctor_command_starts_system_task() -> None:
     state: dict[str, Any] = {"doctor_started": 0}
 

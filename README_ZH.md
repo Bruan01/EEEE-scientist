@@ -44,11 +44,11 @@
 </p>
 
 <p align="center">
-  维护者入口：<a href="docs/zh/22_BENCHSTORE_YAML_REFERENCE.md">BenchStore YAML 编写指南</a>
+  维护者入口：<a href="docs/en/91_DEVELOPMENT.md">开发者指南</a>
 </p>
 
 <p align="center">
-  <strong>5.12 更新：</strong>v1.6.0 已发布，新增 Claude Code、OpenCode、Kimi Code、BenchStore 与科学证据工作流支持。
+  <strong>5.12 更新：</strong>v1.6.0 已发布，新增 Claude Code、OpenCode、Kimi Code 与科学证据工作流支持。
 </p>
 
 ![deepscientist_install](https://github.com/user-attachments/assets/d8244944-4f70-4e08-94e3-002b74ce70fb)

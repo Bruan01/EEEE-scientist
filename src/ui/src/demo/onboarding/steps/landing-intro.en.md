@@ -4,7 +4,7 @@ This is not a generic chat entry. It is where a research idea becomes a **local,
 
 The main DeepScientist loop is:
 
-1. Choose the task: describe your own goal, or pick a benchmark from BenchStore
+1. Choose the task: describe your goal and provide the relevant papers, code, data, or benchmark references
 2. Plan the launch: SetupAgent organizes the goal, materials, constraints, and launch contract
 3. Run the research: the quest workspace advances through stages such as scout, idea, experiment, and write
 4. Audit the result: use Canvas, Files, Diff, Memory, and Copilot to inspect the evidence chain

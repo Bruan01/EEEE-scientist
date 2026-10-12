@@ -6,6 +6,6 @@ DeepXiv 影响文献发现路线。
 
 - 需要系统性文献检索：配置 DeepXiv
 - 只做本地代码复现或 benchmark 启动：可以暂时跳过
-- 从 BenchStore 进入且已有 paper：先使用自动带入的 paper，再按需要补充 DeepXiv
+- 已经有论文或本地参考资料：先使用现有材料，再按需要补充 DeepXiv
 
 它不是装饰项，而是会影响 scout / idea / write 阶段可以依赖的论文来源。

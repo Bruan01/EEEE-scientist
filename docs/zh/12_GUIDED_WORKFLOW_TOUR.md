@@ -45,7 +45,7 @@ DeepScientist 常见有两种使用方式：
 如果你只记一条最实用的规则：
 
 - 已经知道要启动什么项目，就点 `Start Research`
-- 还不知道做哪个 benchmark，就先去 `BenchStore`
+- 还不确定方向时，直接进入 `Start Research`，让 SetupAgent 根据你的材料和约束协助选择
 - 只是想改配置，还不打算启动项目，就去 `Settings`
 
 ## 3. 先理解这个弹窗到底在做什么

@@ -220,68 +220,6 @@ export type AdminTaskEvent = {
   data?: Record<string, unknown> | null
 }
 
-export type BenchStoreEntry = {
-  id: string
-  name?: string
-  one_line?: string
-  task_description?: string
-  snapshot_status?: string | null
-  support_level?: string | null
-  cost_band?: string | null
-  time_band?: string | null
-  difficulty?: string | null
-  data_access?: string | null
-  risk_flags?: string[]
-  risk_notes?: string[]
-  install_state?: Record<string, unknown> | null
-  compatibility?: Record<string, unknown> | null
-  recommendation?: Record<string, unknown> | null
-  setup_prompt_preview?: string | null
-  [key: string]: unknown
-}
-
-export type BenchStoreCatalogPayload = {
-  ok: boolean
-  items: BenchStoreEntry[]
-  total?: number
-  device_summary?: string | null
-  invalid_entries?: Array<{ source_file?: string; message?: string }>
-  shelves?: Record<string, string[]>
-}
-
-export type BenchStoreEntryDetailPayload = {
-  ok: boolean
-  entry: BenchStoreEntry
-  device_summary?: string | null
-}
-
-export type BenchStoreSetupPacket = {
-  entry_id: string
-  assistant_label?: string | null
-  project_title?: string | null
-  benchmark_local_path?: string | null
-  local_dataset_paths?: string[]
-  device_summary?: string | null
-  device_fit?: string | null
-  requires_paper?: boolean | null
-  benchmark_goal?: string | null
-  constraints?: string[]
-  suggested_form?: Record<string, unknown> | null
-  startup_instruction?: string | null
-  launch_payload?: {
-    title?: string | null
-    goal?: string | null
-    initial_message?: string | null
-    startup_contract?: Record<string, unknown> | null
-  } | null
-}
-
-export type BenchStoreSetupPacketPayload = {
-  ok: boolean
-  entry_id: string
-  setup_packet: BenchStoreSetupPacket
-}
-
 export type BaselineRegistryEntry = {
   baseline_id: string
   summary?: string | null

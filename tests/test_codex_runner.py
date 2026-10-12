@@ -759,7 +759,7 @@ def test_codex_runner_restricts_start_setup_session_to_prepare_form_and_bash_exe
                 "launch_mode": "custom",
                 "custom_profile": "freeform",
                 "start_setup_session": {
-                    "source": "benchstore",
+                    "source": "manual",
                     "locale": "zh",
                 },
             },
@@ -855,7 +855,7 @@ def test_codex_runner_limits_timeout_overrides_to_active_builtin_servers_for_sta
             "title": "start setup",
             "startup_contract": {
                 "custom_profile": "freeform",
-                "start_setup_session": {"source": "benchstore"},
+                "start_setup_session": {"source": "manual"},
             },
         },
     )
@@ -898,7 +898,7 @@ def test_codex_runner_applies_start_setup_patch_fallback_block(temp_home) -> Non
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "Original title",
@@ -1785,7 +1785,7 @@ def test_runner_emits_warning_when_setup_output_falsely_claims_form_patch_missin
                 'launch_mode': 'custom',
                 'custom_profile': 'freeform',
                 'start_setup_session': {
-                    'source': 'benchstore',
+                    'source': 'manual',
                     'locale': 'zh',
                 },
             },

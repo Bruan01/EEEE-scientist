@@ -101,6 +101,16 @@ Good first tasks here:
 - adjust `default_runner`
 - review Git and logging defaults
 
+#### Compact mode
+
+The `Compact mode` switch is available on `Settings → Runtime`. It is a browser-local interface preference rather than a YAML runtime setting.
+
+- Default: off.
+- When enabled: decorative CSS animations and transitions are disabled, and Framer Motion animations are skipped.
+- Unchanged: research tasks, background runners, data, APIs, and page layout.
+- Use it when Canvas, project workspaces, or plugin panels feel slow while scrolling or switching views.
+- Turn it off to restore the default visual effects; the preference remains across page reloads.
+
 Do not start here when:
 
 - you are trying to bind one specific connector

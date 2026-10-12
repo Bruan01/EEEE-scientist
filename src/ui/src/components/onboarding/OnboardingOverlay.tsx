@@ -55,7 +55,7 @@ const COPY: Record<OnboardingLanguage, OverlayCopy> = {
   en: {
     chooserTitle: 'Choose your first tutorial',
     chooserBody:
-      'DeepScientist can walk you through BenchStore, Start Research, the quest workspace, and system supervision. Choose the guide language, skip for now, or turn the reminder off.',
+      'DeepScientist can walk you through Start Research, the quest workspace, and system supervision. Choose the guide language, skip for now, or turn the reminder off.',
     chooserZh: 'Chinese guide',
     chooserEn: 'English guide',
     chooserSkip: 'Skip for now',
@@ -72,7 +72,7 @@ const COPY: Record<OnboardingLanguage, OverlayCopy> = {
   zh: {
     chooserTitle: '选择首次教程语言',
     chooserBody:
-      'DeepScientist 会带你走过 BenchStore、Start Research、quest 工作区和系统监管面。你可以选择中文或英文讲解，也可以先跳过或不再提醒。',
+      'DeepScientist 会带你走过 Start Research、quest 工作区和系统监管面。你可以选择中文或英文讲解，也可以先跳过或不再提醒。',
     chooserZh: '中文讲解',
     chooserEn: 'English guide',
     chooserSkip: '暂时跳过',
@@ -140,19 +140,6 @@ const MOBILE_ONBOARDING_STEPS: OnboardingStep[] = [
     body: {
       en: 'The mobile path should usually be SetupAgent first: send the request and attachments, review the plan, then choose autonomous launch or Copilot.',
       zh: '手机上推荐先走 SetupAgent：发送需求和附件，审阅计划，再选择全自动启动或协作模式。',
-    },
-  },
-  {
-    id: 'mobile-landing-benchstore',
-    route: 'landing',
-    targetId: 'landing-benchstore',
-    title: {
-      en: 'Use BenchStore when you need a concrete task',
-      zh: '不确定任务时先看 BenchStore',
-    },
-    body: {
-      en: 'BenchStore is useful on mobile as a browsable benchmark catalog. Pick a task, inspect readiness, then Start or GET instead of filling everything by hand.',
-      zh: 'BenchStore 在手机上适合作为 benchmark 目录浏览。选中任务后先看就绪状态，再 Start 或 GET，不必手动填完整上下文。',
     },
   },
   {
@@ -320,91 +307,10 @@ const ONBOARDING_STEPS: OnboardingStep[] = [
     route: 'landing',
     targetId: 'landing-entry-actions',
     title: {
-      en: 'These are the three main entry paths',
-      zh: '这里是三个主要入口',
+      en: 'These are the two main entry paths',
+      zh: '这里是两个主要入口',
     },
     body: onboardingStepBodies['landing-surfaces'],
-  },
-  {
-    id: 'landing-open-benchstore',
-    route: 'landing',
-    targetId: 'landing-benchstore',
-    title: {
-      en: 'Open BenchStore first',
-      zh: '先打开 BenchStore',
-    },
-    body: onboardingStepBodies['landing-open-benchstore'],
-    actionTargetId: 'landing-benchstore',
-    advanceMode: 'wait_for_element',
-    waitForElementId: 'benchstore-dialog',
-  },
-  {
-    id: 'benchstore-overview',
-    route: 'landing',
-    targetId: 'benchstore-overview-surface',
-    title: {
-      en: 'BenchStore is now a benchmark storefront',
-      zh: 'BenchStore 现在是 benchmark 商店目录',
-    },
-    body: onboardingStepBodies['benchstore-overview'],
-    placement: 'top',
-    autoSkipIfTargetMissing: true,
-  },
-  {
-    id: 'benchstore-copilot',
-    route: 'landing',
-    targetId: 'benchstore-sidebar',
-    title: {
-      en: 'Use the sidebar to choose the right catalog view',
-      zh: '用左侧栏选择合适的目录视图',
-    },
-    body: onboardingStepBodies['benchstore-copilot'],
-    placement: 'left',
-    autoSkipIfTargetMissing: true,
-  },
-  {
-    id: 'benchstore-open-detail',
-    route: 'landing',
-    targetId: 'benchstore-featured-card',
-    title: {
-      en: 'Open one benchmark detail page',
-      zh: '打开一个 benchmark 详情页',
-    },
-    body: onboardingStepBodies['benchstore-open-detail'],
-    actionTargetId: 'benchstore-featured-card',
-    advanceMode: 'wait_for_element',
-    waitForElementId: 'benchstore-detail-surface',
-    autoSkipIfTargetMissing: true,
-  },
-  {
-    id: 'benchstore-detail',
-    route: 'landing',
-    targetId: 'benchstore-detail-surface',
-    title: {
-      en: 'This detail page is where the choice becomes real',
-      zh: '真正做选择时看的是这个详情页',
-    },
-    body: onboardingStepBodies['benchstore-detail'],
-    placement: 'top',
-    autoSkipIfTargetMissing: true,
-  },
-  {
-    id: 'benchstore-start',
-    route: 'landing',
-    targetId: 'benchstore-detail-action-strip',
-    title: {
-      en: 'This strip is the handoff into launch',
-      zh: '这个动作区就是进入启动流程的交接点',
-    },
-    body: onboardingStepBodies['benchstore-start'],
-    hint: {
-      en: 'Read this handoff point first. Then press Next and I will close BenchStore before continuing.',
-      zh: '先看清这个交接点，再按“下一步”，我会先替你退出 BenchStore，然后继续。',
-    },
-    actionTargetId: 'benchstore-close',
-    advanceMode: 'wait_for_element_missing',
-    waitForElementId: 'benchstore-dialog',
-    placement: 'top',
   },
   {
     id: 'landing-open-dialog',
@@ -1215,7 +1121,7 @@ function OnboardingChooser({
 
         <div className="feed-scrollbar modal-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-4">
           <p className="text-sm leading-7 text-[rgba(70,61,49,0.84)]">
-            DeepScientist 会带你理解 BenchStore、Start Research、quest 工作区和系统监管面。
+            DeepScientist 会带你理解 Start Research、quest 工作区和系统监管面。
             Choose Chinese or English, skip for now, or turn the reminder off.
           </p>
 
@@ -1227,7 +1133,7 @@ function OnboardingChooser({
             >
               <div className="text-sm font-semibold text-[rgba(38,36,33,0.95)]">中文讲解</div>
               <div className="mt-1 text-[12px] leading-6 text-[rgba(86,82,77,0.82)]">
-                说明新版 BenchStore、启动规划、工作区审计和系统监管。
+                说明启动规划、工作区审计和系统监管。
               </div>
             </button>
             <button
@@ -1237,7 +1143,7 @@ function OnboardingChooser({
             >
               <div className="text-sm font-semibold text-[rgba(38,36,33,0.95)]">English guide</div>
               <div className="mt-1 text-[12px] leading-6 text-[rgba(86,82,77,0.82)]">
-                Walk through BenchStore, launch planning, workspace audit, and system supervision.
+                Walk through launch planning, workspace audit, and system supervision.
               </div>
             </button>
           </div>
@@ -1594,39 +1500,14 @@ export function OnboardingOverlay() {
     advance()
   }, [advance, navigate, status, step])
 
-  const restoreBenchstoreStartStep = React.useCallback(async () => {
-    triggerTargetAction('start-research-close')
-    if (!queryTarget('benchstore-dialog')) {
-      triggerTargetAction('landing-benchstore')
-      await waitForTarget('benchstore-dialog')
-    }
-    if (!queryTarget('benchstore-detail-action-strip')) {
-      const featuredCard = await waitForTarget('benchstore-featured-card')
-      if (featuredCard) {
-        triggerTargetAction('benchstore-featured-card')
-        await waitForTarget('benchstore-detail-action-strip')
-      }
-    }
-    goToStep(7)
-  }, [goToStep])
-
   const handlePrevious = React.useCallback(() => {
-    if (step?.id === 'benchstore-overview') {
-      triggerTargetAction('benchstore-close')
+    if (step?.id === 'start-research-intake') {
+      triggerTargetAction('start-research-close')
       goToStep(2)
       return
     }
-    if (step?.id === 'landing-open-dialog') {
-      void restoreBenchstoreStartStep()
-      return
-    }
-    if (step?.id === 'start-research-intake') {
-      triggerTargetAction('start-research-close')
-      goToStep(7)
-      return
-    }
     previousStep()
-  }, [goToStep, previousStep, restoreBenchstoreStartStep, step?.id])
+  }, [goToStep, previousStep, step?.id])
 
   React.useEffect(() => {
     hydrate()

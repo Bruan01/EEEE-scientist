@@ -2,12 +2,11 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
-import { FolderOpen, Sparkles } from 'lucide-react'
+import { FolderOpen } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { CreateCopilotProjectDialog } from '@/components/projects/CreateCopilotProjectDialog'
 import { CreateProjectDialog } from '@/components/projects/CreateProjectDialog'
 import { OpenQuestDialog } from '@/components/projects/OpenQuestDialog'
-import { BenchStoreDialog } from '@/components/landing/BenchStoreDialog'
 import { Button } from '@/components/ui/button'
 import { FadeContent, GlareHover } from '@/components/react-bits'
 import { client } from '@/lib/api'
@@ -22,7 +21,6 @@ import type { StartResearchTemplate } from '@/lib/startResearch'
 import type { QuestMessageAttachmentDraft } from '@/lib/hooks/useQuestMessageAttachments'
 import { getHeroBundle } from './hero-content'
 import type { ConnectorAvailabilitySnapshot, QuestSummary } from '@/types'
-import type { BenchEntry, BenchSetupPacket } from '@/lib/types/benchstore'
 import { EntryCoachDialog } from './EntryCoachDialog'
 import HeroNav from './HeroNav'
 import HeroScene from './HeroScene'
@@ -31,7 +29,7 @@ import { UpdateReminderDialog } from './UpdateReminderDialog'
 
 const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
-export type LandingDialogRequest = 'quests' | 'copilot' | 'autonomous' | 'benchstore'
+export type LandingDialogRequest = 'quests' | 'copilot' | 'autonomous'
 
 type ActiveLandingDialog = LandingDialogRequest | null
 
@@ -41,62 +39,6 @@ function sortQuests(items: QuestSummary[]) {
     const rightAt = Date.parse(right.updated_at || '')
     return rightAt - leftAt
   })
-}
-
-function buildBenchstoreContextFromEntry(entry: BenchEntry | null | undefined, setupAgentLabel: string) {
-  if (!entry) return null
-  return {
-    entry_id: entry.id,
-    entry_name: entry.name,
-    one_line: entry.one_line ?? null,
-    task_description: entry.task_description ?? null,
-    paper: entry.paper ?? {},
-    capability_tags: entry.capability_tags ?? [],
-    track_fit: entry.track_fit ?? [],
-    task_mode: entry.task_mode ?? null,
-    requires_execution: entry.requires_execution ?? null,
-    requires_paper: entry.requires_paper ?? null,
-    resources: entry.resources ?? {},
-    environment: entry.environment ?? {},
-    image_path: entry.image_path ?? null,
-    image_url: entry.image_url ?? null,
-    recommended_when: entry.recommended_when ?? null,
-    not_recommended_when: entry.not_recommended_when ?? null,
-    download: entry.download ?? {},
-    dataset_download: entry.dataset_download ?? {},
-    credential_requirements: entry.credential_requirements ?? {},
-    compatibility: entry.compatibility ?? {},
-    benchmark_local_path: entry.install_state?.local_path ?? null,
-    setup_agent_label: setupAgentLabel,
-    catalog_source_file: entry.source_file ?? null,
-    risk_flags: entry.risk_flags ?? [],
-    risk_notes: entry.risk_notes ?? [],
-    integrity_level: entry.integrity_level ?? null,
-    snapshot_status: entry.snapshot_status ?? null,
-    support_level: entry.support_level ?? null,
-    primary_outputs: entry.primary_outputs ?? [],
-    launch_profiles: entry.launch_profiles ?? [],
-    version: entry.version ?? null,
-    commercial: entry.commercial ?? {},
-    display: entry.display ?? {},
-  }
-}
-
-function buildBenchstoreSuggestedFormFromEntry(entry: BenchEntry | null | undefined, locale: 'en' | 'zh') {
-  if (!entry) return null
-  return {
-    title: `${entry.name} Autonomous Research`,
-    goal:
-      entry.task_description ||
-      entry.one_line ||
-      (locale === 'zh'
-        ? `先评估并整理 benchmark「${entry.name}」的启动方案。`
-        : `Evaluate and prepare the launch plan for benchmark "${entry.name}".`),
-    baseline_urls: entry.download?.url || '',
-    paper_urls: entry.paper?.url || '',
-    need_research_paper: entry.requires_paper ?? true,
-    user_language: locale,
-  }
 }
 
 function fileToBase64(file: File): Promise<string> {
@@ -216,7 +158,6 @@ export default function Hero(props: {
   const [deletingQuestId, setDeletingQuestId] = useState<string | null>(null)
   const [autonomousCreating, setAutonomousCreating] = useState(false)
   const [autonomousError, setAutonomousError] = useState<string | null>(null)
-  const [benchSetupPacket, setBenchSetupPacket] = useState<BenchSetupPacket | null>(null)
   const [activeRunnerName, setActiveRunnerName] = useState(() => normalizeBuiltinRunnerName("codex"))
   const [setupQuestId, setSetupQuestId] = useState<string | null>(null)
   const [setupQuestCreating, setSetupQuestCreating] = useState(false)
@@ -329,23 +270,10 @@ export default function Hero(props: {
     }
   }, [setupQuestId])
 
-  const openBenchStoreDialog = useCallback(() => {
-    setBenchSetupPacket(null)
-    if (setupQuestId) {
-      void cleanupSetupQuest()
-    }
-    window.setTimeout(() => {
-      setActiveDialog('benchstore')
-    }, 120)
-  }, [cleanupSetupQuest, setupQuestId])
-
   const ensureSetupQuest = useCallback(
     async (args: {
       message: string
-      source: 'benchstore' | 'manual'
       form?: StartResearchTemplate | null
-      setupPacket?: BenchSetupPacket | null
-      entry?: BenchEntry | null
       attachments?: QuestMessageAttachmentDraft[]
       createOnly?: boolean
     }) => {
@@ -354,22 +282,7 @@ export default function Hero(props: {
         (item) => item.status === 'success' && item.file
       )
       if (!normalizedMessage && pendingAttachments.length === 0 && !args.createOnly) return null
-      const suggestedForm =
-        args.setupPacket?.suggested_form && typeof args.setupPacket.suggested_form === 'object'
-          ? args.setupPacket.suggested_form
-          : args.form
-            ? { ...args.form }
-            : args.source === 'benchstore'
-              ? buildBenchstoreSuggestedFormFromEntry(args.entry, locale)
-              : null
-      const benchmarkContext =
-        args.setupPacket?.launch_payload?.startup_contract &&
-        typeof args.setupPacket.launch_payload.startup_contract === 'object' &&
-        typeof args.setupPacket.launch_payload.startup_contract.benchstore_context === 'object'
-          ? args.setupPacket.launch_payload.startup_contract.benchstore_context
-          : args.source === 'benchstore'
-            ? buildBenchstoreContextFromEntry(args.entry)
-            : null
+      const suggestedForm = args.form ? { ...args.form } : null
 
       const uploadAttachmentDrafts = async (questId: string) => {
         const uploadedDraftIds: string[] = []
@@ -405,17 +318,10 @@ export default function Hero(props: {
 
       setSetupQuestCreating(true)
       try {
-        const titleBase =
-          args.setupPacket?.project_title ||
-          args.entry?.name ||
-          args.form?.title ||
-          (locale === 'zh' ? '启动协助' : 'Start setup')
-        const nextIdPayload = await client.nextQuestId()
-        const setupQuestIdValue = `B-${String(nextIdPayload?.quest_id || '').trim() || '001'}`
+        const titleBase = args.form?.title || (locale === 'zh' ? '启动协助' : 'Start setup')
         const result = await client.createQuestWithOptions({
           goal: normalizedMessage,
           title: `SetupAgent · ${titleBase}`,
-          quest_id: setupQuestIdValue,
           source: 'web-react',
           auto_start: !args.createOnly && pendingAttachments.length === 0 && Boolean(normalizedMessage),
           initial_message: !args.createOnly && pendingAttachments.length === 0 ? normalizedMessage : undefined,
@@ -431,9 +337,8 @@ export default function Hero(props: {
               background_style: 'cloud',
             },
             start_setup_session: {
-              source: args.source,
+              source: 'manual',
               locale,
-              benchmark_context: benchmarkContext,
               suggested_form: suggestedForm,
             },
           },
@@ -565,7 +470,7 @@ export default function Hero(props: {
             'radial-gradient(900px circle at 15% 15%, rgba(185, 199, 214, 0.28), transparent 60%), radial-gradient(700px circle at 85% 0%, rgba(215, 198, 174, 0.32), transparent 58%), linear-gradient(180deg, #F5F2EC 0%, #EEE7DD 60%, #F5F2EC 100%)',
         }}
       >
-        <HeroNav onOpenBenchStore={openBenchStoreDialog} />
+        <HeroNav />
 
         <section
           ref={heroRef}
@@ -616,15 +521,6 @@ export default function Hero(props: {
                       >
                         <FolderOpen className="mr-2 h-4 w-4" />
                         {hero.copy.secondaryCta}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="h-11 rounded-full border-black/15 bg-[rgba(246,241,235,0.86)] px-6 text-[#2D2A26] shadow-[0_16px_36px_-24px_rgba(57,52,46,0.45)] hover:bg-white"
-                        onClick={openBenchStoreDialog}
-                        data-onboarding-id="landing-benchstore"
-                      >
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        BenchStore
                       </Button>
                     </div>
 
@@ -698,42 +594,15 @@ export default function Hero(props: {
           }
         }}
       />
-      <BenchStoreDialog
-        open={activeDialog === 'benchstore'}
-        locale={locale}
-        onClose={() => setActiveDialog(null)}
-        setupQuestId={setupQuestId}
-        setupQuestCreating={setupQuestCreating}
-        onRequestSetupAgent={async ({ message, entry, setupPacket, attachments, createOnly }) => {
-          await ensureSetupQuest({
-            message,
-            source: 'benchstore',
-            entry: entry ?? null,
-            setupPacket: setupPacket ?? benchSetupPacket,
-            attachments,
-            createOnly,
-          })
-        }}
-        onStartWithSetupPacket={async (setupPacket) => {
-          setBenchSetupPacket(setupPacket)
-          setAutonomousError(null)
-          if (setupQuestId) {
-            void cleanupSetupQuest()
-          }
-          setActiveDialog('autonomous')
-        }}
-      />
       <CreateCopilotProjectDialog
         open={activeDialog === 'copilot'}
         onClose={() => {
           setCopilotSeed(null)
-          setBenchSetupPacket(null)
           setActiveDialog(null)
           void cleanupSetupQuest()
         }}
         onBack={() => {
           setCopilotSeed(null)
-          setBenchSetupPacket(null)
           setActiveDialog('autonomous')
           void cleanupSetupQuest()
         }}
@@ -745,7 +614,6 @@ export default function Hero(props: {
         onCreated={(questId) => {
           setCopilotSeed(null)
           setActiveDialog(null)
-          setBenchSetupPacket(null)
           void cleanupSetupQuest()
           navigate(`/projects/${questId}`)
         }}
@@ -753,26 +621,21 @@ export default function Hero(props: {
       <CreateProjectDialog
         open={activeDialog === 'autonomous'}
         onClose={() => {
-          setBenchSetupPacket(null)
           setActiveDialog(null)
           void cleanupSetupQuest()
         }}
         onBack={() => {
-          setBenchSetupPacket(null)
           setActiveDialog(null)
           void cleanupSetupQuest()
         }}
         loading={autonomousCreating}
         error={autonomousError}
-        setupPacket={benchSetupPacket}
         setupQuestId={setupQuestId}
         setupQuestCreating={setupQuestCreating}
-        onRequestSetupAgent={async ({ message, form, setupPacket, attachments, createOnly }) => {
+        onRequestSetupAgent={async ({ message, form, attachments, createOnly }) => {
           await ensureSetupQuest({
             message,
-            source: setupPacket ? 'benchstore' : 'manual',
             form,
-            setupPacket,
             attachments,
             createOnly,
           })
@@ -787,7 +650,6 @@ export default function Hero(props: {
           })
           setActiveDialog('copilot')
         }}
-        onOpenBenchStore={openBenchStoreDialog}
         onCreate={async (payload) => {
           if (!payload.goal.trim()) {
             return
@@ -823,7 +685,6 @@ export default function Hero(props: {
               [...importedDraftIds, ...localDraftIds]
             )
             setActiveDialog(null)
-            setBenchSetupPacket(null)
             setCopilotSeed(null)
             await cleanupSetupQuest()
             navigate(`/projects/${result.snapshot.quest_id}`)

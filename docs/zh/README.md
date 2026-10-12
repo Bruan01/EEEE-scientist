@@ -166,9 +166,6 @@ DeepScientist 灵活且易于使用，支持：
   如果问题可能和配置、凭据或 connector 有关，再查这篇。
 
 ## 如果你在维护 DeepScientist
-- [23 BenchStore GitHub Releases 分发规范](./23_BENCHSTORE_GITHUB_RELEASES_SPEC.md)
-  如果你想把 BenchStore 的 benchmark 源码包发布到 GitHub Releases，并让用户在前端通过 Download 正常安装，先看这篇。
-
 - [90 Architecture](../en/90_ARCHITECTURE.md)
   说明系统级约束、核心契约和仓库结构。
 - [91 Development](../en/91_DEVELOPMENT.md)

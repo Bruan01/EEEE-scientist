@@ -71,12 +71,6 @@ def test_backend_routes_cover_shared_web_and_tui_surface() -> None:
         ("POST", "/api/admin/repairs/repair-001/close", "admin_repair_close"),
         ("GET", "/api/baselines", "baselines"),
         ("DELETE", "/api/baselines/demo-baseline", "baseline_delete"),
-        ("GET", "/api/benchstore/entries", "benchstore_entries"),
-        ("GET", "/api/benchstore/entries/aisb.t3.tdc_admet", "benchstore_entry"),
-        ("GET", "/api/benchstore/entries/aisb.t3.tdc_admet/image", "benchstore_entry_image"),
-        ("GET", "/api/benchstore/entries/aisb.t3.tdc_admet/setup-packet", "benchstore_entry_setup_packet"),
-        ("POST", "/api/benchstore/entries/aisb.t3.tdc_admet/install", "benchstore_entry_install"),
-        ("POST", "/api/benchstore/entries/aisb.t3.tdc_admet/launch", "benchstore_entry_launch"),
         ("GET", "/api/quests", "quests"),
         ("GET", "/api/quest-id/next", "quest_next_id"),
         ("POST", "/api/quests", "quest_create"),
@@ -163,7 +157,6 @@ def test_backend_routes_cover_shared_web_and_tui_surface() -> None:
 
 def test_web_client_uses_acp_and_git_surface_expected_by_backend() -> None:
     source = _read("src/ui/src/lib/api.ts")
-    benchstore_source = _read("src/ui/src/lib/api/benchstore.ts")
     bash_source = _read("src/ui/src/lib/api/bash.ts")
     arxiv_source = _read("src/ui/src/lib/api/arxiv.ts")
     lab_source = _read("src/ui/src/lib/api/lab.ts")
@@ -219,18 +212,6 @@ def test_web_client_uses_acp_and_git_surface_expected_by_backend() -> None:
 
     for fragment in expected_fragments:
         assert fragment in source, f"Web API client is missing contract fragment: {fragment}"
-
-    benchstore_fragments = [
-        "/api/benchstore/entries",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/image",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/setup-packet",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/install",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/launch",
-    ]
-
-    for fragment in benchstore_fragments:
-        assert fragment in benchstore_source, f"BenchStore API client is missing contract fragment: {fragment}"
 
     bash_fragments = [
         "/api/quests/${projectId}/bash/sessions",
@@ -410,11 +391,6 @@ def test_tui_client_and_git_canvas_follow_same_protocol_contract() -> None:
         "/api/quests/${questId}/runs",
         "/api/baselines",
         "/api/quests/${questId}/baseline-binding",
-        "/api/benchstore/entries",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/setup-packet",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/install",
-        "/api/benchstore/entries/${encodeURIComponent(entryId)}/launch",
         "/api/system/tasks",
         "/api/system/tasks/doctor",
         "/api/config/validate",

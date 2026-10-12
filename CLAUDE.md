@@ -135,7 +135,6 @@ quest_id/
 - `system_copilot.md` - Copilot mode prompt
 - `connectors/` - Connector-specific prompts
 - `contracts/` - Contract definitions
-- `benchstore/` - BenchStore prompts
 - `start_setup/` - Setup prompts
 
 **Skills** (`src/skills/`)
@@ -259,7 +258,6 @@ Key test files:
 - `tests/test_stage_skills.py` - Skill tests
 - `tests/test_codex_runner.py` - Runner tests
 - `tests/test_connector_bridges.py` - Connector tests
-- `tests/test_benchstore.py` - BenchStore tests
 
 ## Code Style and Principles
 

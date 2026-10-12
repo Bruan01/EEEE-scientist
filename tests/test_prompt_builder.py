@@ -1376,14 +1376,10 @@ def test_prompt_builder_start_setup_block_includes_local_daemon_api_context(temp
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
-                "benchmark_context": {
-                    "entry_id": "bench.demo",
-                    "entry_name": "Bench Demo",
-                },
                 "suggested_form": {
-                    "title": "Bench Demo Autonomous Research",
+                    "title": "Manual Autonomous Research",
                 },
             },
         },
@@ -1401,8 +1397,6 @@ def test_prompt_builder_start_setup_block_includes_local_daemon_api_context(temp
     assert "local_daemon_api_base_url: http://127.0.0.1:20999" in prompt
     assert "local_daemon_auth_enabled: True" in prompt
     assert "local_daemon_auth_token: 0123456789abcdef" in prompt
-    assert "local_daemon_api_benchstore_endpoints:" in prompt
-    assert "GET /api/benchstore/entries/:entry_id/setup-packet" in prompt
     assert "built_in_mcp_namespaces: artifact, bash_exec" in prompt
     assert "artifact.prepare_start_setup_form(...)" in prompt
     assert "reply_language_rule: answer in the user's own language" in prompt
@@ -1495,7 +1489,7 @@ def test_prompt_builder_claude_start_setup_notes_namespaced_mcp_tool_names(temp_
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "Claude Setup",
@@ -1527,7 +1521,7 @@ def test_prompt_builder_start_setup_prompt_avoids_unavailable_context_tools(temp
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "No extra context tools",
@@ -1548,8 +1542,8 @@ def test_prompt_builder_start_setup_prompt_avoids_unavailable_context_tools(temp
     assert "bash_exec(...)" in prompt
     assert "baseline is only the starting point" in prompt
     assert "get_start_setup_context" not in prompt
-    assert "get_benchstore_catalog" not in prompt
-    assert "prefer existing AISB / BenchStore entries first" in prompt
+    assert "/api/benchstore" not in prompt
+    assert "materials_selection_rule" in prompt
     assert "do not push the whole task-definition burden back to the user" in prompt
     assert "baseline is only the starting point" in prompt
     assert "robust improvement beyond strong baselines / SoTA" in prompt
@@ -1598,7 +1592,7 @@ def test_prompt_builder_runner_namespaced_notes_cover_supported_mcp_profiles(tem
                 "launch_mode": "custom",
                 "custom_profile": "freeform",
                 "start_setup_session": {
-                    "source": "benchstore",
+                    "source": "manual",
                     "locale": "zh",
                 },
             },
@@ -1611,7 +1605,7 @@ def test_prompt_builder_runner_namespaced_notes_cover_supported_mcp_profiles(tem
                 "launch_mode": "custom",
                 "custom_profile": "freeform",
                 "start_setup_session": {
-                    "source": "benchstore",
+                    "source": "manual",
                     "locale": "zh",
                 },
             },
@@ -1670,7 +1664,7 @@ def test_prompt_builder_settings_issue_includes_explicit_session_packet_and_mess
     assert "local_daemon_auth_enabled: True" in prompt
     assert "local_daemon_auth_token: 0123456789abcdef" in prompt
     assert "GET /api/system/overview" in prompt
-    assert "GET /api/benchstore/entries" in prompt
+    assert "GET /api/system/overview" in prompt
     assert "第一条消息" in prompt
     assert "第二条消息" in prompt
     assert "settings_issue_tool_schema_summary" in prompt
@@ -1690,12 +1684,12 @@ def test_prompt_builder_start_setup_expands_recent_messages(temp_home: Path) -> 
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
             },
         },
     )
-    service.append_message(snapshot["quest_id"], "user", "我想让你直接从现有 AISB 里面帮我选。", source="web-react")
+    service.append_message(snapshot["quest_id"], "user", "我想让你直接从现有参考资料里面帮我选。", source="web-react")
     service.append_message(snapshot["quest_id"], "user", "机器性能一般，尽量选 API-only 和轻量一点。", source="web-react")
 
     prompt = PromptBuilder(repo_root(), temp_home).build(
@@ -1707,7 +1701,7 @@ def test_prompt_builder_start_setup_expands_recent_messages(temp_home: Path) -> 
     )
 
     assert "conversation_injection_rule:" in prompt
-    assert "我想让你直接从现有 AISB 里面帮我选。" in prompt
+    assert "我想让你直接从现有参考资料里面帮我选。" in prompt
     assert "机器性能一般，尽量选 API-only 和轻量一点。" in prompt
 
 

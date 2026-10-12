@@ -10,11 +10,11 @@ from pathlib import Path, PurePosixPath
 from typing import Any
 
 from ..arxiv_library import ArxivLibraryService
-from ..benchstore import BenchStoreService
 from ..bridges import register_builtin_connector_bridges
 from ..channels import get_channel_factory, register_builtin_channels
 from ..config import ConfigManager
 from ..connector_runtime import conversation_identity_key, infer_connector_transport, normalize_conversation_id
+from ..home import repo_root
 from ..gitops import (
     branch_exists,
     canonical_worktree_root,
@@ -30,7 +30,6 @@ from ..gitops import (
     head_commit,
     log_ref_history,
 )
-from ..home import repo_root
 from ..registries import BaselineRegistry
 from ..shared import (
     append_jsonl,
@@ -182,7 +181,6 @@ class ArtifactService:
         self.home = home
         self.baselines = BaselineRegistry(home)
         self.quest_service = QuestService(home)
-        self.benchstore_service = BenchStoreService(home, repo_root=repo_root())
         self.arxiv_library = ArxivLibraryService()
         self._optimization_frontier_cache_lock = threading.Lock()
         self._optimization_frontier_cache: dict[str, dict[str, Any]] = {}
@@ -8358,59 +8356,6 @@ class ArtifactService:
             "global_status": payload,
         }
 
-    def get_benchstore_catalog(
-        self,
-        quest_root: Path,
-        *,
-        detail: str = "summary",
-    ) -> dict[str, Any]:
-        normalized_detail = str(detail or "summary").strip().lower() or "summary"
-        if normalized_detail not in {"summary", "full"}:
-            raise ValueError("get_benchstore_catalog detail must be `summary` or `full`.")
-        hardware_payload = read_json(self.home / "runtime" / "admin" / "cache" / "system_hardware.json", {})
-        catalog = self.benchstore_service.list_entries(hardware_payload=hardware_payload if isinstance(hardware_payload, dict) else {})
-        if normalized_detail == "full":
-            return catalog
-        items = catalog.get("items") if isinstance(catalog.get("items"), list) else []
-        summarized_items = []
-        for item in items[:20]:
-            if not isinstance(item, dict):
-                continue
-            summarized_items.append(
-                {
-                    "id": item.get("id"),
-                    "name": item.get("name"),
-                    "one_line": item.get("one_line"),
-                    "task_description": item.get("task_description"),
-                    "aisb_direction": item.get("aisb_direction"),
-                    "task_mode": item.get("task_mode"),
-                    "cost_band": item.get("cost_band"),
-                    "time_band": item.get("time_band"),
-                    "difficulty": item.get("difficulty"),
-                    "paper": item.get("paper"),
-                    "download": item.get("download"),
-                    "resources": item.get("resources"),
-                    "environment": item.get("environment"),
-                    "capability_tags": item.get("capability_tags"),
-                    "track_fit": item.get("track_fit"),
-                    "image_path": item.get("image_path"),
-                    "image_url": item.get("image_url"),
-                    "source_file": item.get("source_file"),
-                    "compatibility": item.get("compatibility"),
-                    "recommendation": item.get("recommendation"),
-                    "install_state": item.get("install_state"),
-                }
-            )
-        return {
-            "ok": True,
-            "device_summary": catalog.get("device_summary"),
-            "device_capacity": catalog.get("device_capacity"),
-            "filter_options": catalog.get("filter_options"),
-            "shelves": catalog.get("shelves"),
-            "items": summarized_items,
-            "total": catalog.get("total"),
-        }
-
     def get_start_setup_context(self, quest_root: Path) -> dict[str, Any]:
         quest_data = self.quest_service.read_quest_yaml(quest_root)
         startup_contract = quest_data.get("startup_contract") if isinstance(quest_data.get("startup_contract"), dict) else {}
@@ -8420,7 +8365,6 @@ class ArtifactService:
             "quest_id": quest_root.name,
             "start_setup_session": payload,
             "suggested_form": payload.get("suggested_form") if isinstance(payload.get("suggested_form"), dict) else {},
-            "benchmark_context": payload.get("benchmark_context") if isinstance(payload.get("benchmark_context"), dict) else {},
             "locale": payload.get("locale"),
             "source": payload.get("source"),
         }

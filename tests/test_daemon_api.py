@@ -4270,7 +4270,7 @@ def test_start_setup_session_turn_finish_settles_snapshot_and_session_even_witho
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "Setup draft title",
@@ -4386,7 +4386,7 @@ def test_start_setup_session_http_session_and_events_expose_finish_without_form_
             "launch_mode": "custom",
             "custom_profile": "freeform",
             "start_setup_session": {
-                "source": "benchstore",
+                "source": "manual",
                 "locale": "zh",
                 "suggested_form": {
                     "title": "HTTP setup draft title",

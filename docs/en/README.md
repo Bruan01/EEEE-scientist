@@ -135,9 +135,6 @@ Built-in runners today:
   Check this if the problem is likely caused by config, credentials, or connector setup.
 
 ## If you are developing DeepScientist
-- [23 BenchStore GitHub Releases Spec](./23_BENCHSTORE_GITHUB_RELEASES_SPEC.md)
-  Read this when you want to publish BenchStore benchmark source packages on GitHub Releases and make the frontend Download flow work for users.
-
 - [90 Architecture](./90_ARCHITECTURE.md)
   High-level system contracts and repository structure.
 - [91 Development](./91_DEVELOPMENT.md)

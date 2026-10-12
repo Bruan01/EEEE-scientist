@@ -10,6 +10,6 @@
 
 - `TreeHFD benchmark 复现与改进`
 - `LLM 长上下文评测 baseline 审计`
-- `AISB B1 Agentic Coding 启动验证`
+- `Agentic coding benchmark 启动验证`
 
 第一次练习时通常不需要手动改 Project ID。

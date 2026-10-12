@@ -3,11 +3,9 @@ import { Sparkles } from 'lucide-react'
 
 import { QuestCopilotComposer } from '@/components/workspace/QuestCopilotComposer'
 import type { QuestMessageAttachmentDraft } from '@/lib/hooks/useQuestMessageAttachments'
-import type { BenchSetupPacket } from '@/lib/types/benchstore'
 
 type SetupAgentRailProps = {
   locale: 'en' | 'zh'
-  setupPacket?: BenchSetupPacket | null
   loading?: boolean
   error?: string | null
   assistantLabel?: string | null
@@ -27,8 +25,6 @@ function copy(locale: 'en' | 'zh') {
         title: 'SetupAgent',
         intro:
           '你可以直接填写左侧表单并启动。如果你想让我帮你整理，也可以直接告诉我任务目标、现有材料和限制，我会帮你补齐这份启动表单。',
-        benchmarkIntro:
-          '这个 benchmark 已经带来了一版草案。你可以继续让 SetupAgent 结合当前设备、安装路径和任务信息，把这份启动表单补充完整。',
         placeholder:
           '请帮我找一个适合本机的 LLM 方向的任务',
         cta: '启动协助',
@@ -38,8 +34,6 @@ function copy(locale: 'en' | 'zh') {
         title: 'SetupAgent',
         intro:
           'You can fill the form on the left and launch directly. If you want help, tell me the goal, the materials you already have, and the main limits, and I will help complete the launch form.',
-        benchmarkIntro:
-          'This benchmark already comes with a draft. You can keep using SetupAgent to finish the launch form from the benchmark, the device, and the local install path.',
         placeholder:
           'Please help me find an LLM-oriented task that fits this machine.',
         cta: 'Start Assist',
@@ -134,7 +128,7 @@ export function SetupAgentRail(props: SetupAgentRailProps) {
         <div>
           <div className="text-sm font-semibold text-[var(--text-primary)]">{t.title}</div>
           <div className="mt-1 text-xs text-[var(--text-tertiary)]">
-            {props.setupPacket?.assistant_label || props.assistantLabel || t.title}
+            {props.assistantLabel || t.title}
           </div>
         </div>
         <div className="inline-flex items-center gap-2 rounded-full border border-[var(--border-light)] bg-[var(--fill-tsp-white-light)] px-3 py-1 text-[11px] text-[var(--text-secondary)]">
@@ -146,7 +140,7 @@ export function SetupAgentRail(props: SetupAgentRailProps) {
       <div className="feed-scrollbar modal-scrollbar min-h-0 flex-1 overflow-y-auto px-4 py-4">
         <div className="space-y-4 pr-1">
           <div className="rounded-[18px] border border-[var(--border-light)] bg-[var(--fill-tsp-white-light)] px-4 py-3 text-sm leading-7 text-[var(--text-primary)]">
-            {props.setupPacket ? t.benchmarkIntro : t.intro}
+            {t.intro}
           </div>
         </div>
       </div>

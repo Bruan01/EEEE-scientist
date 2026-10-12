@@ -10,6 +10,6 @@ Examples:
 
 - `TreeHFD benchmark reproduction and improvement`
 - `LLM long-context baseline audit`
-- `AISB B1 Agentic Coding launch check`
+- `Agentic coding benchmark launch check`
 
 For a first practice run, you usually do not need to edit the Project ID manually.

@@ -6,6 +6,6 @@ Read it like this:
 
 - need systematic literature search: configure DeepXiv
 - only doing local code reproduction or benchmark launch: you can skip it for now
-- coming from BenchStore with a paper already attached: use the prefilled paper first, then add DeepXiv if needed
+- already having a paper or local reference: use it first, then add DeepXiv if needed
 
 This is not decoration; it affects what scout / idea / write can rely on.

@@ -627,7 +627,7 @@ class PromptBuilder:
             lines.append("- gpu_inventory: none detected")
         return "\n".join(lines)
 
-    def _local_daemon_api_block(self, *, include_benchstore: bool = False, include_admin: bool = False) -> str:
+    def _local_daemon_api_block(self, *, include_admin: bool = False) -> str:
         runtime_config = self.config_manager.load_named("config")
         ui_config = runtime_config.get("ui") if isinstance(runtime_config.get("ui"), dict) else {}
         host = str(ui_config.get("host") or "0.0.0.0").strip() or "0.0.0.0"
@@ -657,17 +657,6 @@ class PromptBuilder:
             "- local_daemon_api_auth_rule: when `local_daemon_auth_enabled` is true, include header `Authorization: Bearer <local_daemon_auth_token>` in those HTTP calls.",
             "- local_daemon_api_health_endpoint: GET /api/health",
         ]
-        if include_benchstore:
-            lines.extend(
-                [
-                    "- local_daemon_api_benchstore_endpoints:",
-                    "  - GET /api/benchstore/entries",
-                    "  - GET /api/benchstore/entries/:entry_id",
-                    "  - GET /api/benchstore/entries/:entry_id/setup-packet",
-                    "  - POST /api/benchstore/entries/:entry_id/install",
-                    "  - POST /api/benchstore/entries/:entry_id/launch",
-                ]
-            )
         if include_admin:
             lines.extend(
                 [
@@ -1264,22 +1253,21 @@ class PromptBuilder:
         payload = self._start_setup_session(snapshot) or {}
         locale = str(payload.get("locale") or "zh").strip().lower() or "zh"
         source = str(payload.get("source") or "manual").strip() or "manual"
-        benchmark_context = payload.get("benchmark_context") if isinstance(payload.get("benchmark_context"), dict) else {}
         suggested_form = payload.get("suggested_form") if isinstance(payload.get("suggested_form"), dict) else {}
         lines = [
             f"- session_kind: autonomous_start_setup",
             f"- source: {source}",
             f"- preferred_language: {locale}",
             "- reply_language_rule: answer in the user's own language when it is clear from their latest message or the preferred language injected into this session.",
-            self._local_daemon_api_block(include_benchstore=True),
+            self._local_daemon_api_block(),
             "- mission: help the user complete the autonomous start form and stop there; do not begin the real research workflow",
-            "- context_first_rule: before asking the user for missing information, first read the current setup state and use the information already present in the form or benchmark context",
+            "- context_first_rule: before asking the user for missing information, first read the current setup state and use the information already present in the form or provided materials",
             "- start_setup_prepare_tool_rule: when you want to update the left-side form, prefer `artifact.prepare_start_setup_form(form_patch={...})` so the browser can patch the form automatically",
             "- start_setup_prepare_signature_rule: use `form_patch={...}` when the launch form itself changes, `session_patch={...}` when fit judgment or preview-plan state changes, and make sure at least one of them is non-empty; do not hide patch JSON inside `message`.",
             "- start_setup_session_patch_rule: when you learn or revise launch-fit judgment, missing confirmations, or the launch preview plan, write them back through the optional `session_patch={...}` argument on `artifact.prepare_start_setup_form(...)` so the browser can show them durably.",
             "- start_setup_session_shape_rule: keep `fit_assessment`, `preview_plan.markdown`, phases/risks, `copilot_handoff`, `science_task`, `science_task_brief`, and `science_package_cards` under `session_patch` when they become clear.",
             "- start_setup_tool_discovery_rule: before claiming the form writeback tool is unavailable, first try the runner-exposed tool name if it is shown (for example `mcp__artifact__prepare_start_setup_form`).",
-            "- start_setup_context_rule: the current suggested form and benchmark context are already injected into this prompt; do not assume `memory.*` or other `artifact.*` helpers are available here",
+            "- start_setup_context_rule: the current suggested form and provided-materials state are already injected into this prompt; do not assume `memory.*` or other `artifact.*` helpers are available here",
             "- mode_fit_rule: explicitly judge whether the task is a good fit for autonomous mode, a provisional fit that still needs key confirmations, or should instead move to copilot / collaboration mode.",
             "- copilot_recommendation_rule: recommend copilot mode when the work cannot mainly run inside the computer system for long horizons, depends heavily on repeated human judgment, or is not primarily a method-optimization research loop.",
             "- copilot_handoff_rule: for ordinary/bounded Copilot routing, write `session_patch.copilot_handoff` with title, complete `startup_message`, `workspace_mode='copilot'`, `create_and_send=true`, and reason.",
@@ -1294,14 +1282,10 @@ class PromptBuilder:
             "- baseline_not_endpoint_rule: do not frame the mission as 'reproduce a baseline and stop' unless the user explicitly wants a baseline-only task.",
             "- novelty_confirmation_rule: if the user expects paper-level research or method contribution, explicitly confirm that the goal is not only to beat the baseline but to do so with a sufficiently novel and defensible method direction.",
             "- sequencing_confirmation_rule: if the long-term plan is still unclear, ask the user to confirm the intended sequence among baseline, optimization beyond SoTA, analysis experiments, and later literature / figure / writing work.",
-            "- benchmark_context_source_rule: if `benchmark_context.raw_payload` exists, treat it as the full benchmark description file for this setup session rather than relying only on the shorter summary fields.",
             "- start_setup_context_injection_rule: the current setup session state is injected below by the system; use it as hidden planning context and never ask the user to paste or repeat this context.",
             "- start_setup_user_message_rule: treat the latest user message as the user's literal text only. Do not expect hidden planning XML or JSON to be embedded in the user message.",
-            "- aisb_selection_rule: when the user asks you to choose or recommend a task, prefer the existing AISB / BenchStore catalog first instead of asking the user to invent a task from scratch.",
-            "- aisb_selection_path: use `bash_exec(...)` against the injected local daemon BenchStore endpoints to inspect current catalog entries, then recommend the best fit based on both the user's stated needs and the current device boundary.",
-            "- aisb_selection_truncation_rule: if you inspect BenchStore output through `head`, `tail`, `sed -n`, or another clipped shell window, explicitly treat it as truncated / partial output and never infer the global entry count from that preview alone.",
-            "- aisb_selection_count_rule: before claiming how many BenchStore entries exist, read an explicit count such as `total`, `count`, or `items | length` from the daemon API result.",
-            "- aisb_selection_output_rule: when multiple AISB candidates fit, summarize the top 1 to 3 options briefly, recommend one first, and then patch the form toward that recommendation.",
+            "- materials_selection_rule: when the user provides paper links, code links, data links, local paths, or uploaded files, inspect those materials first and use them to fill the form; if the user has no materials, help define a small reproducible starting point.",
+            "- materials_download_rule: when network access and download permission are clear, use `bash_exec(...)` to download or prepare the user's requested code/data; otherwise ask for a local path or explicit confirmation before a large download.",
             "- performance_fit_rule: combine the user's requested task shape with the current machine boundary; if the machine is weak, prefer API-only, low-compute, short-cycle, and benchmark-faithful routes.",
             "- output_rule: do not emit fenced `start_setup_patch` or JSON patch blocks in the visible reply. If the prepare tool is unavailable, ask a short plain-language question or say the setup tool is temporarily unavailable instead of printing structured data.",
             "- tool_submission_rule: submit structured form/session data through `artifact.prepare_start_setup_form(...)`; never put JSON patches or structured drafts in the visible assistant message.",
@@ -1350,17 +1334,6 @@ class PromptBuilder:
             "- question_categories: when user input is incomplete, ask at most for these practical categories: task goal, current materials, runtime limits, whether they prefer paper-facing delivery or result-first delivery, and whether the real target is baseline-only or iterative performance improvement beyond SoTA with novelty.",
             "- field_mapping_rule: treat title as a short project name, goal as the real mission, baseline_urls as baseline/code/data inputs, paper_urls as paper or benchmark references, runtime_constraints as hard limits, objectives as the first 2-4 near-term outcomes, and custom_brief as extra preferences",
         ]
-        if benchmark_context:
-            lines.extend(
-                [
-                    "- benchmark_context_json:",
-                    "```json",
-                    json.dumps(benchmark_context, ensure_ascii=False, indent=2),
-                    "```",
-                ]
-            )
-        else:
-            lines.append("- benchmark_context_json: {}")
         if suggested_form:
             lines.extend(
                 [
@@ -1460,7 +1433,7 @@ class PromptBuilder:
         if not isinstance(startup_contract, dict):
             return "- none"
         lines = [
-            self._local_daemon_api_block(include_benchstore=True, include_admin=True),
+            self._local_daemon_api_block(include_admin=True),
             f"- local_repo_root: {self.repo_root.resolve()}",
             f"- launcher_entry: {(self.repo_root / 'bin' / 'ds.js').resolve()}",
             f"- python_runtime_root: {(self.repo_root / 'src' / 'deepscientist').resolve()}",

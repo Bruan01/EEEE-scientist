@@ -45,11 +45,11 @@
 </p>
 
 <p align="center">
-  Maintainers: <a href="docs/en/22_BENCHSTORE_YAML_REFERENCE.md">BenchStore YAML Guide</a>
+  Maintainers: <a href="docs/en/91_DEVELOPMENT.md">Development Guide</a>
 </p>
 
 <p align="center">
-  <strong>May 12 update:</strong> v1.6.0 is available with Claude Code, OpenCode, Kimi Code, BenchStore, and science evidence workflows.
+  <strong>May 12 update:</strong> v1.6.0 is available with Claude Code, OpenCode, Kimi Code, and science evidence workflows.
 </p>
 
 ![deepscientist_install](https://github.com/user-attachments/assets/d8244944-4f70-4e08-94e3-002b74ce70fb)
@@ -482,7 +482,6 @@ If you are developing or maintaining DeepScientist, continue with:
 
 - [Architecture](docs/en/90_ARCHITECTURE.md)
 - [Development Guide](docs/en/91_DEVELOPMENT.md)
-- [BenchStore YAML Guide](docs/en/22_BENCHSTORE_YAML_REFERENCE.md)
 - [CONTRIBUTING](CONTRIBUTING.md)
 
 ## Citation

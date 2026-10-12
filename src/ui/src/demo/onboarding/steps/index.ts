@@ -4,16 +4,6 @@ import adminQuestsEn from './admin-quests.en.md?raw'
 import adminQuestsZh from './admin-quests.zh.md?raw'
 import adminSummaryEn from './admin-summary.en.md?raw'
 import adminSummaryZh from './admin-summary.zh.md?raw'
-import benchstoreCopilotEn from './benchstore-copilot.en.md?raw'
-import benchstoreCopilotZh from './benchstore-copilot.zh.md?raw'
-import benchstoreDetailEn from './benchstore-detail.en.md?raw'
-import benchstoreDetailZh from './benchstore-detail.zh.md?raw'
-import benchstoreOpenDetailEn from './benchstore-open-detail.en.md?raw'
-import benchstoreOpenDetailZh from './benchstore-open-detail.zh.md?raw'
-import benchstoreOverviewEn from './benchstore-overview.en.md?raw'
-import benchstoreOverviewZh from './benchstore-overview.zh.md?raw'
-import benchstoreStartEn from './benchstore-start.en.md?raw'
-import benchstoreStartZh from './benchstore-start.zh.md?raw'
 import dialogConnectorsEn from './dialog-connectors.en.md?raw'
 import dialogConnectorsZh from './dialog-connectors.zh.md?raw'
 import dialogContractEn from './dialog-contract.en.md?raw'
@@ -38,8 +28,6 @@ import dialogTitleEn from './dialog-title.en.md?raw'
 import dialogTitleZh from './dialog-title.zh.md?raw'
 import landingIntroEn from './landing-intro.en.md?raw'
 import landingIntroZh from './landing-intro.zh.md?raw'
-import landingOpenBenchstoreEn from './landing-open-benchstore.en.md?raw'
-import landingOpenBenchstoreZh from './landing-open-benchstore.zh.md?raw'
 import landingOpenDialogEn from './landing-open-dialog.en.md?raw'
 import landingOpenDialogZh from './landing-open-dialog.zh.md?raw'
 import landingSurfacesEn from './landing-surfaces.en.md?raw'
@@ -93,13 +81,7 @@ export const onboardingStepBodies = {
   'admin-copilot': { en: adminCopilotEn, zh: adminCopilotZh },
   'admin-quests': { en: adminQuestsEn, zh: adminQuestsZh },
   'admin-summary': { en: adminSummaryEn, zh: adminSummaryZh },
-  'benchstore-copilot': { en: benchstoreCopilotEn, zh: benchstoreCopilotZh },
-  'benchstore-detail': { en: benchstoreDetailEn, zh: benchstoreDetailZh },
-  'benchstore-open-detail': { en: benchstoreOpenDetailEn, zh: benchstoreOpenDetailZh },
-  'benchstore-overview': { en: benchstoreOverviewEn, zh: benchstoreOverviewZh },
-  'benchstore-start': { en: benchstoreStartEn, zh: benchstoreStartZh },
   'landing-intro': { en: landingIntroEn, zh: landingIntroZh },
-  'landing-open-benchstore': { en: landingOpenBenchstoreEn, zh: landingOpenBenchstoreZh },
   'landing-open-dialog': { en: landingOpenDialogEn, zh: landingOpenDialogZh },
   'landing-surfaces': { en: landingSurfacesEn, zh: landingSurfacesZh },
   'launch-mode-overview': { en: launchModeOverviewEn, zh: launchModeOverviewZh },

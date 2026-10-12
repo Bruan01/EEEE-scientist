@@ -213,7 +213,7 @@ const copy = {
     testResult: 'Test',
     noIssues: 'No issues.',
     selectedConfig: 'Selected runner config',
-    runtimeScope: 'Affects Settings agent, BenchStore SetupAgent, and standard DeepScientist quests.',
+    runtimeScope: 'Affects the Settings agent, SetupAgent, and standard DeepScientist quests.',
   },
   zh: {
     selectionTitle: '全局 Runner',
@@ -235,7 +235,7 @@ const copy = {
     testResult: '测试',
     noIssues: '没有问题。',
     selectedConfig: '当前 Runner 配置',
-    runtimeScope: '会同时影响 Settings agent、BenchStore SetupAgent，以及普通 DeepScientist quest。',
+    runtimeScope: '会同时影响 Settings agent、SetupAgent，以及普通 DeepScientist quest。',
   },
 } satisfies Record<Locale, Record<string, string>>
 

@@ -1,15 +1,18 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { MotionConfig } from 'framer-motion'
 
 import App from '@/App'
 import { ToastProvider } from '@/components/ui/toast'
 import { initializeBuiltinPlugins, scheduleCommonPluginPreload } from '@/lib/plugin/init'
 import { installAdminFrontendLogCapture } from '@/lib/adminFrontendLogs'
+import { useInterfacePreferencesStore } from '@/lib/stores/interface-preferences'
 import { useThemeStore } from '@/lib/stores/theme'
 import '@/index.css'
 
 useThemeStore.getState().initTheme()
+useInterfacePreferencesStore.getState().initInterfacePreferences()
 initializeBuiltinPlugins()
 installAdminFrontendLogCapture()
 if (typeof window !== 'undefined') {
@@ -19,6 +22,7 @@ if (typeof window !== 'undefined') {
 }
 
 function Providers({ children }: { children: React.ReactNode }) {
+  const compactMode = useInterfacePreferencesStore((state) => state.compactMode)
   const [queryClient] = React.useState(
     () =>
       new QueryClient({
@@ -33,7 +37,9 @@ function Providers({ children }: { children: React.ReactNode }) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ToastProvider>{children}</ToastProvider>
+      <MotionConfig reducedMotion={compactMode ? 'always' : 'never'} skipAnimations={compactMode}>
+        <ToastProvider>{children}</ToastProvider>
+      </MotionConfig>
     </QueryClientProvider>
   )
 }

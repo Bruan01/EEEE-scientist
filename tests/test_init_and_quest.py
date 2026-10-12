@@ -244,13 +244,13 @@ def test_system_prefixed_quest_ids_are_preserved_and_consume_numeric_sequence(te
         },
     )
     bench_snapshot = service.create(
-        "benchstore quest",
+        "legacy setup quest",
         quest_id="B-002",
         startup_contract={
             "workspace_mode": "copilot",
             "launch_mode": "custom",
             "custom_profile": "freeform",
-            "start_setup_session": {"source": "benchstore"},
+            "start_setup_session": {"source": "legacy"},
         },
     )
     research_snapshot = service.create(
@@ -277,13 +277,13 @@ def test_summary_compact_marks_system_quests_hidden_from_projects(temp_home: Pat
         },
     )
     bench_snapshot = service.create(
-        "benchstore quest",
+        "legacy setup quest",
         quest_id="B-002",
         startup_contract={
             "workspace_mode": "copilot",
             "launch_mode": "custom",
             "custom_profile": "freeform",
-            "benchstore_context": {"entry_id": "bench.sample"},
+            "legacy_context": {"entry_id": "legacy.sample"},
         },
     )
     research_snapshot = service.create(
@@ -297,8 +297,8 @@ def test_summary_compact_marks_system_quests_hidden_from_projects(temp_home: Pat
 
     assert settings_summary["quest_class"] == "settings"
     assert settings_summary["listed_in_projects"] is False
-    assert bench_summary["quest_class"] == "benchstore"
-    assert bench_summary["listed_in_projects"] is False
+    assert bench_summary["quest_class"] == "research"
+    assert bench_summary["listed_in_projects"] is True
     assert research_summary["quest_class"] == "research"
     assert research_summary["listed_in_projects"] is True
 

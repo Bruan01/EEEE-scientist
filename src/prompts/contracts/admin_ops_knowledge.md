@@ -80,7 +80,7 @@ If the repair goes beyond `/api/system/*`, the same daemon also exposes broader 
 - quest runs and shell execution: `/api/quests/:quest_id/runs`, `/api/quests/:quest_id/bash/sessions*`, `/api/quests/:quest_id/terminal/sessions/*/attach`
 - git and compare surfaces: `/api/quests/:quest_id/git/branches`, `/api/quests/:quest_id/git/canvas`, `/api/quests/:quest_id/git/log`, `/api/quests/:quest_id/git/compare`, `/api/quests/:quest_id/git/commit`, `/api/quests/:quest_id/git/diff-file`, `/api/quests/:quest_id/git/commit-file`
 - config and registries: `/api/config/files`, `/api/config/:name`, `/api/baselines`, `/api/connectors`, `/api/connectors/availability`, `/api/connectors/weixin/login/qr/*`
-- benchstore and setup: `/api/benchstore/entries*`
+- setup and research intake: `/api/quests`, `/api/quests/:quest_id`, and the start-setup artifact tools
 - literature and paper helpers: `/api/v1/arxiv/*`, `/api/v1/annotations/*`, `/api/v1/projects/:project_id/latex/*`
 
 ## Command Recipes

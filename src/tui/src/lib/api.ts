@@ -4,9 +4,6 @@ import type {
   BashProgress,
   BashSession,
   BaselineRegistryEntry,
-  BenchStoreCatalogPayload,
-  BenchStoreEntryDetailPayload,
-  BenchStoreSetupPacketPayload,
   ConfigFileEntry,
   ConfigTestPayload,
   ConfigValidationPayload,
@@ -294,34 +291,6 @@ export const client = {
     api<Record<string, unknown>>(baseUrl, `/api/quests/${questId}/baseline-binding`, {
       method: 'DELETE',
     }),
-  benchstoreEntries: (baseUrl: string, locale?: 'en' | 'zh') => {
-    const suffix = locale ? `?locale=${encodeURIComponent(locale)}` : ''
-    return api<BenchStoreCatalogPayload>(baseUrl, `/api/benchstore/entries${suffix}`)
-  },
-  benchstoreEntry: (baseUrl: string, entryId: string, locale?: 'en' | 'zh') => {
-    const suffix = locale ? `?locale=${encodeURIComponent(locale)}` : ''
-    return api<BenchStoreEntryDetailPayload>(baseUrl, `/api/benchstore/entries/${encodeURIComponent(entryId)}${suffix}`)
-  },
-  benchstoreSetupPacket: (baseUrl: string, entryId: string, locale?: 'en' | 'zh') => {
-    const suffix = locale ? `?locale=${encodeURIComponent(locale)}` : ''
-    return api<BenchStoreSetupPacketPayload>(baseUrl, `/api/benchstore/entries/${encodeURIComponent(entryId)}/setup-packet${suffix}`)
-  },
-  installBenchstoreEntry: (baseUrl: string, entryId: string) =>
-    api<{ ok: boolean; entry_id: string; task: AdminTask }>(baseUrl, `/api/benchstore/entries/${encodeURIComponent(entryId)}/install`, {
-      method: 'POST',
-      body: JSON.stringify({ source: 'tui-ink' }),
-    }),
-  launchBenchstoreEntry: (baseUrl: string, entryId: string, locale?: 'en' | 'zh') => {
-    const suffix = locale ? `?locale=${encodeURIComponent(locale)}` : ''
-    return api<{ ok: boolean; entry_id: string; snapshot: QuestSummary; setup_packet?: Record<string, unknown> }>(
-      baseUrl,
-      `/api/benchstore/entries/${encodeURIComponent(entryId)}/launch${suffix}`,
-      {
-        method: 'POST',
-        body: JSON.stringify({ source: 'tui-ink' }),
-      }
-    )
-  },
   systemTasks: (baseUrl: string, kind?: string, limit = 50) => {
     const params = new URLSearchParams()
     if (kind) params.set('kind', kind)

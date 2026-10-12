@@ -270,6 +270,8 @@ The dialog submits:
 
 ### Baseline and references
 
+The launch flow no longer includes a built-in BenchStore download catalog. Download the data yourself and provide an absolute local path, upload the files, or give the paper/code/data links to SetupAgent. When network access and download permission are clear, SetupAgent can prepare the materials through `bash_exec`; otherwise it asks for a local path or confirmation. Once the materials enter the quest, the Baseline, Scout, Experiment, Analysis, and writing workflow is unchanged.
+
 **`baseline_id`**
 
 - Selects a reusable baseline from the registry.

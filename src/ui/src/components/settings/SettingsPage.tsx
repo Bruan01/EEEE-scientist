@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { MarkdownDocument } from '@/components/plugins/MarkdownDocument'
 import { ProjectsAppBar } from '@/components/projects/ProjectsAppBar'
 import { BaselineSettingsPanel } from '@/components/settings/BaselineSettingsPanel'
+import { CompactModeSettingsPanel } from '@/components/settings/CompactModeSettingsPanel'
 import { ConnectorSettingsForm } from '@/components/settings/ConnectorSettingsForm'
 import { DeepXivSettingsPanel } from '@/components/settings/DeepXivSettingsPanel'
 import { connectorCatalog, type ConnectorName } from '@/components/settings/connectorCatalog'
@@ -1590,6 +1591,12 @@ export function SettingsPage({
                         />
                       </section>
                     )
+                  ) : null}
+
+                  {selectedName === 'config' ? (
+                    <div className="pt-6">
+                      <CompactModeSettingsPanel locale={locale} />
+                    </div>
                   ) : null}
 
                   {selectedName === 'summary' ? (

@@ -558,7 +558,7 @@ config editor 和 connector secret 字段会被脱敏。例如：
 
 适合打开 debug 的情况：
 
-- `/config`、`/benchstore`、`/tasks` 等命令看起来没有进入预期页面
+- `/config`、`/tasks` 等命令看起来没有进入预期页面
 - 输入了 slash command，但不确定它是本地处理、后端转发，还是被 TUI 拦截
 - config editor 里按 Enter 后不知道会保存哪个 draft
 - TUI 和 Web 看起来不一致，需要比较 `web_analog`
@@ -601,7 +601,7 @@ Web inspector 会出现在右下角。它会显示当前 Settings surface、rout
 3. 对比 TUI 的 `surface`、`web_analog`、`route.target` 与 Web 的 `surface`、`route`、`selected`、`flags`、`actions`
 4. 确认两边 snapshot 都没有真实 token、secret、password、API key、credential、auth AK 或 app secret
 
-当前范围：第一版 Web debug 先覆盖 Settings，尤其是 connector/config 页面。quest workspace 和 BenchStore snapshot 是后续扩展项。
+当前范围：第一版 Web debug 先覆盖 Settings，尤其是 connector/config 页面。quest workspace snapshot 是后续扩展项。
 
 ## 16. 排错
 

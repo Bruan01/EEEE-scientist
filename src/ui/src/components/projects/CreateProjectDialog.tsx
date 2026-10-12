@@ -69,7 +69,6 @@ import type {
   BaselineRegistryEntry,
   ConnectorSnapshot,
 } from '@/types'
-import type { BenchSetupPacket } from '@/lib/types/benchstore'
 
 const copy = {
   en: {
@@ -245,8 +244,6 @@ const copy = {
     goalRequired: 'Please provide a clear research request first.',
     validationTitle: 'Missing required fields',
     validationBody: 'Complete the highlighted field before creating the project.',
-    benchAutoAssistPending:
-      'SetupAgent is still checking whether the launch form is ready. The Create button unlocks automatically once SetupAgent stops running, even if it replied without writing back the form.',
     footer: 'Create project immediately after review.',
     create: 'Create project',
     cancel: 'Cancel',
@@ -634,8 +631,6 @@ const copy = {
     goalRequired: '请先填写清楚研究请求。',
     validationTitle: '还有必填项未填写',
     validationBody: '请先补齐高亮字段，然后再创建项目。',
-    benchAutoAssistPending:
-      'SetupAgent 仍在确认这次 BenchStore 启动表单是否已经足够可创建。只要 SetupAgent 停止运行，创建按钮就会自动解锁，即使它回复时没有直接回写表单。',
     footer: '确认后会立即创建项目。',
     create: '创建项目',
     cancel: '取消',
@@ -1098,95 +1093,6 @@ const deepxivCopy = {
     openSettings: '前往设置',
   },
 } as const
-
-function buildBenchstoreAutoAssistMessage(setupPacket: BenchSetupPacket, locale: 'en' | 'zh') {
-  const startupContract =
-    setupPacket.launch_payload?.startup_contract &&
-    typeof setupPacket.launch_payload.startup_contract === 'object'
-      ? (setupPacket.launch_payload.startup_contract as Record<string, unknown>)
-      : null
-  const benchmarkContext =
-    startupContract?.benchstore_context &&
-    typeof startupContract.benchstore_context === 'object'
-      ? (startupContract.benchstore_context as Record<string, unknown>)
-      : null
-  const entryId = String(benchmarkContext?.entry_id || setupPacket.entry_id || '').trim()
-  const entryName = String(benchmarkContext?.entry_name || setupPacket.project_title || '').trim()
-  const taskDescription =
-    String(benchmarkContext?.task_description || setupPacket.benchmark_goal || '').trim() || 'none'
-  const sourceFile = String(benchmarkContext?.catalog_source_file || '').trim() || 'unknown'
-  const benchmarkLocalPath = String(setupPacket.benchmark_local_path || '').trim() || 'not available'
-  const latexPath = String(setupPacket.latex_markdown_path || '').trim() || 'not available'
-  const datasetPaths =
-    (setupPacket.local_dataset_paths || []).filter((item) => String(item || '').trim().length > 0)
-  const constraints = (setupPacket.constraints || []).filter((item) => String(item || '').trim().length > 0)
-
-  if (locale === 'zh') {
-    return [
-      '这是一次来自 BenchStore Start 的自动启动协助。',
-      '当前选中的 benchmark 已经通过上下文完整注入，请把它当成这次 setup 会话的主要事实来源。',
-      '',
-      '当前 benchmark 信息：',
-      `- entry_id: ${entryId || 'unknown'}`,
-      `- entry_name: ${entryName || 'unknown'}`,
-      `- source_file: ${sourceFile}`,
-      `- benchmark_local_path: ${benchmarkLocalPath}`,
-      `- local_dataset_paths: ${datasetPaths.length > 0 ? datasetPaths.join(', ') : 'none'}`,
-      `- latex_markdown_path: ${latexPath}`,
-      `- device_summary: ${setupPacket.device_summary || 'unknown'}`,
-      `- device_fit: ${setupPacket.device_fit || 'unknown'}`,
-      `- task_description: ${taskDescription}`,
-      '',
-      '重要规则：',
-      '- 完整 benchmark 描述文件已经在 benchmark_context 里注入，尤其是 raw_payload、task_description、paper、resources、environment、download、dataset_download、credential_requirements。不要只看标题或一行摘要。',
-      '- 先结合完整 benchmark 描述、当前机器硬件、任务要求和左侧已预填表单，判断哪些信息还缺失。',
-      '- 如果这次任务不是 baseline-only，而是要做完整研究，请把主线整理清楚：baseline 只是起点，之后要继续自主优化、争取稳健超越强基线 / SoTA，并确认是否要求方法具备新颖性。',
-      '- 如果目标是在主结果成立后继续做分析实验和论文协作，也要主动和用户确认，并把这条链写进表单：优化超越 -> 分析实验 -> 文献搜索 / 图片制作 / 论文撰写。',
-      '- 如果 GPU 使用范围、外部 LLM/API Key、付费调用、下载体量、隐私边界这些关键信息还不明确，必须先向用户确认，不能自己假设。',
-      '- 如果仍有会实质影响启动路线的缺口，请主动向用户提出 1 到 3 个最关键的问题，问题要短、具体、可直接回答。',
-      '- 如果当前信息已经足够，不要为了问问题而问问题，直接使用 artifact.prepare_start_setup_form(form_patch={...}) 提交完整表单。',
-      '- 第一轮优先 faithful、小步、保守启动，不要扩展到 benchmark 之外。',
-      '- 如果你已经给出结论但还没有提交表单 patch，创建按钮也不应该被永久卡死；一旦 setup quest 停止运行，前端会自动解锁。',
-      '',
-      constraints.length > 0 ? '当前硬性约束：' : '',
-      constraints.length > 0 ? constraints.join('\n') : '',
-    ]
-      .filter(Boolean)
-      .join('\n')
-  }
-
-  return [
-    'This is an automatic setup-assist session triggered from BenchStore Start.',
-    'The selected benchmark is already injected into context and should be treated as the main source of truth for this setup session.',
-    '',
-    'Current benchmark facts:',
-    `- entry_id: ${entryId || 'unknown'}`,
-    `- entry_name: ${entryName || 'unknown'}`,
-    `- source_file: ${sourceFile}`,
-    `- benchmark_local_path: ${benchmarkLocalPath}`,
-    `- local_dataset_paths: ${datasetPaths.length > 0 ? datasetPaths.join(', ') : 'none'}`,
-    `- latex_markdown_path: ${latexPath}`,
-    `- device_summary: ${setupPacket.device_summary || 'unknown'}`,
-    `- device_fit: ${setupPacket.device_fit || 'unknown'}`,
-    `- task_description: ${taskDescription}`,
-    '',
-    'Important rules:',
-    '- The full benchmark description file is already injected through benchmark_context, especially raw_payload, task_description, paper, resources, environment, download, dataset_download, and credential_requirements. Do not rely on the title or one-line summary alone.',
-    '- First combine the full benchmark description, the current machine boundary, the task requirements, and the prefilled form on the left to judge what information is still missing.',
-    '- If this is not a baseline-only task but a full research task, make the mainline explicit: baseline is only the starting point, then autonomous optimization, then robust improvement beyond strong baselines / SoTA, and confirm whether novelty is required.',
-    '- If the goal is to continue into analysis experiments and later paper-facing collaboration, confirm that explicitly and write the chain into the form: optimization beyond the baseline -> analysis experiments -> literature / figures / writing.',
-    '- If GPU scope, external LLM/API keys, paid calls, download volume, or privacy boundaries are still unclear, you must ask the user to confirm them instead of assuming defaults.',
-    '- If material gaps remain, proactively ask the user only 1 to 3 short questions that would meaningfully affect the launch path.',
-    '- If the current information is already sufficient, do not ask extra questions. Call artifact.prepare_start_setup_form(form_patch={...}) directly and submit the completed form.',
-    '- Keep the first launch faithful, conservative, and benchmark-bounded.',
-    '- If you answered but did not submit a form patch, the create button must not stay blocked forever; the frontend unlocks automatically once the setup quest is no longer running.',
-    '',
-    constraints.length > 0 ? 'Current hard constraints:' : '',
-    constraints.length > 0 ? constraints.join('\n') : '',
-  ]
-    .filter(Boolean)
-    .join('\n')
-}
 
 function titleCaseConnector(name: string) {
   const normalized = String(name || '').trim()
@@ -2641,21 +2547,18 @@ export function CreateProjectDialog({
   loading,
   error,
   initialGoal = '',
-  setupPacket = null,
   setupQuestId = null,
   setupQuestCreating = false,
   onBack,
   onClose,
   onRequestSetupAgent,
   onSwitchToCopilot,
-  onOpenBenchStore,
   onCreate,
 }: {
   open: boolean
   loading?: boolean
   error?: string | null
   initialGoal?: string
-  setupPacket?: BenchSetupPacket | null
   setupQuestId?: string | null
   setupQuestCreating?: boolean
   onBack?: () => void
@@ -2663,7 +2566,6 @@ export function CreateProjectDialog({
   onRequestSetupAgent?: (payload: {
     message: string
     form: StartResearchTemplate
-    setupPacket?: BenchSetupPacket | null
     attachments?: QuestMessageAttachmentDraft[]
     createOnly?: boolean
   }) => Promise<void>
@@ -2674,7 +2576,6 @@ export function CreateProjectDialog({
     setupAttachments?: LaunchMaterialAttachment[]
     localAttachments?: QuestMessageAttachmentDraft[]
   }) => Promise<void> | void
-  onOpenBenchStore?: () => void
   onCreate: (payload: {
     title: string
     goal: string
@@ -2695,7 +2596,7 @@ export function CreateProjectDialog({
   const t = normalizedCopy[locale]
   const deepxivT = deepxivCopy[locale]
   const backLabel = locale === 'zh' ? '返回' : 'Back'
-  const [entryMode, setEntryMode] = useState<'intake' | 'form'>(setupPacket ? 'form' : 'intake')
+  const [entryMode, setEntryMode] = useState<'intake' | 'form'>('intake')
   const [rightPaneMode, setRightPaneMode] = useState<StartResearchRightPaneMode>('assistant')
   const [showAdvanced, setShowAdvanced] = useState(true)
   const [form, setForm] = useState<StartResearchTemplate>(defaultStartResearchTemplate(locale))
@@ -2729,10 +2630,8 @@ export function CreateProjectDialog({
   const [setupPlanningNoticeClosing, setSetupPlanningNoticeClosing] = useState(false)
   const [setupPlanningNoticeElapsedMs, setSetupPlanningNoticeElapsedMs] = useState(0)
   const [planningReviewDismissedKey, setPlanningReviewDismissedKey] = useState<string | null>(null)
-  const [benchAutoAssistReady, setBenchAutoAssistReady] = useState(() => !setupPacket)
   const referenceTemplates = useMemo(() => listReferenceStartResearchTemplates(), [])
   const setupWorkspace = useQuestWorkspace(setupQuestId)
-  const autoBenchAssistStartedRef = useRef<string | null>(null)
   const setupPlanningNoticeStartedAtRef = useRef<number | null>(null)
   const setupPlanningPollStartedAtRef = useRef<number | null>(null)
   const latestFormRef = useRef(form)
@@ -2954,10 +2853,8 @@ export function CreateProjectDialog({
     if (!open) {
       return
     }
-    setEntryMode(setupPacket ? 'form' : 'intake')
+    setEntryMode('intake')
     setRightPaneMode('assistant')
-    setBenchAutoAssistReady(!(setupPacket && onRequestSetupAgent))
-    autoBenchAssistStartedRef.current = null
     setIntakeMessage(initialGoal || '')
     setLocalLaunchAttachments((current) => {
       current.forEach((item) => {
@@ -2971,25 +2868,6 @@ export function CreateProjectDialog({
     setSetupPlanningNoticeElapsedMs(0)
     setupPlanningNoticeStartedAtRef.current = null
     setupPlanningPollStartedAtRef.current = null
-    if (setupPacket && setupPacket.suggested_form && typeof setupPacket.suggested_form === 'object') {
-      const suggested = setupPacket.suggested_form as Partial<StartResearchTemplate>
-      const next = {
-        ...defaultStartResearchTemplate(locale),
-        ...suggested,
-        quest_id: '',
-        user_language: locale,
-      }
-      setForm(next)
-      setTemplates(loadStartResearchHistory())
-      setSelectedTemplateId('__new__')
-      setManualOverride(false)
-      setQuestIdManualOverride(false)
-      setSuggestedQuestId('')
-      setSelectedConnectorBindings({})
-      setShowAdvanced(true)
-      setAgentManagedValues(suggested)
-      return
-    }
     const next = defaultStartResearchTemplate(locale)
     const tutorialSeed = onboardingStatus === 'running' ? buildTutorialStartResearchExample(locale) : null
     const withSeed = {
@@ -3011,13 +2889,7 @@ export function CreateProjectDialog({
     setShowAdvanced(true)
     setAgentManagedValues({})
     setLocalSetupSessionPatch(null)
-  }, [initialGoal, locale, onboardingStatus, open, setupPacket])
-
-  useEffect(() => {
-    if (open) return
-    setBenchAutoAssistReady(true)
-    autoBenchAssistStartedRef.current = null
-  }, [open])
+  }, [initialGoal, locale, onboardingStatus, open])
 
   const durableSetupSessionBase = useMemo(
     () => resolveStartSetupSessionFromSnapshot(setupWorkspace.snapshot),
@@ -3285,10 +3157,6 @@ export function CreateProjectDialog({
     }
   }, [durableSetupHasPlanningContent, open, setupQuestId, setupWorkspace.refresh])
 
-  const benchAutoAssistWaitingForPatch = Boolean(
-    setupPacket && onRequestSetupAgent && setupQuestCreating
-  )
-
   useEffect(() => {
     if (!setupQuestId) return
     setEntryMode('form')
@@ -3397,43 +3265,9 @@ export function CreateProjectDialog({
         setAgentManagedValues(nextManaged)
         return next
       })
-      if (setupPacket && Object.keys(patch).length > 0) {
-        setBenchAutoAssistReady(true)
-      }
     },
-    [setupPacket]
+    []
   )
-
-  const benchAutoAssistMessage = useMemo(
-    () => (setupPacket ? buildBenchstoreAutoAssistMessage(setupPacket, locale) : ''),
-    [locale, setupPacket]
-  )
-
-  useEffect(() => {
-    if (!open || !setupPacket || !onRequestSetupAgent) return
-    if (setupQuestId || setupQuestCreating) return
-    const triggerKey = [
-      setupPacket.entry_id,
-      setupPacket.benchmark_local_path || '',
-      setupPacket.latex_markdown_path || '',
-    ].join('::')
-    if (autoBenchAssistStartedRef.current === triggerKey) return
-    autoBenchAssistStartedRef.current = triggerKey
-    void onRequestSetupAgent({
-      message: benchAutoAssistMessage,
-      form: latestFormRef.current,
-      setupPacket,
-    }).catch(() => {
-      autoBenchAssistStartedRef.current = null
-    })
-  }, [
-    benchAutoAssistMessage,
-    onRequestSetupAgent,
-    open,
-    setupPacket,
-    setupQuestCreating,
-    setupQuestId,
-  ])
 
   useEffect(() => {
     if (!setupQuestId) return
@@ -3453,42 +3287,11 @@ export function CreateProjectDialog({
       if (sessionPatch) {
         setLocalSetupSessionPatch((current) => ({ ...(current || {}), ...sessionPatch }))
       }
-      if (patch || sessionPatch) {
-        setBenchAutoAssistReady(true)
-      }
     }
     window.addEventListener('ds:start-setup:patch', handleStartSetupPatch as EventListener)
     return () =>
       window.removeEventListener('ds:start-setup:patch', handleStartSetupPatch as EventListener)
   }, [applyAgentPatch, setupQuestId])
-
-  useEffect(() => {
-    if (!setupPacket || !onRequestSetupAgent) return
-    if (setupQuestCreating) {
-      setBenchAutoAssistReady(false)
-      return
-    }
-    if (!setupQuestId) {
-      setBenchAutoAssistReady(false)
-      return
-    }
-    if (durableSetupSuggestedForm && Object.keys(durableSetupSuggestedForm).length > 0) {
-      setBenchAutoAssistReady(true)
-      return
-    }
-    if (!setupQuestStillRunning) {
-      setBenchAutoAssistReady(true)
-      return
-    }
-    setBenchAutoAssistReady(false)
-  }, [
-    durableSetupSuggestedForm,
-    onRequestSetupAgent,
-    setupPacket,
-    setupQuestCreating,
-    setupQuestId,
-    setupQuestStillRunning,
-  ])
 
   const applyStandardProfile = useCallback((profile: StandardProfile) => {
     setForm((current) => {
@@ -3709,17 +3512,7 @@ export function CreateProjectDialog({
   const finalPrompt = compiledPromptPreview.trim()
   const promptRequired = open && !compiledPromptPreview.trim()
   const goalRequired = open && !manualOverride && !form.goal.trim()
-  const benchAutoAssistLocked = Boolean(
-    setupPacket &&
-      onRequestSetupAgent &&
-      !benchAutoAssistReady &&
-      (benchAutoAssistWaitingForPatch || setupQuestStillRunning)
-  )
-  const createDisabledReason = loading
-    ? 'loading'
-    : benchAutoAssistLocked
-      ? 'setup-agent-running'
-      : 'none'
+  const createDisabledReason = loading ? 'loading' : 'none'
 
   const focusCreateValidationTarget = useCallback(
     (target: 'title' | 'goal') => {
@@ -3926,7 +3719,6 @@ export function CreateProjectDialog({
     void onRequestSetupAgent({
       message: nextMessage,
       form,
-      setupPacket,
       attachments: localLaunchAttachments,
     })
   }, [
@@ -3934,16 +3726,12 @@ export function CreateProjectDialog({
     intakeMessage,
     localLaunchAttachments,
     onRequestSetupAgent,
-    setupPacket,
     startSetupPlanningNotice,
   ])
 
   const handleCreate = async (formOverride?: StartResearchTemplate) => {
     if (onboardingStatus === 'running') {
       handleLaunchTutorialDemo()
-      return
-    }
-    if (benchAutoAssistLocked) {
       return
     }
     const workingForm = formOverride || form
@@ -4061,7 +3849,7 @@ export function CreateProjectDialog({
         className={LAUNCH_DIALOG_SHELL_CLASS}
         hideHeader
       >
-        {entryMode === 'intake' && !setupPacket ? (
+        {entryMode === 'intake' ? (
           <AutonomousSetupIntakeSurface
             locale={locale}
             assistantLabel={`${runnerLabel(activeRunnerName)} · SetupAgent`}
@@ -4075,7 +3863,6 @@ export function CreateProjectDialog({
             error={error}
             onSwitchToForm={() => setEntryMode('form')}
             onSwitchToCopilot={() => void handleSwitchToCopilot()}
-            onOpenBenchStore={onOpenBenchStore}
             onClose={onClose}
           />
         ) : (
@@ -4672,7 +4459,6 @@ export function CreateProjectDialog({
                 ) : (
                   <SetupAgentRail
                     locale={locale}
-                    setupPacket={setupPacket}
                     assistantLabel={`${runnerLabel(activeRunnerName)} · SetupAgent`}
                     loading={setupQuestCreating}
                     error={error}
@@ -4680,7 +4466,6 @@ export function CreateProjectDialog({
                       await onRequestSetupAgent?.({
                         message,
                         form,
-                        setupPacket,
                         attachments,
                       })
                     }}
@@ -4712,11 +4497,6 @@ export function CreateProjectDialog({
                 <BookmarkPlus className="h-3.5 w-3.5" />
                 <span>{templateOptions.length} template(s)</span>
               </div>
-              {benchAutoAssistLocked ? (
-                <div className="text-[11px] text-[rgba(107,103,97,0.8)] dark:text-[rgba(107,103,97,0.78)]">
-                  {t.benchAutoAssistPending}
-                </div>
-              ) : null}
             </div>
             <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center sm:gap-3">
               {onBack ? (
@@ -4745,12 +4525,8 @@ export function CreateProjectDialog({
               </Button>
               <Button
                 onClick={() => void handleCreate()}
-                disabled={loading || benchAutoAssistLocked}
-                className={cn(
-                  'w-full sm:w-auto',
-                  benchAutoAssistLocked &&
-                    'bg-[rgba(45,42,38,0.14)] text-[rgba(107,103,97,0.78)] shadow-none'
-                )}
+                disabled={loading}
+                className="w-full sm:w-auto"
                 data-onboarding-id="start-research-create"
                 data-disabled-reason={createDisabledReason}
               >
