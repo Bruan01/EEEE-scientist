@@ -52,7 +52,7 @@ from ..connector.qq_profiles import (
     qq_profile_label,
 )
 from ..connector.weixin_support import normalize_weixin_base_url, normalize_weixin_cdn_base_url
-from ..network import urlopen_with_proxy as urlopen
+from ..network import normalize_proxy_url, urlopen_with_proxy as urlopen
 from ..runners.metadata import get_runner_metadata, list_builtin_runner_names
 from ..runners.runtime_overrides import apply_codex_runtime_overrides, apply_runners_runtime_overrides
 from ..shared import ensure_utf8_subprocess_env, read_json, read_text, read_yaml, resolve_runner_binary, run_command, sha256_text, utc_now, utf8_text_subprocess_kwargs, which, write_json, write_text, write_yaml
@@ -2908,6 +2908,10 @@ Use **Test** when the file exposes runtime dependencies.
             read_visibility_mode = "independent"
         memory["read_visibility_mode"] = read_visibility_mode
         normalized["memory"] = memory
+        network = normalized.get("network") if isinstance(normalized.get("network"), dict) else {}
+        raw_network = payload.get("network") if isinstance(payload.get("network"), dict) else {}
+        network["proxy"] = normalize_proxy_url(raw_network.get("proxy", network.get("proxy")))
+        normalized["network"] = network
         literature = normalized.get("literature") if isinstance(normalized.get("literature"), dict) else {}
         raw_literature = payload.get("literature") if isinstance(payload.get("literature"), dict) else {}
         default_literature = defaults.get("literature") if isinstance(defaults.get("literature"), dict) else {}

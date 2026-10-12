@@ -64,7 +64,7 @@ from ..config.models import SYSTEM_CONNECTOR_NAMES
 from ..diagnostics import FailureDiagnosis, diagnose_runner_failure
 from ..home import repo_root
 from ..memory import MemoryService
-from ..network import urlopen_with_proxy as urlopen
+from ..network import configure_runtime_proxy, runtime_proxy_url, urlopen_with_proxy as urlopen
 from ..latex_runtime import QuestLatexService
 from ..connector.lingzhu_support import (
     lingzhu_detect_tool_call_from_text,
@@ -204,6 +204,12 @@ class DaemonApp:
         self.repo_root = repo_root()
         self.config_manager = ConfigManager(home)
         self.runtime_config = self.config_manager.load_runtime_config()
+        configured_network = self.runtime_config.get("network") if isinstance(self.runtime_config.get("network"), dict) else {}
+        configured_proxy = configured_network.get("proxy")
+        # An explicit `ds --proxy ...` value is already installed by the CLI and
+        # takes precedence over the persisted setting during daemon startup.
+        if runtime_proxy_url() is None and configured_proxy:
+            configure_runtime_proxy(str(configured_proxy))
         self.runners_config = self.config_manager.load_runners_config()
         self.connectors_config = self.config_manager.load_named_normalized("connectors")
         self.skill_installer = SkillInstaller(self.repo_root, home, runners_config=self.runners_config)
@@ -1600,6 +1606,8 @@ class DaemonApp:
     def reload_runtime_config(self, *, restart_background: bool = True) -> dict[str, object]:
         previous_enabled = self._system_enabled_connector_names()
         self.runtime_config = self.config_manager.load_runtime_config()
+        network_config = self.runtime_config.get("network") if isinstance(self.runtime_config.get("network"), dict) else {}
+        active_proxy = configure_runtime_proxy(network_config.get("proxy"))
         logging_config = self.runtime_config.get("logging") if isinstance(self.runtime_config.get("logging"), dict) else {}
         self.logger.level = str(logging_config.get("level") or "info").strip().lower() or "info"
         enabled = self._system_enabled_connector_names()
@@ -1610,6 +1618,7 @@ class DaemonApp:
             restarted = True
         return {
             "ok": True,
+            "proxy": active_proxy,
             "system_enabled_connectors": sorted(enabled),
             "restarted_background_connectors": restarted,
         }

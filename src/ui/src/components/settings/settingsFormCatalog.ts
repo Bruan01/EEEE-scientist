@@ -95,6 +95,21 @@ export const configSections: SettingsSection[] = [
     ],
   },
   {
+    id: 'network',
+    title: 'Network proxy',
+    description: 'Outbound proxy used by the daemon and future runner turns.',
+    fields: [
+      {
+        key: 'network.proxy',
+        label: 'Outbound proxy',
+        kind: 'url',
+        placeholder: 'http://127.0.0.1:7897',
+        description: 'Proxy URL for outbound HTTP and WebSocket traffic. Local daemon and loopback traffic stay direct.',
+        whereToGet: 'Enter the complete proxy URL, for example `http://127.0.0.1:7897`. Clear it and save to use direct outbound traffic.',
+      },
+    ],
+  },
+  {
     id: 'ui',
     title: 'Web / TUI runtime',
     description: 'How the local UI process binds and starts.',

@@ -49,6 +49,8 @@ daemon:
   session_restore_on_start: true
   max_concurrent_quests: 1
   ack_timeout_ms: 1000
+network:
+  proxy: null # 例如 http://127.0.0.1:7897；清空后直连
 ui:
   host: 0.0.0.0
   port: 20999
@@ -152,6 +154,19 @@ acp:
 - 页面标签：`Ack timeout (ms)`
 - 作用：短确认、连接器反馈等轻量行为的超时预算。
 - 何时增大：本地 I/O、bridge 或 sidecar 持续偏慢时。
+
+### Network proxy
+
+**`network.proxy`**
+
+- 类型：`string | null`
+- 默认值：`null`
+- 页面位置：`Settings → Runtime → Network proxy → Outbound proxy`
+- 作用：为 daemon 的出站 HTTP / WebSocket 请求，以及保存后新启动的 runner 进程设置代理。
+- 示例：`http://127.0.0.1:7897`
+- 热更新：在设置页保存后立即更新当前 daemon；正在进行的子进程保持启动时的环境，新一轮请求会使用新代理。
+- 直连：清空字段并保存。
+- 注意：`127.0.0.1`、`localhost` 和 `::1` 等本地回环地址始终绕过代理，避免设置页自身和本地终端连接被代理回流。
 
 ### Web / TUI runtime
 

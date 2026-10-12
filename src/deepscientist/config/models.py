@@ -37,6 +37,9 @@ def default_config(home: Path) -> dict:
             "max_concurrent_quests": 1,
             "ack_timeout_ms": 1000,
         },
+        "network": {
+            "proxy": None,
+        },
         "ui": {
             "host": "0.0.0.0",
             "port": 20999,

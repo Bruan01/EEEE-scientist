@@ -299,6 +299,8 @@ daemon:
   session_restore_on_start: true
   max_concurrent_quests: 1
   ack_timeout_ms: 1000
+network:
+  proxy: null # for example http://127.0.0.1:7897; clear to use direct traffic
 ui:
   host: 0.0.0.0
   port: 20999
@@ -397,6 +399,19 @@ acp:
 - Default: `1000`
 - UI label: `Ack timeout (ms)`
 - Meaning: timeout budget for short acknowledgments and lightweight connector feedback.
+
+### Network proxy
+
+**`network.proxy`**
+
+- Type: `string | null`
+- Default: `null`
+- UI location: `Settings → Runtime → Network proxy → Outbound proxy`
+- Meaning: proxy URL for daemon outbound HTTP / WebSocket requests and runner processes started after the setting is saved.
+- Example: `http://127.0.0.1:7897`
+- Hot reload: saving the field updates the current daemon immediately; an in-flight child process keeps the environment it started with, while the next turn uses the new proxy.
+- Direct traffic: clear the field and save.
+- Loopback: `127.0.0.1`, `localhost`, and `::1` always bypass the proxy so local UI and terminal traffic stay direct.
 
 ### Web / TUI runtime
 
