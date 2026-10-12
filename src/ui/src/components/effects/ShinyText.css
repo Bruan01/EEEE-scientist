@@ -1,0 +1,55 @@
+/* ShinyText 光泽文字效果 - 纯CSS实现 */
+
+.shiny-text {
+  background-image: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.8) 50%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  background-size: 200% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shiny-text-shine 3s linear infinite;
+}
+
+.shiny-text-disabled {
+  animation: none;
+  -webkit-text-fill-color: inherit;
+}
+
+@keyframes shiny-text-shine {
+  0% {
+    background-position: 100%;
+  }
+  100% {
+    background-position: -100%;
+  }
+}
+
+/* 针对深色文字的变体 */
+.shiny-text-dark {
+  color: #0f172a;
+  background-image: linear-gradient(
+    120deg,
+    #0f172a 40%,
+    #38bdf8 50%,
+    #0f172a 60%
+  );
+}
+
+/* 针对品牌色的变体 */
+.shiny-text-brand {
+  color: #0ea5e9;
+  background-image: linear-gradient(
+    120deg,
+    #0ea5e9 40%,
+    #ffffff 50%,
+    #0ea5e9 60%
+  );
+}
+
+/* 使用示例:
+<ShinyText text="DeepScientist" speed={4} className="shiny-text-brand" />
+*/

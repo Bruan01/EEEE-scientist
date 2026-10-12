@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#F7FBF8"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#D7E9DC" stroke-width="2"/>
+  <circle cx="108" cy="108" r="34" fill="#22C55E"/>
+  <path d="M92 108C92 99.16 99.16 92 108 92C116.84 92 124 99.16 124 108C124 116.84 116.84 124 108 124C99.16 124 92 116.84 92 108Z" fill="#fff" fill-opacity=".18"/>
+  <path d="M100 116L108 101L116 116H100Z" fill="#fff"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">DeepScientist Weixin Bind Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Settings -&gt; Connectors -&gt; WeChat -&gt; Bind -&gt; QR login -&gt; auto-saved connector</text>
+
+  <rect x="72" y="196" width="368" height="430" rx="28" fill="#F7FBF8" stroke="#CFE5D5" stroke-width="2"/>
+  <rect x="102" y="228" width="104" height="36" rx="18" fill="#DCFCE7"/>
+  <text x="129" y="251" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 1</text>
+  <text x="102" y="304" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Open WeChat card</text>
+  <rect x="102" y="338" width="308" height="188" rx="22" fill="#fff" stroke="#DDEBE1"/>
+  <text x="126" y="370" fill="#0F172A" font-family="Arial, sans-serif" font-size="19" font-weight="700">DeepScientist</text>
+  <text x="126" y="402" fill="#334155" font-family="Arial, sans-serif" font-size="17">Settings</text>
+  <text x="126" y="434" fill="#334155" font-family="Arial, sans-serif" font-size="17">Connectors</text>
+  <text x="126" y="466" fill="#334155" font-family="Arial, sans-serif" font-size="17">WeChat</text>
+  <rect x="126" y="488" width="160" height="28" rx="14" fill="#111827"/>
+  <text x="157" y="507" fill="#fff" font-family="Arial, sans-serif" font-size="15" font-weight="700">Bind WeChat</text>
+  <text x="102" y="572" fill="#475569" font-family="Arial, sans-serif" font-size="17">DeepScientist generates the QR itself.</text>
+  <text x="102" y="598" fill="#475569" font-family="Arial, sans-serif" font-size="17">No manual token form is required.</text>
+
+  <rect x="456" y="196" width="368" height="430" rx="28" fill="#FBFCFF" stroke="#D7E3F5" stroke-width="2"/>
+  <rect x="486" y="228" width="104" height="36" rx="18" fill="#E0E7FF"/>
+  <text x="513" y="251" fill="#4338CA" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 2</text>
+  <text x="486" y="304" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Scan and confirm</text>
+  <rect x="498" y="344" width="140" height="140" rx="18" fill="#fff" stroke="#CBD5E1" stroke-width="2"/>
+  <rect x="520" y="366" width="96" height="96" fill="#111827"/>
+  <rect x="534" y="380" width="22" height="22" fill="#fff"/>
+  <rect x="580" y="380" width="22" height="22" fill="#fff"/>
+  <rect x="534" y="426" width="22" height="22" fill="#fff"/>
+  <rect x="566" y="412" width="14" height="14" fill="#fff"/>
+  <rect x="594" y="426" width="8" height="8" fill="#fff"/>
+  <rect x="666" y="344" width="124" height="220" rx="28" fill="#ECFDF5" stroke="#BBF7D0"/>
+  <rect x="684" y="370" width="88" height="140" rx="18" fill="#FFFFFF" stroke="#D1E7D6"/>
+  <text x="699" y="402" fill="#0F172A" font-family="Arial, sans-serif" font-size="17" font-weight="700">WeChat</text>
+  <text x="699" y="438" fill="#334155" font-family="Arial, sans-serif" font-size="14">Scan QR</text>
+  <text x="699" y="462" fill="#334155" font-family="Arial, sans-serif" font-size="14">Confirm login</text>
+  <text x="699" y="486" fill="#334155" font-family="Arial, sans-serif" font-size="14">Wait for save</text>
+  <text x="486" y="596" fill="#475569" font-family="Arial, sans-serif" font-size="17">The phone completes the confirmation.</text>
+
+  <rect x="840" y="196" width="368" height="430" rx="28" fill="#F8FCFF" stroke="#CDE5EC" stroke-width="2"/>
+  <rect x="870" y="228" width="104" height="36" rx="18" fill="#CCFBF1"/>
+  <text x="897" y="251" fill="#0F766E" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 3</text>
+  <text x="870" y="304" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Connector saved</text>
+  <rect x="870" y="340" width="308" height="200" rx="22" fill="#fff" stroke="#D8EAEE"/>
+  <text x="896" y="376" fill="#0F172A" font-family="Arial, sans-serif" font-size="19" font-weight="700">Saved binding</text>
+  <text x="896" y="416" fill="#334155" font-family="Arial, sans-serif" font-size="17">enabled: true</text>
+  <text x="896" y="448" fill="#334155" font-family="Arial, sans-serif" font-size="17">transport: ilink_long_poll</text>
+  <text x="896" y="480" fill="#334155" font-family="Arial, sans-serif" font-size="17">bot_token: persisted</text>
+  <text x="896" y="512" fill="#334155" font-family="Arial, sans-serif" font-size="17">account_id + login_user_id</text>
+  <text x="870" y="586" fill="#475569" font-family="Arial, sans-serif" font-size="17">DeepScientist starts long polling automatically.</text>
+
+  <path d="M444 410H452" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M828 410H836" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

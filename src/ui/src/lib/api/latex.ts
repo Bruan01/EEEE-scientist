@@ -1,0 +1,149 @@
+/**
+ * LaTeX API Client (Stage 11_latex)
+ */
+
+import { apiClient } from "./client";
+
+export type LatexCompiler = "pdflatex" | "xelatex" | "lualatex";
+
+export interface LatexInitRequest {
+  name: string;
+  parent_id?: string | null;
+  template?: string;
+  compiler?: LatexCompiler;
+}
+
+export interface LatexInitCreatedItem {
+  id: string;
+  name: string;
+  type: "folder" | "file" | "notebook" | string;
+}
+
+export interface LatexInitResponse {
+  folder_id: string;
+  main_file_id: string;
+  created: LatexInitCreatedItem[];
+}
+
+export type LatexBuildStatus = "queued" | "running" | "success" | "error" | "canceled";
+
+export interface LatexCompileRequest {
+  compiler?: LatexCompiler;
+  main_file_id?: string | null;
+  stop_on_first_error?: boolean;
+  auto?: boolean;
+}
+
+export interface LatexBuildError {
+  path?: string | null;
+  line?: number | null;
+  message: string;
+  severity: "error" | "warning";
+}
+
+export interface LatexLogItem {
+  severity: "error" | "warning";
+  file?: string | null;
+  line?: number | null;
+  message: string;
+  raw: string;
+}
+
+export interface LatexBuildResponse {
+  build_id: string;
+  project_id: string;
+  folder_id: string;
+  main_file_id?: string | null;
+  compiler: LatexCompiler;
+  status: LatexBuildStatus;
+  created_at: string;
+  started_at?: string | null;
+  finished_at?: string | null;
+  exit_code?: number | null;
+  error_message?: string | null;
+  pdf_ready: boolean;
+  log_ready: boolean;
+  errors: LatexBuildError[];
+  log_items?: LatexLogItem[];
+}
+
+export async function initLatexProject(
+  projectId: string,
+  request: LatexInitRequest
+): Promise<LatexInitResponse> {
+  const res = await apiClient.post<LatexInitResponse>(
+    `/api/v1/projects/${projectId}/latex/init`,
+    request
+  );
+  return res.data;
+}
+
+export async function compileLatex(
+  projectId: string,
+  folderId: string,
+  request: LatexCompileRequest
+): Promise<LatexBuildResponse> {
+  const res = await apiClient.post<LatexBuildResponse>(
+    `/api/v1/projects/${projectId}/latex/${folderId}/compile`,
+    request
+  );
+  return res.data;
+}
+
+export async function getLatexBuild(
+  projectId: string,
+  folderId: string,
+  buildId: string
+): Promise<LatexBuildResponse> {
+  const res = await apiClient.get<LatexBuildResponse>(
+    `/api/v1/projects/${projectId}/latex/${folderId}/builds/${buildId}`
+  );
+  return res.data;
+}
+
+export async function listLatexBuilds(
+  projectId: string,
+  folderId: string,
+  limit = 10
+): Promise<LatexBuildResponse[]> {
+  const res = await apiClient.get<LatexBuildResponse[]>(
+    `/api/v1/projects/${projectId}/latex/${folderId}/builds`,
+    { params: { limit } }
+  );
+  return Array.isArray(res.data) ? res.data : [];
+}
+
+export async function getLatexBuildPdfBlob(
+  projectId: string,
+  folderId: string,
+  buildId: string
+): Promise<Blob> {
+  const res = await apiClient.get(
+    `/api/v1/projects/${projectId}/latex/${folderId}/builds/${buildId}/pdf`,
+    { responseType: "blob" }
+  );
+  return res.data as Blob;
+}
+
+export async function getLatexBuildLogText(
+  projectId: string,
+  folderId: string,
+  buildId: string
+): Promise<string> {
+  const res = await apiClient.get(
+    `/api/v1/projects/${projectId}/latex/${folderId}/builds/${buildId}/log`,
+    { responseType: "text" }
+  );
+  return String(res.data ?? "");
+}
+
+export async function getLatexSourcesArchiveBlob(
+  projectId: string,
+  folderId: string
+): Promise<Blob> {
+  const res = await apiClient.get(
+    `/api/v1/projects/${projectId}/latex/${folderId}/archive`,
+    { responseType: "blob" }
+  );
+  return res.data as Blob;
+}

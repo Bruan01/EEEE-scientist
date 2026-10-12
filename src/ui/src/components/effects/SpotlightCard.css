@@ -1,0 +1,81 @@
+/* SpotlightCard 聚光灯卡片效果 */
+
+.spotlight-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+
+  /* CSS变量,由JS动态更新 */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(14, 165, 233, 0.15);
+}
+
+/* 聚光灯层 - 使用伪元素避免影响内容 */
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    var(--spotlight-color),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* hover时显示聚光灯 */
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* 确保内容在聚光灯之上 */
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* 禁用状态 */
+.spotlight-disabled::before {
+  display: none;
+}
+
+/* 针对任务卡片的特殊样式 */
+.spotlight-card.task-card-spotlight {
+  --spotlight-color: rgba(14, 165, 233, 0.12);
+}
+
+/* 针对统计卡片的特殊样式 */
+.spotlight-card.stats-card-spotlight {
+  --spotlight-color: rgba(37, 99, 235, 0.1);
+}
+
+/* 针对成功状态的聚光灯 */
+.spotlight-card.success-spotlight {
+  --spotlight-color: rgba(16, 185, 129, 0.15);
+}
+
+/* 针对警告状态的聚光灯 */
+.spotlight-card.warning-spotlight {
+  --spotlight-color: rgba(245, 158, 11, 0.15);
+}
+
+/* 响应式: 移动设备禁用聚光灯效果(性能考虑) */
+@media (max-width: 768px) {
+  .spotlight-card::before {
+    display: none;
+  }
+}
+
+/* 减少动画首选项的用户 */
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card::before {
+    transition: none;
+  }
+}

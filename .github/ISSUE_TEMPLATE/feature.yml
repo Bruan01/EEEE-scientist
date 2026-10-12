@@ -1,0 +1,54 @@
+name: Feature request
+description: Propose a new capability, workflow improvement, connector enhancement, or UX change.
+title: "[Feature]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for new capabilities or meaningful workflow improvements.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user workflow or limitation are you trying to improve?
+      placeholder: Lingzhu setup is too complex and exposes too many fields that ordinary users do not need.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the change you want to see.
+      placeholder: Replace the multi-step Lingzhu setup with a single generated popup and one save action.
+    validations:
+      required: true
+  - type: textarea
+    id: user_impact
+    attributes:
+      label: User-facing impact
+      description: Who benefits, and how?
+      placeholder: New users can complete Lingzhu binding without editing host, port, or debug fields.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List any alternatives or rejected options if relevant.
+    validations:
+      required: false
+  - type: textarea
+    id: scope
+    attributes:
+      label: Expected scope
+      description: Which files or subsystems are likely to change?
+      placeholder: UI settings flow, connector config normalization, docs, and tests.
+    validations:
+      required: false
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility or migration concerns
+      description: Mention any API, config, or behavior compatibility impact.
+    validations:
+      required: false

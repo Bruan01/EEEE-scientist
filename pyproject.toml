@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deepscientist"
+version = "1.6.0"
+description = "DeepScientist Core skeleton"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [
+  { name = "OpenAI Codex" }
+]
+dependencies = [
+  "cryptography>=42,<46",
+  "httpx[socks]>=0.27,<1",
+  "lark-oapi>=1.5,<2",
+  "mcp>=1.19,<2",
+  "Pillow>=10,<12",
+  "PyYAML>=6,<7",
+  "rich>=14,<15",
+  "textual>=0.80,<1",
+  "websockets>=15,<16"
+]
+
+[project.optional-dependencies]
+acp = [
+  "agent-client-protocol>=0.8,<1",
+]
+
+[project.scripts]
+ds = "deepscientist.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["deepscientist", "deepscientist.*"]
+namespaces = false

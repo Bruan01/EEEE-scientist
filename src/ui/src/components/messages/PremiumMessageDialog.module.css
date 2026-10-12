@@ -1,0 +1,170 @@
+.card {
+  --ds-broadcast-text: #111111;
+
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--ds-broadcast-text);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.16);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(0, 0, 0, 0.04) 0%,
+    rgba(0, 0, 0, 0) 36%,
+    rgba(0, 0, 0, 0.03) 100%
+  );
+}
+
+.card :global(button.absolute.right-4.top-4) {
+  z-index: 80;
+  pointer-events: auto;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ds-broadcast-text);
+}
+
+.card :global(button.absolute.right-4.top-4:hover) {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.title {
+  color: var(--ds-broadcast-text);
+}
+
+.content {
+  color: var(--ds-broadcast-text);
+}
+
+.contentPanel {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.levelBadge {
+  border-color: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.04);
+  color: var(--ds-broadcast-text);
+}
+
+.footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 0 0 22px 22px;
+}
+
+.primaryButton {
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: #111111;
+  color: #ffffff;
+}
+
+.primaryButton:hover {
+  background: #000000;
+}
+
+.secondaryButton {
+  border: 1px solid rgba(0, 0, 0, 0.14);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--ds-broadcast-text);
+}
+
+.secondaryButton:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.outlineButton {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--ds-broadcast-text);
+}
+
+.outlineButton:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.markdown {
+  color: var(--ds-broadcast-text);
+}
+
+@media (prefers-color-scheme: dark) {
+  .card {
+    --ds-broadcast-text: #f3f3f3;
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(13, 13, 13, 0.95);
+    box-shadow: 0 20px 52px rgba(0, 0, 0, 0.56);
+  }
+
+  .card::before {
+    background: linear-gradient(
+      160deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0) 36%,
+      rgba(255, 255, 255, 0.05) 100%
+    );
+  }
+
+  .card :global(button.absolute.right-4.top-4) {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--ds-broadcast-text);
+  }
+
+  .card :global(button.absolute.right-4.top-4:hover) {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .contentPanel {
+    border-color: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .levelBadge {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--ds-broadcast-text);
+  }
+
+  .footer {
+    border-top-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .primaryButton {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: #ffffff;
+    color: #111111;
+  }
+
+  .primaryButton:hover {
+    background: rgba(255, 255, 255, 0.88);
+  }
+
+  .secondaryButton {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--ds-broadcast-text);
+  }
+
+  .secondaryButton:hover {
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .outlineButton {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--ds-broadcast-text);
+  }
+
+  .outlineButton:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}

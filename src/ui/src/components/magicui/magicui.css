@@ -1,0 +1,49 @@
+.magicui-border-beam {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(
+    from 0deg,
+    rgba(124, 126, 161, 0.2),
+    rgba(186, 196, 188, 0.6),
+    rgba(255, 245, 223, 0.4),
+    rgba(124, 126, 161, 0.2)
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: magicui-border-spin 6s linear infinite;
+}
+
+@keyframes magicui-border-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.magicui-grid-pattern {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  opacity: 0.25;
+  animation: magicui-grid-shift 28s ease-in-out infinite;
+  mix-blend-mode: soft-light;
+}
+
+@keyframes magicui-grid-shift {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 40px 60px;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}

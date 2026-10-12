@@ -1,0 +1,31 @@
+name: Documentation issue
+description: Report missing, outdated, incorrect, or unclear documentation.
+title: "[Docs]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for documentation problems or documentation requests.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Documentation problem
+      description: What is wrong, missing, or unclear?
+      placeholder: The Lingzhu guide still describes a multi-step setup after the UI was simplified.
+    validations:
+      required: true
+  - type: textarea
+    id: location
+    attributes:
+      label: Affected document or location
+      description: Provide paths, sections, or screenshots if possible.
+      placeholder: docs/zh/04_LINGZHU_CONNECTOR_GUIDE.md
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Suggested fix
+      description: Describe the update you expect.
+    validations:
+      required: false

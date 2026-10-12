@@ -1,0 +1,35 @@
+.areaHighlight {
+  border: 1px solid rgba(120, 109, 87, 0.6);
+  background-color: rgba(214, 204, 182, 0.2);
+  opacity: 1;
+  mix-blend-mode: multiply;
+}
+
+.part {
+  cursor: pointer;
+  position: absolute;
+  border: 1px solid transparent;
+  box-sizing: border-box;
+  background: rgba(214, 204, 182, 0.24);
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.scrolledTo .part {
+  border-color: rgba(138, 120, 78, 0.95);
+  box-shadow:
+    inset 0 0 0 1px rgba(138, 120, 78, 0.3),
+    0 0 0 2px rgba(138, 120, 78, 0.22);
+  background: rgba(214, 204, 182, 0.32);
+}
+
+.focused .part {
+  border-color: rgba(128, 107, 62, 0.96);
+  border-width: 2px;
+  box-shadow:
+    inset 0 0 0 1px rgba(128, 107, 62, 0.34),
+    0 0 0 2px rgba(128, 107, 62, 0.26);
+  background: rgba(214, 204, 182, 0.35);
+}

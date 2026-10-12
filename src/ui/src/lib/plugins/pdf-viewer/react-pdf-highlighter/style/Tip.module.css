@@ -1,0 +1,48 @@
+.tip {
+  transform-origin: top left;
+}
+
+@keyframes tip-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(6px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes tip-slide {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes tip-fade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tipNote {
+  animation: tip-pop 160ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tipQuestion {
+  animation: tip-slide 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.tipTask {
+  animation: tip-fade 180ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}

@@ -1,0 +1,6 @@
+.scramble-text {
+  display: inline-block;
+  font-family: 'Courier New', 'Monaco', monospace;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+}

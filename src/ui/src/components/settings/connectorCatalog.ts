@@ -1,0 +1,851 @@
+import type { ComponentType } from 'react'
+
+import { connectorBrandIcons } from './connectorBrandIcons'
+
+export type ConnectorName = 'qq' | 'weixin' | 'telegram' | 'discord' | 'slack' | 'feishu' | 'whatsapp' | 'lingzhu'
+
+export type ConnectorFieldKind = 'text' | 'password' | 'url' | 'boolean' | 'select' | 'list'
+
+export type ConnectorField = {
+  key: string
+  label: string
+  kind: ConnectorFieldKind
+  readOnly?: boolean
+  placeholder?: string
+  description: string
+  whereToGet: string
+  docUrl?: string
+  options?: Array<{ label: string; value: string }>
+}
+
+export type ConnectorSection = {
+  id: string
+  title: string
+  description: string
+  fields: ConnectorField[]
+  variant?: 'primary' | 'legacy'
+}
+
+export type ConnectorCatalogEntry = {
+  name: ConnectorName
+  label: string
+  subtitle: string
+  icon: ComponentType<{ className?: string }>
+  portalLabel: string
+  portalUrl: string
+  deliveryNote: string
+  sections: ConnectorSection[]
+}
+
+const commonAccessFields: ConnectorField[] = [
+  {
+    key: 'dm_policy',
+    label: 'Direct chat policy',
+    kind: 'select',
+    description: 'Controls whether direct messages auto-pair, require allowlists, or stay disabled.',
+    whereToGet: 'Choose the access mode that matches your team policy.',
+    options: [
+      { label: 'Pairing', value: 'pairing' },
+      { label: 'Allowlist', value: 'allowlist' },
+      { label: 'Open', value: 'open' },
+      { label: 'Disabled', value: 'disabled' },
+    ],
+  },
+  {
+    key: 'allow_from',
+    label: 'Direct allowlist',
+    kind: 'list',
+    placeholder: 'user-a, user-b, *',
+    description: 'Comma-separated sender ids allowed to message the bot directly.',
+    whereToGet: 'Use platform user ids captured from runtime activity, or `*` for open mode.',
+  },
+  {
+    key: 'group_policy',
+    label: 'Group policy',
+    kind: 'select',
+    description: 'Controls whether group chats are allowlisted, open, or disabled.',
+    whereToGet: 'Choose the access mode that matches your group rollout plan.',
+    options: [
+      { label: 'Allowlist', value: 'allowlist' },
+      { label: 'Open', value: 'open' },
+      { label: 'Disabled', value: 'disabled' },
+    ],
+  },
+  {
+    key: 'group_allow_from',
+    label: 'Group allowlist',
+    kind: 'list',
+    placeholder: 'group-user-a, group-user-b',
+    description: 'Comma-separated sender ids allowed inside groups.',
+    whereToGet: 'Use sender ids captured from connector runtime activity.',
+  },
+  {
+    key: 'groups',
+    label: 'Group ids',
+    kind: 'list',
+    placeholder: 'group-1, group-2',
+    description: 'Comma-separated target group ids for allowlist mode.',
+    whereToGet: 'Copy the chat or channel ids from the platform admin console, or select from discovered targets after the first message.',
+  },
+  {
+    key: 'auto_bind_dm_to_active_quest',
+    label: 'Auto-bind DM to active project',
+    kind: 'boolean',
+    description: 'If enabled, direct messages can automatically attach to the current active project.',
+    whereToGet: 'Enable when 1:1 chats should continue the latest active project by default.',
+  },
+]
+
+export const connectorCatalog: ConnectorCatalogEntry[] = [
+  {
+    name: 'telegram',
+    label: 'Telegram',
+    subtitle: 'Best for direct bot chats. Preferred runtime path is long polling, not public webhooks.',
+    icon: connectorBrandIcons.telegram,
+    portalLabel: 'Telegram Bot docs',
+    portalUrl: 'https://core.telegram.org/bots',
+    deliveryNote: 'Active send tests use `getMe` and direct Bot API sends when `bot_token` is configured.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'Prefer long polling so Telegram can work without a public callback URL.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'polling',
+            description: 'Telegram now always uses the built-in polling runtime.',
+            whereToGet: 'No change needed. Telegram no longer exposes webhook or relay setup in Settings.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Display name used by your local runtime.',
+            whereToGet: 'Choose the alias shown in messages and connector cards.',
+          },
+          {
+            key: 'bot_token',
+            label: 'Bot token',
+            kind: 'password',
+            placeholder: '123456:ABCDEF...',
+            description: 'Telegram Bot token used for long polling, identity checks, and outbound sends.',
+            whereToGet: 'Create or reset it in BotFather.',
+            docUrl: 'https://core.telegram.org/bots/tutorial',
+          },
+          {
+            key: 'command_prefix',
+            label: 'Command prefix',
+            kind: 'text',
+            placeholder: '/',
+            description: 'Prefix used for connector-side commands such as `/use` or `/status`.',
+            whereToGet: 'Usually keep `/` to match the web and TUI command surface.',
+          },
+          {
+            key: 'require_mention_in_groups',
+            label: 'Require mention in groups',
+            kind: 'boolean',
+            description: 'Only process group messages that explicitly mention the bot.',
+            whereToGet: 'Enable to reduce accidental trigger noise in shared groups.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Access control',
+        description: 'Who can talk to the bot directly or in groups.',
+        fields: commonAccessFields,
+      },
+    ],
+  },
+  {
+    name: 'discord',
+    label: 'Discord',
+    subtitle: 'Preferred runtime path is Gateway + REST, not public interaction callbacks.',
+    icon: connectorBrandIcons.discord,
+    portalLabel: 'Discord Developer Portal',
+    portalUrl: 'https://discord.com/developers/applications',
+    deliveryNote: 'Direct readiness checks use `users/@me`; runtime target discovery will come from gateway activity.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'Prefer Gateway mode so Discord can run without a public interactions endpoint.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'gateway',
+            description: 'Discord now always uses the built-in Gateway runtime.',
+            whereToGet: 'No change needed. Discord no longer exposes public interaction callbacks or relay setup in Settings.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Display name used by the local runtime.',
+            whereToGet: 'Choose the local alias shown in the workspace and connector cards.',
+          },
+          {
+            key: 'bot_token',
+            label: 'Bot token',
+            kind: 'password',
+            placeholder: 'discord-bot-token',
+            description: 'Bot token used for gateway auth, identity checks, and outbound sending.',
+            whereToGet: 'Copy it from the Bot tab in the Discord Developer Portal.',
+            docUrl: 'https://discord.com/developers/applications',
+          },
+          {
+            key: 'application_id',
+            label: 'Application ID',
+            kind: 'text',
+            placeholder: '1234567890',
+            description: 'Application or client id of the Discord bot.',
+            whereToGet: 'Copy it from General Information in the developer portal.',
+            docUrl: 'https://discord.com/developers/applications',
+          },
+          {
+            key: 'guild_allowlist',
+            label: 'Guild allowlist',
+            kind: 'list',
+            placeholder: 'guild-1, guild-2',
+            description: 'Optional comma-separated guild ids that are allowed to use the bot.',
+            whereToGet: 'Copy guild ids from Discord developer mode or from runtime discovery.',
+          },
+          {
+            key: 'require_mention_in_groups',
+            label: 'Require mention in groups',
+            kind: 'boolean',
+            description: 'Only respond when the bot is mentioned in guild channels.',
+            whereToGet: 'Enable for safer group collaboration.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Access control',
+        description: 'Configure DM and group-style policies.',
+        fields: commonAccessFields,
+      },
+    ],
+  },
+  {
+    name: 'slack',
+    label: 'Slack',
+    subtitle: 'Preferred runtime path is Socket Mode, which avoids public event callbacks.',
+    icon: connectorBrandIcons.slack,
+    portalLabel: 'Slack App dashboard',
+    portalUrl: 'https://api.slack.com/apps',
+    deliveryNote: 'Readiness checks use `auth.test`; Socket Mode additionally needs the App Token.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'Prefer Socket Mode so Slack can run without a public callback URL.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'socket_mode',
+            description: 'Slack now always uses the built-in Socket Mode runtime.',
+            whereToGet: 'No change needed. Slack no longer exposes callback or relay setup in Settings.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Local display name for Slack connector messages.',
+            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+          },
+          {
+            key: 'bot_token',
+            label: 'Bot token',
+            kind: 'password',
+            placeholder: 'xoxb-...',
+            description: 'Bot user OAuth token used for Socket Mode and direct API access.',
+            whereToGet: 'Install the app and copy the Bot User OAuth Token from your Slack app.',
+            docUrl: 'https://api.slack.com/apps',
+          },
+          {
+            key: 'app_token',
+            label: 'App token',
+            kind: 'password',
+            placeholder: 'xapp-...',
+            description: 'App-Level token used by Socket Mode so Slack can push events without a public URL.',
+            whereToGet: 'Create it under Basic Information → App-Level Tokens.',
+            docUrl: 'https://api.slack.com/apps',
+          },
+          {
+            key: 'bot_user_id',
+            label: 'Bot user id',
+            kind: 'text',
+            placeholder: 'U012345',
+            description: 'Optional bot user id used for mention filtering or routing.',
+            whereToGet: 'Read it from `auth.test` or from the Slack app installation metadata.',
+          },
+          {
+            key: 'command_prefix',
+            label: 'Command prefix',
+            kind: 'text',
+            placeholder: '/',
+            description: 'Prefix used for connector-side commands.',
+            whereToGet: 'Usually keep `/` to match the TUI and web commands.',
+          },
+          {
+            key: 'require_mention_in_groups',
+            label: 'Require mention in groups',
+            kind: 'boolean',
+            description: 'Only react to channel messages that mention the bot.',
+            whereToGet: 'Recommended in shared Slack channels.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Access control',
+        description: 'Configure DM and channel access rules.',
+        fields: commonAccessFields,
+      },
+    ],
+  },
+  {
+    name: 'feishu',
+    label: 'Feishu / Lark',
+    subtitle: 'Preferred runtime path is long connection, without public callbacks.',
+    icon: connectorBrandIcons.feishu,
+    portalLabel: 'Feishu Open Platform',
+    portalUrl: 'https://open.feishu.cn/app',
+    deliveryNote: 'Readiness checks use tenant token exchange for the built-in long connection runtime.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'Prefer long connection so Feishu can work without a public callback URL when supported by the app type.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'long_connection',
+            description: 'Feishu now always uses the built-in long connection runtime.',
+            whereToGet: 'No change needed. Feishu no longer exposes webhook or relay setup in Settings.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Local display name for the Feishu connector.',
+            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+          },
+          {
+            key: 'app_id',
+            label: 'App ID',
+            kind: 'text',
+            placeholder: 'cli_xxx',
+            description: 'Internal app id used for tenant token exchange and long-connection setup.',
+            whereToGet: 'Copy from your Feishu or Lark app credentials page.',
+            docUrl: 'https://open.feishu.cn/app',
+          },
+          {
+            key: 'app_secret',
+            label: 'App secret',
+            kind: 'password',
+            placeholder: 'app-secret',
+            description: 'Secret used for token exchange and app authentication.',
+            whereToGet: 'Copy from your Feishu or Lark app credentials page.',
+            docUrl: 'https://open.feishu.cn/app',
+          },
+          {
+            key: 'api_base_url',
+            label: 'API base URL',
+            kind: 'url',
+            placeholder: 'https://open.feishu.cn',
+            description: 'Base URL for direct Feishu API calls.',
+            whereToGet: 'Normally keep the default Feishu Open Platform host.',
+            docUrl: 'https://open.feishu.cn/app',
+          },
+          {
+            key: 'require_mention_in_groups',
+            label: 'Require mention in groups',
+            kind: 'boolean',
+            description: 'Only process group messages that mention the bot.',
+            whereToGet: 'Recommended for noisy team chats.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Access control',
+        description: 'Control who can talk to the bot in direct and group chats.',
+        fields: commonAccessFields,
+      },
+    ],
+  },
+  {
+    name: 'whatsapp',
+    label: 'WhatsApp',
+    subtitle: 'Preferred runtime path is a local session stored on this machine.',
+    icon: connectorBrandIcons.whatsapp,
+    portalLabel: 'WhatsApp Cloud API docs',
+    portalUrl: 'https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/',
+    deliveryNote: 'Local-session is the required runtime path. DeepScientist stores auth state in the configured session directory.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'Prefer local session mode so WhatsApp can work without a public callback URL.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'local_session',
+            description: 'WhatsApp now always uses the built-in local session runtime.',
+            whereToGet: 'No change needed. WhatsApp no longer exposes Meta Cloud or relay setup in Settings.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Local display name used by the WhatsApp connector.',
+            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+          },
+          {
+            key: 'auth_method',
+            label: 'Auth method',
+            kind: 'select',
+            description: 'Preferred local-session auth flow.',
+            whereToGet: 'Use QR in browser by default; switch to pairing code on headless machines.',
+            options: [
+              { label: 'QR browser', value: 'qr_browser' },
+              { label: 'Pairing code', value: 'pairing_code' },
+              { label: 'QR terminal', value: 'qr_terminal' },
+            ],
+          },
+          {
+            key: 'session_dir',
+            label: 'Session directory',
+            kind: 'text',
+            placeholder: '~/.deepscientist/connectors/whatsapp',
+            description: 'Directory where the local WhatsApp auth/session state is stored.',
+            whereToGet: 'Keep the default unless you intentionally isolate sessions elsewhere.',
+          },
+          {
+            key: 'command_prefix',
+            label: 'Command prefix',
+            kind: 'text',
+            placeholder: '/',
+            description: 'Prefix used for `/use`, `/status`, and related commands.',
+            whereToGet: 'Usually keep `/` so WhatsApp matches the web and TUI command surface.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Access control',
+        description: 'Control direct and group delivery rules.',
+        fields: commonAccessFields,
+      },
+    ],
+  },
+  {
+    name: 'qq',
+    label: 'QQ',
+    subtitle: 'Official QQ bot workflow through the built-in gateway direct connection.',
+    icon: connectorBrandIcons.qq,
+    portalLabel: 'Tencent QQ Bot Platform',
+    portalUrl: 'https://bot.q.qq.com/',
+    deliveryNote: 'Readiness checks exchange `access_token`, probe `/gateway`, and can actively send when you provide a user `openid` or group `group_openid`.',
+    sections: [
+      {
+        id: 'identity',
+        title: 'Native runtime',
+        description: 'QQ already uses the preferred no-callback path through the built-in gateway direct connection.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'gateway_direct',
+            description: 'QQ transport is fixed to the built-in gateway direct mode.',
+            whereToGet: 'No change needed. QQ does not require a public callback URL in this runtime.',
+          },
+          {
+            key: 'bot_name',
+            label: 'Bot name',
+            kind: 'text',
+            placeholder: 'DeepScientist',
+            description: 'Display name used by the QQ connector in DeepScientist.',
+            whereToGet: 'Choose the alias shown in the workspace and connector cards.',
+          },
+          {
+            key: 'app_id',
+            label: 'App ID',
+            kind: 'text',
+            placeholder: 'qq-app-id',
+            description: 'Tencent app id for the QQ bot.',
+            whereToGet: 'Copy it from the QQ bot platform console.',
+            docUrl: 'https://bot.q.qq.com/',
+          },
+          {
+            key: 'app_secret',
+            label: 'App secret',
+            kind: 'password',
+            placeholder: 'qq-app-secret',
+            description: 'Used for QQ access token exchange and direct API delivery.',
+            whereToGet: 'Copy it from the QQ bot platform console.',
+            docUrl: 'https://cloud.tencent.com.cn/developer/article/2635190',
+          },
+          {
+            key: 'main_chat_id',
+            label: 'Detected OpenID',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'openid-or-group_openid',
+            description: 'This value is auto-filled after a QQ user sends the bot the first private message.',
+            whereToGet: 'Save `app_id` + `app_secret`, then send one private QQ message to the bot. The system will detect and save the `openid` automatically.',
+          },
+        ],
+      },
+      {
+        id: 'transport',
+        title: 'Gateway behavior',
+        description: 'QQ only uses the built-in gateway direct connection in DeepScientist.',
+        fields: [
+          {
+            key: 'require_at_in_groups',
+            label: 'Require @ mention in groups',
+            kind: 'boolean',
+            description: 'Only process group messages when the bot is @mentioned.',
+            whereToGet: 'Recommended for large QQ groups.',
+          },
+          {
+            key: 'gateway_restart_on_config_change',
+            label: 'Restart gateway on config change',
+            kind: 'boolean',
+            description: 'Restart the local QQ gateway worker after credentials or target settings change.',
+            whereToGet: 'Keep this enabled so the daemon reconnects cleanly after QQ settings updates.',
+          },
+          {
+            key: 'command_prefix',
+            label: 'Command prefix',
+            kind: 'text',
+            placeholder: '/',
+            description: 'Prefix used for `/use`, `/status`, `/approve`, and related commands.',
+            whereToGet: 'Usually keep `/` so QQ matches the web and TUI command surface.',
+          },
+        ],
+      },
+      {
+        id: 'access',
+        title: 'Project binding',
+        description: 'QQ is often used for long-lived operator conversations, milestone push, and project follow-up.',
+        fields: [
+          {
+            key: 'auto_bind_dm_to_active_quest',
+            label: 'Auto-bind DM to active project',
+            kind: 'boolean',
+            description: 'If enabled, private QQ chats can automatically attach to the current active project.',
+            whereToGet: 'Recommended when one operator mainly drives DeepScientist from QQ. This is enabled by default.',
+          },
+        ],
+      },
+      {
+        id: 'milestones',
+        title: 'Milestone delivery',
+        description: 'Keep QQ text-first and limit auto-media to a few high-value milestone outputs.',
+        fields: [
+          {
+            key: 'auto_send_main_experiment_png',
+            label: 'Auto-send main experiment PNG',
+            kind: 'boolean',
+            description: 'Allow one milestone summary PNG after a real main experiment finishes.',
+            whereToGet: 'Keep enabled only if QQ should receive concise experiment-summary charts automatically.',
+          },
+          {
+            key: 'auto_send_analysis_summary_png',
+            label: 'Auto-send analysis summary PNG',
+            kind: 'boolean',
+            description: 'Allow one aggregated campaign-summary PNG after a meaningful analysis campaign milestone.',
+            whereToGet: 'Enable when QQ should receive campaign-level evidence summaries, not every slice.',
+          },
+          {
+            key: 'auto_send_slice_png',
+            label: 'Auto-send per-slice PNG',
+            kind: 'boolean',
+            description: 'Allow per-slice analysis images to be pushed automatically.',
+            whereToGet: 'Usually keep this off; prefer one campaign summary image instead of slice-by-slice pushes.',
+          },
+          {
+            key: 'auto_send_paper_pdf',
+            label: 'Auto-send final paper PDF',
+            kind: 'boolean',
+            description: 'Allow the final paper PDF to be sent once when the bundle is durably ready.',
+            whereToGet: 'Enable only if QQ should receive the final paper artifact automatically.',
+          },
+          {
+            key: 'enable_markdown_send',
+            label: 'Enable QQ markdown send',
+            kind: 'boolean',
+            description: 'Allow QQ text messages to be sent with QQ markdown formatting when the agent explicitly requests it.',
+            whereToGet: 'Enable only if your QQ bot account already has markdown message capability. Otherwise keep this off and QQ will stay plain-text.',
+          },
+          {
+            key: 'enable_file_upload_experimental',
+            label: 'Enable experimental file upload',
+            kind: 'boolean',
+            description: 'Turn on the experimental QQ native upload path for selected images or files.',
+            whereToGet: 'Enable when you want the agent to selectively send native QQ images or files instead of only plain-text attachment paths.',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'weixin',
+    label: 'WeChat',
+    subtitle: 'Built-in Weixin iLink long polling with QR login and runtime-managed reply continuity.',
+    icon: connectorBrandIcons.weixin,
+    portalLabel: 'Weixin iLink API',
+    portalUrl: 'https://www.npmjs.com/package/@tencent-weixin/openclaw-weixin',
+    deliveryNote: 'Click bind once, scan the QR code with WeChat, and DeepScientist will save the connector automatically after confirmation.',
+    sections: [],
+  },
+  {
+    name: 'lingzhu',
+    label: 'Lingzhu (Rokid Glasses)',
+    subtitle: 'Rokid Lingzhu endpoint hosted directly by DeepScientist and exposed through `/metis/agent/api`.',
+    icon: connectorBrandIcons.lingzhu,
+    portalLabel: 'Rokid developer forum',
+    portalUrl: 'https://forum.rokid.com/post/detail/2831',
+    deliveryNote:
+      'DeepScientist auto-generates the Rokid binding values from the current web address. Users only need to copy the generated fields and save once. Real Lingzhu access still requires a public IP or public domain.',
+    sections: [
+      {
+        id: 'endpoint',
+        title: 'Gateway endpoint',
+        description:
+          'DeepScientist now hosts the Lingzhu-compatible routes itself. These fields control the local and public addresses advertised to Rokid.',
+        fields: [
+          {
+            key: 'transport',
+            label: 'Transport',
+            kind: 'text',
+            readOnly: true,
+            placeholder: 'openclaw_sse',
+            description: 'Lingzhu transport is fixed to the built-in OpenClaw SSE companion mode.',
+            whereToGet: 'No change needed. Keep the generated transport value as-is.',
+          },
+          {
+            key: 'local_host',
+            label: 'Local host',
+            kind: 'text',
+            placeholder: '127.0.0.1',
+            description: 'Host used by DeepScientist when it probes its own Lingzhu routes on this machine.',
+            whereToGet: 'Usually keep `127.0.0.1` unless the local DeepScientist daemon is reachable on another host name.',
+          },
+          {
+            key: 'gateway_port',
+            label: 'Gateway port',
+            kind: 'text',
+            placeholder: '18789',
+            description: 'Port used to build the DeepScientist Lingzhu health and SSE URLs.',
+            whereToGet: 'Use the same public-facing DeepScientist port that serves the web page or reverse proxy. The wizard usually auto-fills this for you.',
+          },
+          {
+            key: 'public_base_url',
+            label: 'Public base URL',
+            kind: 'url',
+            placeholder: 'http://<public-ip>:18789',
+            description: 'Publicly reachable DeepScientist base URL that Rokid devices can actually access.',
+            whereToGet: 'Fill your final public DeepScientist IP or domain here. `127.0.0.1` is not reachable from the glasses.',
+            docUrl: 'https://forum.rokid.com/post/detail/2831',
+          },
+        ],
+      },
+      {
+        id: 'auth',
+        title: 'Auth and identity',
+        description: 'These values are generated by DeepScientist and are pasted into the Rokid platform.',
+        fields: [
+          {
+            key: 'auth_ak',
+            label: 'Auth AK',
+            kind: 'password',
+            placeholder: '8-4-4-4-12 segmented token',
+            description: 'Bearer token used by Lingzhu when calling the SSE endpoint.',
+            whereToGet:
+              'Generate it in this page, then paste the same value into the Rokid platform. If you still keep an OpenClaw sidecar, reuse the same token there too.',
+          },
+          {
+            key: 'agent_id',
+            label: 'Agent ID',
+            kind: 'text',
+            placeholder: 'main',
+            description: 'Lingzhu agent id advertised by DeepScientist for compatibility.',
+            whereToGet: 'Keep `main` unless your Rokid or compatibility deployment expects a different agent id.',
+          },
+          {
+            key: 'system_prompt',
+            label: 'Lingzhu system prompt',
+            kind: 'text',
+            placeholder: 'You are deployed on Rokid glasses.',
+            description: 'Optional extra system prompt appended to the built-in Lingzhu short-reply contract.',
+            whereToGet: 'Fill only when you need extra device-specific guidance beyond the default short-response rules.',
+          },
+        ],
+      },
+      {
+        id: 'behavior',
+        title: 'Bridge behavior',
+        description: 'Tune request timing, short-response delivery, and compatibility with the Lingzhu session model.',
+        fields: [
+          {
+            key: 'include_metadata',
+            label: 'Include metadata',
+            kind: 'boolean',
+            description: 'Pass Lingzhu metadata such as time, location, or battery to the bridge.',
+            whereToGet: 'Keep enabled unless you intentionally want a minimal request payload.',
+          },
+          {
+            key: 'request_timeout_ms',
+            label: 'Request timeout (ms)',
+            kind: 'text',
+            placeholder: '60000',
+            description: 'Maximum wait time before DeepScientist falls back to a short status and lets the next Lingzhu poll replay buffered output.',
+            whereToGet: 'Usually keep `60000` to `120000`. Increase it when upstream research turns are slower and the glasses should wait longer before polling again.',
+          },
+          {
+            key: 'default_navigation_mode',
+            label: 'Default navigation mode',
+            kind: 'select',
+            description: 'Fallback navigation mode used when the model does not specify one.',
+            whereToGet: 'Use `0` for driving, `1` for walking, or `2` for cycling.',
+            options: [
+              { label: 'Drive (0)', value: '0' },
+              { label: 'Walk (1)', value: '1' },
+              { label: 'Cycle (2)', value: '2' },
+            ],
+          },
+          {
+            key: 'enable_follow_up',
+            label: 'Enable follow-up',
+            kind: 'boolean',
+            description: 'Allow the Lingzhu bridge to generate follow-up suggestions after normal answers.',
+            whereToGet: 'Keep enabled unless you want the device UI to stay minimal.',
+          },
+          {
+            key: 'follow_up_max_count',
+            label: 'Follow-up max count',
+            kind: 'text',
+            placeholder: '3',
+            description: 'Maximum number of follow-up suggestions returned by the bridge.',
+            whereToGet: 'Use a small number such as `3` to keep the device UI concise.',
+          },
+          {
+            key: 'session_mode',
+            label: 'Session mode',
+            kind: 'select',
+            description: 'How the Lingzhu bridge keeps device-side conversation continuity.',
+            whereToGet: 'Use `per_user` for the most common one-user-one-thread setup.',
+            options: [
+              { label: 'Per user', value: 'per_user' },
+              { label: 'Shared agent', value: 'shared_agent' },
+              { label: 'Per message', value: 'per_message' },
+            ],
+          },
+          {
+            key: 'session_namespace',
+            label: 'Session namespace',
+            kind: 'text',
+            placeholder: 'lingzhu',
+            description: 'Session-key prefix used by the bridge when building OpenClaw session ids.',
+            whereToGet: 'Keep `lingzhu` unless you intentionally run multiple Lingzhu bridges side-by-side.',
+          },
+          {
+            key: 'auto_receipt_ack',
+            label: 'Auto receipt acknowledgement',
+            kind: 'boolean',
+            description: 'Emit one immediate bridge-level visible acknowledgement before the model starts generating.',
+            whereToGet: 'Keep this enabled so the glasses immediately show that the request was accepted, without waiting for the model to send a duplicate acknowledgement.',
+          },
+          {
+            key: 'visible_progress_heartbeat',
+            label: 'Visible progress heartbeat',
+            kind: 'boolean',
+            description: 'Emit lightweight visible progress frames during long silent upstream phases, not only SSE comment heartbeats.',
+            whereToGet: 'Recommended for Lingzhu because some platform versions handle visible answer frames more reliably than comment-only keepalives.',
+          },
+          {
+            key: 'visible_progress_heartbeat_sec',
+            label: 'Visible heartbeat interval (sec)',
+            kind: 'text',
+            placeholder: '10',
+            description: 'Minimum interval between bridge-generated visible progress frames during long-running upstream work.',
+            whereToGet: 'Use a short value such as `10` to reduce perceived stalls without flooding the glasses UI.',
+          },
+          {
+            key: 'max_image_bytes',
+            label: 'Max image bytes',
+            kind: 'text',
+            placeholder: '5242880',
+            description: 'Maximum remote-image or data-url size accepted by the bridge.',
+            whereToGet: 'Use the OpenClaw default `5242880` unless you explicitly need larger images.',
+          },
+        ],
+      },
+      {
+        id: 'advanced',
+        title: 'Advanced debug',
+        description: 'Optional debug and experimental native actions for advanced Lingzhu integration.',
+        variant: 'legacy',
+        fields: [
+          {
+            key: 'debug_logging',
+            label: 'Debug logging',
+            kind: 'boolean',
+            description: 'Write Lingzhu bridge debug logs to files.',
+            whereToGet: 'Enable only during integration or troubleshooting.',
+          },
+          {
+            key: 'debug_log_payloads',
+            label: 'Debug log payloads',
+            kind: 'boolean',
+            description: 'Include full request and response payloads in debug logs.',
+            whereToGet: 'Only enable temporarily; logs may contain sensitive content.',
+          },
+          {
+            key: 'debug_log_dir',
+            label: 'Debug log directory',
+            kind: 'text',
+            placeholder: '/path/to/logs',
+            description: 'Optional directory for Lingzhu debug logs.',
+            whereToGet: 'Leave empty to use the plugin default directory.',
+          },
+          {
+            key: 'enable_experimental_native_actions',
+            label: 'Enable experimental native actions',
+            kind: 'boolean',
+            description: 'Expose extra native actions such as notification, TTS, video recording, and custom views.',
+            whereToGet: 'Enable only when your OpenClaw side explicitly supports these experimental actions.',
+          },
+        ],
+      },
+    ],
+  },
+]

@@ -1,0 +1,573 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from deepscientist.config import ConfigManager
+from deepscientist.home import ensure_home_layout, repo_root
+from deepscientist.prompts import PromptBuilder
+from deepscientist.quest import QuestService
+from deepscientist.skills import SkillInstaller, companion_skill_ids, discover_skill_bundles, stage_skill_ids
+
+
+EXPECTED_STAGE_SKILLS = {
+    "scout",
+    "baseline",
+    "idea",
+    "optimize",
+    "experiment",
+    "analysis-campaign",
+    "write",
+    "finalize",
+    "decision",
+}
+
+EXPECTED_COMPANION_SKILLS = {
+    "paper-plot",
+    "figure-polish",
+    "intake-audit",
+    "review",
+    "rebuttal",
+    "nature-polishing",
+    "nature-data",
+    "nature-figure",
+    "nature-paper2ppt",
+    "science",
+}
+
+INTERACTION_CONTRACT_SKILLS = EXPECTED_STAGE_SKILLS | {
+    "paper-plot",
+    "intake-audit",
+    "review",
+    "rebuttal",
+    "nature-polishing",
+    "nature-data",
+    "nature-figure",
+    "nature-paper2ppt",
+}
+
+
+def test_src_stage_skills_exist_and_are_nontrivial() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in EXPECTED_STAGE_SKILLS:
+        path = root / skill_id / "SKILL.md"
+        assert path.exists(), f"missing {path}"
+        text = path.read_text(encoding="utf-8")
+        assert len(text.splitlines()) >= 40, f"{path} is unexpectedly thin"
+
+
+def test_companion_skills_exist_and_are_nontrivial() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in EXPECTED_COMPANION_SKILLS:
+        path = root / skill_id / "SKILL.md"
+        assert path.exists(), f"missing {path}"
+        text = path.read_text(encoding="utf-8")
+        assert len(text.splitlines()) >= 30, f"{path} is unexpectedly thin"
+
+
+def test_skill_discovery_prefers_src_skills() -> None:
+    bundles = discover_skill_bundles(repo_root())
+    discovered = {bundle.skill_id for bundle in bundles}
+    assert EXPECTED_STAGE_SKILLS.issubset(discovered)
+    assert EXPECTED_COMPANION_SKILLS.issubset(discovered)
+    for bundle in bundles:
+        if bundle.skill_id in EXPECTED_STAGE_SKILLS:
+            assert Path(bundle.skill_md).is_relative_to(repo_root() / "src" / "skills")
+
+
+def test_skill_role_metadata_drives_stage_and_companion_catalogs() -> None:
+    root = repo_root()
+    stage_ids = set(stage_skill_ids(root))
+    companion_ids = set(companion_skill_ids(root))
+
+    assert EXPECTED_STAGE_SKILLS.issubset(stage_ids)
+    assert EXPECTED_COMPANION_SKILLS.issubset(companion_ids)
+
+    for skill_id in EXPECTED_STAGE_SKILLS | EXPECTED_COMPANION_SKILLS:
+        text = (root / "src" / "skills" / skill_id / "SKILL.md").read_text(encoding="utf-8")
+        assert "skill_role:" in text
+
+
+def test_new_companion_skill_reference_files_exist() -> None:
+    root = repo_root() / "src" / "skills"
+    assert (root / "paper-plot" / "references" / "bar_grouped_hatch.md").exists()
+    assert (root / "paper-plot" / "references" / "line_confidence_band.md").exists()
+    assert (root / "paper-plot" / "references" / "scatter_tsne_cluster.md").exists()
+    assert (root / "paper-plot" / "scripts" / "bar_spice.py").exists()
+    assert (root / "paper-plot" / "scripts" / "line_selfdistill.py").exists()
+    assert (root / "paper-plot" / "scripts" / "scatter_tsne.py").exists()
+    assert (root / "intake-audit" / "references" / "state-audit-template.md").exists()
+    assert (root / "review" / "references" / "review-report-template.md").exists()
+    assert (root / "review" / "references" / "revision-log-template.md").exists()
+    assert (root / "review" / "references" / "experiment-todo-template.md").exists()
+    assert (root / "rebuttal" / "references" / "action-plan-template.md").exists()
+    assert (root / "rebuttal" / "references" / "evidence-update-template.md").exists()
+    assert (root / "rebuttal" / "references" / "review-matrix-template.md").exists()
+    assert (root / "rebuttal" / "references" / "response-letter-template.md").exists()
+    assert (root / "nature-data" / "references" / "fair-metadata-checklist.md").exists()
+    assert (root / "nature-data" / "references" / "statement-patterns.md").exists()
+    assert (root / "nature-figure" / "references" / "figure-contract.md").exists()
+    assert (root / "nature-figure" / "references" / "backend-selection.md").exists()
+    assert (root / "nature-polishing" / "references" / "writing-strategy.md").exists()
+    assert (root / "nature-polishing" / "references" / "style-guardrails.md").exists()
+    assert (root / "science" / "references" / "artifact-science-tool.md").exists()
+    assert (root / "science" / "references" / "package-check-playbook.md").exists()
+    assert (root / "science" / "references" / "hpc-via-bash-exec.md").exists()
+    assert (root / "science" / "references" / "science-task-brief-template.md").exists()
+    assert (root / "science" / "references" / "claim-type-discipline.md").exists()
+
+
+def test_unified_science_skill_contains_fermilink_package_catalog() -> None:
+    root = repo_root() / "src" / "skills" / "science"
+    skill_text = (root / "SKILL.md").read_text(encoding="utf-8")
+    assert "references/package-index.min.json" in skill_text
+    assert "references/packages/<package_id>.md" in skill_text
+    assert "artifact.science" in skill_text
+    assert "Do not migrate FermiLink runner" in skill_text
+    assert "not as a required `goal.md` file" in skill_text
+    assert (root / "PROVENANCE.md").exists()
+
+    catalog = json.loads((root / "references" / "package-index.min.json").read_text(encoding="utf-8"))
+    assert catalog["package_count"] == 169
+    by_id = {item["package_id"]: item for item in catalog["packages"]}
+    for package_id in ("pyscf", "lammps", "meep", "scanpy", "openmm"):
+        assert package_id in by_id
+        card = root / by_id[package_id]["card"]
+        assert card.exists(), f"missing package card for {package_id}"
+        card_text = card.read_text(encoding="utf-8")
+        assert "DeepScientist Runtime Rule" in card_text
+        assert "artifact.science" in card_text
+
+    assert "robotics_physics" not in by_id["pyscf"]["domains"]
+    assert "quantum_chemistry" not in by_id["openmm"]["domains"]
+    assert "quantum_chemistry" not in by_id["gromacs"]["domains"]
+    assert "computational_chemistry" in by_id["openmm"]["domains"]
+    assert by_id["pyscf"]["knowledge_url"] == "https://github.com/skilled-scipkg/pyscf"
+
+
+def test_science_skill_is_the_only_science_companion_skill() -> None:
+    root = repo_root()
+    skills_root = root / "src" / "skills"
+    for skill_id in ("science-artifacts", "science-run", "science-validation"):
+        assert not (skills_root / skill_id).exists()
+    assert (skills_root / "science" / "SKILL.md").exists()
+    assert not (root / "vendor").exists() or not any(
+        "fermilink" in path.name.lower()
+        for path in (root / "vendor").iterdir()
+    )
+
+
+def test_stage_plan_and_checklist_templates_exist() -> None:
+    root = repo_root() / "src" / "skills"
+    assert (root / "baseline" / "references" / "baseline-plan-template.md").exists()
+    assert (root / "baseline" / "references" / "baseline-checklist-template.md").exists()
+    assert (root / "baseline" / "references" / "artifact-payload-examples.md").exists()
+    assert (root / "baseline" / "references" / "artifact-flow-examples.md").exists()
+    assert (root / "baseline" / "references" / "boundary-cases.md").exists()
+    assert (root / "experiment" / "references" / "main-experiment-plan-template.md").exists()
+    assert (root / "experiment" / "references" / "main-experiment-checklist-template.md").exists()
+    assert (root / "analysis-campaign" / "references" / "campaign-plan-template.md").exists()
+    assert (root / "analysis-campaign" / "references" / "campaign-checklist-template.md").exists()
+    assert (root / "analysis-campaign" / "references" / "artifact-flow-examples.md").exists()
+    assert (root / "analysis-campaign" / "references" / "boundary-cases.md").exists()
+
+
+def test_write_skill_venue_templates_exist_and_sync(temp_home: Path) -> None:
+    root = repo_root() / "src" / "skills" / "write" / "templates"
+    assert (root / "README.md").exists()
+    assert (root / "DEEPSCIENTIST_NOTES.md").exists()
+    assert (root / "UPSTREAM_LICENSE.txt").exists()
+    assert (root / "iclr2026" / "iclr2026_conference.tex").exists()
+    assert (root / "icml2026" / "example_paper.tex").exists()
+    assert (root / "neurips2025" / "main.tex").exists()
+    assert (root / "acl" / "acl_latex.tex").exists()
+
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    quest = QuestService(temp_home, skill_installer=SkillInstaller(repo_root(), temp_home)).create("write template sync quest")
+    quest_root = Path(quest["quest_root"])
+
+    synced_root = quest_root / ".codex" / "skills" / "deepscientist-write" / "templates"
+    assert (synced_root / "DEEPSCIENTIST_NOTES.md").exists()
+    assert (synced_root / "iclr2026" / "iclr2026_conference.tex").exists()
+    assert (synced_root / "acl" / "acl_latex.tex").exists()
+
+
+def test_idea_skill_requires_memory_first_literature_survey() -> None:
+    idea_skill = repo_root() / "src" / "skills" / "idea" / "SKILL.md"
+    text = idea_skill.read_text(encoding="utf-8")
+    assert "memory.search(...)" in text
+    assert "arXiv" in text
+    assert "artifact.arxiv(" in text
+    assert "literature survey report" in text
+    assert "at least `5` and usually `5-10`" in text
+    assert "task-modeling-related" in text
+    assert "`5-10` usable-paper floor is durably satisfied" in text
+    assert "standard citation format" in text
+    assert "`References` or `Bibliography` section" in text
+
+    template = repo_root() / "src" / "skills" / "idea" / "references" / "literature-survey-template.md"
+    assert template.exists()
+    template_text = template.read_text(encoding="utf-8")
+    assert "hard floor of at least `5` and usually `5-10` usable papers" in template_text
+    assert "standard citation string or citation key" in template_text
+    assert "Citation-ready shortlist for the selected idea" in template_text
+
+    gate_template = repo_root() / "src" / "skills" / "idea" / "references" / "selection-gate.md"
+    gate_text = gate_template.read_text(encoding="utf-8")
+    assert "the literature survey must already durably cover at least `5` and usually `5-10` related and usable papers" in gate_text
+    assert "`references` or `bibliography` in a standard citation format" in gate_text
+
+
+def test_idea_skill_documents_objective_contract_board_packet_and_controlled_brainstorming() -> None:
+    root = repo_root() / "src" / "skills" / "idea"
+    text = (root / "SKILL.md").read_text(encoding="utf-8")
+
+    assert "## Match signals" in text
+    assert "## One-sentence summary" in text
+    assert "## Control workflow" in text
+    assert "objective contract" in text
+    assert "current board packet" in text
+    assert "mechanism-family routes" in text
+    assert "objective-family routes" in text
+    assert "measurement-family routes" in text
+    assert "infrastructure-family routes" in text
+    assert "anti-win condition" in text
+
+    objective_template = (root / "references" / "objective-contract-template.md").read_text(encoding="utf-8")
+    board_template = (root / "references" / "current-board-packet-template.md").read_text(encoding="utf-8")
+    brainstorming_playbook = (root / "references" / "controlled-brainstorming-playbook.md").read_text(encoding="utf-8")
+
+    assert "false_progress_signals" in objective_template
+    assert "stale_routes_to_ignore" in board_template
+    assert "mechanism_family" in brainstorming_playbook
+    assert "objective_family" in brainstorming_playbook
+
+
+def test_intake_audit_and_decision_skills_share_current_board_packet_handoff() -> None:
+    intake_text = (repo_root() / "src" / "skills" / "intake-audit" / "SKILL.md").read_text(encoding="utf-8")
+    decision_text = (repo_root() / "src" / "skills" / "decision" / "SKILL.md").read_text(encoding="utf-8")
+    intake_template = (
+        repo_root() / "src" / "skills" / "intake-audit" / "references" / "state-audit-template.md"
+    ).read_text(encoding="utf-8")
+
+    assert "current-board surface" in intake_text
+    assert "`current_mainline`" in intake_text
+    assert "`stale_routes_to_ignore`" in intake_text
+    assert "current board packet" in decision_text
+    assert "route through `intake-audit` first" in decision_text
+    assert "## Current Board Packet" in intake_template
+    assert "next_decision_scope" in intake_template
+
+
+def test_scout_skill_requires_memory_first_literature_report() -> None:
+    scout_skill = repo_root() / "src" / "skills" / "scout" / "SKILL.md"
+    text = scout_skill.read_text(encoding="utf-8")
+    assert "memory.search(...)" in text
+    assert "arXiv" in text
+    assert "artifact.arxiv(" in text
+    assert "literature scouting report" in text
+
+    template = repo_root() / "src" / "skills" / "scout" / "references" / "literature-scout-template.md"
+    assert template.exists()
+
+
+def test_quest_creation_syncs_enabled_stage_skills(temp_home: Path) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    quest = QuestService(temp_home, skill_installer=SkillInstaller(repo_root(), temp_home)).create("skill sync quest")
+    quest_root = Path(quest["quest_root"])
+
+    codex_skills = sorted((quest_root / ".codex" / "skills").glob("deepscientist-*"))
+    claude_skills = sorted((quest_root / ".claude" / "agents").glob("deepscientist-*.md"))
+    kimi_skills = sorted((quest_root / ".kimi" / "skills").glob("deepscientist-*"))
+    opencode_skills = sorted((quest_root / ".opencode" / "skills").glob("deepscientist-*"))
+
+    synced_codex = {path.name.removeprefix("deepscientist-") for path in codex_skills}
+    synced_claude = {path.stem.removeprefix("deepscientist-") for path in claude_skills}
+    synced_kimi = {path.name.removeprefix("deepscientist-") for path in kimi_skills}
+    synced_opencode = {path.name.removeprefix("deepscientist-") for path in opencode_skills}
+
+    assert EXPECTED_STAGE_SKILLS.issubset(synced_codex)
+    assert EXPECTED_COMPANION_SKILLS.issubset(synced_codex)
+    assert synced_claude == set()
+    assert synced_kimi == set()
+    assert synced_opencode == set()
+    assert (quest_root / ".codex" / "prompts" / "system.md").exists()
+    assert (quest_root / ".codex" / "prompts" / "contracts" / "shared_interaction.md").exists()
+    assert (quest_root / ".codex" / "prompts" / "connectors" / "qq.md").exists()
+
+
+def test_quest_creation_syncs_only_configured_enabled_runner_skills(temp_home: Path) -> None:
+    ensure_home_layout(temp_home)
+    manager = ConfigManager(temp_home)
+    manager.ensure_files()
+    runners = manager.load_runners_config()
+    for runner in runners.values():
+        if isinstance(runner, dict):
+            runner["enabled"] = False
+    runners["claude"]["enabled"] = True
+    manager.save_named_payload("runners", runners)
+
+    quest = QuestService(temp_home, skill_installer=SkillInstaller(repo_root(), temp_home)).create("claude skill sync quest")
+    quest_root = Path(quest["quest_root"])
+
+    codex_skills = sorted((quest_root / ".codex" / "skills").glob("deepscientist-*"))
+    claude_skills = sorted((quest_root / ".claude" / "agents").glob("deepscientist-*.md"))
+    kimi_skills = sorted((quest_root / ".kimi" / "skills").glob("deepscientist-*"))
+    opencode_skills = sorted((quest_root / ".opencode" / "skills").glob("deepscientist-*"))
+
+    synced_claude = {path.stem.removeprefix("deepscientist-") for path in claude_skills}
+
+    assert codex_skills == []
+    assert EXPECTED_STAGE_SKILLS.issubset(synced_claude)
+    assert EXPECTED_COMPANION_SKILLS.issubset(synced_claude)
+    assert kimi_skills == []
+    assert opencode_skills == []
+    assert (quest_root / ".codex" / "prompts" / "system.md").exists()
+
+
+def test_skill_resync_repairs_frontmatter_and_removes_stale_files(temp_home: Path) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    installer = SkillInstaller(repo_root(), temp_home)
+    quest = QuestService(temp_home, skill_installer=installer).create("skill resync quest")
+    quest_root = Path(quest["quest_root"])
+
+    installed_skill = quest_root / ".codex" / "skills" / "deepscientist-idea" / "SKILL.md"
+    stale_file = quest_root / ".codex" / "skills" / "deepscientist-idea" / "stale.tmp"
+    stale_removed_codex = quest_root / ".codex" / "skills" / "deepscientist-alpharxiv-paper-loopup"
+    stale_removed_claude = quest_root / ".claude" / "agents" / "deepscientist-alpharxiv-paper-loopup.md"
+    stale_removed_kimi = quest_root / ".kimi" / "skills" / "deepscientist-alpharxiv-paper-loopup"
+
+    installed_skill.write_text("broken skill body\n", encoding="utf-8")
+    stale_file.write_text("remove me\n", encoding="utf-8")
+    stale_removed_codex.mkdir(parents=True)
+    (stale_removed_codex / "SKILL.md").write_text("legacy skill\n", encoding="utf-8")
+    stale_removed_claude.write_text("legacy claude skill\n", encoding="utf-8")
+    stale_removed_kimi.mkdir(parents=True)
+    (stale_removed_kimi / "SKILL.md").write_text("legacy kimi skill\n", encoding="utf-8")
+
+    installer.sync_quest(quest_root)
+
+    repaired = installed_skill.read_text(encoding="utf-8")
+    assert repaired.startswith("---\n")
+    assert "name:" in repaired
+    assert not stale_file.exists()
+    assert not stale_removed_codex.exists()
+    assert stale_removed_claude.exists()
+    assert stale_removed_kimi.exists()
+
+
+def test_sync_quest_does_not_sync_disabled_runner_skills(temp_home: Path) -> None:
+    ensure_home_layout(temp_home)
+    manager = ConfigManager(temp_home)
+    manager.ensure_files()
+    runners = manager.load_runners_config()
+    for runner in runners.values():
+        if isinstance(runner, dict):
+            runner["enabled"] = False
+    runners["codex"]["enabled"] = True
+    manager.save_named_payload("runners", runners)
+
+    quest = QuestService(temp_home, skill_installer=SkillInstaller(repo_root(), temp_home)).create("disabled runner roots quest")
+    quest_root = Path(quest["quest_root"])
+
+    assert sorted((quest_root / ".codex" / "skills").glob("deepscientist-*"))
+    assert sorted((quest_root / ".claude" / "agents").glob("deepscientist-*.md")) == []
+    assert sorted((quest_root / ".kimi" / "skills").glob("deepscientist-*")) == []
+    assert sorted((quest_root / ".opencode" / "skills").glob("deepscientist-*")) == []
+
+
+def test_paper_reading_stage_skills_use_artifact_arxiv_and_legacy_skill_is_removed() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in ("baseline", "scout", "idea", "write", "finalize"):
+        text = (root / skill_id / "SKILL.md").read_text(encoding="utf-8")
+        assert "artifact.arxiv(" in text
+        assert "alpharxiv-paper-loopup" not in text
+
+    assert not (root / "alpharxiv-paper-loopup" / "SKILL.md").exists()
+
+
+def test_baseline_skill_documents_confirm_or_waive_gate() -> None:
+    text = (repo_root() / "src" / "skills" / "baseline" / "SKILL.md").read_text(encoding="utf-8")
+    assert "artifact.confirm_baseline(...)" in text
+    assert "artifact.overwrite_baseline(...)" in text
+    assert "artifact.waive_baseline(...)" in text
+    assert "do not open the downstream gate" in text
+    assert "requested_baseline_ref" in text
+    assert "verify the comparator and metric contract" in text
+
+
+def test_prompt_builder_skill_paths_only_reference_existing_files(temp_home: Path) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    quest = QuestService(temp_home, skill_installer=SkillInstaller(repo_root(), temp_home)).create("skill prompt quest")
+    builder = PromptBuilder(repo_root(), temp_home)
+
+    prompt = builder.build(
+        quest_id=quest["quest_id"],
+        skill_id="finalize",
+        user_message="Please summarize the quest and stop cleanly.",
+        model="gpt-5.4",
+    )
+
+    finalize_primary = str((repo_root() / "src" / "skills" / "finalize" / "SKILL.md").resolve())
+    assert "Fallback mirrored skills root:" not in prompt
+    assert f"- finalize: primary={finalize_primary}" in prompt
+
+
+def test_shared_interaction_contract_covers_blocking_and_mailbox_rules() -> None:
+    text = (repo_root() / "src" / "prompts" / "contracts" / "shared_interaction.md").read_text(encoding="utf-8")
+    assert "1 to 3 concrete options" in text
+    assert "wait up to 1 day" in text
+    assert "missing external credential or secret" in text
+    assert "sleep 3600" in text
+    assert "highest-priority user instruction bundle" in text
+    assert "Immediately follow any non-empty mailbox poll" in text
+    assert "real user-visible progress" in text
+    assert "roughly 12 tool calls or about 8 minutes" in text
+    assert "first 3 tool calls of substantial work" in text
+    assert "5 consecutive tool calls on reading" in text or "5 consecutive tool calls on reading, searching" in text
+
+
+def test_stage_and_companion_skills_reference_shared_interaction_contract() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in INTERACTION_CONTRACT_SKILLS:
+        text = (root / skill_id / "SKILL.md").read_text(encoding="utf-8")
+        assert "Follow the shared interaction contract injected by the system prompt." in text
+
+
+def test_write_skill_reference_files_exist() -> None:
+    root = repo_root() / "src" / "skills" / "write"
+    assert (root / "references" / "experiments_analysis_patterns.md").exists()
+    assert (root / "references" / "oral_package_patterns.md").exists()
+    assert (root / "references" / "oral_writing_principles.md").exists()
+    assert (root / "references" / "section_rewrite_checklist.md").exists()
+
+
+def test_experiment_and_analysis_references_cover_evidence_ladder_and_campaign_design() -> None:
+    root = repo_root() / "src" / "skills"
+    experiment_text = (root / "experiment" / "SKILL.md").read_text(encoding="utf-8")
+    campaign_text = (root / "analysis-campaign" / "SKILL.md").read_text(encoding="utf-8")
+    baseline_text = (root / "baseline" / "SKILL.md").read_text(encoding="utf-8")
+
+    assert "references/evidence-ladder.md" in experiment_text
+    assert "auxiliary/dev" in experiment_text
+    assert "main/test" in experiment_text
+    assert "minimum -> solid -> maximum" in experiment_text
+    assert (root / "experiment" / "references" / "evidence-ladder.md").exists()
+
+    assert "references/campaign-design.md" in campaign_text
+    assert "references/artifact-flow-examples.md" in campaign_text
+    assert "references/boundary-cases.md" in campaign_text
+    assert "claim-carrying" in campaign_text
+    assert "supporting" in campaign_text
+    assert (root / "analysis-campaign" / "references" / "campaign-design.md").exists()
+    assert "references/artifact-flow-examples.md" in baseline_text
+    assert "references/boundary-cases.md" in baseline_text
+
+
+def test_figure_polish_skill_requires_render_inspect_revise_workflow_and_style_asset() -> None:
+    text = (repo_root() / "src" / "skills" / "figure-polish" / "SKILL.md").read_text(encoding="utf-8")
+    style_asset = repo_root() / "src" / "skills" / "figure-polish" / "assets" / "deepscientist-academic.mplstyle"
+
+    assert "render-inspect-revise" in text
+    assert "open the rendered figure yourself" in text
+    assert "Do not treat a figure as final" in text
+    assert "main message obvious" in text
+    assert "color-vision-deficient" in text
+    assert "Publication-grade figure refinement is recommended with AutoFigure-Edit" in text
+    assert "https://github.com/ResearAI/AutoFigure-Edit" in text
+    assert "https://deepscientist" in text
+    assert style_asset.exists()
+
+
+def test_paper_plot_skill_requires_template_copy_and_figure_polish_handoff() -> None:
+    text = (repo_root() / "src" / "skills" / "paper-plot" / "SKILL.md").read_text(encoding="utf-8")
+    openai_yaml = (repo_root() / "src" / "skills" / "paper-plot" / "agents" / "openai.yaml").read_text(encoding="utf-8")
+
+    assert "Trae1ounG/paper-plot-skills" in text
+    assert "Follow the shared interaction contract injected by the system prompt." in text
+    assert "keep the bundled template immutable" in text
+    assert "hand the result to `figure-polish`" in text
+    assert "bar, line, scatter, and radar" in text
+    assert "display_name: \"Paper Plot\"" in openai_yaml
+
+
+def test_nature_skills_are_integrated_as_companion_skills() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in ("nature-data", "nature-figure", "nature-paper2ppt", "nature-polishing"):
+        skill_text = (root / skill_id / "SKILL.md").read_text(encoding="utf-8")
+        license_text = (root / skill_id / "UPSTREAM_LICENSE.txt").read_text(encoding="utf-8")
+        openai_yaml = (root / skill_id / "agents" / "openai.yaml").read_text(encoding="utf-8")
+
+        assert "skill_role: companion" in skill_text
+        assert "Yuan1z0825/nature-skills" in skill_text
+        assert "Follow the shared interaction contract injected by the system prompt." in skill_text
+        assert "MIT License" in license_text
+        assert f"${skill_id}" in openai_yaml
+
+    write_text = (root / "write" / "SKILL.md").read_text(encoding="utf-8")
+    assert "## Nature Companion Skills" in write_text
+    assert "Use them as a short handoff inside the `write` flow" in write_text
+    assert "Return to `write` and update the durable paper surfaces" in write_text
+    assert "Re-run the normal write validation gates" in write_text
+    assert "`nature-polishing`" in write_text
+    assert "`nature-data`" in write_text
+    assert "`nature-figure`" in write_text
+    assert "`nature-paper2ppt`" in write_text
+
+    system_text = (repo_root() / "src" / "prompts" / "system.md").read_text(encoding="utf-8")
+    assert "Use `nature-polishing`" in system_text
+    assert "Use `nature-data`" in system_text
+    assert "Use `nature-figure`" in system_text
+    assert "Use `nature-paper2ppt`" in system_text
+
+
+def test_idea_skill_requires_review_of_prior_ideas_and_experiment_outcomes() -> None:
+    text = (repo_root() / "src" / "skills" / "idea" / "SKILL.md").read_text(encoding="utf-8")
+    assert "review prior quest idea records and experiment outcomes" in text
+    assert "reference material, not as the active idea contract" in text
+
+
+def test_stage_skills_document_new_branch_lineage_semantics() -> None:
+    idea_text = (repo_root() / "src" / "skills" / "idea" / "SKILL.md").read_text(encoding="utf-8")
+
+    assert "lineage_intent='continue_line'" in idea_text
+    assert "lineage_intent='branch_alternative'" in idea_text
+    assert "new canvas node" in idea_text
+    assert "maintenance-only compatibility" in idea_text
+
+
+def test_analysis_campaign_skill_requires_one_slice_campaign_for_single_extra_experiment() -> None:
+    text = (repo_root() / "src" / "skills" / "analysis-campaign" / "SKILL.md").read_text(encoding="utf-8")
+    assert "one-slice campaign" in text
+
+
+def test_review_and_rebuttal_skills_route_extra_evidence_into_shared_campaign_protocol() -> None:
+    review_text = (repo_root() / "src" / "skills" / "review" / "SKILL.md").read_text(encoding="utf-8")
+    rebuttal_text = (repo_root() / "src" / "skills" / "rebuttal" / "SKILL.md").read_text(encoding="utf-8")
+
+    assert "shared supplementary-experiment protocol" in review_text
+    assert "one-slice campaign" in review_text
+    assert "Do not invent a separate review-only experiment workflow." in review_text
+    assert "paper/paper_experiment_matrix.md" in review_text
+
+    assert "shared supplementary-experiment protocol" in rebuttal_text
+    assert "do not invent a rebuttal-only experiment system" in rebuttal_text
+    assert "artifact.resolve_runtime_refs(...)" in rebuttal_text
+    assert "paper/paper_experiment_matrix.md" in rebuttal_text
+
+
+def test_publishability_stop_loss_guidance_is_prompt_only() -> None:
+    root = repo_root() / "src" / "skills"
+    for skill_id in ("write", "review", "decision"):
+        text = (root / skill_id / "SKILL.md").read_text(encoding="utf-8")
+        assert "publishability stop-loss" in text
+        assert "user decision" in text or "user publication" in text or "user's stated" in text
+        assert "confirm" in text
+        assert "publishability_gate_mode" not in text
+    idea_text = (root / "idea" / "SKILL.md").read_text(encoding="utf-8")
+    assert "publishability stop-loss" not in idea_text
+    assert "publishability_gate_mode" not in idea_text

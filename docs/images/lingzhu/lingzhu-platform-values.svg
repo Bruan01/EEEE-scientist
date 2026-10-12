@@ -1,0 +1,16 @@
+<svg width="1400" height="760" viewBox="0 0 1400 760" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="760" rx="36" fill="#F4EFE7"/>
+  <rect x="90" y="80" width="1220" height="600" rx="28" fill="#FCFAF7" stroke="#D8D0C3"/>
+  <text x="130" y="150" fill="#2B2926" font-size="34" font-family="Arial, sans-serif" font-weight="700">Values to paste into the Lingzhu platform</text>
+
+  <rect x="130" y="210" width="1140" height="120" rx="22" fill="#E3EBEE" stroke="#A8BBC2"/>
+  <text x="165" y="260" fill="#314048" font-size="26" font-family="Arial, sans-serif" font-weight="700">SSE URL</text>
+  <text x="165" y="302" fill="#52616C" font-size="22" font-family="Arial, sans-serif">http://&lt;public-ip-or-domain&gt;:18789/metis/agent/api/sse</text>
+
+  <rect x="130" y="370" width="1140" height="120" rx="22" fill="#F1E5D8" stroke="#C8B99E"/>
+  <text x="165" y="420" fill="#3A352F" font-size="26" font-family="Arial, sans-serif" font-weight="700">Authorization / AK</text>
+  <text x="165" y="462" fill="#5B554E" font-size="22" font-family="Arial, sans-serif">Bearer &lt;the same auth_ak generated in DeepScientist&gt;</text>
+
+  <rect x="130" y="530" width="1140" height="100" rx="22" fill="#F7F2EC" stroke="#D8D0C3"/>
+  <text x="165" y="588" fill="#685F56" font-size="22" font-family="Arial, sans-serif">Reminder: devices need a public IP or public domain. Do not fill 127.0.0.1 here.</text>
+</svg>

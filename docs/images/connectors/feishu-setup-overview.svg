@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#F8FCFF"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#D7E7FF" stroke-width="2"/>
+  <rect x="76" y="74" width="68" height="68" rx="18" fill="#fff" stroke="#D7E7FF"/>
+  <path d="M104.3 112.1c18.1 0 33.9-10 42.1-24.8.3-.5.6-1 .9-1.5-.4.8-.9 1.5-1.4 2.2-.2.2-.4.4-.6.7-.2.3-.5.6-.8.8-.2.2-.4.4-.6.6-.4.4-.9.8-1.3 1.2-.2.2-.5.4-.8.6-.3.3-.6.5-.9.7l-.6.4-.6.4c-.5.3-1 .5-1.5.7-.4.2-.8.4-1.2.5-.5.2-1 .4-1.6.5-.8.2-1.6.4-2.3.5-.6.1-1.2.2-1.8.2-.7 0-1.4 0-2.1-.1-.7-.1-1.3-.1-2-.2-.5-.1-1-.2-1.5-.3l-.8-.2c-.7-.2-1.4-.4-2.1-.6-.3-.1-.7-.2-1-.3-.5-.2-1.1-.3-1.6-.5-.4-.1-.8-.3-1.3-.4-.4-.1-.8-.3-1.2-.4l-1.3-.5c-.3-.1-.7-.2-1-.4l-.9-.3c-.5-.2-1-.4-1.4-.6l-.8-.3-.9-.4-.9-.4-1.2-.5-1.3-.6c-.5-.2-.9-.4-1.4-.6l-1.1-.5c-20.4-10.2-38.7-23.9-54.2-40.6-.5-.5-1.3-.5-1.8 0-.2.2-.3.5-.3.9v17.3c0 3.6 1.8 6.9 4.8 8.8 14.3 9.5 31.1 14.5 48.2 14.5Z" fill="#3370FF"/>
+  <path d="M118.7 88.7c-1.9-3.1-1.1-7 .8-9.5 8.1-7.8 12.9-19.1 11.9-31.4C129.9 28.5 114 13.6 94.2 12.2 70.2 10.6 50 29.7 50 53.5v51.1c0 2.1 1.7 3.8 3.8 3.8h12.5c2.1 0 3.8-1.7 3.8-3.8V84.9c0-.6.1-1.2.2-1.8.8-3.7 3.9-6.6 7.8-6.8 4.1-.3 7.9 2.4 9 6.3l.7 2.5 5.9 21.6c.5 1.6 1.9 2.8 3.6 2.8h14.8c2.8 0 4.7-3 3.3-5.5l-12.2-23.1-.1-.2Zm-19.1-14.2c-8.6 1.1-15.9-6.2-14.8-14.9.7-5.9 5.4-10.6 11.3-11.4 8.6-1.1 15.9 6.2 14.8 14.8-.7 5.9-5.4 10.7-11.3 11.5Z" fill="#00D6B9"/>
+  <path d="M151.6 52.4c-6.8-3.3-14.5-4-21.8-2-.3.1-.6.2-.9.3l-.6.2c-.4.1-.9.3-1.2.4-.8.3-1.6.6-2.4 1-.8.4-1.5.8-2.2 1.2-.8.5-1.5.9-2.1 1.5-.5.4-1 .8-1.4 1.3-.5.5-1 .9-1.5 1.4l-.9.8-1.3 1.3-1 1-.8.8-.9.9-.8.8-1.4 1.4-.9.8-.3.3c-.2.1-.3.3-.5.5l-.3.3-.3.3c-3.4 3.1-7.2 5.8-11.2 8l1.2.5.9.4.9.4.9.3 1 .4 1.3.5c.4.1.8.3 1.2.4.5.2.9.3 1.4.5.5.2 1 .3 1.6.5.3.1.7.2 1 .3.7.2 1.4.4 2.1.6l.8.2c.5.1 1 .2 1.5.3.6.1 1.3.2 2 .2.7.1 1.4.1 2.1.1.6 0 1.2-.1 1.8-.2.8-.1 1.6-.3 2.3-.5.6-.1 1.1-.3 1.6-.5.4-.1.8-.3 1.2-.5.5-.2 1-.4 1.5-.7l.6-.4.6-.4c.3-.2.6-.4.9-.7.3-.2.5-.4.8-.6.5-.4.9-.8 1.3-1.2.2-.2.4-.4.6-.6.3-.3.5-.6.8-.8.2-.2.4-.5.6-.7.6-.7 1-1.4 1.4-2.2l.5-1 4.6-9.3.1-.1c1.5-3.3 3.6-6.3 6.1-8.8Z" fill="#133C9A"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">Feishu / Lark Setup Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Open Platform -&gt; App ID + App Secret -&gt; long connection -&gt; one DM or @mention -&gt; probe</text>
+
+  <rect x="72" y="198" width="340" height="414" rx="26" fill="#FBFDFF" stroke="#D8E8FF" stroke-width="2"/>
+  <rect x="98" y="224" width="90" height="34" rx="17" fill="#DBEAFE"/>
+  <text x="122" y="246" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 1</text>
+  <text x="98" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Create the app</text>
+  <rect x="98" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#E0ECFF"/>
+  <text x="122" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Feishu Open Platform</text>
+  <text x="122" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Credentials page + app installation</text>
+  <rect x="98" y="424" width="288" height="84" rx="18" fill="#F0F9FF"/>
+  <text x="122" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Copy two values</text>
+  <text x="122" y="480" fill="#0369A1" font-family="Arial, sans-serif" font-size="16">app_id</text>
+  <text x="122" y="502" fill="#0369A1" font-family="Arial, sans-serif" font-size="16">app_secret</text>
+  <rect x="98" y="524" width="288" height="60" rx="18" fill="#fff" stroke="#E0ECFF"/>
+  <text x="122" y="560" fill="#475569" font-family="Arial, sans-serif" font-size="16">Install the app into the target tenant</text>
+
+  <rect x="470" y="198" width="340" height="414" rx="26" fill="#FCFDFF" stroke="#D8E8FF" stroke-width="2"/>
+  <rect x="496" y="224" width="90" height="34" rx="17" fill="#DCFCE7"/>
+  <text x="520" y="246" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 2</text>
+  <text x="496" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Fill Settings</text>
+  <rect x="496" y="324" width="288" height="220" rx="18" fill="#fff" stroke="#E0ECFF"/>
+  <text x="520" y="356" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Connector fields</text>
+  <text x="520" y="390" fill="#334155" font-family="Arial, sans-serif" font-size="17">Enabled: on</text>
+  <text x="520" y="422" fill="#334155" font-family="Arial, sans-serif" font-size="17">transport: long_connection</text>
+  <text x="520" y="454" fill="#334155" font-family="Arial, sans-serif" font-size="17">app_id: paste from platform</text>
+  <text x="520" y="486" fill="#334155" font-family="Arial, sans-serif" font-size="17">app_secret: paste from platform</text>
+  <text x="520" y="518" fill="#334155" font-family="Arial, sans-serif" font-size="17">require_mention_in_groups: optional</text>
+  <rect x="496" y="560" width="288" height="24" rx="12" fill="#111827"/>
+
+  <rect x="868" y="198" width="340" height="414" rx="26" fill="#FBFDFF" stroke="#D8E8FF" stroke-width="2"/>
+  <rect x="894" y="224" width="90" height="34" rx="17" fill="#FDE68A"/>
+  <text x="918" y="246" fill="#92400E" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 3</text>
+  <text x="894" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Start one chat</text>
+  <rect x="894" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#E0ECFF"/>
+  <text x="918" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Generate one event</text>
+  <text x="918" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Send one DM or @mention in Feishu</text>
+  <rect x="894" y="424" width="288" height="84" rx="18" fill="#fff" stroke="#E0ECFF"/>
+  <text x="918" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Back to DeepScientist</text>
+  <text x="918" y="478" fill="#475569" font-family="Arial, sans-serif" font-size="16">Wait until discovered targets appear</text>
+  <rect x="894" y="524" width="288" height="60" rx="18" fill="#FEFCE8"/>
+  <text x="918" y="560" fill="#92400E" font-family="Arial, sans-serif" font-size="16">Check -&gt; Send probe</text>
+
+  <path d="M423 406H455" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M821 406H853" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

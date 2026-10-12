@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#FFFDF8"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#EBDCC1" stroke-width="2"/>
+  <circle cx="108" cy="108" r="34" fill="#F59E0B"/>
+  <path d="M108 90V126" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <path d="M90 108H126" stroke="#fff" stroke-width="8" stroke-linecap="round"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">Quest-Local Weixin Media Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Inbound media is copied into the quest. Outbound media should come from a real local file.</text>
+
+  <rect x="76" y="196" width="308" height="424" rx="28" fill="#F8FAFC" stroke="#DCE3EA" stroke-width="2"/>
+  <text x="112" y="250" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">WeChat user</text>
+  <rect x="112" y="300" width="236" height="70" rx="20" fill="#DCFCE7"/>
+  <text x="148" y="342" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Send text / image / video / file</text>
+  <rect x="112" y="396" width="236" height="164" rx="20" fill="#fff" stroke="#DDE6EE"/>
+  <text x="138" y="432" fill="#334155" font-family="Arial, sans-serif" font-size="17">Image message</text>
+  <text x="138" y="464" fill="#334155" font-family="Arial, sans-serif" font-size="17">Video message</text>
+  <text x="138" y="496" fill="#334155" font-family="Arial, sans-serif" font-size="17">File message</text>
+  <text x="138" y="536" fill="#475569" font-family="Arial, sans-serif" font-size="16">Media-only inbound events are kept.</text>
+
+  <rect x="486" y="154" width="308" height="508" rx="28" fill="#F9FBFF" stroke="#D8E2F4" stroke-width="2"/>
+  <text x="516" y="214" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">DeepScientist runtime</text>
+  <rect x="516" y="262" width="248" height="76" rx="20" fill="#E0E7FF"/>
+  <text x="548" y="308" fill="#3730A3" font-family="Arial, sans-serif" font-size="19" font-weight="700">Download / decrypt / normalize</text>
+  <rect x="516" y="362" width="248" height="92" rx="20" fill="#fff" stroke="#E0E7F3"/>
+  <text x="548" y="398" fill="#334155" font-family="Arial, sans-serif" font-size="17">Copy into quest userfiles</text>
+  <text x="548" y="428" fill="#334155" font-family="Arial, sans-serif" font-size="17">Write manifest.json</text>
+  <rect x="516" y="480" width="248" height="122" rx="20" fill="#EEF2FF"/>
+  <text x="548" y="518" fill="#3730A3" font-family="Arial, sans-serif" font-size="17">Reply path</text>
+  <text x="548" y="548" fill="#334155" font-family="Arial, sans-serif" font-size="16">Text uses context_token</text>
+  <text x="548" y="576" fill="#334155" font-family="Arial, sans-serif" font-size="16">Media uploads use a real local file path</text>
+
+  <rect x="896" y="196" width="308" height="424" rx="28" fill="#FFFBEB" stroke="#F4DEAB" stroke-width="2"/>
+  <text x="928" y="250" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Quest files</text>
+  <rect x="928" y="300" width="244" height="220" rx="20" fill="#fff" stroke="#F0E1B8"/>
+  <text x="952" y="338" fill="#92400E" font-family="Arial, sans-serif" font-size="17" font-weight="700">userfiles/weixin/&lt;batch&gt;/</text>
+  <text x="952" y="376" fill="#334155" font-family="Arial, sans-serif" font-size="16">manifest.json</text>
+  <text x="952" y="408" fill="#334155" font-family="Arial, sans-serif" font-size="16">001-image.png</text>
+  <text x="952" y="440" fill="#334155" font-family="Arial, sans-serif" font-size="16">002-video.mp4</text>
+  <text x="952" y="472" fill="#334155" font-family="Arial, sans-serif" font-size="16">003-report.pdf</text>
+  <text x="952" y="512" fill="#475569" font-family="Arial, sans-serif" font-size="16">Durable files the quest can read later</text>
+
+  <path d="M396 408H470" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M808 408H882" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

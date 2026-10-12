@@ -1,0 +1,406 @@
+/* ============================================
+   SUCCESS ANIMATION - Bank-Grade Premium Style
+   Inspired by SweetAlert & Payment Success Animations
+   ============================================ */
+
+.success-animation-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  width: 100%;
+}
+
+.success-animation-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  /* Visual alignment fine-tuning (requested: inner fill was slightly too low) */
+  --success-fill-offset-y: -6px;
+}
+
+/* ============================================
+   BACKGROUND GLOW EFFECT
+   ============================================ */
+
+.success-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(34, 197, 94, 0.15) 0%,
+    rgba(34, 197, 94, 0.08) 40%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease-out;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.success-glow.active {
+  opacity: 1;
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.1);
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   PARTICLE BURST EFFECT
+   ============================================ */
+
+.success-particles {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.success-particles .particle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  border-radius: 50%;
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0);
+  box-shadow: 0 0 6px rgba(34, 197, 94, 0.6);
+}
+
+.success-particles.active .particle {
+  animation: particleBurst 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation-delay: var(--delay);
+}
+
+@keyframes particleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0) scale(1);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) rotate(var(--angle)) translateY(80px) scale(0.3);
+  }
+}
+
+/* ============================================
+   SVG CONTAINER
+   ============================================ */
+
+.success-svg {
+  position: relative;
+  z-index: 2;
+  filter: drop-shadow(0 4px 20px rgba(34, 197, 94, 0.3));
+}
+
+/* ============================================
+   CIRCLE ANIMATION
+   ============================================ */
+
+.success-circle-bg {
+  opacity: 0.3;
+}
+
+.success-circle {
+  transform-origin: center;
+  transform: rotate(-90deg);
+  transition: stroke-dashoffset 0.6s cubic-bezier(0.65, 0, 0.45, 1);
+}
+
+.success-circle.animate {
+  animation: circleDrawAndPop 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+}
+
+@keyframes circleDrawAndPop {
+  0% {
+    stroke-dashoffset: var(--circumference, 364);
+    transform: rotate(-90deg) scale(0.9);
+  }
+  70% {
+    stroke-dashoffset: 0;
+    transform: rotate(-90deg) scale(1.05);
+  }
+  100% {
+    stroke-dashoffset: 0;
+    transform: rotate(-90deg) scale(1);
+  }
+}
+
+/* ============================================
+   CHECKMARK ANIMATION
+   ============================================ */
+
+.success-checkmark {
+  opacity: 0;
+  transform-origin: center;
+}
+
+.success-checkmark.animate {
+  animation: checkmarkDraw 0.5s cubic-bezier(0.65, 0, 0.45, 1) 0.1s forwards;
+}
+
+.checkmark-line {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+.success-checkmark.animate .checkmark-line {
+  animation: checkDraw 0.4s cubic-bezier(0.65, 0, 0.45, 1) 0.15s forwards;
+}
+
+@keyframes checkmarkDraw {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes checkDraw {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ============================================
+   SUCCESS FILL (SUBTLE BACKGROUND)
+   ============================================ */
+
+.success-fill {
+  position: absolute;
+  top: calc(50% + var(--success-fill-offset-y, 0px));
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  border-radius: 50%;
+  background: linear-gradient(
+    135deg,
+    rgba(34, 197, 94, 0.08) 0%,
+    rgba(22, 163, 74, 0.04) 100%
+  );
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.success-fill.active {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+/* ============================================
+   TEXT CONTENT
+   ============================================ */
+
+.success-text-content {
+  text-align: center;
+  margin-top: 28px;
+  z-index: 5;
+}
+
+.success-title {
+  font-size: 26px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 8px 0;
+  letter-spacing: -0.5px;
+}
+
+.success-subtitle {
+  font-size: 15px;
+  color: #6b7280;
+  margin: 0;
+  max-width: 280px;
+  line-height: 1.5;
+}
+
+/* ============================================
+   PREMIUM PULSE EFFECT (After Complete)
+   ============================================ */
+
+.success-svg {
+  animation: none;
+}
+
+.success-visual:has(.success-fill.active) .success-svg {
+  animation: gentlePulse 2s ease-in-out infinite;
+  animation-delay: 0.5s;
+}
+
+@keyframes gentlePulse {
+  0%, 100% {
+    filter: drop-shadow(0 4px 20px rgba(34, 197, 94, 0.3));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 8px 30px rgba(34, 197, 94, 0.4));
+    transform: scale(1.02);
+  }
+}
+
+/* ============================================
+   RING RIPPLE EFFECT
+   ============================================ */
+
+.success-visual::before,
+.success-visual::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--success-size, 120px);
+  height: var(--success-size, 120px);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.success-visual:has(.success-checkmark.animate)::before {
+  animation: ringRipple 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+.success-visual:has(.success-checkmark.animate)::after {
+  animation: ringRipple 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.15s forwards;
+}
+
+@keyframes ringRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.8);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   RESPONSIVE STYLES
+   ============================================ */
+
+@media (max-width: 480px) {
+  .success-animation-wrapper {
+    padding: 30px 15px;
+  }
+
+  .success-title {
+    font-size: 22px;
+  }
+
+  .success-subtitle {
+    font-size: 14px;
+  }
+
+  .success-text-content {
+    margin-top: 20px;
+  }
+
+  .success-particles .particle {
+    width: 6px;
+    height: 6px;
+  }
+
+  @keyframes particleBurst {
+    100% {
+      transform: translate(-50%, -50%) rotate(var(--angle)) translateY(60px) scale(0.3);
+    }
+  }
+}
+
+/* ============================================
+   DARK MODE SUPPORT
+   ============================================ */
+
+@media (prefers-color-scheme: dark) {
+  .success-subtitle {
+    color: #9ca3af;
+  }
+
+  .success-glow {
+    background: radial-gradient(
+      circle,
+      rgba(34, 197, 94, 0.2) 0%,
+      rgba(34, 197, 94, 0.1) 40%,
+      transparent 70%
+    );
+  }
+}
+
+/* ============================================
+   HIGH CONTRAST / ACCESSIBILITY
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .success-circle,
+  .success-checkmark,
+  .success-fill,
+  .success-glow,
+  .success-particles .particle,
+  .success-visual::before,
+  .success-visual::after {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .success-circle.animate {
+    stroke-dashoffset: 0;
+  }
+
+  .success-checkmark.animate {
+    opacity: 1;
+  }
+
+  .success-checkmark.animate .checkmark-line {
+    stroke-dashoffset: 0;
+  }
+
+  .success-fill.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .success-glow.active {
+    opacity: 1;
+  }
+}

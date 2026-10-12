@@ -1,0 +1,61 @@
+.star-border-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  padding: var(--star-border-thickness, 1px);
+  isolation: isolate;
+}
+
+.star-border-container .inner-content {
+  position: relative;
+  z-index: 2;
+}
+
+.star-border-container .border-gradient-top,
+.star-border-container .border-gradient-bottom {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: var(--star-border-thickness, 1px);
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    color-mix(in srgb, var(--star-border-color, #d2c07a) 80%, transparent),
+    color-mix(in srgb, var(--star-border-color, #d2c07a) 35%, transparent),
+    transparent 42%,
+    color-mix(in srgb, var(--star-border-color, #d2c07a) 70%, transparent),
+    transparent 85%
+  );
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0.65;
+  pointer-events: none;
+  animation: star-border-spin var(--star-border-speed, 7s) linear infinite;
+}
+
+.star-border-container .border-gradient-top {
+  filter: blur(0.4px);
+}
+
+.star-border-container .border-gradient-bottom {
+  inset: calc(var(--star-border-spread, 6px) * -1);
+  opacity: 0.35;
+  filter: blur(8px);
+  animation-direction: reverse;
+}
+
+.star-border-container[data-reduced-motion='true'] .border-gradient-top,
+.star-border-container[data-reduced-motion='true'] .border-gradient-bottom {
+  animation: none;
+}
+
+@keyframes star-border-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

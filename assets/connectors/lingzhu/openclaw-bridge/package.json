@@ -1,0 +1,35 @@
+{
+  "name": "@openclaw/lingzhu",
+  "version": "1.0.0",
+  "description": "灵珠平台接入 OpenClaw 的桥接插件",
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "moltbot": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "dependencies": {
+    "commander": "^13.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "typescript": "^5.3.0"
+  },
+  "keywords": [
+    "lingzhu",
+    "openclaw",
+    "moltbot",
+    "plugin",
+    "sse"
+  ],
+  "license": "MIT"
+}

@@ -1,0 +1,27 @@
+.text-type {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.text-type__cursor {
+  margin-left: 0.25rem;
+  display: inline-block;
+  opacity: 1;
+  animation: textTypeBlink 0.6s steps(2, start) infinite;
+}
+
+.text-type__cursor--hidden {
+  display: none;
+}
+
+@keyframes textTypeBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

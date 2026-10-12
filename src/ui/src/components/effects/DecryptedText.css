@@ -1,0 +1,32 @@
+.decrypted-text {
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  color: #0ea5e9;
+  letter-spacing: 0.05em;
+  text-align: center;
+}
+
+.decrypted-text span {
+  display: inline-block;
+  transition: all 0.3s ease;
+}
+
+.decrypted-text .decrypting {
+  color: #0ea5e9;
+  text-shadow: 0 0 10px rgba(14, 165, 233, 0.6);
+  animation: flicker 0.1s infinite;
+}
+
+.decrypted-text .decrypted {
+  color: #cbd5e1;
+  text-shadow: none;
+}
+
+@keyframes flicker {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}

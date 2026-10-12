@@ -1,0 +1,39 @@
+{
+  "gateway": {
+    "port": 18789,
+    "http": {
+      "endpoints": {
+        "chatCompletions": {
+          "enabled": true
+        }
+      }
+    }
+  },
+  "plugins": {
+    "entries": {
+      "lingzhu": {
+        "enabled": true,
+        "config": {
+          "authAk": "",
+          "agentId": "main",
+          "includeMetadata": true,
+          "requestTimeoutMs": 60000,
+          "systemPrompt": "",
+          "defaultNavigationMode": "0",
+          "enableFollowUp": true,
+          "followUpMaxCount": 3,
+          "maxImageBytes": 5242880,
+          "sessionMode": "per_user",
+          "sessionNamespace": "lingzhu",
+          "autoReceiptAck": true,
+          "visibleProgressHeartbeat": true,
+          "visibleProgressHeartbeatSec": 10,
+          "debugLogging": false,
+          "debugLogPayloads": false,
+          "debugLogDir": "",
+          "enableExperimentalNativeActions": false
+        }
+      }
+    }
+  }
+}

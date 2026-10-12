@@ -1,0 +1,39 @@
+.shimmer-container {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.shimmer-effect {
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    var(--shimmer-angle, 45deg),
+    transparent 0%,
+    transparent calc(50% - var(--shimmer-width, 30%) / 2),
+    var(--shimmer-color, rgba(255, 255, 255, 0.3)) 50%,
+    transparent calc(50% + var(--shimmer-width, 30%) / 2),
+    transparent 100%
+  );
+  animation: shimmer-sweep var(--shimmer-duration, 3s) infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+  }
+}
+
+/* 让子元素显示在shimmer之上 */
+.shimmer-container > *:not(.shimmer-effect) {
+  position: relative;
+  z-index: 2;
+}

@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#F7FFF9"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#D7F1DF" stroke-width="2"/>
+  <circle cx="110" cy="108" r="34" fill="#25D366"/>
+  <path d="M126.4 108.3c-.4-.2-2.4-1.2-2.8-1.3-.4-.1-.6-.2-.9.2-.3.4-1.1 1.3-1.3 1.6-.2.3-.5.3-.9.1-.4-.2-1.7-.6-3.3-2-.8-.8-1.4-1.5-1.7-2-.2-.4 0-.6.2-.8l.6-.7c.2-.3.3-.4.4-.7.1-.3.1-.5 0-.7-.1-.2-.9-2.2-1.2-3-.3-.8-.7-.7-.9-.7H112c-.3 0-.7.1-1 .5-.4.4-1.4 1.4-1.4 3.4 0 2 1.5 3.9 1.7 4.2.2.3 2.8 4.3 7 6 .9.4 1.6.7 2.3.8 1 .3 1.9.3 2.6.2.8-.1 2.4-1 2.8-1.9.3-.9.3-1.8.2-2 0-.2-.4-.3-.8-.5Zm-7.5 10.2h-.1c-2.7 0-5.3-.7-7.6-2.1l-.5-.3-5.6 1.5 1.5-5.5-.3-.6c-1.5-2.4-2.3-5.1-2.3-7.9 0-8.3 6.7-15 15-15 4 0 7.8 1.6 10.7 4.4 2.8 2.9 4.4 6.7 4.4 10.7 0 8.3-6.7 15-15 15Z" fill="#fff"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">WhatsApp Setup Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">DeepScientist local session -&gt; choose QR or pairing code -&gt; persist session -&gt; one real message</text>
+
+  <rect x="72" y="198" width="340" height="414" rx="26" fill="#FBFFFC" stroke="#D6F3DE" stroke-width="2"/>
+  <rect x="98" y="224" width="90" height="34" rx="17" fill="#DCFCE7"/>
+  <text x="122" y="246" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 1</text>
+  <text x="98" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Choose local path</text>
+  <rect x="98" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#E1F5E7"/>
+  <text x="122" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Preferred transport</text>
+  <text x="122" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Use local_session, not Meta Cloud by default</text>
+  <rect x="98" y="424" width="288" height="84" rx="18" fill="#ECFDF5"/>
+  <text x="122" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Pick login mode</text>
+  <text x="122" y="480" fill="#166534" font-family="Arial, sans-serif" font-size="16">QR browser</text>
+  <text x="122" y="502" fill="#166534" font-family="Arial, sans-serif" font-size="16">or pairing code on headless machines</text>
+  <rect x="98" y="524" width="288" height="60" rx="18" fill="#fff" stroke="#E1F5E7"/>
+  <text x="122" y="560" fill="#475569" font-family="Arial, sans-serif" font-size="16">Keep session_dir stable</text>
+
+  <rect x="470" y="198" width="340" height="414" rx="26" fill="#FBFFFC" stroke="#D6F3DE" stroke-width="2"/>
+  <rect x="496" y="224" width="90" height="34" rx="17" fill="#DBEAFE"/>
+  <text x="520" y="246" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 2</text>
+  <text x="496" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Fill Settings</text>
+  <rect x="496" y="324" width="288" height="220" rx="18" fill="#fff" stroke="#E1F5E7"/>
+  <text x="520" y="356" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Connector fields</text>
+  <text x="520" y="390" fill="#334155" font-family="Arial, sans-serif" font-size="17">Enabled: on</text>
+  <text x="520" y="422" fill="#334155" font-family="Arial, sans-serif" font-size="17">transport: local_session</text>
+  <text x="520" y="454" fill="#334155" font-family="Arial, sans-serif" font-size="17">auth_method: qr_browser or pairing_code</text>
+  <text x="520" y="486" fill="#334155" font-family="Arial, sans-serif" font-size="17">session_dir: keep default unless isolated</text>
+  <text x="520" y="518" fill="#334155" font-family="Arial, sans-serif" font-size="17">command_prefix: /</text>
+  <rect x="496" y="560" width="288" height="24" rx="12" fill="#111827"/>
+
+  <rect x="868" y="198" width="340" height="414" rx="26" fill="#FBFFFC" stroke="#D6F3DE" stroke-width="2"/>
+  <rect x="894" y="224" width="90" height="34" rx="17" fill="#FDE68A"/>
+  <text x="918" y="246" fill="#92400E" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 3</text>
+  <text x="894" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Login and verify</text>
+  <rect x="894" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#E1F5E7"/>
+  <text x="918" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Complete local login</text>
+  <text x="918" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Scan QR or confirm the pairing code flow</text>
+  <rect x="894" y="424" width="288" height="84" rx="18" fill="#fff" stroke="#E1F5E7"/>
+  <text x="918" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Send one real message</text>
+  <text x="918" y="478" fill="#475569" font-family="Arial, sans-serif" font-size="16">Wait for a discovered target before probing</text>
+  <rect x="894" y="524" width="288" height="60" rx="18" fill="#FEFCE8"/>
+  <text x="918" y="560" fill="#92400E" font-family="Arial, sans-serif" font-size="16">Check -&gt; Send probe</text>
+
+  <path d="M423 406H455" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M821 406H853" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

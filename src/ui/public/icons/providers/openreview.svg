@@ -1,0 +1,11 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="OpenReview">
+  <defs>
+    <linearGradient id="or-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7043"/>
+      <stop offset="100%" stop-color="#ef5350"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="52" height="52" rx="14" fill="url(#or-grad)"/>
+  <path d="M20 32c0-7.18 5.82-13 13-13h7v6h-7a7 7 0 100 14h7v6h-7c-7.18 0-13-5.82-13-13z" fill="#fff"/>
+  <circle cx="45" cy="32" r="4" fill="#fff"/>
+</svg>

@@ -1,0 +1,64 @@
+{
+  "name": "@researai/deepscientist",
+  "version": "1.6.0",
+  "description": "DeepScientist is not just a fully open-source autonomous scientific discovery system. It is also a research map that keeps growing from every round.",
+  "license": "Apache-2.0",
+  "files": [
+    "AGENTS.md",
+    "AISB/",
+    "README.md",
+    "docs/",
+    "install.sh",
+    "uv.lock",
+    "assets/branding/",
+    "assets/connectors/",
+    "bin/",
+    "pyproject.toml",
+    "src/deepscientist/**/*.py",
+    "src/prompts/",
+    "src/skills/[!.]*/",
+    "src/skills/[!.]*/**",
+    "src/tui/dist/",
+    "src/tui/package.json",
+    "src/ui/dist/"
+  ],
+  "engines": {
+    "node": ">=18.18",
+    "npm": ">=9"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "bin": {
+    "ds": "bin/ds.js",
+    "ds-cli": "bin/ds.js",
+    "resear": "bin/ds.js",
+    "research": "bin/ds.js"
+  },
+  "dependencies": {
+    "ink": "npm:@jrichman/ink@6.4.6",
+    "ink-gradient": "^3.0.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "string-width": "^8.1.0"
+  },
+  "optionalDependencies": {
+    "@anthropic-ai/claude-code": "^2.1.109",
+    "@openai/codex": "^0.114.0",
+    "opencode-ai": "^1.14.28"
+  },
+  "scripts": {
+    "ds": "node ./bin/ds.js",
+    "start": "node ./bin/ds.js daemon",
+    "install:local": "bash ./install.sh",
+    "preuninstall": "node ./bin/ds.js uninstall --yes --origin npm",
+    "ui:install": "npm --prefix src/ui install",
+    "ui:dev": "npm --prefix src/ui run dev",
+    "ui:build": "npm --prefix src/ui run build",
+    "tui:install": "npm --prefix src/tui install",
+    "tui:build": "npm --prefix src/tui run build",
+    "build:release": "node ./scripts/build-release.mjs",
+    "prepack": "npm run build:release"
+  }
+}

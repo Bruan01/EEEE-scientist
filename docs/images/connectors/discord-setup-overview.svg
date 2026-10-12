@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#F7F7FF"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#DADCFB" stroke-width="2"/>
+  <circle cx="110" cy="108" r="34" fill="#5865F2"/>
+  <path d="M124.6 96.6c-2.4-1.8-4.8-3-7.4-3.8-.1 0-.2 0-.2.1-.3.6-.6 1.2-.9 1.9-2.8-.4-5.5-.4-8.2 0-.3-.6-.6-1.3-.9-1.9-.1-.1-.1-.1-.2-.1-2.6.8-5.1 2-7.4 3.8-.1 0-.1.1-.1.1-4.5 6.7-5.7 13.2-5.1 19.6 0 .1 0 .1.1.2 3.1 2.3 6.2 3.7 9.2 4.7.1 0 .2 0 .2-.1.7-1 1.3-2 1.8-3 .1-.1 0-.2-.1-.2-1-.4-1.9-.8-2.8-1.4-.1 0-.1-.2 0-.2.2-.1.4-.3.6-.4h.1c6 2.7 12.5 2.7 18.5 0h.1c.2.1.4.3.6.4.1.1.1.2 0 .2-.9.5-1.8 1-2.8 1.4-.1 0-.1.1-.1.2.5 1 1.1 2 1.8 3 .1.1.1.1.2.1 3-.9 6.1-2.4 9.2-4.7.1 0 .1-.1.1-.2.7-7.4-1.1-13.8-5.1-19.6 0 0 0-.1-.1-.1ZM104.8 112.5c-1.8 0-3.3-1.6-3.3-3.7s1.4-3.7 3.3-3.7c1.8 0 3.3 1.6 3.3 3.7-.1 2-1.5 3.7-3.3 3.7Zm14.4 0c-1.8 0-3.3-1.6-3.3-3.7s1.4-3.7 3.3-3.7c1.8 0 3.3 1.6 3.3 3.7s-1.4 3.7-3.3 3.7Z" fill="#fff"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">Discord Setup Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Developer Portal -&gt; Bot token + Application ID -&gt; invite bot -&gt; one DM or mention</text>
+
+  <rect x="72" y="198" width="340" height="414" rx="26" fill="#FBFBFF" stroke="#D7D9FE" stroke-width="2"/>
+  <rect x="98" y="224" width="90" height="34" rx="17" fill="#EDE9FE"/>
+  <text x="122" y="246" fill="#4338CA" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 1</text>
+  <text x="98" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Create the app</text>
+  <rect x="98" y="324" width="288" height="76" rx="18" fill="#fff" stroke="#E3E5FF"/>
+  <text x="122" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Developer Portal</text>
+  <text x="122" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">General Information + Bot tab</text>
+  <rect x="98" y="416" width="288" height="92" rx="18" fill="#EEF2FF"/>
+  <text x="122" y="446" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Copy two values</text>
+  <text x="122" y="474" fill="#4338CA" font-family="Arial, sans-serif" font-size="16">bot_token</text>
+  <text x="122" y="498" fill="#4338CA" font-family="Arial, sans-serif" font-size="16">application_id</text>
+  <rect x="98" y="524" width="288" height="60" rx="18" fill="#fff" stroke="#E3E5FF"/>
+  <text x="122" y="560" fill="#475569" font-family="Arial, sans-serif" font-size="16">Enable bot user and keep Gateway mode</text>
+
+  <rect x="470" y="198" width="340" height="414" rx="26" fill="#FBFCFF" stroke="#DADCFB" stroke-width="2"/>
+  <rect x="496" y="224" width="90" height="34" rx="17" fill="#DBEAFE"/>
+  <text x="520" y="246" fill="#1D4ED8" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 2</text>
+  <text x="496" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Fill Settings</text>
+  <rect x="496" y="324" width="288" height="220" rx="18" fill="#fff" stroke="#DFE4FD"/>
+  <text x="520" y="356" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Connector fields</text>
+  <text x="520" y="390" fill="#334155" font-family="Arial, sans-serif" font-size="17">Enabled: on</text>
+  <text x="520" y="422" fill="#334155" font-family="Arial, sans-serif" font-size="17">transport: gateway</text>
+  <text x="520" y="454" fill="#334155" font-family="Arial, sans-serif" font-size="17">bot_token: paste from Bot tab</text>
+  <text x="520" y="486" fill="#334155" font-family="Arial, sans-serif" font-size="17">application_id: paste from General Info</text>
+  <text x="520" y="518" fill="#334155" font-family="Arial, sans-serif" font-size="17">guild_allowlist: optional</text>
+  <rect x="496" y="560" width="288" height="24" rx="12" fill="#111827"/>
+
+  <rect x="868" y="198" width="340" height="414" rx="26" fill="#FCFCFF" stroke="#DADCFB" stroke-width="2"/>
+  <rect x="894" y="224" width="90" height="34" rx="17" fill="#DCFCE7"/>
+  <text x="918" y="246" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 3</text>
+  <text x="894" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Invite and verify</text>
+  <rect x="894" y="324" width="288" height="76" rx="18" fill="#fff" stroke="#E4E7FD"/>
+  <text x="918" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Generate one real event</text>
+  <text x="918" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Invite bot, then send one DM or @mention</text>
+  <rect x="894" y="416" width="288" height="76" rx="18" fill="#fff" stroke="#E4E7FD"/>
+  <text x="918" y="444" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Back to DeepScientist</text>
+  <text x="918" y="470" fill="#475569" font-family="Arial, sans-serif" font-size="16">Use the discovered target, not a guessed id</text>
+  <rect x="894" y="508" width="288" height="76" rx="18" fill="#ECFDF5"/>
+  <text x="918" y="536" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Final actions</text>
+  <text x="918" y="564" fill="#166534" font-family="Arial, sans-serif" font-size="16">Check -&gt; Send probe</text>
+
+  <path d="M423 406H455" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M821 406H853" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

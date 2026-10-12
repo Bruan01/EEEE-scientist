@@ -1,0 +1,12 @@
+{
+  "items": [
+    {"title": "Core Agent", "path": "/assets/text/agents/core-agent.md"},
+    {"title": "Worker Base", "path": "/assets/text/agents/worker-base.md"},
+    {"title": "PI Agent", "path": "/assets/text/agents/pi.md"},
+    {"title": "Reproducer Agent", "path": "/assets/text/agents/reproducer.md"},
+    {"title": "Analysis Agent", "path": "/assets/text/agents/analysis-experimenter.md"},
+    {"title": "Writer Agent", "path": "/assets/text/agents/writer.md"},
+    {"title": "Welcome EN", "path": "/assets/text/ui/welcome.en.md"},
+    {"title": "Welcome ZH", "path": "/assets/text/ui/welcome.zh.md"}
+  ]
+}

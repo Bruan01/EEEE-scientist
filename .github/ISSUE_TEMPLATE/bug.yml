@@ -1,0 +1,71 @@
+name: Bug report
+description: Report a crash, regression, broken behavior, connector failure, or UI/TUI issue.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for broken behavior, regressions, crashes, or runtime mismatches.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: Describe the bug in one or two sentences.
+      placeholder: The settings page updates the URL, but the visible section does not switch reliably.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: List the smallest reliable sequence that reproduces the issue.
+      placeholder: |
+        1. Open /settings
+        2. Click Connectors
+        3. Click Lingzhu
+        4. Observe the page does not switch on the first click
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: The page should switch on the first click and render the selected connector detail view.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: The URL changes, but the visible content stays on the previous section until multiple clicks.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include browser, OS, DS version, Python/Node versions, GPU/runtime details when relevant.
+      placeholder: |
+        - DeepScientist version:
+        - Browser:
+        - OS:
+        - Python:
+        - Node:
+    validations:
+      required: false
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, screenshots, or stack traces
+      description: Paste any useful console output, screenshots, or tracebacks.
+      render: shell
+    validations:
+      required: false
+  - type: textarea
+    id: scope
+    attributes:
+      label: Suspected scope
+      description: List files or subsystems if you already know where the problem might live.
+      placeholder: src/ui/src/components/settings/SettingsPage.tsx, src/ui/src/App.tsx
+    validations:
+      required: false

@@ -1,0 +1,4 @@
+prune src/ui/node_modules
+prune src/ui/lib/node_modules
+prune src/tui/node_modules
+prune src/tui/dist

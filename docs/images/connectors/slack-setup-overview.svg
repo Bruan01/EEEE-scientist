@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#FCF8FC"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#E7D7E7" stroke-width="2"/>
+  <circle cx="110" cy="108" r="34" fill="#4A154B"/>
+  <path d="M103.1 93.3c0-3 2.4-5.5 5.5-5.5 3 0 5.5 2.5 5.5 5.5v5.5h-5.5c-3.1 0-5.5-2.5-5.5-5.5Zm-10.8 10.8h5.5v5.5c0 3.1-2.5 5.5-5.5 5.5-3.1 0-5.5-2.4-5.5-5.5 0-3 2.4-5.5 5.5-5.5Zm21.8 0h5.5c3 0 5.5 2.5 5.5 5.5 0 3.1-2.5 5.5-5.5 5.5-3.1 0-5.5-2.4-5.5-5.5v-5.5Zm-5.5 16.3v-5.5h5.5c3 0 5.5 2.5 5.5 5.5 0 3.1-2.5 5.5-5.5 5.5-3.1 0-5.5-2.4-5.5-5.5Zm-10.8-10.8v-5.5h5.5c3 0 5.5 2.5 5.5 5.5v16.3c0 3.1-2.5 5.5-5.5 5.5-3.1 0-5.5-2.4-5.5-5.5v-16.3Zm16.3-10.8v-5.5c0-3 2.4-5.5 5.5-5.5 3 0 5.5 2.5 5.5 5.5 0 3-2.5 5.5-5.5 5.5h-5.5Zm-16.3 0H92.3c-3.1 0-5.5-2.5-5.5-5.5 0-3 2.4-5.5 5.5-5.5 3 0 5.5 2.5 5.5 5.5v5.5Z" fill="#fff"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">Slack Setup Flow</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Slack app dashboard -&gt; Socket Mode -&gt; xoxb + xapp -&gt; one mention -&gt; probe</text>
+
+  <rect x="72" y="198" width="340" height="414" rx="26" fill="#FFFDFE" stroke="#E9D9E9" stroke-width="2"/>
+  <rect x="98" y="224" width="90" height="34" rx="17" fill="#F3E8FF"/>
+  <text x="122" y="246" fill="#6B21A8" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 1</text>
+  <text x="98" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Prepare the app</text>
+  <rect x="98" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#EEE2EE"/>
+  <text x="122" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Slack App dashboard</text>
+  <text x="122" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Basic Information + Socket Mode</text>
+  <rect x="98" y="424" width="288" height="84" rx="18" fill="#FDF4FF"/>
+  <text x="122" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Copy two tokens</text>
+  <text x="122" y="480" fill="#6B21A8" font-family="Arial, sans-serif" font-size="16">Bot User OAuth Token: xoxb-...</text>
+  <text x="122" y="502" fill="#6B21A8" font-family="Arial, sans-serif" font-size="16">App-Level Token: xapp-...</text>
+  <rect x="98" y="524" width="288" height="60" rx="18" fill="#fff" stroke="#EEE2EE"/>
+  <text x="122" y="560" fill="#475569" font-family="Arial, sans-serif" font-size="16">Install app into the target workspace</text>
+
+  <rect x="470" y="198" width="340" height="414" rx="26" fill="#FFFCFF" stroke="#E7D7E7" stroke-width="2"/>
+  <rect x="496" y="224" width="90" height="34" rx="17" fill="#FDE68A"/>
+  <text x="520" y="246" fill="#92400E" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 2</text>
+  <text x="496" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Fill Settings</text>
+  <rect x="496" y="324" width="288" height="220" rx="18" fill="#fff" stroke="#EEE2EE"/>
+  <text x="520" y="356" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Connector fields</text>
+  <text x="520" y="390" fill="#334155" font-family="Arial, sans-serif" font-size="17">Enabled: on</text>
+  <text x="520" y="422" fill="#334155" font-family="Arial, sans-serif" font-size="17">transport: socket_mode</text>
+  <text x="520" y="454" fill="#334155" font-family="Arial, sans-serif" font-size="17">bot_token: xoxb-...</text>
+  <text x="520" y="486" fill="#334155" font-family="Arial, sans-serif" font-size="17">app_token: xapp-...</text>
+  <text x="520" y="518" fill="#334155" font-family="Arial, sans-serif" font-size="17">require_mention_in_groups: recommended</text>
+  <rect x="496" y="560" width="288" height="24" rx="12" fill="#111827"/>
+
+  <rect x="868" y="198" width="340" height="414" rx="26" fill="#FFFDFF" stroke="#E7D7E7" stroke-width="2"/>
+  <rect x="894" y="224" width="90" height="34" rx="17" fill="#DCFCE7"/>
+  <text x="918" y="246" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Step 3</text>
+  <text x="894" y="292" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Mention and verify</text>
+  <rect x="894" y="324" width="288" height="84" rx="18" fill="#fff" stroke="#EEE2EE"/>
+  <text x="918" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Generate one event</text>
+  <text x="918" y="378" fill="#475569" font-family="Arial, sans-serif" font-size="16">Mention the app or send one DM in Slack</text>
+  <rect x="894" y="424" width="288" height="84" rx="18" fill="#fff" stroke="#EEE2EE"/>
+  <text x="918" y="452" fill="#0F172A" font-family="Arial, sans-serif" font-size="18" font-weight="700">Use discovered target</text>
+  <text x="918" y="478" fill="#475569" font-family="Arial, sans-serif" font-size="16">Let runtime fill the channel or DM id first</text>
+  <rect x="894" y="524" width="288" height="60" rx="18" fill="#ECFDF5"/>
+  <text x="918" y="560" fill="#166534" font-family="Arial, sans-serif" font-size="16">Check -&gt; Send probe</text>
+
+  <path d="M423 406H455" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+  <path d="M821 406H853" stroke="#94A3B8" stroke-width="8" stroke-linecap="round"/>
+</svg>

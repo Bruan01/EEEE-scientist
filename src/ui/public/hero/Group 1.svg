@@ -1,0 +1,43 @@
+<svg width="1536" height="600" viewBox="0 0 1536 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path
+    id="path-main"
+    d="M251 175.011C264.926 174.011 308.395 184.412 370.864 234.015C433.332 283.618 482.438 278.018 499.182 269.017L581.246 215.514C594.509 218.681 624.417 223.114 645.903 215.514C667.389 207.913 741.723 166.907 771.398 149.906C817.487 186.408 907.277 254.713 949.453 207.91C991.629 161.106 970.347 115.507 952.773 99.5062L817.989 7"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+  />
+  <ellipse
+    id="node-mid-1"
+    data-node="mid"
+    cx="773.5"
+    cy="156.5"
+    rx="17.5"
+    ry="15.5"
+    fill="#D9D9D9"
+    opacity="0"
+  />
+  <path
+    id="node-start"
+    data-node="start"
+    d="M251 160L269.187 187H232.813L251 160Z"
+    fill="#D9D9D9"
+    opacity="0"
+  />
+  <rect
+    id="node-local"
+    data-node="local"
+    x="557"
+    y="196"
+    width="56"
+    height="45"
+    fill="#D9D9D9"
+    opacity="0"
+  />
+  <path
+    id="node-global"
+    data-node="global"
+    d="M819.5 0L823.204 10.0193L835.192 10.0193L825.494 16.2115L829.198 26.2307L819.5 20.0385L809.802 26.2307L813.506 16.2115L803.808 10.0193L815.796 10.0193L819.5 0Z"
+    fill="#D9D9D9"
+    opacity="0"
+  />
+</svg>

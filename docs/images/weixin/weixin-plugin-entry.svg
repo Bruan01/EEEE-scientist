@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="720" viewBox="0 0 1280 720" fill="none">
+  <rect width="1280" height="720" rx="32" fill="#FAFBFF"/>
+  <rect x="40" y="40" width="1200" height="640" rx="28" fill="#FFFFFF" stroke="#DAE2F3" stroke-width="2"/>
+  <circle cx="108" cy="108" r="34" fill="#2563EB"/>
+  <path d="M92 108C92 99.16 99.16 92 108 92C116.84 92 124 99.16 124 108C124 116.84 116.84 124 108 124C99.16 124 92 116.84 92 108Z" fill="#fff" fill-opacity=".2"/>
+  <path d="M101 116V100H115" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">WeChat Version And Plugin Entry Check</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Reference precheck from the personal WeChat guide before you bind in DeepScientist</text>
+
+  <rect x="88" y="196" width="492" height="430" rx="28" fill="#F8FAFF" stroke="#D5DDF0" stroke-width="2"/>
+  <text x="120" y="252" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Compatibility checklist</text>
+  <rect x="120" y="292" width="428" height="88" rx="20" fill="#EEF2FF"/>
+  <text x="150" y="326" fill="#3730A3" font-family="Arial, sans-serif" font-size="20" font-weight="700">WeChat for iOS</text>
+  <text x="150" y="356" fill="#334155" font-family="Arial, sans-serif" font-size="18">Use 8.0.70 or newer if you need the plugin entry.</text>
+  <rect x="120" y="398" width="428" height="180" rx="20" fill="#fff" stroke="#E1E7F5"/>
+  <text x="150" y="434" fill="#0F172A" font-family="Arial, sans-serif" font-size="20" font-weight="700">Expected path in the reference flow</text>
+  <text x="150" y="474" fill="#334155" font-family="Arial, sans-serif" font-size="18">1. Me</text>
+  <text x="150" y="508" fill="#334155" font-family="Arial, sans-serif" font-size="18">2. Settings</text>
+  <text x="150" y="542" fill="#334155" font-family="Arial, sans-serif" font-size="18">3. Plugins</text>
+  <text x="150" y="576" fill="#475569" font-family="Arial, sans-serif" font-size="16">If this entry is missing, update WeChat first.</text>
+
+  <rect x="640" y="168" width="520" height="486" rx="34" fill="#ECFDF5" stroke="#C3EED3" stroke-width="2"/>
+  <rect x="760" y="204" width="280" height="420" rx="42" fill="#FFFFFF" stroke="#D7EAD9" stroke-width="2"/>
+  <rect x="786" y="246" width="228" height="42" rx="16" fill="#DCFCE7"/>
+  <text x="847" y="273" fill="#166534" font-family="Arial, sans-serif" font-size="20" font-weight="700">WeChat</text>
+  <rect x="786" y="318" width="228" height="54" rx="18" fill="#F8FAFC"/>
+  <text x="818" y="352" fill="#0F172A" font-family="Arial, sans-serif" font-size="18">Me</text>
+  <rect x="786" y="388" width="228" height="54" rx="18" fill="#F8FAFC"/>
+  <text x="818" y="422" fill="#0F172A" font-family="Arial, sans-serif" font-size="18">Settings</text>
+  <rect x="786" y="458" width="228" height="54" rx="18" fill="#DCFCE7" stroke="#22C55E"/>
+  <text x="818" y="492" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Plugins</text>
+  <text x="702" y="616" fill="#475569" font-family="Arial, sans-serif" font-size="17">DeepScientist still binds from its own QR modal.</text>
+</svg>

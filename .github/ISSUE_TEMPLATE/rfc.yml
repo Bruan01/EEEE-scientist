@@ -1,0 +1,51 @@
+name: RFC
+description: Propose a non-trivial design or architectural change before implementation.
+title: "[RFC]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use an RFC before implementing non-trivial changes that affect architecture, contracts, or multiple subsystems.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: State the proposal in a few concise sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this change needed?
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Proposed design
+      description: Describe the design, API shape, state changes, workflow changes, and major tradeoffs.
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List alternatives and why they were not selected.
+    validations:
+      required: false
+  - type: textarea
+    id: affected_areas
+    attributes:
+      label: Affected areas
+      description: List the main contracts, directories, or subsystems affected.
+      placeholder: quest layout, daemon API, connector contracts, prompts, skills, UI/TUI
+    validations:
+      required: true
+  - type: textarea
+    id: compatibility
+    attributes:
+      label: Compatibility and migration
+      description: Describe backward compatibility, migration steps, and rollout risks.
+    validations:
+      required: false

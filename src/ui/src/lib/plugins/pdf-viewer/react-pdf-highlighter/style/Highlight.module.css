@@ -1,0 +1,177 @@
+.highlight {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: auto;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.parts {
+  opacity: 1;
+  pointer-events: none;
+}
+
+.part {
+  cursor: pointer;
+  position: absolute;
+  pointer-events: auto;
+  border-radius: 3px;
+  /* Make highlight feel “under” the text (canvas) instead of washing it out. */
+  mix-blend-mode: multiply;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+.partFocused {
+  outline: 2.5px solid rgba(128, 107, 62, 0.96);
+  outline-offset: 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(128, 107, 62, 0.4),
+    0 0 0 2px rgba(128, 107, 62, 0.24);
+}
+
+.scrolledTo .part {
+  outline: 1.5px solid rgba(138, 120, 78, 0.95);
+  outline-offset: 0;
+  box-shadow:
+    inset 0 0 0 1px rgba(138, 120, 78, 0.32),
+    0 0 0 2px rgba(138, 120, 78, 0.22);
+  filter: saturate(1.04);
+}
+
+@keyframes hl-fade-in {
+  from {
+    opacity: 0.35;
+    filter: saturate(1.15);
+  }
+  to {
+    opacity: 1;
+    filter: saturate(1);
+  }
+}
+
+@keyframes hl-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+  50% {
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.35);
+  }
+}
+
+@keyframes hl-sheen {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 0%;
+  }
+}
+
+.partNote {
+  background: transparent;
+  animation: hl-fade-in 180ms ease-out both;
+}
+
+.partQuestion {
+  background: transparent;
+  box-shadow: inset 0 -2px 0 rgba(99, 102, 241, 0.65);
+  animation: hl-pulse 900ms ease-in-out 2;
+}
+
+.partTask {
+  background: transparent;
+  box-shadow: inset 0 -2px 0 rgba(34, 197, 94, 0.65);
+  animation: hl-fade-in 180ms ease-out both;
+}
+
+.hintChip {
+  position: absolute;
+  left: 12px;
+  z-index: 4;
+  min-height: 40px;
+  width: 220px;
+  max-width: 220px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 4px;
+  align-items: flex-start;
+  min-width: 170px;
+  padding: 7px 11px;
+  border-radius: 9px;
+  pointer-events: auto;
+  border: 1px solid rgba(123, 132, 151, 0.42);
+  background: rgba(255, 255, 255, 0.92);
+  color: rgba(28, 36, 52, 0.92);
+  font-size: 12px;
+  line-height: 1.25;
+  font-weight: 500;
+  font-family:
+    "DS-Project",
+    "DS-Inter",
+    "Inter",
+    "Noto Sans",
+    "Noto Sans Math",
+    "STIX Two Math",
+    "Cambria Math",
+    "Segoe UI Symbol",
+    "Apple Symbols",
+    "Symbola",
+    "DejaVu Sans",
+    sans-serif;
+  letter-spacing: 0.005em;
+  text-align: left;
+  overflow: visible;
+  box-shadow: 0 1px 5px rgba(15, 23, 42, 0.08);
+  transition:
+    border-color 120ms ease,
+    background-color 120ms ease,
+    box-shadow 120ms ease;
+}
+
+.hintChipFocused {
+  border-width: 1.5px;
+  box-shadow:
+    0 2px 8px rgba(15, 23, 42, 0.14),
+    0 0 0 1px rgba(128, 107, 62, 0.14);
+}
+
+.hintPrimaryLine {
+  display: block;
+  width: 100%;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 600;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hintSecondaryLine {
+  display: block;
+  width: 100%;
+  font-size: 12px;
+  line-height: 1.4;
+  font-weight: 500;
+  color: inherit;
+  -webkit-text-fill-color: currentColor;
+  opacity: 0.9;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.hintChip:hover {
+  border-color: rgba(126, 113, 82, 0.75);
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.12);
+}

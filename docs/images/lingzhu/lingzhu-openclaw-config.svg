@@ -1,0 +1,17 @@
+<svg width="1400" height="880" viewBox="0 0 1400 880" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="880" rx="36" fill="#F5F1EA"/>
+  <rect x="90" y="70" width="1220" height="740" rx="28" fill="#1F2430"/>
+  <text x="130" y="130" fill="#F4EFE7" font-size="34" font-family="Courier New, monospace" font-weight="700">Generated OpenClaw config snippet</text>
+  <text x="130" y="190" fill="#B8C3CC" font-size="24" font-family="Courier New, monospace">{</text>
+  <text x="170" y="230" fill="#B8C3CC" font-size="24" font-family="Courier New, monospace">"gateway": { "port": 18789, "http": { "endpoints": { "chatCompletions": { "enabled": true }}}},</text>
+  <text x="170" y="280" fill="#B8C3CC" font-size="24" font-family="Courier New, monospace">"plugins": { "entries": { "lingzhu": { "enabled": true, "config": {</text>
+  <text x="210" y="330" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"authAk": "&lt;auth_ak&gt;",</text>
+  <text x="210" y="372" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"agentId": "main",</text>
+  <text x="210" y="414" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"includeMetadata": true,</text>
+  <text x="210" y="456" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"requestTimeoutMs": 60000,</text>
+  <text x="210" y="498" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"defaultNavigationMode": "0", "enableFollowUp": true,</text>
+  <text x="210" y="540" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"followUpMaxCount": 3, "sessionMode": "per_user",</text>
+  <text x="210" y="582" fill="#C8D7E0" font-size="24" font-family="Courier New, monospace">"sessionNamespace": "lingzhu", "maxImageBytes": 5242880</text>
+  <text x="170" y="632" fill="#B8C3CC" font-size="24" font-family="Courier New, monospace">}}}}</text>
+  <text x="130" y="690" fill="#F0D9B5" font-size="22" font-family="Arial, sans-serif">DeepScientist generates the full snippet in Settings so you can copy it directly.</text>
+</svg>

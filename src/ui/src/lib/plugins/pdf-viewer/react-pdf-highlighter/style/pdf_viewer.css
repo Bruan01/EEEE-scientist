@@ -1,0 +1,71 @@
+/* overrides for pdf_viewer.css from PDF.JS web viewer */
+
+.textLayer {
+  z-index: 2;
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.textLayer span,
+.textLayer > div {
+  /* Prevent "double text" by keeping the selectable text layer invisible.
+     The actual glyphs are rendered on the canvas behind it. */
+  color: transparent !important;
+}
+
+/* Keep overlay hint card text visible (it is UI, not selectable text glyphs). */
+.textLayer .Highlight [class*='hintChip'],
+.textLayer .Highlight [class*='hintChip'] span,
+.textLayer .Highlight [class*='hintChip'] div {
+  color: rgba(15, 15, 15, 0.96) !important;
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.annotationLayer {
+  position: absolute;
+  top: 0;
+
+  z-index: 3;
+}
+
+html
+  body
+  .textLayer
+  > div:not(.PdfHighlighter__highlight-layer):not(.Highlight):not(
+    .Highlight__emoji
+  ) {
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.textLayer ::selection {
+  /* Hide the native selection highlight; we render our own ghost highlight. */
+  background: transparent;
+}
+
+/* Firefox selection */
+.textLayer ::-moz-selection {
+  background: transparent;
+}
+
+/* biome-ignore lint/correctness/noUnknownMediaFeatureName: update this */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .textLayer {
+    opacity: 0.5;
+  }
+}
+
+/* Internet Explorer support method */
+/* biome-ignore lint/correctness/noUnknownMediaFeatureName: update this */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .textLayer {
+    opacity: 0.5;
+  }
+}
+
+/* Microsoft Edge Browser 12+ (All) - @supports method */
+@supports (-ms-ime-align: auto) {
+  .textLayer {
+    opacity: 0.5;
+  }
+}

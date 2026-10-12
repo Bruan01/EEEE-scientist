@@ -1,0 +1,92 @@
+@import "pdfjs-dist/web/pdf_viewer.css";
+
+/* Overrides for PDF.js viewer styles (from react-pdf-highlighter) */
+
+.ds-pdf-ghost-guide .Highlight__part {
+  box-shadow: 0 0 0 1px rgba(47, 74, 90, 0.35);
+}
+
+.ds-pdf-ghost-annotate .Highlight__part {
+  box-shadow: 0 0 0 1px rgba(47, 74, 90, 0.55);
+}
+.textLayer {
+  /* Keep the text layer above the canvas for selection, but do NOT change layout.
+     Overriding layout/blend-mode can cause misaligned selection + “double text”. */
+  z-index: 2;
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.annotationLayer {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+}
+
+html
+  body
+  .textLayer
+  > div:not(.PdfHighlighter__highlight-layer):not(.Highlight):not(
+    .Highlight__emoji
+  ) {
+  opacity: 1;
+  mix-blend-mode: normal;
+}
+
+.textLayer ::selection {
+  /* Morandi-style light yellow selection */
+  background: rgba(241, 233, 208, 0.6);
+  /* Prevent browser from painting visible glyphs for selected text spans */
+  color: transparent;
+  text-shadow: none;
+}
+
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .textLayer {
+    opacity: 0.5;
+  }
+}
+
+@supports (-ms-ime-align: auto) {
+  .textLayer {
+    opacity: 0.5;
+  }
+}
+
+/* Firefox selection */
+.textLayer ::-moz-selection {
+  background: rgba(241, 233, 208, 0.6);
+  color: transparent;
+  text-shadow: none;
+}
+
+.Highlight__popup {
+  background: hsl(var(--popover));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--popover-foreground));
+  padding: 0.5rem 0.75rem;
+  border-radius: 12px;
+  max-width: 408px;
+  max-height: 160px;
+  overflow-y: auto;
+  box-shadow: var(--shadow-float);
+  white-space: normal;
+}
+
+.Highlight__popup .ds-popup-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* Review page only: enlarge annotation popup box (~1.2x vs previous width) */
+.review-workspace-root .Highlight__popup {
+  padding: 0.75rem 1rem;
+  width: 734px;
+  max-width: min(734px, 96vw);
+  min-width: min(518px, 88vw);
+  min-height: 180px;
+  max-height: min(420px, 70vh);
+  overflow: auto;
+  resize: both;
+}

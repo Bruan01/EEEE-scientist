@@ -1,0 +1,123 @@
+'use client'
+
+import Link from 'next/link'
+import { BookOpen, GraduationCap, Languages, Settings2, Sparkles } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { SystemUpdateButton } from '@/components/system-update/SystemUpdateButton'
+import { BRAND_LOGO_SMALL_SRC } from '@/lib/constants/assets'
+import { useI18n } from '@/lib/i18n'
+import { useOnboardingStore } from '@/lib/stores/onboarding'
+import { cn } from '@/lib/utils'
+import { LocalAuthTokenButton } from './LocalAuthTokenButton'
+
+export default function HeroNav(props: {
+  onOpenBenchStore?: () => void
+}) {
+  const { locale, toggleLocale, t } = useI18n()
+  const restartTutorial = useOnboardingStore((state) => state.restartTutorial)
+
+  return (
+    <header
+      className={cn(
+        'sticky top-0 z-50 w-full overflow-visible py-2 [padding-top:calc(env(safe-area-inset-top,0px)+0.5rem)]',
+        'border-b border-black/5 bg-white/60 backdrop-blur-xl',
+        'supports-[backdrop-filter]:bg-white/40'
+      )}
+    >
+      <div className="mx-auto flex min-h-16 w-full max-w-[min(1180px,100vw)] items-center justify-between gap-2 px-3 sm:max-w-[90vw] sm:gap-4 sm:px-6">
+        <Link
+          href="/"
+          className="flex items-center gap-2 rounded-full px-2 py-1 transition-colors hover:bg-black/[0.03]"
+          aria-label="DeepScientist"
+        >
+          <img
+            src={BRAND_LOGO_SMALL_SRC}
+            alt="DeepScientist"
+            width={28}
+            height={28}
+            className="object-contain"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+          />
+          <span className="hidden text-sm font-semibold tracking-tight text-[#2D2A26] sm:inline">
+            DeepScientist
+          </span>
+        </Link>
+
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2">
+          <SystemUpdateButton />
+          <LocalAuthTokenButton />
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9 w-9 rounded-full border-black/10 bg-white/60 px-0 text-[#2D2A26] hover:bg-white/90 sm:w-auto sm:px-3"
+            onClick={toggleLocale}
+            aria-label={locale === 'zh' ? 'Switch to English' : '切换到中文'}
+          >
+            <Languages className="h-4 w-4 sm:mr-2" />
+            <span className="hidden sm:inline">{locale === 'zh' ? 'English' : '中文'}</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="hidden h-9 rounded-full border-black/10 bg-white/60 text-[#2D2A26] hover:bg-white/90 sm:inline-flex"
+            onClick={() => {
+              const nextLanguage = locale === 'zh' ? 'zh' : 'en'
+              restartTutorial('/', nextLanguage)
+            }}
+            data-onboarding-id="landing-replay-tutorial"
+          >
+            <GraduationCap className="mr-2 h-4 w-4" />
+            {locale === 'zh' ? '教程' : 'Tutorial'}
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9 w-9 rounded-full border-black/10 bg-white/60 px-0 text-[#2D2A26] hover:bg-white/90 sm:hidden"
+            onClick={() => {
+              const nextLanguage = locale === 'zh' ? 'zh' : 'en'
+              restartTutorial('/', nextLanguage)
+            }}
+            aria-label={locale === 'zh' ? '教程' : 'Tutorial'}
+            data-onboarding-id="landing-mobile-replay-tutorial"
+          >
+            <GraduationCap className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="h-9 w-9 rounded-full border-black/10 bg-white/60 px-0 text-[#2D2A26] hover:bg-white/90 sm:w-auto sm:px-3"
+            asChild
+          >
+            <Link href="/docs" aria-label={t('navDocs')}>
+              <BookOpen className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">{t('navDocs')}</span>
+            </Link>
+          </Button>
+          {props.onOpenBenchStore ? (
+            <Button
+              variant="outline"
+              size="sm"
+              className="hidden h-9 rounded-full border-black/10 bg-white/60 text-[#2D2A26] hover:bg-white/90 lg:inline-flex"
+              onClick={props.onOpenBenchStore}
+            >
+              <Sparkles className="mr-2 h-4 w-4" />
+              BenchStore
+            </Button>
+          ) : null}
+          <Button
+            size="sm"
+            className="h-9 w-9 rounded-full bg-[#C7AD96] px-0 text-[#2D2A26] hover:bg-[#D7C6AE] sm:w-auto sm:px-3"
+            asChild
+          >
+            <Link href="/settings" aria-label={t('navSettings')}>
+              <Settings2 className="h-4 w-4 sm:mr-2" />
+              <span className="hidden sm:inline">{t('navSettings')}</span>
+            </Link>
+          </Button>
+        </div>
+      </div>
+    </header>
+  )
+}
