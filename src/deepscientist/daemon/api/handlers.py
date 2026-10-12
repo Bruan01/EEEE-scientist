@@ -1429,6 +1429,9 @@ npm --prefix src/ui run build</pre>
     def metrics_timeline(self, quest_id: str) -> dict:
         return self.app.quest_service.metrics_timeline(quest_id)
 
+    def codex_token_usage(self, quest_id: str) -> dict:
+        return self.app.quest_service.codex_token_usage(quest_id)
+
     def baseline_compare(self, quest_id: str) -> dict:
         return self.app.quest_service.baseline_compare(quest_id)
 

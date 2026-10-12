@@ -127,6 +127,7 @@ ROUTES: list[tuple[str, re.Pattern[str], str]] = [
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/graph$"), "graph"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/graph/(?P<kind>svg|png|json)$"), "graph_asset"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/metrics/timeline$"), "metrics_timeline"),
+    ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/codex/token-usage$"), "codex_token_usage"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/baselines/compare$"), "baseline_compare"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/git/branches$"), "git_branches"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/git/canvas$"), "git_canvas"),

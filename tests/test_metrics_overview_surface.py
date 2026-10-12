@@ -137,6 +137,8 @@ def test_details_surface_explicitly_handles_baseline_only_metrics_state() -> Non
     assert "Attach a baseline with recorded metrics to populate this section." in source
     assert 'title="Baseline Compare"' in source
     assert "Confirm more than one baseline or variant to populate cross-baseline comparison here." in source
+    assert "client.codexTokenUsage(questId)" in source
+    assert 'label="Codex tokens"' in source
 
 
 def test_metrics_timeline_falls_back_to_confirmed_baseline_artifact_when_attachment_is_missing(temp_home: Path) -> None:

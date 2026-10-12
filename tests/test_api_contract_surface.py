@@ -338,6 +338,7 @@ def test_web_workspace_keeps_streaming_operational_views_and_tool_effect_surface
 
     assert "pendingFeed.some(" in acp_source
     assert "baselineCompare: (questId: string) =>" in api_source
+    assert "codexTokenUsage: (questId: string) =>" in api_source
     assert "window.setTimeout" in acp_source
     assert "client.workflow(targetQuestId)" in acp_source
     assert "ensureViewData" in acp_source

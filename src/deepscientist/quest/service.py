@@ -58,6 +58,12 @@ _OVERSIZED_EVENT_PREFIX_BYTES = 4096
 _PROJECTION_SCHEMA_VERSION = 1
 _PROJECTION_BUILD_TOTAL_STEPS = 3
 _PROJECTION_REFRESH_THROTTLE_SECONDS = 1.0
+_CODEX_TOKEN_USAGE_FIELDS = (
+    "input_tokens",
+    "cached_input_tokens",
+    "output_tokens",
+    "total_tokens",
+)
 _SHARED_MEMORY_DOCUMENT_PREFIX = "sharedmemory::"
 _EVENT_TYPE_BYTES_RE = re.compile(rb'"(?:type|event_type)"\s*:\s*"([^"]+)"')
 _EVENT_TOOL_NAME_BYTES_RE = re.compile(rb'"tool_name"\s*:\s*"([^"]+)"')
@@ -101,6 +107,27 @@ def _oversized_event_placeholder(*, prefix: bytes, line_bytes: int) -> dict[str,
     if run_id:
         payload["run_id"] = run_id
     return payload
+
+
+def _normalize_codex_token_usage(value: Any) -> dict[str, int]:
+    if not isinstance(value, dict):
+        return {}
+    normalized: dict[str, int] = {}
+    for field in _CODEX_TOKEN_USAGE_FIELDS:
+        raw_value = value.get(field)
+        if isinstance(raw_value, bool):
+            continue
+        if isinstance(raw_value, (int, float)):
+            normalized[field] = max(0, int(raw_value))
+    if "total_tokens" not in normalized:
+        input_tokens = normalized.get("input_tokens", 0)
+        output_tokens = normalized.get("output_tokens", 0)
+        cached_input_tokens = normalized.get("cached_input_tokens", 0)
+        if input_tokens or output_tokens:
+            normalized["total_tokens"] = input_tokens + output_tokens
+        elif cached_input_tokens:
+            normalized["total_tokens"] = cached_input_tokens
+    return normalized
 
 
 def _iter_jsonl_records_safely(
@@ -735,6 +762,14 @@ class QuestService:
         return quest_root / ".ds" / "cache" / "metrics_timeline.lock"
 
     @staticmethod
+    def _codex_token_usage_cache_path(quest_root: Path) -> Path:
+        return quest_root / ".ds" / "cache" / "codex_token_usage.v1.json"
+
+    @staticmethod
+    def _codex_token_usage_cache_lock_path(quest_root: Path) -> Path:
+        return quest_root / ".ds" / "cache" / "codex_token_usage.lock"
+
+    @staticmethod
     def _baseline_compare_cache_path(quest_root: Path) -> Path:
         return quest_root / ".ds" / "cache" / "baseline_compare.v1.json"
 
@@ -807,6 +842,75 @@ class QuestService:
             self._artifact_index_collection_state(quest_root),
             self._metrics_timeline_attachment_state(quest_root, workspace_root),
         ]
+
+    def _codex_token_usage_state(self, quest_root: Path) -> list[list[Any]]:
+        runs_root = quest_root / ".ds" / "runs"
+        states: list[list[Any]] = []
+        if not runs_root.exists():
+            return states
+        for telemetry_path in sorted(runs_root.glob("*/telemetry.json")):
+            states.append(
+                [
+                    str(telemetry_path.relative_to(quest_root)),
+                    self._json_compatible_state(self._path_state(telemetry_path)),
+                ]
+            )
+        return states
+
+    def _build_codex_token_usage_payload(
+        self,
+        quest_id: str,
+        quest_root: Path,
+        state: list[list[Any]],
+    ) -> dict[str, Any]:
+        totals = {field: 0 for field in _CODEX_TOKEN_USAGE_FIELDS}
+        runs: list[dict[str, Any]] = []
+        telemetry_run_count = 0
+        estimated = False
+        for state_item in state:
+            if not isinstance(state_item, list) or not state_item:
+                continue
+            telemetry_path = quest_root / str(state_item[0])
+            telemetry = read_json(telemetry_path, {})
+            if not isinstance(telemetry, dict):
+                continue
+            runner_name = str(telemetry.get("runner") or telemetry.get("source") or "").strip().lower()
+            if runner_name and runner_name not in {"codex", "codex-cli"}:
+                continue
+            telemetry_run_count += 1
+            usage = _normalize_codex_token_usage(telemetry.get("token_usage"))
+            if not usage:
+                continue
+            usage_estimated = "total_tokens" not in (telemetry.get("token_usage") or {})
+            estimated = estimated or usage_estimated
+            for field in _CODEX_TOKEN_USAGE_FIELDS:
+                totals[field] += int(usage.get(field) or 0)
+            runs.append(
+                {
+                    "run_id": str(telemetry.get("run_id") or telemetry_path.parent.name),
+                    "skill_id": str(telemetry.get("skill_id") or "").strip() or None,
+                    "model": str(telemetry.get("model") or "").strip() or None,
+                    "completed_at": telemetry.get("completed_at"),
+                    "token_usage": usage,
+                    "estimated": usage_estimated,
+                }
+            )
+        runs.sort(key=lambda item: str(item.get("completed_at") or ""))
+        return {
+            "quest_id": quest_id,
+            "runner": "codex",
+            "source": "codex telemetry",
+            "available": bool(runs),
+            "estimated": estimated,
+            "input_tokens": totals["input_tokens"],
+            "cached_input_tokens": totals["cached_input_tokens"],
+            "output_tokens": totals["output_tokens"],
+            "total_tokens": totals["total_tokens"],
+            "run_count": len(runs),
+            "telemetry_run_count": telemetry_run_count,
+            "updated_at": utc_now(),
+            "runs": runs[-10:],
+        }
 
     def _baseline_compare_state(self, quest_root: Path, workspace_root: Path) -> list[Any]:
         return [
@@ -4745,6 +4849,41 @@ class QuestService:
                 baseline_entry=baseline_entry,
                 selected_variant_id=selected_variant_id,
             )
+            write_json(
+                cache_path,
+                {
+                    "schema_version": cache_schema_version,
+                    "generated_at": utc_now(),
+                    "state": state,
+                    "payload": payload,
+                },
+            )
+            return payload
+
+    def codex_token_usage(self, quest_id: str) -> dict[str, Any]:
+        quest_root = self._require_initialized_quest_root(quest_id)
+        state = self._json_compatible_state(self._codex_token_usage_state(quest_root))
+        cache_path = self._codex_token_usage_cache_path(quest_root)
+        cache_schema_version = 1
+        cached = self._read_cached_json(cache_path, {})
+        if (
+            isinstance(cached, dict)
+            and int(cached.get("schema_version") or 0) == cache_schema_version
+            and self._json_compatible_state(cached.get("state")) == state
+            and isinstance(cached.get("payload"), dict)
+        ):
+            return dict(cached.get("payload") or {})
+
+        with advisory_file_lock(self._codex_token_usage_cache_lock_path(quest_root)):
+            cached = read_json(cache_path, {})
+            if (
+                isinstance(cached, dict)
+                and int(cached.get("schema_version") or 0) == cache_schema_version
+                and self._json_compatible_state(cached.get("state")) == state
+                and isinstance(cached.get("payload"), dict)
+            ):
+                return dict(cached.get("payload") or {})
+            payload = self._build_codex_token_usage_payload(quest_id, quest_root, state)
             write_json(
                 cache_path,
                 {

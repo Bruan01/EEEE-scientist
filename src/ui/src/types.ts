@@ -973,6 +973,36 @@ export interface MetricsTimelinePayload {
   series: MetricTimelineSeries[]
 }
 
+export interface CodexTokenUsageRun {
+  run_id: string
+  skill_id?: string | null
+  model?: string | null
+  completed_at?: string | null
+  token_usage: {
+    input_tokens?: number
+    cached_input_tokens?: number
+    output_tokens?: number
+    total_tokens?: number
+  }
+  estimated?: boolean
+}
+
+export interface CodexTokenUsagePayload {
+  quest_id: string
+  runner: 'codex' | string
+  source?: string
+  available: boolean
+  estimated?: boolean
+  input_tokens: number
+  cached_input_tokens: number
+  output_tokens: number
+  total_tokens: number
+  run_count: number
+  telemetry_run_count?: number
+  updated_at?: string | null
+  runs?: CodexTokenUsageRun[]
+}
+
 export interface BaselineCompareEntry {
   entry_key: string
   baseline_id?: string | null

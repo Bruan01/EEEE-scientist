@@ -1,6 +1,7 @@
 import type {
   BaselineComparePayload,
   BaselineRegistryEntry,
+  CodexTokenUsagePayload,
   ConfigFileEntry,
   ConfigTestPayload,
   ConfigValidationPayload,
@@ -504,6 +505,26 @@ export const client = {
       return Promise.resolve(payload)
     }
     return api<MetricsTimelinePayload>(`/api/quests/${questId}/metrics/timeline`)
+  },
+  codexTokenUsage: (questId: string) => {
+    if (isDemoProjectId(questId)) {
+      return Promise.resolve<CodexTokenUsagePayload>({
+        quest_id: questId,
+        runner: 'codex',
+        source: 'demo',
+        available: false,
+        estimated: false,
+        input_tokens: 0,
+        cached_input_tokens: 0,
+        output_tokens: 0,
+        total_tokens: 0,
+        run_count: 0,
+        telemetry_run_count: 0,
+        updated_at: null,
+        runs: [],
+      })
+    }
+    return api<CodexTokenUsagePayload>(`/api/quests/${questId}/codex/token-usage`)
   },
   baselineCompare: (questId: string) => {
     if (isDemoProjectId(questId)) {

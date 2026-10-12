@@ -55,6 +55,7 @@ import {
 import type {
   BaselineComparePayload,
   BaselineCompareSeries,
+  CodexTokenUsagePayload,
   FeedItem,
   GitBranchesPayload,
   GuidanceVm,
@@ -645,6 +646,18 @@ function buildMetricsTimelineRunSignature(entries?: WorkflowEntry[] | null) {
       ].join(':')
     )
     .join('|')
+}
+
+function formatTokenCount(value?: number | null) {
+  const count = Number(value || 0)
+  if (!Number.isFinite(count) || count < 0) return '—'
+  if (count >= 1_000_000) {
+    return `${(count / 1_000_000).toFixed(count >= 10_000_000 ? 0 : 1)}M`
+  }
+  if (count >= 1_000) {
+    return `${(count / 1_000).toFixed(count >= 10_000 ? 0 : 1)}k`
+  }
+  return count.toLocaleString()
 }
 
 const MetricTimelineCard = React.memo(function MetricTimelineCard({
@@ -3261,6 +3274,8 @@ function QuestDetails({
   const latestRunningBash = runningBashSessions[0] ?? null
   const [metricsTimeline, setMetricsTimeline] =
     React.useState<MetricsTimelinePayload | null>(null)
+  const [codexTokenUsage, setCodexTokenUsage] =
+    React.useState<CodexTokenUsagePayload | null>(null)
   const [baselineCompare, setBaselineCompare] =
     React.useState<BaselineComparePayload | null>(null)
   const latestRunningBashHint = React.useMemo(() => {
@@ -3810,6 +3825,18 @@ function QuestDetails({
           setMetricsTimeline(null)
         }
       })
+    void client
+      .codexTokenUsage(questId)
+      .then((payload) => {
+        if (!cancelled) {
+          setCodexTokenUsage(payload)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setCodexTokenUsage(null)
+        }
+      })
     return () => {
       cancelled = true
     }
@@ -3985,6 +4012,16 @@ function QuestDetails({
               label="Working set"
               value={`${changedFiles.length} changed files`}
               hint={`${recentDocs.length} docs · ${recentMemory.length} memory · ${recentArtifacts.length} artifacts`}
+            />
+            <OverviewMetric
+              icon={<BarChart3 className="h-4 w-4" />}
+              label="Codex tokens"
+              value={codexTokenUsage?.available ? formatTokenCount(codexTokenUsage.total_tokens) : '—'}
+              hint={
+                codexTokenUsage?.available
+                  ? `${codexTokenUsage.run_count} runs · ${formatTokenCount(codexTokenUsage.input_tokens)} in · ${formatTokenCount(codexTokenUsage.output_tokens)} out${codexTokenUsage.estimated ? ' · approx.' : ''}`
+                  : 'Appears after a completed Codex run.'
+              }
             />
           </div>
         </DetailSection>

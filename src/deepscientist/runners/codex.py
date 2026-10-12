@@ -971,6 +971,7 @@ class CodexRunner:
         tool_budget_telemetry = _new_tool_budget_telemetry(tool_call_budget=configured_tool_budget)
         telemetry: dict[str, Any] = {
             "version": 1,
+            "runner": "codex",
             "quest_id": request.quest_id,
             "run_id": request.run_id,
             "skill_id": request.skill_id,
@@ -1267,6 +1268,7 @@ class CodexRunner:
                 "history_root": str(history_root),
                 "run_root": str(run_root),
                 "telemetry_path": str(telemetry_path),
+                "token_usage": telemetry.get("token_usage"),
                 "output_text": output_text,
                 "stderr_text": stderr_text,
                 "completed_at": utc_now(),
