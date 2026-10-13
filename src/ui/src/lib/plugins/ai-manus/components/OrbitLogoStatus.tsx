@@ -306,7 +306,7 @@ export function OrbitLogoStatus({
             ref={canvasRef}
             className="ai-manus-orbit-canvas"
             role="img"
-            aria-label="DeepScientist logo"
+            aria-label="EEEE Scientist logo"
           />
         </div>
       </StarBorder>

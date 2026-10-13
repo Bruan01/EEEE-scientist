@@ -15,7 +15,7 @@
 
 Biopython provides Python tools for bioinformatics and computational molecular biology, covering biological sequence parsing, alignments, phylogenetics, and interfaces to common genomics and proteomics data sources.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

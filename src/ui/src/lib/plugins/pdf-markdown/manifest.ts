@@ -14,7 +14,7 @@ export const pdfMarkdownManifest: UnifiedPluginManifest = {
   description: 'View MinerU Markdown output for PDFs',
   version: '1.0.0',
   type: 'builtin',
-  author: 'DeepScientist Team',
+  author: 'EEEE Scientist Team',
   icon: 'FileText',
   frontend: {
     entry: './PdfMarkdownPlugin',

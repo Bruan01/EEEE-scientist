@@ -1,14 +1,14 @@
-# 13 核心架构说明：DeepScientist 是如何拼起来的
+# 13 核心架构说明：EEEE Scientist 是如何拼起来的
 
 这是一篇面向用户的核心架构说明。
 
-它的目标不是替代维护者文档，而是让你在不通读底层实现的情况下，也能理解 DeepScientist 的主要结构。
+它的目标不是替代维护者文档，而是让你在不通读底层实现的情况下，也能理解 EEEE Scientist 的主要结构。
 
 如果你要维护仓库本身，还应该继续阅读 [90 Architecture](../en/90_ARCHITECTURE.md) 和 [91 Development](../en/91_DEVELOPMENT.md)。
 
 ## 1. 一句话总结
 
-DeepScientist 是一个本地优先的科研操作系统，其中：
+EEEE Scientist 是一个本地优先的科研操作系统，其中：
 
 - 对外安装和启动入口是 `npm` 与 `ds`
 - 真正的权威运行时在 Python
@@ -18,7 +18,7 @@ DeepScientist 是一个本地优先的科研操作系统，其中：
 
 ## 2. 四个主要入口
 
-DeepScientist 实际上有四个常见入口：
+EEEE Scientist 实际上有四个常见入口：
 
 1. `ds` 命令
 2. Web 工作区
@@ -65,7 +65,7 @@ TUI 不是另一套独立产品，也不是另一份状态。
 
 正常启动链路是：
 
-1. `npm install -g @researai/deepscientist`
+1. `npm install -g eeee-scientist`
 2. 运行 `ds`
 3. `bin/ds.js` 准备运行时环境
 4. 启动 Python daemon
@@ -79,7 +79,7 @@ TUI 不是另一套独立产品，也不是另一份状态。
 
 ## 4. Runtime home
 
-默认情况下，DeepScientist 使用 `~/DeepScientist/` 作为运行时主目录。
+默认情况下，EEEE Scientist 使用 `~/DeepScientist/` 作为运行时主目录。
 
 其中最重要的目录有：
 
@@ -101,7 +101,7 @@ TUI 不是另一套独立产品，也不是另一份状态。
 
 ## 5. 一题一仓库
 
-这是 DeepScientist 最关键的设计之一。
+这是 EEEE Scientist 最关键的设计之一。
 
 每个 quest 都在自己的目录里：
 
@@ -119,7 +119,7 @@ TUI 不是另一套独立产品，也不是另一份状态。
 - memory
 - shell 历史
 
-这正是 DeepScientist 能变成 persistent research map，而不是一次性对话的原因。
+这正是 EEEE Scientist 能变成 persistent research map，而不是一次性对话的原因。
 
 ## 6. `Start Research` 真正创建了什么
 
@@ -159,7 +159,7 @@ TUI 不是另一套独立产品，也不是另一份状态。
 
 ## 8. Prompt-led 与 Skill-led 工作流
 
-DeepScientist 并不是主要依赖一个巨大的硬编码 stage scheduler。
+EEEE Scientist 并不是主要依赖一个巨大的硬编码 stage scheduler。
 
 它的工作流纪律更多来自：
 
@@ -180,7 +180,7 @@ DeepScientist 并不是主要依赖一个巨大的硬编码 stage scheduler。
 
 ## 9. 内建 MCP 只有三个 namespace
 
-DeepScientist 故意把内建 MCP 面控制得很小：
+EEEE Scientist 故意把内建 MCP 面控制得很小：
 
 - `memory`
 - `artifact`
@@ -224,7 +224,7 @@ DeepScientist 故意把内建 MCP 面控制得很小：
 - 消费排队中的用户消息
 - 让长时间运行期间的交互线程保持连续
 
-这也是 DeepScientist 能在长任务里不断线协作的原因之一。
+这也是 EEEE Scientist 能在长任务里不断线协作的原因之一。
 
 ## 11. Web 工作区是如何从持久状态重建的
 
@@ -268,7 +268,7 @@ Connectors 是 quest 外围的适配层，不是 quest 本身。
 
 ## 14. 为什么系统能持续生长
 
-DeepScientist 能跨轮次累积进展，是因为它把状态保存在持久形式里：
+EEEE Scientist 能跨轮次累积进展，是因为它把状态保存在持久形式里：
 
 - quest 文件
 - Git 分支与 commit

@@ -15,7 +15,7 @@
 
 MOOSE is an object-oriented finite-element framework for fully coupled implicit multiphysics simulations with adaptive meshing, scalable parallel solvers, and engineering-focused APIs.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

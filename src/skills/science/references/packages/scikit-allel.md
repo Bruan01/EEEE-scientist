@@ -15,7 +15,7 @@
 
 Python package for exploratory analysis of large-scale genetic variation data, with tools for genotype arrays, variant statistics, and population genetics workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

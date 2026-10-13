@@ -1,6 +1,6 @@
 # 06 Runtime and Canvas: Understand Runtime Flow and Canvas
 
-This document describes the **current implemented behavior** of DeepScientist Core in this repository.
+This document describes the **current implemented behavior** of EEEE Scientist Core in this repository.
 
 It is intentionally based on the real runtime code rather than older architecture drafts.
 
@@ -249,7 +249,7 @@ The Codex runner:
 - prepares an isolated runtime home under `.ds/codex-home/`
 - inherits the configured Codex home semantics (`config.toml`, `auth.json`, `skills/`, `agents/`, `prompts/`)
 - overlays quest-local `.codex/skills/` and `.codex/prompts/` on top of that runtime copy
-- injects DeepScientist built-in MCP servers into `.ds/codex-home/config.toml`
+- injects EEEE Scientist built-in MCP servers into `.ds/codex-home/config.toml`
 - runs `codex --search exec --json --cd <quest_root> --skip-git-repo-check --model <model> -`
 
 The injected built-in MCP namespaces are exactly:

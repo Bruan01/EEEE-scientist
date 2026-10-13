@@ -15,7 +15,7 @@
 
 Delphes is a C++ framework for fast multipurpose collider detector-response simulation, producing reconstructed physics objects and ROOT trees from generated high-energy physics events.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -1,109 +1,51 @@
-## DeepScientist Trademark Guidelines
+# EEEE Scientist Naming and Attribution
 
-This document explains how the `DeepScientist` name, logo, and related branding may be used.
+EEEE Scientist is a secondary-development fork of
+[DeepScientist](https://github.com/ResearAI/DeepScientist). This document keeps
+the fork's public identity clear and does not change the Apache-2.0 software
+license.
 
-It is intended to be practical and lightweight. It does not change the open-source software license.
+## Project identity
 
-### 1. Scope
+- Public product name: **EEEE Scientist**
+- Repository: **Bruan01/EEEE-scientist**
+- Legacy runtime compatibility: <code>deepscientist</code> Python imports,
+  <code>ds</code> launcher, and <code>~/DeepScientist</code> data homes
+- Upstream project: **DeepScientist**, maintained by ResearAI
 
-These guidelines apply to:
+The EEEE Scientist name identifies this modified distribution. It should not be
+presented as the official upstream DeepScientist release.
 
-- the `DeepScientist` name
-- the DeepScientist logo and visual brand assets
-- official project, product, and service names used by ResearAI for DeepScientist
+## Allowed references
 
-The source code remains licensed under the repository's software license.
-Trademark rights are separate from copyright and software license rights.
+You may:
 
-### 2. What is generally allowed
+- state that EEEE Scientist is based on or compatible with DeepScientist;
+- describe, review, benchmark, cite, or compare either project accurately;
+- redistribute modified source under the repository software license;
+- keep compatibility notes explaining the legacy Python package and runtime
+  paths.
 
-You may generally do the following without asking for separate permission:
+Good examples:
 
-- use the name `DeepScientist` to factually refer to this project
-- say that your work is based on, compatible with, or built with DeepScientist
-- link to the official repository, paper, website, and documentation
-- discuss, review, compare, benchmark, or cite DeepScientist in papers, blog posts, talks, and tutorials
-- fork the code and state that your fork originated from DeepScientist
+- <code>EEEE Scientist, based on DeepScientist</code>
+- <code>EEEE Scientist secondary-development fork</code>
+- <code>Compatible with the DeepScientist quest layout</code>
 
-Examples of generally acceptable use:
+## Avoid confusion
 
-- `Built with DeepScientist`
-- `This project is a fork of DeepScientist`
-- `Compatible with DeepScientist quest layout`
+Do not claim that EEEE Scientist is the official DeepScientist release, or imply
+that ResearAI sponsors, certifies, or endorses this fork. Do not use phrases
+such as “official EEEE Scientist” or “by ResearAI” unless that statement is
+actually authorized and accurate.
 
-### 3. What requires extra care
+The inherited logo and compatibility identifiers should be understood as
+upstream-derived assets or interfaces. New public pages, releases, and hosted
+services should use the EEEE Scientist name and clearly identify the fork.
 
-Please do not use the `DeepScientist` name, logo, or branding in ways that are likely to confuse users about source, sponsorship, certification, or official status.
+## Citation
 
-Without prior written permission, please do not:
-
-- present your fork, hosted service, plugin, benchmark, or derivative product as the official DeepScientist project
-- use the DeepScientist logo as the primary brand for a modified or third-party product
-- name a modified distribution in a way that strongly suggests it is the official release
-- imply endorsement, certification, partnership, or approval by ResearAI when that is not true
-- use phrases such as `official`, `certified`, `by ResearAI`, or similar claims in a misleading way
-
-Examples of problematic use:
-
-- `Official DeepScientist Cloud`
-- `DeepScientist Enterprise` for an unrelated third-party hosted product
-- shipping a modified fork under the unchanged DeepScientist product name in a way that hides that it is a fork
-
-### 4. Forks and modified versions
-
-You may fork, modify, and redistribute the code under the repository's software license.
-
-If you distribute a modified version as a separate product or service, please make the modified status clear.
-
-Good patterns include:
-
-- `ProjectName, based on DeepScientist`
-- `DeepScientist fork by <your org>`
-- `Modified DeepScientist build for internal use`
-
-If your fork is becoming a distinct public-facing product, we strongly prefer that you adopt your own primary product name and branding.
-
-### 5. Nominative and descriptive use
-
-We do not object to reasonable nominative or descriptive use of the DeepScientist name when you are accurately referring to the project.
-
-That includes:
-
-- documentation
-- comparative evaluations
-- academic citations
-- compatibility notes
-- tutorials
-- screenshots of the unmodified product
-
-### 6. No software license change
-
-These trademark guidelines do not change:
-
-- the repository software license
-- your rights to use, study, modify, or redistribute the code under that license
-
-They only address branding, naming, and source-identification issues.
-
-### 7. Citation and attribution
-
-If DeepScientist materially helps a paper, report, or public research artifact, we strongly encourage citation of the DeepScientist paper and clear disclosure of meaningful AI assistance.
-
-See:
-
-- [README.md](./README.md)
-- [docs/en/26_CITATION_AND_ATTRIBUTION.md](./docs/en/26_CITATION_AND_ATTRIBUTION.md)
-
-### 8. Questions and permissions
-
-If you want to:
-
-- use the DeepScientist logo in a commercial context
-- use the DeepScientist name for a public hosted service
-- request explicit permission for co-branding or partnership-style usage
-
-please contact:
-
-- `resear.ai@gmail.com`
-
-These guidelines are intended to stay lightweight and practical.
+If this fork materially contributes to a paper, report, benchmark, or public
+research artifact, cite the upstream DeepScientist paper and identify the
+EEEE Scientist changes. See [CITATION.cff](./CITATION.cff) and
+[docs/en/26_CITATION_AND_ATTRIBUTION.md](./docs/en/26_CITATION_AND_ATTRIBUTION.md).

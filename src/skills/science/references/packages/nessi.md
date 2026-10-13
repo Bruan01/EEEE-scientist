@@ -15,7 +15,7 @@
 
 NESSi is an open-source package for simulating nonequilibrium many-body dynamics using contour-ordered Green's functions on the Kadanoff-Baym contour with equation-of-motion solvers and scalable reciprocal-space parallelization.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

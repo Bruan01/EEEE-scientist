@@ -7,10 +7,10 @@ describe('connectorSettingsHelpers', () => {
     expect(
       qqProfileDisplayLabel({
         profile_id: 'qq-profile-d7iuv7wx',
-        bot_name: 'DeepScientist',
+        bot_name: 'EEEE Scientist',
         app_id: '1903577099',
       })
-    ).toBe('DeepScientist · 1903577099')
+    ).toBe('EEEE Scientist · 1903577099')
   })
 
   it('prefers the snapshot label when one is available', () => {
@@ -18,12 +18,12 @@ describe('connectorSettingsHelpers', () => {
       qqProfileDisplayLabel(
         {
           profile_id: 'qq-profile-d7iuv7wx',
-          bot_name: 'DeepScientist',
+          bot_name: 'EEEE Scientist',
           app_id: '1903577099',
         },
-        { label: 'DeepScientist · 1903577099' }
+        { label: 'EEEE Scientist · 1903577099' }
       )
-    ).toBe('DeepScientist · 1903577099')
+    ).toBe('EEEE Scientist · 1903577099')
   })
 
   it('prefers the bound target over the saved main chat target', () => {

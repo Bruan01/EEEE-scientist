@@ -39,8 +39,8 @@ describe('normalizeQuestAcpUpdateEnvelope', () => {
               ok: true,
               title: 'Prefilled issue title',
               body_markdown: '# Summary\n\nPrefilled body\n',
-              issue_url_base: 'https://github.com/ResearAI/DeepScientist/issues/new',
-              repo_url: 'https://github.com/ResearAI/DeepScientist',
+              issue_url_base: 'https://github.com/Bruan01/EEEE-scientist/issues/new',
+              repo_url: 'https://github.com/Bruan01/EEEE-scientist',
               ui_effects: [
                 {
                   name: 'route:navigate',
@@ -50,8 +50,8 @@ describe('normalizeQuestAcpUpdateEnvelope', () => {
                       ok: true,
                       title: 'Prefilled issue title',
                       body_markdown: '# Summary\n\nPrefilled body\n',
-                      issue_url_base: 'https://github.com/ResearAI/DeepScientist/issues/new',
-                      repo_url: 'https://github.com/ResearAI/DeepScientist',
+                      issue_url_base: 'https://github.com/Bruan01/EEEE-scientist/issues/new',
+                      repo_url: 'https://github.com/Bruan01/EEEE-scientist',
                     },
                   },
                 },

@@ -15,7 +15,7 @@
 
 RDKit is an open-source cheminformatics library for molecular representation, property calculation, fingerprinting, and substructure or similarity search across 2D and 3D chemical workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

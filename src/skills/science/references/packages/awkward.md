@@ -15,7 +15,7 @@
 
 Awkward Array enables NumPy-like, compiled operations on deeply nested, variable-length, and record-rich scientific data, making jagged JSON-like event structures fast and practical to analyze.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 OpenMM is a high-performance molecular dynamics toolkit for biomolecular simulation, offering flexible custom forces and integrators with fast GPU execution through Python and C++ interfaces.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

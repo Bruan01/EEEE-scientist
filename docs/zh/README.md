@@ -1,6 +1,6 @@
-# DeepScientist 文档总览
+# EEEE Scientist 文档总览
 
-DeepScientist 不仅仅是一个可长期运行的自动化科学发现系统，更是一个真正持续保存在你自己机器里的科研地图。
+EEEE Scientist 是基于 DeepScientist 的二次开发版本。它不仅是一个可长期运行的自动化科学发现系统，也是一个真正持续保存在你自己机器里的科研地图。
 
 2 分钟安装，2 分钟配置微信，2 分钟启动。极快、方便、易用。
 
@@ -8,14 +8,14 @@ DeepScientist 不仅仅是一个可长期运行的自动化科学发现系统，
 
 它也是一种工作坊式协作环境：可以长期自主推进，也允许你随时接管、协作、改代码、自己跑终端，亦或者用 Notion 式方式记录笔记、计划与协作内容。
 
-DeepScientist 灵活且易于使用，支持：
+EEEE Scientist 灵活且易于使用，支持：
 
 - 本地优先、开源、一条命令安装
 - Git 驱动的 quest 仓库、Web 工作区、Studio / Canvas 与 TUI
 - 工作坊式协作：可长期自主推进，也可随时接管、协作、改代码、跑终端或记录 Notion 式笔记
 - 内建 `codex`、`claude`、`kimi`、`opencode` 四种 runner
 - 兼容外部 OpenAI-compatible 模型端点
-- 你可以在任何地方使用 DeepScientist：服务器（TUI）、浏览器（Web）、手机（微信或 QQ），甚至眼镜（Rokid Glasses）
+- 你可以在任何地方使用 EEEE Scientist：服务器（TUI）、浏览器（Web）、手机（微信或 QQ），甚至眼镜（Rokid Glasses）
 - 每个 quest 绑定一个外部 connector
 - 支持 [微信](./10_WEIXIN_CONNECTOR_GUIDE.md)、[QQ](./03_QQ_CONNECTOR_GUIDE.md)、Telegram、Discord、Slack、Feishu、WhatsApp、[灵珠 / Rokid](./04_LINGZHU_CONNECTOR_GUIDE.md)
 - 一题一仓库
@@ -44,7 +44,7 @@ DeepScientist 灵活且易于使用，支持：
 | [ScienceClaw](https://github.com/beita6969/ScienceClaw) | Open-source |  |  |  | ✓ | ✓ |  |
 | [claude-scholar](https://github.com/Galaxy-Dawn/claude-scholar) | Open-source | ✓ |  | ✓ | ✓ |  |  |
 | [Research-Claw](https://github.com/wentorai/Research-Claw) | Open-source | ✓ |  | ✓ | ✓ | ✓ |  |
-| [DeepScientist](https://github.com/ResearAI/DeepScientist) | Open-source | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| [EEEE Scientist](https://github.com/Bruan01/EEEE-scientist) | Open-source | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
 
 列含义：
 
@@ -58,12 +58,12 @@ DeepScientist 灵活且易于使用，支持：
 
 ## 动态
 
-- `2026/03/24`：DeepScientist 正式发布 `v1.5` 版本。
-- `2026/02/01`：DeepScientist 论文已上线 [OpenReview](https://openreview.net/forum?id=cZFgsLq8Gs)，对应 `ICLR 2026`。
+- `2026/03/24`：EEEE Scientist 正式发布 `v1.5` 版本。
+- `2026/02/01`：上游 DeepScientist 论文已上线 [OpenReview](https://openreview.net/forum?id=cZFgsLq8Gs)，对应 `ICLR 2026`。
 
 ## ResearAI 相关项目
 
-这里聚焦与 DeepScientist 关联最强的一组 AI Scientist 与 AutoFigure 项目。
+这里聚焦与 EEEE Scientist 关联最强的一组 AI Scientist 与 AutoFigure 项目。
 
 | 项目 | 用途 |
 |---|---|
@@ -83,21 +83,21 @@ DeepScientist 灵活且易于使用，支持：
 - [31 本地浏览器密码说明](./31_LOCAL_BROWSER_AUTH.md)
   如果你想弄清楚密码弹窗是什么、密码去哪里看、怎样关闭这一层本地保护，先看这篇。
 - [32 Windows + WSL2 部署指南](./32_WINDOWS_WSL2_DEPLOYMENT_GUIDE.md)
-  如果你在 Windows 上使用 DeepScientist，并且想走推荐的 WSL2 路线，先看这篇。
+  如果你在 Windows 上使用 EEEE Scientist，并且想走推荐的 WSL2 路线，先看这篇。
 - [05 TUI 端到端指南](./05_TUI_GUIDE.md)
   如果你主要在服务器或终端里工作，这篇会带你从 `ds --tui` 一路走到 quest、connector、跨端协作和 TUI debug 快照。
 - [15 Codex Provider 配置](./15_CODEX_PROVIDER_SETUP.md)
-  如果你准备通过 OpenAI、Ollama、MiniMax、GLM、火山方舟、阿里百炼 Coding Plan 或其他 Codex profile 来运行 DeepScientist，先看这一篇。Gemini 只建议作为高级实验路线，通常优先走 OpenCode。
+  如果你准备通过 OpenAI、Ollama、MiniMax、GLM、火山方舟、阿里百炼 Coding Plan 或其他 Codex profile 来运行 EEEE Scientist，先看这一篇。Gemini 只建议作为高级实验路线，通常优先走 OpenCode。
 - [24 Claude Code 配置指南](./24_CLAUDE_CODE_PROVIDER_SETUP.md)
-  如果 Claude Code 在你的机器上已经能正常工作，并且你想让 DeepScientist 直接复用它，或者你想通过 Ollama 的 Anthropic-compatible API 跑 Claude runner，先看这一篇。
+  如果 Claude Code 在你的机器上已经能正常工作，并且你想让 EEEE Scientist 直接复用它，或者你想通过 Ollama 的 Anthropic-compatible API 跑 Claude runner，先看这一篇。
 - [27 Kimi Code 配置指南](./27_KIMI_CODE_PROVIDER_SETUP.md)
   如果官方 `kimi` CLI 在你的机器上已经能正常工作，并且你想把它作为独立 builtin runner 使用，先看这一篇。
 - [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md)
-  如果 OpenCode 在你的机器上已经能正常工作，并且你想让 DeepScientist 直接复用它的 provider/model 配置，尤其是接 Gemini 或 Ollama，先看这一篇。
+  如果 OpenCode 在你的机器上已经能正常工作，并且你想让 EEEE Scientist 直接复用它的 provider/model 配置，尤其是接 Gemini 或 Ollama，先看这一篇。
 - [21 本地模型后端指南](./21_LOCAL_MODEL_BACKENDS_GUIDE.md)
-  如果你想通过 vLLM、Ollama、SGLang 等本地模型后端运行 DeepScientist，先看这一篇；它会帮你在 Codex、Claude Code、OpenCode 三条 runner 路线之间选路。
+  如果你想通过 vLLM、Ollama、SGLang 等本地模型后端运行 EEEE Scientist，先看这一篇；它会帮你在 Codex、Claude Code、OpenCode 三条 runner 路线之间选路。
 - [26 引用与致谢说明](./26_CITATION_AND_ATTRIBUTION.md)
-  如果 DeepScientist 对论文或报告已经产生了实质性帮助，想看推荐引用方式、致谢模板和归因边界，就看这一篇。
+  如果 EEEE Scientist 对论文或报告已经产生了实质性帮助，想看推荐引用方式、致谢模板和归因边界，就看这一篇。
 - [12 引导式工作流教程](./12_GUIDED_WORKFLOW_TOUR.md)
   按真实产品流程，逐步理解从首页到工作区应该怎么使用。
 - [02 Start Research 参考](./02_START_RESEARCH_GUIDE.md)
@@ -125,7 +125,7 @@ DeepScientist 灵活且易于使用，支持：
 - [18 Feishu Connector 指南](./18_FEISHU_CONNECTOR_GUIDE.md)
   通过内置 long-connection 运行时绑定 Feishu，并从 bot 会话继续推进 quest。
 - [10 微信连接器指南](./10_WEIXIN_CONNECTOR_GUIDE.md)
-  适合通过 DeepScientist 内置扫码流程，把个人微信直接绑定进来。
+  适合通过 EEEE Scientist 内置扫码流程，把个人微信直接绑定进来。
 - [03 QQ 连接器指南](./03_QQ_CONNECTOR_GUIDE.md)
   适合把 QQ 当作日常协作、里程碑通知和命令入口。
 - [04 灵珠 / Rokid 指南](./04_LINGZHU_CONNECTOR_GUIDE.md)
@@ -165,7 +165,7 @@ DeepScientist 灵活且易于使用，支持：
 - [01 设置参考](./01_SETTINGS_REFERENCE.md)
   如果问题可能和配置、凭据或 connector 有关，再查这篇。
 
-## 如果你在维护 DeepScientist
+## 如果你在维护 EEEE Scientist
 - [90 Architecture](../en/90_ARCHITECTURE.md)
   说明系统级约束、核心契约和仓库结构。
 - [91 Development](../en/91_DEVELOPMENT.md)
@@ -176,5 +176,5 @@ DeepScientist 灵活且易于使用，支持：
 欢迎加群讨论。
 
 <p align="center">
-  <img src="../../assets/readme/wechat15.jpg" alt="DeepScientist 微信群" width="360" />
+  <img src="../../assets/readme/wechat15.jpg" alt="EEEE Scientist 微信群" width="360" />
 </p>

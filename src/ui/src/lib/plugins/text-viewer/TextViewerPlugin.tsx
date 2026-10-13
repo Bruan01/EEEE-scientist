@@ -553,7 +553,7 @@ function highlightMatches(text: string, query: string): React.ReactNode {
 /**
  * Demo text content
  */
-const DEMO_TEXT = `DeepScientist - Text Viewer Demo
+const DEMO_TEXT = `EEEE Scientist - Text Viewer Demo
 ================================
 
 This is a demonstration of the Text Viewer plugin.
@@ -590,7 +590,7 @@ Sample Log Output:
 Environment Variables:
 ---------------------
 NODE_ENV=production
-DATABASE_URL=postgresql://localhost/deepscientist
+DATABASE_URL=postgresql://localhost/eeee_scientist
 REDIS_URL=redis://localhost:6379
 API_KEY=sk-...
 LOG_LEVEL=debug

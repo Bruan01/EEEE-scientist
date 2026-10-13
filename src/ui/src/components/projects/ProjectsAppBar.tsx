@@ -48,7 +48,7 @@ export function ProjectsAppBar({
             end
             className="inline-flex min-w-0 items-center gap-2 rounded-full px-2 py-1 transition hover:bg-black/[0.03] dark:hover:bg-white/[0.05]"
           >
-            <img src={logoSrc} alt="DeepScientist" className="h-7 w-auto" draggable={false} />
+            <img src={logoSrc} alt="EEEE Scientist" className="h-7 w-auto" draggable={false} />
             <span className="hidden text-sm font-semibold tracking-tight sm:inline">{t('brand')}</span>
           </NavLink>
 

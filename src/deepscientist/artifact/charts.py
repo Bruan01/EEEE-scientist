@@ -381,7 +381,7 @@ def _draw_brand_lockup(draw: ImageDraw.ImageDraw, image: Image.Image, *, width: 
     text_right = width - 52
     brand_font = _load_font(22, bold=True)
     caption_font = _load_font(13, bold=False)
-    text_bbox = draw.textbbox((0, 0), "DeepScientist", font=brand_font)
+    text_bbox = draw.textbbox((0, 0), "EEEE Scientist", font=brand_font)
     caption_bbox = draw.textbbox((0, 0), "Autonomous Research Update", font=caption_font)
     content_width = max(text_bbox[2] - text_bbox[0], caption_bbox[2] - caption_bbox[0])
     mark_width = mark.width if mark is not None else 0
@@ -390,7 +390,7 @@ def _draw_brand_lockup(draw: ImageDraw.ImageDraw, image: Image.Image, *, width: 
     if mark is not None:
         image.alpha_composite(mark, (left, 42))
     text_left = left + (mark_width + 12 if mark is not None else 0)
-    draw.text((text_left, 46), "DeepScientist", fill=MORANDI_TEXT, font=brand_font)
+    draw.text((text_left, 46), "EEEE Scientist", fill=MORANDI_TEXT, font=brand_font)
     draw.text((text_left, 74), "Autonomous Research Update", fill=MORANDI_TEXT_MUTED, font=caption_font)
 
 

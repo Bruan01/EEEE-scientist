@@ -15,7 +15,7 @@
 
 Open Babel is an open-source chemical toolbox for converting, searching, and analyzing molecular and materials data across many cheminformatics file formats.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

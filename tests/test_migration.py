@@ -34,7 +34,7 @@ def test_migrate_deepscientist_root_rejects_nested_target(temp_home: Path) -> No
     ensure_home_layout(source)
     nested_target = source / "migrated"
 
-    with pytest.raises(ValueError, match="inside the current DeepScientist root"):
+    with pytest.raises(ValueError, match="inside the current EEEE Scientist root"):
         migrate_deepscientist_root(source, nested_target)
 
 

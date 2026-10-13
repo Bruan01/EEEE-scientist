@@ -80,13 +80,13 @@ def migrate_deepscientist_root(source: Path, target: Path) -> dict[str, Any]:
     if not source.is_dir():
         raise ValueError(f"Source path is not a directory: {source}")
     if not looks_like_deepscientist_root(source):
-        raise ValueError(f"Source path does not look like a DeepScientist home or install root: {source}")
+        raise ValueError(f"Source path does not look like an EEEE Scientist home or install root: {source}")
     if source == target:
         raise ValueError("Source path and target path must be different.")
     if _is_relative_to(target, source):
-        raise ValueError("Target path cannot be placed inside the current DeepScientist root.")
+        raise ValueError("Target path cannot be placed inside the current EEEE Scientist root.")
     if _is_relative_to(source, target):
-        raise ValueError("Target path cannot be a parent of the current DeepScientist root.")
+        raise ValueError("Target path cannot be a parent of the current EEEE Scientist root.")
     if target.exists():
         raise ValueError(f"Target path already exists: {target}")
     target.parent.mkdir(parents=True, exist_ok=True)
@@ -107,7 +107,7 @@ def migrate_deepscientist_root(source: Path, target: Path) -> dict[str, Any]:
             "target": str(target),
             "staging": str(staging),
             "stats": source_manifest["stats"],
-            "summary": "DeepScientist root copied and verified successfully.",
+            "summary": "EEEE Scientist root copied and verified successfully.",
         }
     except Exception:
         shutil.rmtree(staging, ignore_errors=True)

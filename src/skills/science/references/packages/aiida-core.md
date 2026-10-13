@@ -15,7 +15,7 @@
 
 AiiDA-core is a scientific workflow and provenance platform that automates remote HPC calculations, tracks reproducible process graphs, and integrates simulation-code plugins.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

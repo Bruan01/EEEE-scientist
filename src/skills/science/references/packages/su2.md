@@ -15,7 +15,7 @@
 
 SU2 is an open-source C++ suite for computational fluid dynamics, multiphysics PDE simulation, and adjoint-driven aerodynamic shape optimization for engineering analysis and design.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

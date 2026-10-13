@@ -14,7 +14,7 @@ import { pickAdminCopy } from '@/components/settings/settingsOpsCopy'
 const surfaceClassName =
   'rounded-[28px] border border-black/[0.06] bg-[rgba(255,251,246,0.76)] shadow-[0_18px_40px_-30px_rgba(18,24,32,0.24)] backdrop-blur-sm dark:border-white/[0.08] dark:bg-white/[0.03]'
 const dividerClassName = 'border-black/[0.06] dark:border-white/[0.08]'
-const defaultIssueBase = 'https://github.com/ResearAI/DeepScientist/issues/new'
+const defaultIssueBase = 'https://github.com/Bruan01/EEEE-scientist/issues/new'
 
 const PAGE_COPY = {
   en: {

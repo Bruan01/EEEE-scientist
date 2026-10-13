@@ -6,7 +6,7 @@ export const aiManusManifest: UnifiedPluginManifest = {
   description: 'Shared ai-manus chat UI layer for Agent and Copilot',
   version: '1.0.0',
   type: 'builtin',
-  author: 'DeepScientist Team',
+  author: 'EEEE Scientist Team',
   icon: 'MessageSquare',
   frontend: {
     entry: './AiManusChatView',

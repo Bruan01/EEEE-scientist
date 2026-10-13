@@ -15,7 +15,7 @@
 
 ITensor is a C++ library for efficient tensor network calculations, featuring automatic index-aware contractions for matrix product states and quantum many-body algorithms.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

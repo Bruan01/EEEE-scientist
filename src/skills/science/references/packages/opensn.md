@@ -15,7 +15,7 @@
 
 OpenSn is a massively parallel scientific simulation engine that solves the linear Boltzmann equation using deterministic discrete-ordinates transport methods.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

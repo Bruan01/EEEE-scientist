@@ -1,12 +1,12 @@
 # 21 本地模型后端指南：vLLM、Ollama 与 SGLang
 
-这篇文档说明如何把 DeepScientist 接到本地模型后端，重点包括 vLLM、Ollama 和 SGLang。
+这篇文档说明如何把 EEEE Scientist 接到本地模型后端，重点包括 vLLM、Ollama 和 SGLang。
 
 先分清一个基本事实：
 
-- DeepScientist 不直接调用本地模型服务
-- DeepScientist 调用的是 runner CLI：`codex`、`claude`、`opencode`
-- 本地模型后端要先被对应 runner CLI 接通，再由 DeepScientist 复用
+- EEEE Scientist 不直接调用本地模型服务
+- EEEE Scientist 调用的是 runner CLI：`codex`、`claude`、`opencode`
+- 本地模型后端要先被对应 runner CLI 接通，再由 EEEE Scientist 复用
 
 如果你使用的是 Codex runner，下面的 `/v1/responses` 检查很关键。
 如果你使用的是 OpenCode 或 Claude Code runner，请优先看对应 runner 文档里的 Ollama 小节：
@@ -24,11 +24,11 @@
 
 - 如果你的后端只有 chat 接口，仍然有机会通过 **Codex CLI `0.57.0`** 跑通
 - 这条旧路径通常需要使用顶层 `model_provider` / `model`，并把 `wire_api` 设为 `chat`
-- DeepScientist 现在会在 Codex 启动探测阶段自动检查这一点；只要发现当前生效 provider 使用的是 `wire_api = "chat"`，就会要求 `codex-cli 0.57.0` 才继续
+- EEEE Scientist 现在会在 Codex 启动探测阶段自动检查这一点；只要发现当前生效 provider 使用的是 `wire_api = "chat"`，就会要求 `codex-cli 0.57.0` 才继续
 
-## 1. DeepScientist 实际依赖的是什么
+## 1. EEEE Scientist 实际依赖的是什么
 
-DeepScientist 并不会直接和 vLLM、Ollama、SGLang 通信。
+EEEE Scientist 并不会直接和 vLLM、Ollama、SGLang 通信。
 
 它真正依赖的是：
 
@@ -40,9 +40,9 @@ DeepScientist 并不会直接和 vLLM、Ollama、SGLang 通信。
 1. 你的本地模型后端
 2. Codex profile
 3. Codex 启动探测
-4. DeepScientist runner
+4. EEEE Scientist runner
 
-如果第 2 步或第 3 步过不了，DeepScientist 就无法正常启动 Codex runner。
+如果第 2 步或第 3 步过不了，EEEE Scientist 就无法正常启动 Codex runner。
 
 ## 2. 当前 Codex 必须知道的限制
 
@@ -67,7 +67,7 @@ DeepScientist 并不会直接和 vLLM、Ollama、SGLang 通信。
 
 ## 3. 先直接测试后端
 
-在动 DeepScientist 之前，先直接验证后端。
+在动 EEEE Scientist 之前，先直接验证后端。
 
 ### 第一步：列模型
 
@@ -131,7 +131,7 @@ curl http://127.0.0.1:8004/v1/responses \
 
 - 它可以响应原始 chat 请求
 - 但它目前不能直接给最新版 Codex runner 使用
-- 因而 DeepScientist 也不能通过正常 Codex 路径使用它
+- 因而 EEEE Scientist 也不能通过正常 Codex 路径使用它
 
 我们还额外做了旧版 Codex 对照测试：
 
@@ -169,7 +169,7 @@ Reply with exactly HELLO.
 EOF
 ```
 
-如果这一步过不了，就先不要继续尝试 DeepScientist。
+如果这一步过不了，就先不要继续尝试 EEEE Scientist。
 
 ## 5.1 只支持 chat 时，回退到 Codex `0.57.0`
 
@@ -204,9 +204,9 @@ Reply with exactly HELLO.
 EOF
 ```
 
-如果这条旧版 Codex 路径能通过，DeepScientist 通常也可以沿用同样的 runner binary 和 provider 思路。
+如果这条旧版 Codex 路径能通过，EEEE Scientist 通常也可以沿用同样的 runner binary 和 provider 思路。
 
-## 6. Codex 成功后，再测试 DeepScientist
+## 6. Codex 成功后，再测试 EEEE Scientist
 
 只有当上面的 `codex exec` 能通过时，再继续：
 
@@ -278,7 +278,7 @@ codex:
 3. 回退到 Codex `0.57.0` 并使用 `wire_api = "chat"`
 4. 在后端前面加一层 Responses-compatible 代理
 
-这里的问题本质上是 Codex CLI 的当前要求，不是 DeepScientist 单独某个配置写错了。
+这里的问题本质上是 Codex CLI 的当前要求，不是 EEEE Scientist 单独某个配置写错了。
 
 ## 8.1 Ollama 应该选哪条 runner 路线
 
@@ -293,13 +293,13 @@ Ollama 官方现在同时覆盖：
 
 | 目标 | 推荐 runner | 你需要先验证什么 |
 |---|---|---|
-| 想沿用 DeepScientist 默认 Codex 路线 | Codex | `ollama run`、`/v1/responses`、`codex exec --profile <ollama-profile>` |
+| 想沿用 EEEE Scientist 默认 Codex 路线 | Codex | `ollama run`、`/v1/responses`、`codex exec --profile <ollama-profile>` |
 | 想少处理 Codex Responses 兼容细节 | OpenCode | `opencode run --model ollama/<model>` 或 custom provider 模型名 |
 | 想复用 Claude Code 生态和 Anthropic-compatible 路线 | Claude Code | `claude -p --model <ollama-model>` 且 `ANTHROPIC_BASE_URL=http://localhost:11434` |
 
 对新用户的建议：
 
-1. 如果你只是想尽快把 Ollama 接进 DeepScientist，优先走 OpenCode。
+1. 如果你只是想尽快把 Ollama 接进 EEEE Scientist，优先走 OpenCode。
 2. 如果你已经熟悉 Codex profile，并且 `/v1/responses` 测试通过，可以走 Codex。
 3. 如果你明确要使用 Claude Code runner，就按 Claude Code + Ollama 的 Anthropic-compatible 环境变量配置。
 
@@ -360,7 +360,7 @@ claude -p "Reply with exactly HELLO." --output-format json --model gpt-oss:20b -
 ds doctor --runner claude
 ```
 
-DeepScientist 的 Claude runner 配置里应写：
+EEEE Scientist 的 Claude runner 配置里应写：
 
 ```yaml
 claude:
@@ -381,4 +381,4 @@ claude:
 4. 再测 `ds doctor --codex-profile <name>`
 5. 最后再启动 `ds --codex-profile <name>`
 
-如果第 2 步失败，就先停在那里。不要期待最新版 Codex 路径下的 DeepScientist 可以正常工作。
+如果第 2 步失败，就先停在那里。不要期待最新版 Codex 路径下的 EEEE Scientist 可以正常工作。

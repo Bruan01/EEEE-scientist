@@ -15,7 +15,7 @@
 
 ROOT is CERN's C++ scientific data analysis framework for storing columnar event data, building histograms, fitting models, and producing publication-quality visualizations with interactive and batch workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

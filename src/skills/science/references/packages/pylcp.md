@@ -15,7 +15,7 @@
 
 pylcp is a Python toolkit for modeling laser-cooling systems by constructing internal Hamiltonians, laser and magnetic-field configurations, and solving optical Bloch equations to compute forces and dynamics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

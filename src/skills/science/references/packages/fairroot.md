@@ -15,7 +15,7 @@
 
 FairRoot is a C++ framework for detector simulation, event reconstruction, and physics analysis in nuclear and particle experiments, built on ROOT with Geant3 and Geant4 transport support.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

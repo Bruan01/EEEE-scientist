@@ -67,7 +67,7 @@ https://arxiv.org/abs/2602.00428
 
 `Runtime constraints`
 
-This snippet is a tutorial reference only, not a DeepScientist default endpoint setup. Replace the endpoints, API key, and model with your real runtime before you paste it.
+This snippet is a tutorial reference only, not a EEEE Scientist default endpoint setup. Replace the endpoints, API key, and model with your real runtime before you paste it.
 
 ```text
 - Keep the task definition and evaluation protocol aligned with the official baseline unless a change is explicitly justified.
@@ -344,7 +344,7 @@ Waiting-state visibility:
 
 Practical note on workspace mode:
 
-- DeepScientist also distinguishes a user-directed `copilot` workspace mode from the default `autonomous` mode.
+- EEEE Scientist also distinguishes a user-directed `copilot` workspace mode from the default `autonomous` mode.
 - In `copilot`, completing the current requested unit should normally park and wait for the next user message or `/resume`.
 - In `autonomous`, the quest should not park just because no long-running task is active yet; it should keep pushing toward the next real long-running unit of work.
 

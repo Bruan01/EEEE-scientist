@@ -8,9 +8,18 @@ import { getHeroBundle } from './hero-content'
 type SegmentType = 'blue' | 'red' | 'gradient'
 type Segment = { start: number; end: number; type: SegmentType }
 
-const WORD = 'DEEPSCIENTIST'
+const WORD = 'EEEE SCIENTIST'
 
 const LETTERS: Record<string, string[]> = {
+  ' ': [
+    '   ',
+    '   ',
+    '   ',
+    '   ',
+    '   ',
+    '   ',
+    '   ',
+  ],
   D: [
     '██████▓░ ',
     '██░░░▒█░ ',
@@ -87,8 +96,8 @@ const LETTERS: Record<string, string[]> = {
 
 const COLOR_SEGMENTS = [
   { start: 0, end: 3, type: 'blue' as const },
-  { start: 4, end: 6, type: 'red' as const },
-  { start: 7, end: 12, type: 'gradient' as const },
+  { start: 5, end: 7, type: 'red' as const },
+  { start: 8, end: 13, type: 'gradient' as const },
 ]
 
 const buildSegmentedAscii = (
@@ -199,7 +208,7 @@ export default function HeroTerminal({ className, activeIndex = 0, locale }: Her
       )}
     >
       <div className="flex items-center justify-between border-b border-black/10 px-3 py-2 text-[10px] uppercase tracking-[0.2em] text-[#7E8B97]">
-        <span>DeepScientist CLI</span>
+        <span>EEEE Scientist CLI</span>
         <span>{locale === 'zh' ? '会话 01' : 'Session 01'}</span>
       </div>
       <div className="rounded-b-2xl bg-[#FBF8F2]/95 px-3 py-3 font-mono text-[11px] leading-relaxed text-[#2D2A26]">

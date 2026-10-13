@@ -42,7 +42,7 @@ export const latexMessages: Partial<Record<UILanguage, Record<string, string>>> 
     issue_hint_clickable: 'Click to jump',
     issue_unknown_branch: 'unknown branch',
     issue_unknown_line: 'unknown',
-    issue_action_ask_deepscientist: 'Ask DeepScientist',
+    issue_action_ask_deepscientist: 'Ask EEEE Scientist',
     issue_action_prompt:
       'Please help me inspect this LaTeX {severity}. Current branch: {branch}. File: {file}. Line: {line}. Reported location: {location}. Issue: {message}',
     resize_panels_aria: 'Resize editor and PDF panels',
@@ -113,7 +113,7 @@ export const latexMessages: Partial<Record<UILanguage, Record<string, string>>> 
     issue_hint_clickable: '点击可跳转',
     issue_unknown_branch: '未知分支',
     issue_unknown_line: '未知',
-    issue_action_ask_deepscientist: '询问 DeepScientist',
+    issue_action_ask_deepscientist: '询问 EEEE Scientist',
     issue_action_prompt:
       '请帮我检查这个 LaTeX {severity}。当前分支：{branch}。文件：{file}。行号：{line}。报错位置：{location}。具体问题：{message}',
     resize_panels_aria: '调整编辑区与 PDF 预览区宽度',

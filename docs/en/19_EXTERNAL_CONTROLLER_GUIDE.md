@@ -1,6 +1,6 @@
 # 19 External Controller Guide
 
-DeepScientist already exposes enough durable state to support an outer orchestration layer without patching core runtime code.
+EEEE Scientist already exposes enough durable state to support an outer orchestration layer without patching core runtime code.
 
 This guide explains the minimal public pattern for external controllers that:
 

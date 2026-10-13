@@ -15,8 +15,8 @@ import type { QuestSummary } from "@/types";
 const PROJECTS_BASE = "/api/v1/projects";
 const LOCAL_OWNER = {
   id: "local",
-  username: "DeepScientist",
-  email: "local@deepscientist",
+  username: "EEEE Scientist",
+  email: "local@eeee-scientist",
 };
 
 /**

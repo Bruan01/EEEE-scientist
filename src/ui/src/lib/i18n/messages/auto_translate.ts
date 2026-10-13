@@ -333,11 +333,11 @@ const SOURCE_EXACT: Record<string, Record<AutoLocale, string>> = {
     ko: 'PNG, JPEG, WebP 이미지만 지원됩니다.',
     ru: 'Поддерживаются только изображения PNG, JPEG и WebP.',
   },
-  'Your new avatar is live across DeepScientist.': {
-    fr: 'Votre nouvel avatar est maintenant visible dans tout DeepScientist.',
-    ja: '新しいアバターが DeepScientist 全体に反映されました。',
-    ko: '새 아바타가 DeepScientist 전체에 반영되었습니다.',
-    ru: 'Ваш новый аватар уже отображается во всём DeepScientist.',
+  'Your new avatar is live across EEEE Scientist.': {
+    fr: 'Votre nouvel avatar est maintenant visible dans tout EEEE Scientist.',
+    ja: '新しいアバターが EEEE Scientist 全体に反映されました。',
+    ko: '새 아바타가 EEEE Scientist 전체에 반영되었습니다.',
+    ru: 'Ваш новый аватар уже отображается во всём EEEE Scientist.',
   },
   'Please try again with a different image.': {
     fr: 'Veuillez réessayer avec une autre image.',

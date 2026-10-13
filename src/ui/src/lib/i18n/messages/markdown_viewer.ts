@@ -8,7 +8,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: 'Rendered view',
     source_view: 'Source view',
     copy_source: 'Copy source',
-    demo_title: 'DeepScientist Markdown Viewer',
+    demo_title: 'EEEE Scientist Markdown Viewer',
     demo_intro:
       'Welcome to the **Markdown Viewer** plugin. This viewer supports [GitHub Flavored Markdown](https://github.github.com/gfm/) with additional features.',
   },
@@ -19,7 +19,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: '渲染视图',
     source_view: '源码视图',
     copy_source: '复制源码',
-    demo_title: 'DeepScientist Markdown 查看器',
+    demo_title: 'EEEE Scientist Markdown 查看器',
     demo_intro:
       '欢迎使用 **Markdown 查看器** 插件。该查看器支持 [GitHub Flavored Markdown](https://github.github.com/gfm/) 及更多增强能力。',
   },
@@ -30,7 +30,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: 'Vue rendue',
     source_view: 'Vue source',
     copy_source: 'Copier la source',
-    demo_title: 'Visionneuse Markdown DeepScientist',
+    demo_title: 'Visionneuse Markdown EEEE Scientist',
     demo_intro:
       'Bienvenue dans le plugin **Markdown Viewer**. Cette visionneuse prend en charge le [GitHub Flavored Markdown](https://github.github.com/gfm/) ainsi que des fonctionnalités supplémentaires.',
   },
@@ -41,7 +41,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: 'レンダリング表示',
     source_view: 'ソース表示',
     copy_source: 'ソースをコピー',
-    demo_title: 'DeepScientist Markdown ビューア',
+    demo_title: 'EEEE Scientist Markdown ビューア',
     demo_intro:
       '**Markdown Viewer** プラグインへようこそ。このビューアは [GitHub Flavored Markdown](https://github.github.com/gfm/) と追加機能に対応しています。',
   },
@@ -52,7 +52,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: '렌더링 보기',
     source_view: '소스 보기',
     copy_source: '소스 복사',
-    demo_title: 'DeepScientist Markdown 뷰어',
+    demo_title: 'EEEE Scientist Markdown 뷰어',
     demo_intro:
       '**Markdown Viewer** 플러그인에 오신 것을 환영합니다. 이 뷰어는 [GitHub Flavored Markdown](https://github.github.com/gfm/)과 추가 기능을 지원합니다.',
   },
@@ -63,7 +63,7 @@ export const markdownViewerMessages: Partial<Record<UILanguage, Record<string, s
     rendered_view: 'Рендеринг',
     source_view: 'Исходный код',
     copy_source: 'Скопировать исходный код',
-    demo_title: 'Просмотр Markdown в DeepScientist',
+    demo_title: 'Просмотр Markdown в EEEE Scientist',
     demo_intro:
       'Добро пожаловать в плагин **Markdown Viewer**. Этот просмотрщик поддерживает [GitHub Flavored Markdown](https://github.github.com/gfm/) и дополнительные возможности.',
   },

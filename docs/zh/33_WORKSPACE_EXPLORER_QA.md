@@ -43,7 +43,7 @@ Explorer 的 `FILES` 视图展示的是后端当前认为的 active workspace ro
 
 ## 4. 手动在终端新建文件夹，Explorer 会自动出现吗？
 
-不会自动出现。DeepScientist 当前没有监听本地文件系统变化。
+不会自动出现。EEEE Scientist 当前没有监听本地文件系统变化。
 
 手动创建后需要：
 
@@ -113,7 +113,7 @@ cat <quest_root>/.ds/research_state.json
 只要文件在 git worktree 里创建，它会出现在该 worktree 的 `git status` 中，通常是 untracked。真正进入 Git 历史需要：
 
 - `git add` / `git commit`
-- 或 DeepScientist 的 artifact / checkpoint 流程完成对应记录
+- 或 EEEE Scientist 的 artifact / checkpoint 流程完成对应记录
 
 同时要注意，`.ds/worktrees/<name>` 下的 git 状态属于那个 worktree，不一定体现在 quest 根目录的 `git status` 里。
 

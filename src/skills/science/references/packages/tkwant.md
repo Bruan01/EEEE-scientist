@@ -15,7 +15,7 @@
 
 Tkwant is a Python package for simulating time-dependent quantum dynamics of mesoscopic systems and serves as the time-dependent extension of Kwant for open quantum transport problems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

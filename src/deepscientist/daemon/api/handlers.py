@@ -18,7 +18,7 @@ from ...shared import generate_id, read_json, read_text, resolve_within, run_com
 from ...runners import RunRequest
 
 _COPILOT_LEAD_MESSAGE = (
-    "我是 DeepScientist，任何事情都可以找我帮忙。"
+    "我是 EEEE Scientist，任何事情都可以找我帮忙。"
     "你可以让我读论文、改代码、看实验、整理思路，或者直接开始执行一个任务。"
 )
 
@@ -140,7 +140,7 @@ class ApiHandlers:
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DeepScientist UI build required</title>
+    <title>EEEE Scientist UI build required</title>
     <link rel="stylesheet" href="/assets/fonts/ds-fonts.css" />
     <style>
       :root {{
@@ -180,7 +180,7 @@ class ApiHandlers:
   </head>
   <body>
     <main class="panel">
-      <h1>DeepScientist UI bundle is not built yet</h1>
+      <h1>EEEE Scientist UI bundle is not built yet</h1>
       <p>The daemon is running, but the local Copilot-style web workspace requires the React bundle in <code>src/ui/dist</code>.</p>
       <p>From <code>{repo_root}</code>, run:</p>
       <pre>npm --prefix src/ui install
@@ -1553,7 +1553,7 @@ npm --prefix src/ui run build</pre>
                 branch=branch,
                 relative_path=relative_path,
                 display_path=display_path,
-                message="Historical patch unavailable. DeepScientist could not map this file to a git worktree.",
+                message="Historical patch unavailable. EEEE Scientist could not map this file to a git worktree.",
                 ok=True,
             )
 

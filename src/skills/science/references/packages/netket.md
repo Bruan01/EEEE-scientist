@@ -15,7 +15,7 @@
 
 NetKet is a Python library for variational and machine-learning methods in many-body quantum physics, supporting neural quantum states, Monte Carlo sampling, and optimization of lattice Hamiltonian ground states and dynamics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -1,8 +1,8 @@
 ---
 id: worker-base
-name: DeepScientist Worker Base
+name: EEEE Scientist Worker Base
 role: worker-base
-description: Shared execution contract for specialized DeepScientist workers.
+description: Shared execution contract for specialized EEEE Scientist workers.
 ---
 # Worker Execution Contract
 

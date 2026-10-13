@@ -1,10 +1,10 @@
-# 01 Settings Reference: Configure DeepScientist
+# 01 Settings Reference: Configure EEEE Scientist
 
-This manual documents the current DeepScientist `Settings` surface and the YAML files it actually edits. The structure intentionally follows a PyTorch-style reference pattern: short summary, schema, parameters, defaults, allowed values, runtime effect, and practical notes.
+This manual documents the current EEEE Scientist `Settings` surface and the YAML files it actually edits. The structure intentionally follows a PyTorch-style reference pattern: short summary, schema, parameters, defaults, allowed values, runtime effect, and practical notes.
 
-If DeepScientist is already running, this should be your first stop. The intended path is:
+If EEEE Scientist is already running, this should be your first stop. The intended path is:
 
-1. start DeepScientist
+1. start EEEE Scientist
 2. open the web `Settings` page
 3. use the structured UI first
 4. edit raw YAML only when you are headless, automating setup, or doing bulk changes
@@ -152,7 +152,7 @@ Good first tasks here:
 Do not start here when:
 
 - the real problem is a connector delivery issue
-- the real problem is that DeepScientist is unhealthy before any runner even starts
+- the real problem is that EEEE Scientist is unhealthy before any runner even starts
 
 ![Models settings page](../images/settings/settings-runners-en.png)
 
@@ -194,7 +194,7 @@ Route:
 
 This page edits:
 
-- the baseline registry under the DeepScientist home rather than one raw config file
+- the baseline registry under the EEEE Scientist home rather than one raw config file
 
 Use this page when you need to:
 
@@ -297,7 +297,7 @@ The fastest way to use the remaining sections is:
 
 ### Summary
 
-`config.yaml` is the main runtime configuration file. It controls the DeepScientist home directory, default locale, daemon policy, Web/TUI binding, logging, Git behavior, skill mirroring, and optional cloud / ACP compatibility settings.
+`config.yaml` is the main runtime configuration file. It controls the EEEE Scientist home directory, default locale, daemon policy, Web/TUI binding, logging, Git behavior, skill mirroring, and optional cloud / ACP compatibility settings.
 
 ### Schema
 
@@ -344,7 +344,7 @@ connectors:
   direct_chat_enabled: true
 cloud:
   enabled: false
-  base_url: https://deepscientist.cc
+  base_url: https://your-public-host.example
   token: null
   token_env: DEEPSCIENTIST_TOKEN
   verify_token_on_start: false
@@ -361,10 +361,10 @@ acp:
 **`home`**
 
 - Type: `string`
-- Default: the installed DeepScientist home, usually `~/DeepScientist`
+- Default: the installed EEEE Scientist home, usually `~/DeepScientist`
 - UI label: `Home path`
 - Meaning: root directory for config, projects, memory, plugins, logs, and cache.
-- When to change: only when you intentionally installed DeepScientist somewhere else.
+- When to change: only when you intentionally installed EEEE Scientist somewhere else.
 - Notes: this is not a single project path; it is the runtime root.
 
 **`default_runner`**
@@ -383,7 +383,7 @@ acp:
 - Allowed values: `zh-CN`, `en-US`
 - UI label: `Default locale`
 - Meaning: default language preference used by prompts and runtime copy.
-- Notes: after the first browser-driven initialization, changing this field in `Settings` makes it a manual override and DeepScientist will not auto-follow the browser again.
+- Notes: after the first browser-driven initialization, changing this field in `Settings` makes it a manual override and EEEE Scientist will not auto-follow the browser again.
 
 ### Daemon policy
 
@@ -466,7 +466,7 @@ acp:
 - Default: `both`
 - Allowed values: `both`, `web`, `tui`
 - UI label: `Default start mode`
-- Meaning: preferred startup surface when launching DeepScientist.
+- Meaning: preferred startup surface when launching EEEE Scientist.
 
 ### TUI debug launch switches
 
@@ -563,7 +563,7 @@ Palette selection is no longer exposed in `Settings` or `config.yaml`.
   - `src/skills/experiment/SKILL.md`
   - `src/skills/analysis-campaign/SKILL.md`
   - `src/skills/write/SKILL.md`
-- DeepScientist uses a fixed Morandi palette guide instead of per-install color settings.
+- EEEE Scientist uses a fixed Morandi palette guide instead of per-install color settings.
 - The durable reference page is `docs/en/08_FIGURE_STYLE_GUIDE.md`.
 - Edit the prompt / skill contract if you need to change the default visual language.
 
@@ -590,24 +590,24 @@ Palette selection is no longer exposed in `Settings` or `config.yaml`.
 - Default: `true`
 - UI label: `Sync project skills on open`
 - Meaning: refresh project-local skill mirrors when an existing project is opened.
-- Prompt note: this refreshes quest-local skill and prompt mirrors for quests discovered under the configured DeepScientist home.
+- Prompt note: this refreshes quest-local skill and prompt mirrors for quests discovered under the configured EEEE Scientist home.
 
 Managed prompt behavior:
 
-- DeepScientist now treats `.codex/prompts/` as a managed active prompt tree rather than as a permanent hand-edited override.
+- EEEE Scientist now treats `.codex/prompts/` as a managed active prompt tree rather than as a permanent hand-edited override.
 - Before each real runner turn, it compares the active quest-local prompt tree against the current repository `src/prompts/` tree and automatically repairs drift.
 - If the active prompt tree differs, the previous tree is backed up under `.codex/prompt_versions/<backup_id>/` before the new active copy is written.
 - This run-time prompt sync happens against the actual quest root used for the turn, so it still works even when a quest lives outside the default `home/quests` path.
-- Runtime override: `ds daemon --prompt-version latest` uses the managed active tree, while `ds daemon --prompt-version <official_version>` runs that daemon session against the newest backup recorded for that formal DeepScientist version.
+- Runtime override: `ds daemon --prompt-version latest` uses the managed active tree, while `ds daemon --prompt-version <official_version>` runs that daemon session against the newest backup recorded for that formal EEEE Scientist version.
 - If you need one exact historical backup rather than the newest backup for that version, you may still pass the exact backup directory name from `.codex/prompt_versions/`.
 - The same override also exists for one-off CLI runs: `ds run --prompt-version <official_version> ...`.
 
 Managed auto-continue behavior:
 
 - `workspace_mode = copilot`
-  - after the current requested unit, DeepScientist normally parks and waits for the next user message or `/resume`
+  - after the current requested unit, EEEE Scientist normally parks and waits for the next user message or `/resume`
 - `workspace_mode = autonomous`
-  - if no real external long-running task exists yet, DeepScientist keeps using the next turns to prepare, launch, or durably route that real task
+  - if no real external long-running task exists yet, EEEE Scientist keeps using the next turns to prepare, launch, or durably route that real task
   - once a real external long-running task exists, auto-continue becomes low-frequency monitoring, roughly every `240` seconds by default
 - Auto-continue prompts now also carry a compact resume spine: latest user message, latest assistant checkpoint, latest run summary, recent memory cues, and current `bash_exec` state
 
@@ -650,7 +650,7 @@ This block is optional and not part of the local-first core path.
 **`cloud.base_url`**
 
 - Type: `string`
-- Default: `https://deepscientist.cc`
+- Default: `https://your-public-host.example`
 - UI label: `Cloud base URL`
 - Meaning: base URL of the cloud endpoint.
 
@@ -720,7 +720,7 @@ These settings are compatibility knobs for ACP-style external consumers.
 
 ### Summary
 
-`runners.yaml` defines which CLI runner DeepScientist can launch, which model defaults it should use, how retries behave, and which runner-specific flags should be passed through.
+`runners.yaml` defines which CLI runner EEEE Scientist can launch, which model defaults it should use, how retries behave, and which runner-specific flags should be passed through.
 
 Current built-in runners:
 
@@ -733,7 +733,7 @@ Current built-in runners:
 - `opencode`
   - OpenCode CLI path, including provider/model configurations managed directly by OpenCode
 
-The Settings page maps DeepScientist to an already-working CLI runner. Gemini, Ollama, MiniMax, GLM, Bailian, and other providers still need to be configured in the corresponding CLI first:
+The Settings page maps EEEE Scientist to an already-working CLI runner. Gemini, Ollama, MiniMax, GLM, Bailian, and other providers still need to be configured in the corresponding CLI first:
 
 - Codex provider / profile: see [15 Codex Provider Setup](./15_CODEX_PROVIDER_SETUP.md)
 - Claude Code / Anthropic-compatible / Ollama: see [24 Claude Code Setup](./24_CLAUDE_CODE_PROVIDER_SETUP.md)
@@ -860,7 +860,7 @@ opencode:
 - Default: `inherit` for all four runners.
 - Recommended rule:
   - keep `inherit` when the CLI should decide the provider/model itself
-  - set a fixed model only when you want DeepScientist to override every turn
+  - set a fixed model only when you want EEEE Scientist to override every turn
 
 **`model_reasoning_effort`**
 
@@ -925,14 +925,14 @@ opencode:
 - Type: `boolean`
 - UI label: `Thinking mode`
 - Runners: `kimi`
-- Meaning: whether DeepScientist should pass `--thinking` to Kimi by default.
+- Meaning: whether EEEE Scientist should pass `--thinking` to Kimi by default.
 
 **`yolo`**
 
 - Type: `boolean`
 - UI label: `Yolo mode`
 - Runners: `kimi`
-- Meaning: whether DeepScientist should pass `--yolo` so Kimi does not stop for interactive approval prompts.
+- Meaning: whether EEEE Scientist should pass `--yolo` so Kimi does not stop for interactive approval prompts.
 - Recommended unattended local automation default: `true`
 
 **`default_agent`**
@@ -993,7 +993,7 @@ opencode:
 - New quests follow `config.default_runner`.
 - Existing quests can override the runner in project settings.
 - Do not lower `mcp_tool_timeout_sec` casually if your workflow uses long-running `bash_exec` sessions.
-- For Kimi, the important timeout is `mcp_tool_timeout_ms`, because the upstream default is much shorter than the long-running `bash_exec` waits DeepScientist often needs.
+- For Kimi, the important timeout is `mcp_tool_timeout_ms`, because the upstream default is much shorter than the long-running `bash_exec` waits EEEE Scientist often needs.
 - For Claude, the practical execution cap is already large by default; the more common issue is MCP startup timeout, handled by `mcp_timeout_ms`.
 - For OpenCode, `mcp_timeout_ms` only affects MCP tool discovery / startup, not the execution time of one MCP call.
 
@@ -1084,7 +1084,7 @@ Primary fields:
 **`bot_name`**
 
 - Type: `string`
-- Default: `DeepScientist`
+- Default: `EEEE Scientist`
 
 **`bot_token`**
 
@@ -1282,7 +1282,7 @@ File-level companions:
 
 ### `qq`
 
-Summary: QQ is first-class in DeepScientist. The primary path is fixed `gateway_direct`, with no public callback URL required.
+Summary: QQ is first-class in EEEE Scientist. The primary path is fixed `gateway_direct`, with no public callback URL required.
 
 Quick start: see [QQ Connector Guide](./03_QQ_CONNECTOR_GUIDE.md).
 
@@ -1307,7 +1307,7 @@ Primary fields:
 **`bot_name`**
 
 - Type: `string`
-- Default: `DeepScientist`
+- Default: `EEEE Scientist`
 
 **`app_id`**
 

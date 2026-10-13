@@ -1,8 +1,8 @@
-欢迎来到 DeepScientist 的研究启动页。
+欢迎来到 EEEE Scientist 的研究启动页。
 
 这里不是普通聊天入口，而是把一个研究想法推进成**本地、可审计、可复现 quest** 的起点。
 
-DeepScientist 的主线流程是：
+EEEE Scientist 的主线流程是：
 
 1. 选择任务：描述研究目标，并提供论文、代码、数据或 benchmark 参考资料
 2. 启动规划：SetupAgent 先整理目标、材料、限制和启动合同

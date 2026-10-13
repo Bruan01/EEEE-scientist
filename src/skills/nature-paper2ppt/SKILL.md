@@ -9,7 +9,7 @@ skill_role: companion
 This companion skill is adapted from `Yuan1z0825/nature-skills/tree/main/nature-paper2ppt`.
 See `UPSTREAM_LICENSE.txt` for the upstream MIT license.
 
-## DeepScientist integration
+## EEEE Scientist integration
 
 - Follow the shared interaction contract injected by the system prompt.
 - Use this only when the user explicitly wants slides, PPT, PPTX, a journal-club deck, a lab-meeting deck, or a paper-sharing presentation.

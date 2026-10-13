@@ -15,7 +15,7 @@
 
 preCICE couples independent simulation solvers for partitioned multi-physics and multi-scale workflows, providing robust communication, data mapping, and acceleration for surface and volume interface exchanges.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

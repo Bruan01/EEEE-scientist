@@ -31,7 +31,7 @@ function installLandingStubs(page: Page) {
           update_available: false,
           prompt_recommended: false,
           busy: false,
-          manual_update_command: 'npm install -g @researai/deepscientist@latest',
+          manual_update_command: 'npm install -g eeee-scientist@latest',
         }),
       })
     }),

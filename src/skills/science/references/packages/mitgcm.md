@@ -15,7 +15,7 @@
 
 MITgcm is a flexible geophysical fluid dynamics package for simulating ocean and atmospheric circulation, with coupled ocean sea ice and climate process capabilities.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

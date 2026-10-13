@@ -14,7 +14,7 @@ export const codeEditorManifest: UnifiedPluginManifest = {
   description: "VSCode-like code editor (Monaco) with autosave",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "Code",
   frontend: {
     entry: "./CodeEditorPlugin",

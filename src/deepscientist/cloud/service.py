@@ -15,6 +15,6 @@ class CloudLinkService:
         cloud = config.get("cloud", {})
         return {
             "linked": bool(cloud.get("enabled", False) and (cloud.get("token") or cloud.get("token_env"))),
-            "base_url": cloud.get("base_url", "https://deepscientist.cc"),
+            "base_url": cloud.get("base_url", "https://your-public-host.example"),
             "sync_mode": cloud.get("sync_mode", "disabled"),
         }

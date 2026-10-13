@@ -15,7 +15,7 @@
 
 pyhf provides pure-Python HistFactory statistical models for high-energy physics, enabling likelihood fitting, CLs hypothesis testing, and interval estimation with tensor backends and autodiff support.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

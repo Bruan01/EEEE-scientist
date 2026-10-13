@@ -15,7 +15,7 @@
 
 MuMax3 is a GPU-accelerated micromagnetic simulation package for modeling magnetization dynamics, spintronic effects, and nanomagnetic device behavior using Landau-Lifshitz-Gilbert equation solvers.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

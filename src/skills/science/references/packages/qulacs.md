@@ -15,7 +15,7 @@
 
 Qulacs is a high performance C++ and Python library for simulating large noisy and parametric gate based quantum circuits with multithreaded CPU and optional CUDA acceleration for variational quantum computing research.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

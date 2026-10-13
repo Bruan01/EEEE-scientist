@@ -10,7 +10,7 @@ from typing import Any
 from urllib.request import Request, urlopen
 
 DEFAULT_TIMEOUT_SECONDS = 6
-USER_AGENT = "DeepScientist/0.1"
+USER_AGENT = "EEEE-Scientist/0.1"
 ARXIV_API_URL = "http://export.arxiv.org/api/query?id_list={paper_id}"
 ARXIV_XML_NAMESPACES = {
     "atom": "http://www.w3.org/2005/Atom",

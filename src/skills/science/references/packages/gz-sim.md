@@ -15,7 +15,7 @@
 
 Open-source robotics simulator for high-fidelity physics, 3D rendering, and sensor modeling, enabling virtual robot testing through GUI, plugins, command-line tools, and distributed transport interfaces.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

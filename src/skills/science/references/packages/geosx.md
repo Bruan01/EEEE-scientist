@@ -15,7 +15,7 @@
 
 GEOSX is an open-source high-performance simulation framework for coupled subsurface flow, transport, and geomechanics, targeting carbon sequestration, geothermal energy, and large-scale reservoir modeling.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

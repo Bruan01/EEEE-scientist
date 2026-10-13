@@ -25,7 +25,7 @@ export const pdfViewerManifest: UnifiedPluginManifest = {
   description: "View and annotate PDF documents with AI assistance",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "FileText",
 
   // ============================================================

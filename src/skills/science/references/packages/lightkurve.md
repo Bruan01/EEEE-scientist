@@ -15,7 +15,7 @@
 
 Lightkurve offers user-friendly tools to retrieve, clean, visualize, and analyze Kepler and TESS astronomical flux time series, including light curves and target pixel files for exoplanet and stellar variability studies.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

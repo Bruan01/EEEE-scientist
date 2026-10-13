@@ -1258,7 +1258,7 @@ const LOCAL_LAB_TEMPLATE_CATALOG: LabTemplate[] = [
     label: 'PI',
     role: 'lead',
     purpose: 'Drive the quest, make decisions, and keep the evidence coherent.',
-    description: 'Local DeepScientist PI agent for quest planning, branching, and milestone decisions.',
+    description: 'Local EEEE Scientist PI agent for quest planning, branching, and milestone decisions.',
     prompt_scope: 'quest',
     agent_engine: 'codex',
     execution_target: 'local',
@@ -3838,7 +3838,7 @@ export async function startLabQuestResearch(
         enabled: false,
         mode: 'local_only',
       },
-      warnings: ['Local DeepScientist workspace reuses the current quest repository.'],
+      warnings: ['Local EEEE Scientist workspace reuses the current quest repository.'],
     }
   }
 }

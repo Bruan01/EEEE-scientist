@@ -15,7 +15,7 @@
 
 QuTiP is a Python framework for simulating closed and open quantum system dynamics with Hamiltonians, collapse operators, and time-dependent master-equation solvers used in quantum optics and information research.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

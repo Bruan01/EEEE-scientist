@@ -15,7 +15,7 @@
 
 OpenMX is an open-source DFT package for nano-scale material simulations based on norm-conserving pseudopotentials and pseudo-atomic localized basis functions. It is designed for large-scale parallel electronic-structure calculations with MPI or hybrid MPI/OpenMP execution across bulk, surface, interface, liquid, and low-dimensional materials.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

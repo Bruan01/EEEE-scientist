@@ -15,7 +15,7 @@
 
 Nextflow is a dataflow-driven DSL and runtime for building reproducible, portable scientific pipelines that scale from laptops to HPC schedulers and cloud batch systems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

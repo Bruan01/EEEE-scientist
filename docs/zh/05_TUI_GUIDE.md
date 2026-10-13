@@ -58,7 +58,7 @@ ds --stop
 含义：
 
 - `ds`：启动 daemon，打印本地 Web 地址，尝试打开浏览器，然后退出。
-  如果你是用 `ds --auth true` 启动，DeepScientist 也会同时打印这次启动生成的本地浏览器密码。
+  如果你是用 `ds --auth true` 启动，EEEE Scientist 也会同时打印这次启动生成的本地浏览器密码。
 - `ds --tui`：启动 daemon，并进入终端工作区。
 - `ds --both`：同时开 Web 和 TUI。
 - `ds --status`：查看 daemon 状态。
@@ -320,7 +320,7 @@ connector 详情页顶部现在不是装饰性文案，而是“下一步怎么�
 ### 当前行为要点
 
 - 微信绑定不需要你手动填 bot token
-- 二维码是 DeepScientist 在 TUI 内直接生成的
+- 二维码是 EEEE Scientist 在 TUI 内直接生成的
 - 扫码确认成功后，connector 配置会自动保存
 
 ### 什么时候算跑通

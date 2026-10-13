@@ -1,4 +1,4 @@
-# Contributing to DeepScientist
+# Contributing to EEEE Scientist
 
 Thank you for contributing.
 
@@ -111,7 +111,7 @@ Do not commit:
 
 ## Issues And Proposals
 
-DeepScientist uses GitHub Issues and GitHub Pull Requests as the default contribution path.
+EEEE Scientist uses GitHub Issues and GitHub Pull Requests as the default contribution path.
 No external contribution software is required.
 
 ### Which Issue Type To Use

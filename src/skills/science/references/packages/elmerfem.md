@@ -15,7 +15,7 @@
 
 ElmerFEM is an open-source multiphysics finite element simulation suite for solving coupled partial differential equations in engineering and physics, including fluid flow, heat transfer, electromagnetics, and structural mechanics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

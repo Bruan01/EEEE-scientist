@@ -15,7 +15,7 @@
 
 Hail is a cloud native Python framework for large scale genomic dataframes, enabling distributed variant analysis, GWAS pipelines, and cohort level quality control on massive sequencing datasets.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

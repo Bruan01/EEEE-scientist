@@ -63,7 +63,7 @@ def test_telegram_polling_service_ingests_updates_and_exposes_connected_status(
                         "message_id": 8,
                         "chat": {"id": -100001, "type": "supergroup"},
                         "from": {"id": 777, "username": "lead"},
-                        "text": "/use@DeepScientist q-demo",
+                        "text": "/use@EEEE Scientist q-demo",
                         "entities": [{"type": "bot_command"}],
                     },
                 },

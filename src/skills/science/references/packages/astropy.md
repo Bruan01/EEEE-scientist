@@ -15,7 +15,7 @@
 
 Astropy is the core Python library for astronomy, covering units, coordinates, time handling, FITS files, WCS, tables, and cosmology workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

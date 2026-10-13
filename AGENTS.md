@@ -1,4 +1,4 @@
-# DeepScientist Repository Guide
+# EEEE Scientist Repository Guide
 
 This `AGENTS.md` applies to the entire repository.
 
@@ -9,7 +9,7 @@ When code and docs diverge, prefer the current runtime behavior and tests, then 
 
 ## Mission
 
-Build DeepScientist as a small, local-first research operating system that:
+Build EEEE Scientist as a small, local-first research operating system that:
 
 - runs on the user's machine by default
 - installs cleanly through npm
@@ -85,7 +85,7 @@ If a supplementary doc conflicts with this file, current code, or the maintainer
 
 ## Scope Boundary For Coding Agents
 
-Do not confuse repository contribution rules with the in-product DeepScientist agent contract.
+Do not confuse repository contribution rules with the in-product EEEE Scientist agent contract.
 
 Examples:
 
@@ -107,7 +107,7 @@ When changing prompt or skill behavior, preserve that distinction explicitly.
 
 - The authoritative runtime lives under `src/deepscientist/`.
 - `bin/ds.js` remains a thin launcher over the Python daemon and built UI bundles.
-- The public npm package publishes as `@researai/deepscientist`.
+- The public npm package publishes as `eeee-scientist`.
 - Public npm installs must ship prebuilt `src/ui/dist/` and `src/tui/dist/` bundles.
 - Do not rely on end-user `postinstall` builds for the public npm path.
 

@@ -9005,7 +9005,7 @@ class ArtifactService:
                 "status": latest.get("status"),
                 "metadata_status": "pending",
                 "metadata_pending": True,
-                "message": "Metadata is temporarily unavailable. Open the arXiv link directly while DeepScientist retries later.",
+                "message": "Metadata is temporarily unavailable. Open the arXiv link directly while EEEE Scientist retries later.",
                 "abs_url": latest.get("abs_url") or f"https://arxiv.org/abs/{normalized_id}",
                 "pdf_url": latest.get("pdf_url") or f"https://arxiv.org/pdf/{normalized_id}.pdf",
                 "content": self._arxiv_content_from_item(latest),

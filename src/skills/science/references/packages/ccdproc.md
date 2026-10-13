@@ -15,7 +15,7 @@
 
 Astropy-affiliated toolkit for calibrating and reducing optical and infrared CCD observations with overscan, bias, dark, flat, bad-pixel masking, cosmic-ray cleaning, and uncertainty-aware processing.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

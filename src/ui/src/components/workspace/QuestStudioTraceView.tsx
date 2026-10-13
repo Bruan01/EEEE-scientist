@@ -263,8 +263,8 @@ export function QuestStudioTraceView({
       ? t('copilot_waiting_feedback', undefined, 'Waiting for feedback')
       : t('copilot_auto_resumed', undefined, 'Auto-resumed'))
     const body = waitingNoticeMessage || (isWaiting
-      ? t('copilot_waiting_feedback_body', undefined, 'DeepScientist paused automatic continuation and is waiting for your decision.')
-      : t('copilot_auto_resumed_body', undefined, 'DeepScientist converted a waiting state back into automatic continuation for this autonomous quest.'))
+      ? t('copilot_waiting_feedback_body', undefined, 'EEEE Scientist paused automatic continuation and is waiting for your decision.')
+      : t('copilot_auto_resumed_body', undefined, 'EEEE Scientist converted a waiting state back into automatic continuation for this autonomous quest.'))
     return (
       <div
         className={[

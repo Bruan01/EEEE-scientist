@@ -8488,7 +8488,7 @@ export function AiManusChatView({
     ? 'Answer the questions above to continue...'
     : clarifyPrompt
       ? 'Confirm the clarification above to continue...'
-      : 'Give DeepScientist a task to work on...'
+      : 'Give EEEE Scientist a task to work on...'
 
   const displayMessages = useMemo(() => {
     if (messages.length === 0) return messages

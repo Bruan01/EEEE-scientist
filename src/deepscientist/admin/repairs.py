@@ -8,11 +8,11 @@ from ..shared import ensure_dir, generate_id, read_json, utc_now, write_json, wr
 
 _ADMIN_OPS_LEAD_MESSAGE = {
     "zh": (
-        "我是 DeepScientist AdminOps，可以帮助你诊断运行时问题、检查日志、分析 quest 状态、验证配置，"
+        "我是 EEEE Scientist AdminOps，可以帮助你诊断运行时问题、检查日志、分析 quest 状态、验证配置，"
         "并在允许范围内执行安全修复。"
     ),
     "en": (
-        "I am DeepScientist AdminOps. I can help diagnose runtime problems, inspect logs, analyze quest state, "
+        "I am EEEE Scientist AdminOps. I can help diagnose runtime problems, inspect logs, analyze quest state, "
         "validate configuration, and apply safe repairs when allowed."
     ),
 }

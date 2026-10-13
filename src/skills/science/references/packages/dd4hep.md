@@ -15,7 +15,7 @@
 
 DD4hep provides a unified detector description framework for high energy physics, spanning geometry, materials, visualization, readout, alignment, and calibration for simulation, reconstruction, and analysis.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

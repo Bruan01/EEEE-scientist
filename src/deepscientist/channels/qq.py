@@ -615,7 +615,7 @@ class QQRelayChannel(BaseChannel):
     def _looks_like_mention(self, text: str, *, profile: dict[str, Any] | None = None) -> bool:
         lowered = (text or "").lower()
         profile_config = profile or {}
-        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "DeepScientist").strip().lower()
+        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "EEEE Scientist").strip().lower()
         app_id = str(profile_config.get("app_id") or self.config.get("app_id") or "").strip()
         candidates = [f"@{bot_name.lower()}"]
         if app_id:
@@ -625,7 +625,7 @@ class QQRelayChannel(BaseChannel):
     def _strip_mention_prefix(self, text: str, *, profile: dict[str, Any] | None = None) -> str:
         cleaned = str(text or "").strip()
         profile_config = profile or {}
-        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "DeepScientist").strip()
+        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "EEEE Scientist").strip()
         app_id = str(profile_config.get("app_id") or self.config.get("app_id") or "").strip()
         prefixes = [f"@{bot_name}"]
         if app_id:

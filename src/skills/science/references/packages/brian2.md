@@ -15,7 +15,7 @@
 
 Brian2 is an open source Python simulator for building and running flexible spiking neural network models in computational neuroscience research and education.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

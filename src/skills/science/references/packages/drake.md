@@ -15,7 +15,7 @@
 
 Drake is an open-source robotics toolbox for model-based design, simulation, planning, control, and verification of complex robotic systems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

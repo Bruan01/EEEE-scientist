@@ -15,7 +15,7 @@
 
 OpenFOAM-dev is the OpenFOAM Foundation development codebase for finite-volume CFD and multiphysics simulation, supporting incompressible and compressible flow, turbulence, heat transfer, and extensible solver workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

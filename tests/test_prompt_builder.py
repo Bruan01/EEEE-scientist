@@ -31,7 +31,7 @@ def test_prompt_builder_includes_layered_runtime_context(temp_home: Path) -> Non
         model="gpt-5.4",
     )
 
-    assert "# DeepScientist Core System Prompt" in prompt
+    assert "# EEEE Scientist Core System Prompt" in prompt
     assert "# Shared Interaction Contract" in prompt
     assert "## Runtime Context" in prompt
     assert "## Active Communication Surface" in prompt
@@ -276,7 +276,7 @@ def test_prompt_builder_uses_copilot_system_prompt_for_copilot_workspace(temp_ho
         model="gpt-5.4",
     )
 
-    assert "# DeepScientist Copilot System Prompt" in prompt
+    assert "# EEEE Scientist Copilot System Prompt" in prompt
     assert "- workspace_mode: copilot" in prompt
     assert "complete the user-requested unit of work" in prompt
     assert "arbitrary research tasks" in prompt
@@ -1277,7 +1277,7 @@ def test_prompt_builder_includes_admin_ops_contract_and_knowledge_for_copilot_re
     assert "GET /api/system/overview" in prompt
     assert "local_repo_root:" in prompt
     assert "launcher_entry:" in prompt
-    assert "github_origin: https://github.com/ResearAI/DeepScientist" in prompt
+    assert "github_origin: https://github.com/Bruan01/EEEE-scientist" in prompt
     assert "command_forms_available: INSPECT, LOGS, SEARCH, REPRO, PATCH, VERIFY, ISSUE, PR" in prompt
     assert "source_address_rule:" in prompt
     assert "selected_paths_rule:" in prompt

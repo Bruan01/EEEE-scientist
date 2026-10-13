@@ -18,7 +18,7 @@ class _ThreadLoopProxy:
 
     The lark_oapi SDK stores a single module-level ``loop`` and all
     ``Client`` instances call ``loop.create_task(...)`` on it.  When
-    DeepScientist runs multiple Feishu profiles each in its own thread
+    EEEE Scientist runs multiple Feishu profiles each in its own thread
     with its own event loop, the shared module variable becomes a race.
     This proxy replaces the module attribute so every thread sees its
     own loop.

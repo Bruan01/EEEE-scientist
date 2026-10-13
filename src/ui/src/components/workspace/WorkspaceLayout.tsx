@@ -1169,10 +1169,10 @@ function Navbar({
                 type="button"
                 className="navbar-roll-link bg-transparent border-0"
                 onClick={handleGoProjects}
-                aria-label="DeepScientist"
-                data-tooltip="DeepScientist"
+                aria-label="EEEE Scientist"
+                data-tooltip="EEEE Scientist"
               >
-                DeepScientist
+                EEEE Scientist
               </button>
             </div>
           </div>
@@ -1204,10 +1204,10 @@ function Navbar({
                   type="button"
                   className="user-menu-trigger"
                   onClick={handleGoProjects}
-                  aria-label="DeepScientist"
-                  data-tooltip="DeepScientist"
+                  aria-label="EEEE Scientist"
+                  data-tooltip="EEEE Scientist"
                 >
-                  <span className="user-menu-name">DeepScientist</span>
+                  <span className="user-menu-name">EEEE Scientist</span>
                 </button>
               </div>
               {projectDisplayName && (

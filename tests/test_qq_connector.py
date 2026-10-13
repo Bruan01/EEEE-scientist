@@ -55,7 +55,7 @@ def test_qq_status_normalizes_legacy_multi_profile_targets_and_labels(temp_home:
             "recent_conversations": [
                 {
                     "conversation_id": "qq:direct:CF8D2D559AA956B48751539ADFB98865",
-                    "label": "DeepScientist · 1903299925 · direct · CF8D2D559AA956B48751539ADFB98865",
+                    "label": "EEEE Scientist · 1903299925 · direct · CF8D2D559AA956B48751539ADFB98865",
                     "updated_at": "2026-03-18T04:02:07+00:00",
                     "source": "outbound_delivery",
                     "sender_id": "CF8D2D559AA956B48751539ADFB98865",
@@ -63,11 +63,11 @@ def test_qq_status_normalizes_legacy_multi_profile_targets_and_labels(temp_home:
                 },
                 {
                     "conversation_id": "qq:direct:qq-profile-d7iuv7wx::1725C581B930B7EA3585250DCB5DA509",
-                    "label": "DeepScientist · 1903577099 · DeepScientist · 1903577099 · direct · 1725C581B930B7EA3585250DCB5DA509",
+                    "label": "EEEE Scientist · 1903577099 · EEEE Scientist · 1903577099 · direct · 1725C581B930B7EA3585250DCB5DA509",
                     "updated_at": "2026-03-18T11:41:02+00:00",
                     "source": "outbound_delivery",
                     "profile_id": "qq-profile-d7iuv7wx",
-                    "profile_label": "DeepScientist · 1903577099",
+                    "profile_label": "EEEE Scientist · 1903577099",
                     "sender_id": "1725C581B930B7EA3585250DCB5DA509",
                     "sender_name": "1725C581B930B7EA3585250DCB5DA509",
                 },
@@ -75,18 +75,18 @@ def test_qq_status_normalizes_legacy_multi_profile_targets_and_labels(temp_home:
             "known_targets": [
                 {
                     "conversation_id": "qq:direct:CF8D2D559AA956B48751539ADFB98865",
-                    "label": "DeepScientist · 1903299925 · direct · CF8D2D559AA956B48751539ADFB98865",
+                    "label": "EEEE Scientist · 1903299925 · direct · CF8D2D559AA956B48751539ADFB98865",
                     "updated_at": "2026-03-18T04:02:07+00:00",
                     "source": "outbound_delivery",
                     "first_seen_at": "2026-03-18T04:00:00+00:00",
                 },
                 {
                     "conversation_id": "qq:direct:qq-profile-d7iuv7wx::1725C581B930B7EA3585250DCB5DA509",
-                    "label": "DeepScientist · 1903577099 · direct · 1725C581B930B7EA3585250DCB5DA509",
+                    "label": "EEEE Scientist · 1903577099 · direct · 1725C581B930B7EA3585250DCB5DA509",
                     "updated_at": "2026-03-18T11:41:02+00:00",
                     "source": "outbound_delivery",
                     "profile_id": "qq-profile-d7iuv7wx",
-                    "profile_label": "DeepScientist · 1903577099",
+                    "profile_label": "EEEE Scientist · 1903577099",
                     "first_seen_at": "2026-03-18T11:40:12+00:00",
                 },
             ],
@@ -114,9 +114,9 @@ def test_qq_status_normalizes_legacy_multi_profile_targets_and_labels(temp_home:
     assert encoded_first in discovered_by_id
     assert encoded_second in discovered_by_id
     assert discovered_by_id[encoded_first]["label"] == "direct · CF8D2D559AA956B48751539ADFB98865"
-    assert discovered_by_id[encoded_first]["profile_label"] == "DeepScientist · 1903299925"
+    assert discovered_by_id[encoded_first]["profile_label"] == "EEEE Scientist · 1903299925"
     assert discovered_by_id[encoded_second]["label"] == "direct · 1725C581B930B7EA3585250DCB5DA509"
-    assert discovered_by_id[encoded_second]["profile_label"] == "DeepScientist · 1903577099"
+    assert discovered_by_id[encoded_second]["profile_label"] == "EEEE Scientist · 1903577099"
 
 
 def test_qq_group_requires_binding_and_supports_commands(temp_home: Path) -> None:
@@ -157,7 +157,7 @@ def test_qq_group_requires_binding_and_supports_commands(temp_home: Path) -> Non
             "chat_type": "group",
             "group_id": "group-001",
             "sender_id": "user-1",
-            "text": "@DeepScientist /status",
+            "text": "@EEEE Scientist /status",
         }
     )
     assert status["accepted"] is True
@@ -382,13 +382,13 @@ def test_qq_multiple_profiles_keep_separate_openids_and_conversation_ids(temp_ho
                 "profile_id": "qq-a",
                 "app_id": "1903299925",
                 "app_secret": "qq-secret-a",
-                "bot_name": "DeepScientist A",
+                "bot_name": "EEEE Scientist A",
             },
             {
                 "profile_id": "qq-b",
                 "app_id": "2903299925",
                 "app_secret": "qq-secret-b",
-                "bot_name": "DeepScientist B",
+                "bot_name": "EEEE Scientist B",
             },
         ],
     }

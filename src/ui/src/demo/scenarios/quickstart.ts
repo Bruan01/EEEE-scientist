@@ -2381,13 +2381,13 @@ const stages: TutorialDemoStage[] = [
 
 - The workspace now feels **resumable** rather than disposable.
 - A person can inspect the graph, read memory, open files, and choose the next route.
-- This is the moment where DeepScientist behaves like a growing research map instead of a one-shot agent run.
+- This is the moment where EEEE Scientist behaves like a growing research map instead of a one-shot agent run.
 `,
       zh: `### 最终交接点
 
 - 此时工作区已经是一个**可继续推进**的研究环境，而不是一次性结果。
 - 人可以检查图谱、阅读 memory、打开文件，并明确选择下一条路线。
-- 这也是 DeepScientist 更像“会生长的科研地图”而不是“一次性 agent 执行”的地方。
+- 这也是 EEEE Scientist 更像“会生长的科研地图”而不是“一次性 agent 执行”的地方。
 `,
     },
     statusLine: {

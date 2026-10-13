@@ -18,7 +18,7 @@
   <text x="138" y="536" fill="#475569" font-family="Arial, sans-serif" font-size="16">Media-only inbound events are kept.</text>
 
   <rect x="486" y="154" width="308" height="508" rx="28" fill="#F9FBFF" stroke="#D8E2F4" stroke-width="2"/>
-  <text x="516" y="214" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">DeepScientist runtime</text>
+  <text x="516" y="214" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">EEEE Scientist runtime</text>
   <rect x="516" y="262" width="248" height="76" rx="20" fill="#E0E7FF"/>
   <text x="548" y="308" fill="#3730A3" font-family="Arial, sans-serif" font-size="19" font-weight="700">Download / decrypt / normalize</text>
   <rect x="516" y="362" width="248" height="92" rx="20" fill="#fff" stroke="#E0E7F3"/>

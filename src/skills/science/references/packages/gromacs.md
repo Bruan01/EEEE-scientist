@@ -15,7 +15,7 @@
 
 GROMACS is a high-performance molecular dynamics toolkit for simulating biomolecules, polymers, and liquids, with strong support for free-energy workflows and trajectory analysis.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

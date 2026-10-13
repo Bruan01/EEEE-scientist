@@ -2431,7 +2431,7 @@ function QuestInteractiveTerminalPane({
                   </div>
                   <div className="mt-2 leading-7">
                     {shouldAutoEnsureTerminal
-                      ? 'DeepScientist is creating the default interactive terminal session for this workspace.'
+                      ? 'EEEE Scientist is creating the default interactive terminal session for this workspace.'
                       : t('terminal_windows_manual_start')}
                   </div>
                 </div>
@@ -2880,7 +2880,7 @@ function QuestDeepScientistBashPane({
     setStopPending(true)
     try {
       await stopBashSession(questId, selectedSession.bash_id, {
-        reason: 'Stopped from DeepScientist bash panel',
+        reason: 'Stopped from EEEE Scientist bash panel',
       })
       await Promise.allSettled([reloadSessions(), onRefresh()])
     } finally {
@@ -2936,7 +2936,7 @@ function QuestDeepScientistBashPane({
           <div className="flex items-center justify-between gap-3 px-1 pb-3">
             <div>
               <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                DeepScientist Bash
+                EEEE Scientist Bash
               </div>
               <div className="mt-1 text-[11px] text-muted-foreground">
                 All agent `bash_exec` sessions for this project.
@@ -2951,7 +2951,7 @@ function QuestDeepScientistBashPane({
           <div className="feed-scrollbar h-[calc(100%-4rem)] space-y-2 overflow-auto pr-1">
             {!execSessions.length ? (
               <div className="rounded-[20px] border border-dashed border-black/[0.10] px-3 py-4 text-sm text-muted-foreground dark:border-white/[0.12]">
-                No DeepScientist bash sessions recorded yet.
+                No EEEE Scientist bash sessions recorded yet.
               </div>
             ) : (
               execSessions.map((session) => {
@@ -3114,7 +3114,7 @@ function QuestDeepScientistBashPane({
               </>
             ) : (
               <div className="flex h-full items-center justify-center rounded-[24px] border border-dashed border-black/[0.10] px-4 py-6 text-sm text-muted-foreground dark:border-white/[0.12]">
-                Select a DeepScientist bash session to inspect its output.
+                Select an EEEE Scientist bash session to inspect its output.
               </div>
             )}
           </div>

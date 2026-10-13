@@ -15,7 +15,7 @@
 
 Open Quantum Systems in Python package focused on non-Markovian process-tensor methods and environment-driven quantum dynamics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

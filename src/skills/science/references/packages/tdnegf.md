@@ -15,7 +15,7 @@
 
 TDNEGF-Hybrid provides one-time TDNEGF ODE simulation of open quantum devices, evolving reduced density matrices and auxiliary states to compute time-resolved charge and spin transport observables.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -17,7 +17,7 @@ BIN_DIR_SET=0
 
 usage() {
   cat <<'EOF'
-DeepScientist installer
+EEEE Scientist installer
 
 Usage:
   bash install.sh [--dir BASE_DIR] [--install-dir INSTALL_DIR] [--bin-dir BIN_DIR] [--with-tinytex]
@@ -26,7 +26,7 @@ Options:
   --dir PATH          Base install directory. Code is installed into PATH/cli.
   --install-dir PATH  Exact install directory for the bundled CLI tree.
   --bin-dir PATH      Directory for launcher wrappers.
-  --with-tinytex      Also install a lightweight TinyTeX pdflatex runtime after DeepScientist is installed.
+  --with-tinytex      Also install a lightweight TinyTeX pdflatex runtime after EEEE Scientist is installed.
   -h, --help          Show this help message.
 
 Defaults:
@@ -142,7 +142,7 @@ print_optional_latex_notice() {
 
   printf '\n'
   printf 'Optional LaTeX runtime: not detected.\n'
-  printf 'DeepScientist still installs and runs normally.\n'
+  printf 'EEEE Scientist still installs and runs normally.\n'
   printf 'You only need LaTeX if you want to compile paper PDFs locally from the web workspace.\n'
   printf 'Recommended lightweight option:\n'
   printf '  %s latex install-runtime\n' "$BIN_DIR/ds"
@@ -235,10 +235,10 @@ invalidate_runtime_python_env() {
     rm -rf "$target"
     removed=1
   done < <(find "$runtime_dir/lib" -maxdepth 3 -type d \
-    \( -name 'deepscientist' -o -name 'deepscientist-*.dist-info' \) \
+    \( -name 'deepscientist' -o -name 'deepscientist-*.dist-info' -o -name 'eeee_scientist-*.dist-info' \) \
     -print0 2>/dev/null)
   if [ "$removed" -eq 1 ]; then
-    print_step "Invalidated runtime Python env; next 'ds' start will reinstall deepscientist"
+    print_step "Invalidated runtime Python env; next 'ds' start will reinstall eeee-scientist"
   fi
 }
 
@@ -262,6 +262,7 @@ source_copy_excludes() {
 ./src/ui/vendor/novel-headless/.turbo
 ./src/tui/node_modules
 ./src/deepscientist.egg-info
+./src/eeee_scientist.egg-info
 ./Codex
 ./*.tgz
 ./*.log
@@ -351,6 +352,7 @@ prune_tree() {
     "$target/src/ui/vendor/novel-headless/.turbo" \
     "$target/src/tui/node_modules" \
     "$target/src/deepscientist.egg-info" \
+    "$target/src/eeee_scientist.egg-info" \
     "$target/Codex"
   find "$target" -maxdepth 1 -type f \( -name '*.tgz' -o -name '*.log' -o -name '*.pid' -o -name '*.rootbak' \) -delete
   find "$target" -maxdepth 1 -type d \( -name '*.rootbak' -o -name 'dist.bak.*' \) -prune -exec rm -rf {} +
@@ -497,7 +499,7 @@ PY
 write_install_wrappers() {
   local target="$1"
   mkdir -p "$target/bin"
-  for command_name in ds ds-cli research resear; do
+  for command_name in ds ds-cli eeee-scientist research resear; do
     cat >"$target/bin/$command_name" <<EOF
 #!/usr/bin/env bash
 set -euo pipefail
@@ -617,7 +619,7 @@ printf 'Run: %s\n' "$BIN_DIR/ds"
 printf 'Start web workspace: %s\n' "$BIN_DIR/ds --web"
 printf 'Default start: %s\n' "$BIN_DIR/ds"
 printf 'When `ds` starts, it prints the local Web URL and opens it automatically when supported.\n'
-printf 'If `uv` is missing, the first `ds` start will bootstrap a local copy automatically under the DeepScientist home.\n'
+printf 'If `uv` is missing, the first `ds` start will bootstrap a local copy automatically under the EEEE Scientist home.\n'
 print_runner_notice
 if [ "$DIR_SET" -eq 1 ] && [ "$BIN_DIR_SET" -eq 0 ] && [ -z "$ENV_BIN_DIR" ]; then
   printf 'Custom install dir detected; launcher wrappers were still refreshed in the default global bin dir: %s\n' "$BIN_DIR"

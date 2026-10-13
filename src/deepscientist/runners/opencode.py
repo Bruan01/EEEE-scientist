@@ -192,7 +192,7 @@ class OpenCodeRunner(SimpleCliRunner):
             reference_lines = f"- {brief_path}"
 
         return (
-            "There is already a concrete DeepScientist research task in the current workspace.\n"
+            "There is already a concrete EEEE Scientist research task in the current workspace.\n"
             f"Primary requirement: read and follow `{brief_path}` first.\n"
             "Also consult these quest documents when needed:\n"
             f"{reference_lines}\n"

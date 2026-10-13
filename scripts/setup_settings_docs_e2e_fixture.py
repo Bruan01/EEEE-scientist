@@ -69,7 +69,7 @@ def build_fixture(home: Path) -> dict[str, object]:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Create an isolated settings docs E2E fixture runtime.")
-    parser.add_argument("--home", required=True, help="DeepScientist home for the temporary docs runtime.")
+    parser.add_argument("--home", required=True, help="EEEE Scientist home for the temporary docs runtime.")
     parser.add_argument("--output", required=True, help="Path to write fixture JSON.")
     args = parser.parse_args()
 

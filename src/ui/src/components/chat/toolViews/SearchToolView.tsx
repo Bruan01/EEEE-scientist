@@ -47,7 +47,7 @@ export function SearchToolView({ toolContent, panelMode }: ToolViewProps) {
       <div className="relative flex-1 overflow-y-auto">
         <div className="mx-auto flex max-w-[720px] flex-col gap-3 px-4 py-3">
           <DsToolFrame
-            title={isSearching ? 'DeepScientist is searching the web...' : 'DeepScientist searched the web.'}
+            title={isSearching ? 'EEEE Scientist is searching the web...' : 'EEEE Scientist searched the web.'}
             subtitle={
               query
                 ? `Primary query: ${query}`

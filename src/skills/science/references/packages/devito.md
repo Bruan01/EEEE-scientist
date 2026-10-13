@@ -15,7 +15,7 @@
 
 Devito is a symbolic Python DSL and compiler framework that generates optimized finite-difference and stencil operators for PDE simulations on CPUs, GPUs, and distributed-memory clusters.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

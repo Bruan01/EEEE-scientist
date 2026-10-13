@@ -1,6 +1,6 @@
 # 26 引用与致谢说明
 
-这篇文档只说明一件事：我们希望大家如何引用和致谢 DeepScientist。
+这篇文档只说明一件事：我们希望大家如何引用上游 DeepScientist 工作，并在 EEEE Scientist 这个二次开发版本产生实质贡献时进行致谢。
 
 这里的语气是刻意温和的：
 
@@ -10,17 +10,17 @@
 
 ## 简短版本
 
-如果 DeepScientist 对论文、报告、benchmark write-up 或公开研究产物产生了实质性帮助，我们强烈建议你：
+如果 EEEE Scientist 对论文、报告、benchmark write-up 或公开研究产物产生了实质性帮助，我们强烈建议你：
 
-1. 引用 DeepScientist 论文
+1. 引用上游 DeepScientist 论文，并注明使用了 EEEE Scientist 这个二次开发版本
 2. 诚实披露有意义的 AI assistance
 3. 不要把 AI 生成或 AI 模拟出的结果伪装成纯人工、纯真实实验结果
 
-如果你只是把 DeepScientist 当成一个很轻量的启动器、文件浏览器或终端外壳在用，通常没有必要强行引用。
+如果你只是把 EEEE Scientist 当成一个很轻量的启动器、文件浏览器或终端外壳在用，通常没有必要强行引用。
 
 ## 我们强烈建议引用的场景
 
-当 DeepScientist 对以下环节产生了实质性贡献时，建议引用：
+当 EEEE Scientist 对以下环节产生了实质性贡献时，建议引用：
 
 - 研究规划或任务拆解
 - baseline 恢复与实验编排
@@ -30,11 +30,11 @@
 
 一个很实用的判断方式是：
 
-- 如果 DeepScientist 对研究产物的内容、速度或完成方式产生了明显影响，就建议引用
+- 如果 EEEE Scientist 对研究产物的内容、速度或完成方式产生了明显影响，就建议引用
 
 ## 通常不需要引用的场景
 
-如果 DeepScientist 只是被用作：
+如果 EEEE Scientist 只是被用作：
 
 - 本地启动器
 - 终端便利层
@@ -64,17 +64,17 @@ url={https://openreview.net/forum?id=cZFgsLq8Gs}
 
 ## 建议致谢模板
 
-如果 DeepScientist 对项目产生了实质性帮助，通常一段简短致谢就够了，例如：
+如果 EEEE Scientist 对项目产生了实质性帮助，通常一段简短致谢就够了，例如：
 
 ```text
-We used DeepScientist to assist parts of the research workflow, including selected planning, implementation, experiment orchestration, analysis, and/or writing support. Final judgments, claims, and reported real experimental results remain the responsibility of the human authors.
+We used EEEE Scientist to assist parts of the research workflow, including selected planning, implementation, experiment orchestration, analysis, and/or writing support. Final judgments, claims, and reported real experimental results remain the responsibility of the human authors.
 ```
 
 你可以根据投稿 venue 的规范自行缩短或改写。
 
 ## 关于 AI assistance 披露
 
-如果 DeepScientist 对下列内容有明显贡献，我们强烈建议披露：
+如果 EEEE Scientist 对下列内容有明显贡献，我们强烈建议披露：
 
 - 写作
 - 编码

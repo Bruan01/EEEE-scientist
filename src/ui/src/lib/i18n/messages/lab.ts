@@ -229,7 +229,7 @@ const labMessagesEn: Record<string, string> = {
       'This target quest has no reusable PI yet, so a new PI will be recruited.',
     start_research_runtime_title: 'Runtime profile',
     start_research_runtime_profile_hint:
-      'Public runtime fields are persisted in the quest contract. API keys are sent only to the CLI runtime and are not stored in template history. Placeholder values are examples only, not DeepScientist defaults.',
+      'Public runtime fields are persisted in the quest contract. API keys are sent only to the CLI runtime and are not stored in template history. Placeholder values are examples only, not EEEE Scientist defaults.',
     start_research_runtime_model_label: 'Runtime model',
     start_research_runtime_model_placeholder: 'MiniMax-M2.1',
     start_research_runtime_base_url_label: 'Base URL',
@@ -1090,7 +1090,7 @@ const labMessagesZhCN: Record<string, string> = {
       '这个目标 quest 目前没有可复用的 PI，因此会自动招募新的 PI。',
     start_research_runtime_title: '运行时配置',
     start_research_runtime_profile_hint:
-      '公开运行时字段会持久化到 quest contract。API key 只发送给 CLI 运行时，不会保存在模板历史里。placeholder 只用于示例展示，不是 DeepScientist 默认值。',
+      '公开运行时字段会持久化到 quest contract。API key 只发送给 CLI 运行时，不会保存在模板历史里。placeholder 只用于示例展示，不是 EEEE Scientist 默认值。',
     start_research_runtime_model_label: '运行模型',
     start_research_runtime_model_placeholder: 'MiniMax-M2.1',
     start_research_runtime_base_url_label: 'Base URL',

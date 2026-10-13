@@ -1,6 +1,6 @@
 # Science Package Domain Index
 
-This generated index groups FermiLink skilled-scipkg package cards for DeepScientist routing.
+This generated index groups FermiLink skilled-scipkg package cards for EEEE Scientist routing.
 Package cards are knowledge pointers only; run package checks before computed work.
 
 - Package count: `169`

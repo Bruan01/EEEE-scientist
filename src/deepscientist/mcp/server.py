@@ -681,7 +681,7 @@ def _prepare_github_issue_payload_via_daemon(
 ) -> dict[str, Any]:
     base_url, daemon_state = _local_daemon_api_base_url(home)
     if not base_url:
-        raise ValueError("The local daemon URL is unavailable. Start DeepScientist before preparing a GitHub issue draft.")
+        raise ValueError("The local daemon URL is unavailable. Start EEEE Scientist before preparing a GitHub issue draft.")
 
     token = str((daemon_state or {}).get("auth_token") or "").strip()
     auth_enabled = bool((daemon_state or {}).get("auth_enabled"))
@@ -921,7 +921,7 @@ def build_memory_server(context: McpContext) -> FastMCP:
     server = FastMCP(
         "memory",
         instructions=(
-            "Quest-aware DeepScientist memory namespace. "
+            "Quest-aware EEEE Scientist memory namespace. "
             "Use list_recent to recover context at turn start or resume, "
             "search before repeating literature/debug work, "
             "read only the few selected cards that matter now, "
@@ -1094,7 +1094,7 @@ def build_artifact_server(context: McpContext) -> FastMCP:
     server = FastMCP(
         "artifact",
         instructions=(
-            "Quest-aware DeepScientist artifact namespace. "
+            "Quest-aware EEEE Scientist artifact namespace. "
             "Use artifact as the quest control plane for ideas, branches, worktrees, decisions, progress, run records, reports, approvals, and user interaction state. "
             "Git behavior is exposed through artifact only."
         ),
@@ -2561,7 +2561,7 @@ def build_bash_exec_server(context: McpContext) -> FastMCP:
     server = FastMCP(
         "bash_exec",
         instructions=(
-            "Quest-aware DeepScientist bash execution namespace with detached execution, durable logs, and progress tracking. "
+            "Quest-aware EEEE Scientist bash execution namespace with detached execution, durable logs, and progress tracking. "
             "Use bash_exec when commands should be monitored, revisited from logs, stopped later, or resumed after interruption."
         ),
         log_level="ERROR",
@@ -2882,7 +2882,7 @@ def _ensure_utf8_stdio() -> None:
 
 def main() -> int:
     _ensure_utf8_stdio()
-    parser = argparse.ArgumentParser(description="DeepScientist built-in MCP server")
+    parser = argparse.ArgumentParser(description="EEEE Scientist built-in MCP server")
     parser.add_argument("--namespace", choices=("memory", "artifact", "bash_exec"), required=True)
     args = parser.parse_args()
     context = McpContext.from_env()

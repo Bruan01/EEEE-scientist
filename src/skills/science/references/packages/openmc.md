@@ -15,7 +15,7 @@
 
 OpenMC is a Monte Carlo neutron and photon transport package for reactor physics and radiation modeling using continuous energy nuclear data and constructive solid geometry.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

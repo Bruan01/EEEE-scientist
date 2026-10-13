@@ -15,7 +15,7 @@
 
 AMUSE is a Python-driven framework that couples specialized community solvers to build multi-physics astrophysical simulations across gravitational dynamics, hydrodynamics, stellar evolution, and other computational astronomy research workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

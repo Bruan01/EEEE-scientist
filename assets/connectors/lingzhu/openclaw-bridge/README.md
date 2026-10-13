@@ -2,12 +2,12 @@
 
 面向 Rokid/乐奇眼镜场景的 `Lingzhu <-> OpenClaw` 桥接插件。
 
-本目录已随 DeepScientist 一起打包，可直接从当前仓库安装。
+本目录已随 EEEE Scientist 一起打包，可直接从当前仓库安装。
 
 ## 安装
 
 ```bash
-# 在 DeepScientist 仓库根目录下安装
+# 在 EEEE Scientist 仓库根目录下安装
 openclaw plugins install ./assets/connectors/lingzhu/openclaw-bridge
 
 # 或以开发模式链接安装

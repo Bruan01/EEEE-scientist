@@ -45,7 +45,7 @@ async function installCommonStubs(page: Page) {
         update_available: false,
         prompt_recommended: false,
         busy: false,
-        manual_update_command: 'npm install -g @researai/deepscientist@latest',
+        manual_update_command: 'npm install -g eeee-scientist@latest',
       },
     })
   )
@@ -141,7 +141,7 @@ async function installCommonStubs(page: Page) {
         updated_at: new Date().toISOString(),
         content: documentId.includes('GEMINI')
           ? '# Gemini configuration\n\nUse API keys or an OpenAI-compatible proxy.\n\n## Long command\n\n```bash\nexport GEMINI_API_KEY=test-key && codex --model gemini-2.5-pro --provider google\n```\n'
-          : '# Quick Start\n\nStart with `npm install -g @researai/deepscientist`, then open Settings to configure runners.\n\n## Configure\n\nOpen the settings links for Runtime, Models, Connectors, and DeepXiv.\n',
+          : '# Quick Start\n\nStart with `npm install -g eeee-scientist`, then open Settings to configure runners.\n\n## Configure\n\nOpen the settings links for Runtime, Models, Connectors, and DeepXiv.\n',
         meta: {},
       },
     })

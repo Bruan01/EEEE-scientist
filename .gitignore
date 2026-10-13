@@ -53,5 +53,5 @@ dist.bak.*/
 /tmp-*.png
 /Codex
 *.docx
-# Local DeepScientist install helper
+# Local EEEE Scientist install helper
 /test_install_for_me.sh

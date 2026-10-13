@@ -170,7 +170,7 @@ def test_normalize_connector_config_drops_default_placeholder_profiles_without_r
             "profile_id": "telegram-deepscientist",
             "enabled": False,
             "transport": "polling",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "TELEGRAM_BOT_TOKEN",
         }
@@ -180,7 +180,7 @@ def test_normalize_connector_config_drops_default_placeholder_profiles_without_r
             "profile_id": "slack-deepscientist",
             "enabled": False,
             "transport": "socket_mode",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "SLACK_BOT_TOKEN",
             "bot_user_id": None,
@@ -193,7 +193,7 @@ def test_normalize_connector_config_drops_default_placeholder_profiles_without_r
             "profile_id": "whatsapp-deepscientist",
             "enabled": False,
             "transport": "local_session",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "auth_method": "qr_browser",
             "session_dir": "~/.deepscientist/connectors/whatsapp",
         }
@@ -245,7 +245,7 @@ def test_config_save_persists_direct_connector_secrets_without_env_placeholders(
             "app_id": "1903299925",
             "app_secret": "qq-secret",
             "app_secret_env": "QQ_APP_SECRET",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
         }
     ]
     connectors["slack"]["enabled"] = True
@@ -291,7 +291,7 @@ def test_config_save_accepts_disabled_placeholder_profiles_without_blocking_othe
             "profile_id": "telegram-deepscientist",
             "enabled": False,
             "transport": "polling",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "TELEGRAM_BOT_TOKEN",
         }
@@ -301,7 +301,7 @@ def test_config_save_accepts_disabled_placeholder_profiles_without_blocking_othe
             "profile_id": "discord-deepscientist",
             "enabled": False,
             "transport": "gateway",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "DISCORD_BOT_TOKEN",
             "application_id": None,
@@ -312,7 +312,7 @@ def test_config_save_accepts_disabled_placeholder_profiles_without_blocking_othe
             "profile_id": "slack-deepscientist",
             "enabled": False,
             "transport": "socket_mode",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "SLACK_BOT_TOKEN",
             "bot_user_id": None,
@@ -325,7 +325,7 @@ def test_config_save_accepts_disabled_placeholder_profiles_without_blocking_othe
             "profile_id": "feishu-deepscientist",
             "enabled": False,
             "transport": "long_connection",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "app_id": None,
             "app_secret": None,
             "app_secret_env": "FEISHU_APP_SECRET",
@@ -337,7 +337,7 @@ def test_config_save_accepts_disabled_placeholder_profiles_without_blocking_othe
             "profile_id": "whatsapp-deepscientist",
             "enabled": False,
             "transport": "local_session",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "auth_method": "qr_browser",
             "session_dir": "~/.deepscientist/connectors/whatsapp",
         }

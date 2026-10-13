@@ -538,7 +538,7 @@ export default function Hero(props: {
                         </a>
                         .
                       </div>
-                      {currentVersion ? <div>{`DeepScientist v${currentVersion}`}</div> : null}
+                      {currentVersion ? <div>{`EEEE Scientist v${currentVersion}`}</div> : null}
                     </div>
                   </div>
                 </FadeContent>

@@ -1,23 +1,25 @@
-# DeepScientist Docs
+# EEEE Scientist Docs
 
-DeepScientist is not just a long-running autonomous scientific discovery system. It is also a persistent research map that lives on your own machine.
+EEEE Scientist is a secondary-development fork based on DeepScientist. It is a
+long-running autonomous scientific discovery system and a persistent research
+map that lives on your own machine.
 
 2 minutes to install. 2 minutes to bind Weixin. 2 minutes to launch. Extremely fast and easy to use.
 
-Local Web access now starts without a password gate by default. If you want a generated 16-character browser password for one launch, run `ds --auth true`; DeepScientist then prints the password in the terminal and the browser can reuse the stored login after the first successful entry.
+Local Web access now starts without a password gate by default. If you want a generated 16-character browser password for one launch, run `ds --auth true`; EEEE Scientist then prints the password in the terminal and the browser can reuse the stored login after the first successful entry.
 
 It is also a workshop-style collaboration environment: let it keep moving autonomously, or step in anytime to collaborate, edit code, run the terminal yourself, or keep notes and plans in a Notion-style workspace.
 
-Use DeepScientist anywhere: on the server through TUI, in the browser through Web, on the phone through Weixin or QQ, and even on glasses through Rokid Glasses.
+Use EEEE Scientist anywhere: on the server through TUI, in the browser through Web, on the phone through Weixin or QQ, and even on glasses through Rokid Glasses.
 
 ## News
 
-- `2026/03/24`: DeepScientist officially releases `v1.5`.
-- `2026/02/01`: the DeepScientist paper is available on [OpenReview](https://openreview.net/forum?id=cZFgsLq8Gs) for `ICLR 2026`.
+- `2026/03/24`: EEEE Scientist officially releases `v1.5`.
+- `2026/02/01`: the upstream DeepScientist paper is available on [OpenReview](https://openreview.net/forum?id=cZFgsLq8Gs) for `ICLR 2026`.
 
 ## More From ResearAI
 
-AI Scientist and AutoFigure projects worth exploring alongside DeepScientist:
+AI Scientist and AutoFigure projects worth exploring alongside EEEE Scientist:
 
 | Project | What it does |
 |---|---|
@@ -38,7 +40,7 @@ Built-in runners today:
 ## If you are new
 
 - [00 Quick Start](./00_QUICK_START.md)
-  Start here if you want to install DeepScientist, choose between Codex / Claude Code / Kimi Code / OpenCode, launch it locally, and create your first project.
+  Start here if you want to install EEEE Scientist, choose between Codex / Claude Code / Kimi Code / OpenCode, launch it locally, and create your first project.
 - [20 Workspace Modes Guide](./20_WORKSPACE_MODES_GUIDE.md)
   Read this if you want to choose correctly between Copilot and Autonomous before creating a project.
 - [31 Local Browser Auth](./31_LOCAL_BROWSER_AUTH.md)
@@ -48,17 +50,17 @@ Built-in runners today:
 - [05 TUI Guide](./05_TUI_GUIDE.md)
   Read this if your main surface is the terminal and you want one end-to-end path through `ds --tui`, quests, connectors, cross-surface work, and TUI debug snapshots.
 - [15 Codex Provider Setup](./15_CODEX_PROVIDER_SETUP.md)
-  Read this when you want to run DeepScientist through OpenAI, Ollama, MiniMax, GLM, Volcengine Ark, Alibaba Bailian Coding Plan, or another Codex profile. Gemini through Codex is an advanced experiment; OpenCode is usually the better Gemini route.
+  Read this when you want to run EEEE Scientist through OpenAI, Ollama, MiniMax, GLM, Volcengine Ark, Alibaba Bailian Coding Plan, or another Codex profile. Gemini through Codex is an advanced experiment; OpenCode is usually the better Gemini route.
 - [24 Claude Code Setup](./24_CLAUDE_CODE_PROVIDER_SETUP.md)
-  Read this when Claude Code already works on your machine and you want DeepScientist to reuse it directly, or when you want to use Ollama through its Anthropic-compatible API.
+  Read this when Claude Code already works on your machine and you want EEEE Scientist to reuse it directly, or when you want to use Ollama through its Anthropic-compatible API.
 - [27 Kimi Code Setup](./27_KIMI_CODE_PROVIDER_SETUP.md)
-  Read this when the official Kimi Code CLI already works on your machine and you want DeepScientist to use it as a separate builtin runner.
+  Read this when the official Kimi Code CLI already works on your machine and you want EEEE Scientist to use it as a separate builtin runner.
 - [25 OpenCode Setup](./25_OPENCODE_PROVIDER_SETUP.md)
-  Read this when OpenCode already works on your machine and you want DeepScientist to reuse its provider/model configuration, especially for Gemini or Ollama.
+  Read this when OpenCode already works on your machine and you want EEEE Scientist to reuse its provider/model configuration, especially for Gemini or Ollama.
 - [21 Local Model Backends Guide](./21_LOCAL_MODEL_BACKENDS_GUIDE.md)
-  Read this if you want to run DeepScientist through local model backends such as vLLM, Ollama, or SGLang and need to choose between Codex, Claude Code, and OpenCode.
+  Read this if you want to run EEEE Scientist through local model backends such as vLLM, Ollama, or SGLang and need to choose between Codex, Claude Code, and OpenCode.
 - [26 Citation And Attribution](./26_CITATION_AND_ATTRIBUTION.md)
-  Read this if DeepScientist materially helped a paper or report and you want the preferred citation, acknowledgment wording, and attribution boundary.
+  Read this if EEEE Scientist materially helped a paper or report and you want the preferred citation, acknowledgment wording, and attribution boundary.
 - [12 Guided Workflow Tour](./12_GUIDED_WORKFLOW_TOUR.md)
   Follow the real product flow from landing page to workspace, step by step.
 - [02 Start Research Guide](./02_START_RESEARCH_GUIDE.md)
@@ -71,13 +73,13 @@ Built-in runners today:
 - [20 Workspace Modes Guide](./20_WORKSPACE_MODES_GUIDE.md)
   Use this when the main question is not “how do I fill the form?” but “should this project start as Copilot or Autonomous?”.
 - [01 Settings Reference](./01_SETTINGS_REFERENCE.md)
-  Use this when DeepScientist is already running and you want to configure runtime defaults, models, connectors, baselines, DeepXiv, extensions, or MCP from the visual Settings page before touching raw YAML.
+  Use this when EEEE Scientist is already running and you want to configure runtime defaults, models, connectors, baselines, DeepXiv, extensions, or MCP from the visual Settings page before touching raw YAML.
 - [30 Settings Control Center Guide](./30_SETTINGS_CONTROL_CENTER_GUIDE.md)
   Use this when the question is not configuration but runtime supervision: summary, hardware, diagnostics, errors, logs, quests, repairs, controllers, stats, or search.
 - [11 License And Risk Notice](./11_LICENSE_AND_RISK.md)
   Read this first if you care about the license boundary, server safety, fabricated outputs, connector leakage, and public exposure risk.
 - [26 Citation And Attribution](./26_CITATION_AND_ATTRIBUTION.md)
-  Use this when the question is not runtime risk but how to cite or acknowledge DeepScientist fairly in research outputs.
+  Use this when the question is not runtime risk but how to cite or acknowledge EEEE Scientist fairly in research outputs.
 
 ## If you want to collaborate through external surfaces
 
@@ -92,11 +94,11 @@ Built-in runners today:
 - [18 Feishu Connector Guide](./18_FEISHU_CONNECTOR_GUIDE.md)
   Bind Feishu through the built-in long-connection runtime and continue quests from bot chats.
 - [10 Weixin Connector Guide](./10_WEIXIN_CONNECTOR_GUIDE.md)
-  Bind personal WeChat through DeepScientist's built-in QR login and iLink runtime.
+  Bind personal WeChat through EEEE Scientist's built-in QR login and iLink runtime.
 - [03 QQ Connector Guide](./03_QQ_CONNECTOR_GUIDE.md)
   Use QQ as a practical collaboration surface for progress, commands, and milestone delivery.
 - [04 Lingzhu Connector Guide](./04_LINGZHU_CONNECTOR_GUIDE.md)
-  Bind Lingzhu / Rokid Glasses to DeepScientist.
+  Bind Lingzhu / Rokid Glasses to EEEE Scientist.
 - [34 Multitask Entry Guide](./34_MULTITASK_ORCHESTRATION_GUIDE.md)
   Read this when several quests are running and you need to choose between Web, Weixin, QQ, or another connector.
 
@@ -134,7 +136,7 @@ Built-in runners today:
 - [01 Settings Reference](./01_SETTINGS_REFERENCE.md)
   Check this if the problem is likely caused by config, credentials, or connector setup.
 
-## If you are developing DeepScientist
+## If you are developing EEEE Scientist
 - [90 Architecture](./90_ARCHITECTURE.md)
   High-level system contracts and repository structure.
 - [91 Development](./91_DEVELOPMENT.md)
@@ -145,5 +147,5 @@ Built-in runners today:
 Welcome to join the WeChat group for discussion.
 
 <p align="center">
-  <img src="../../assets/readme/wechat15.jpg" alt="DeepScientist WeChat group" width="360" />
+  <img src="../../assets/readme/wechat15.jpg" alt="EEEE Scientist WeChat group" width="360" />
 </p>

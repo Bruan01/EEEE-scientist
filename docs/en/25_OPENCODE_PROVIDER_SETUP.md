@@ -1,6 +1,6 @@
 # 25 OpenCode Setup
 
-It reuses the `opencode` CLI that already works on your machine, injects DeepScientist MCP servers, and mirrors first-party skills into the OpenCode project tree.
+It reuses the `opencode` CLI that already works on your machine, injects EEEE Scientist MCP servers, and mirrors first-party skills into the OpenCode project tree.
 
 The right order is:
 
@@ -8,7 +8,7 @@ The right order is:
 2. authenticate / configure providers directly in OpenCode
 3. validate `opencode run` directly
 4. run `ds doctor`
-5. only then switch DeepScientist to the `opencode` runner
+5. only then switch EEEE Scientist to the `opencode` runner
 
 ## Official docs to read first
 
@@ -23,11 +23,11 @@ Read the official OpenCode docs first:
 - Ollama OpenAI compatibility: `https://docs.ollama.com/openai`
 - Ollama + OpenCode: `https://docs.ollama.com/integrations/opencode`
 
-DeepScientist expects the same local OpenCode configuration described there.
+EEEE Scientist expects the same local OpenCode configuration described there.
 
-## What DeepScientist actually uses
+## What EEEE Scientist actually uses
 
-DeepScientist currently runs OpenCode through a command shape close to:
+EEEE Scientist currently runs OpenCode through a command shape close to:
 
 ```bash
 opencode run \
@@ -47,7 +47,7 @@ Then it injects:
 
 as quest-local MCP servers.
 
-It also mirrors DeepScientist skills into:
+It also mirrors EEEE Scientist skills into:
 
 ```text
 <quest_root>/.opencode/skills/
@@ -127,7 +127,7 @@ If you are new to OpenCode providers, the docs recommend connecting a provider f
 
 ## Step 3: validate OpenCode directly
 
-Before changing DeepScientist settings, validate OpenCode on its own.
+Before changing EEEE Scientist settings, validate OpenCode on its own.
 
 ### Minimal smoke check
 
@@ -156,7 +156,7 @@ If this does not work, stop there and fix OpenCode first.
 
 ## OpenCode config concepts that matter most
 
-From the current official docs and CLI help, the DeepScientist-relevant OpenCode concepts are:
+From the current official docs and CLI help, the EEEE Scientist-relevant OpenCode concepts are:
 
 - global config file: `~/.config/opencode/opencode.json`
 - credentials file: `~/.local/share/opencode/auth.json`
@@ -179,7 +179,7 @@ The official config docs also note that project-level OpenCode directories use p
 - `.opencode/plugins/`
 - `.opencode/tools/`
 
-That aligns with how DeepScientist mirrors its own quest-local skills.
+That aligns with how EEEE Scientist mirrors its own quest-local skills.
 
 ## Provider configuration
 
@@ -203,17 +203,17 @@ A common provider example looks like:
 }
 ```
 
-This matters for DeepScientist because the `opencode` runner does not bypass your OpenCode provider setup. It reuses it.
+This matters for EEEE Scientist because the `opencode` runner does not bypass your OpenCode provider setup. It reuses it.
 
 ## Gemini
 
-OpenCode is the recommended DeepScientist runner for Gemini.
+OpenCode is the recommended EEEE Scientist runner for Gemini.
 
 Why:
 
 - Gemini has an official OpenAI-compatible endpoint
 - OpenCode supports custom OpenAI-compatible providers
-- the DeepScientist OpenCode runner reuses `~/.config/opencode/opencode.json` and can pass `GEMINI_API_KEY` through `runners.opencode.env`
+- the EEEE Scientist OpenCode runner reuses `~/.config/opencode/opencode.json` and can pass `GEMINI_API_KEY` through `runners.opencode.env`
 
 ### 1. Prepare the key
 
@@ -274,7 +274,7 @@ opencode run \
 
 If this fails, fix OpenCode provider setup first.
 
-### 4. Map it into DeepScientist
+### 4. Map it into EEEE Scientist
 
 Let OpenCode decide the model:
 
@@ -288,7 +288,7 @@ opencode:
     GEMINI_API_KEY: "..."
 ```
 
-Force Gemini for every DeepScientist run:
+Force Gemini for every EEEE Scientist run:
 
 ```yaml
 opencode:
@@ -379,7 +379,7 @@ opencode run \
   "Reply with exactly HELLO."
 ```
 
-Use the model string that works in your DeepScientist config:
+Use the model string that works in your EEEE Scientist config:
 
 ```yaml
 opencode:
@@ -414,7 +414,7 @@ The official OpenCode docs support:
 - file-based agents in `~/.config/opencode/agents/` or `.opencode/agents/`
 - skills in `.opencode/skills/<name>/SKILL.md`
 
-DeepScientist currently maps its own first-party skill bundles into:
+EEEE Scientist currently maps its own first-party skill bundles into:
 
 ```text
 <quest_root>/.opencode/skills/deepscientist-*/
@@ -423,10 +423,10 @@ DeepScientist currently maps its own first-party skill bundles into:
 So from the user's point of view:
 
 - your own global OpenCode agents stay global
-- DeepScientist's quest skills are mirrored per quest
-- DeepScientist can still pass `--agent <name>` through `runners.opencode.default_agent`
+- EEEE Scientist's quest skills are mirrored per quest
+- EEEE Scientist can still pass `--agent <name>` through `runners.opencode.default_agent`
 
-## Step 4: map OpenCode into DeepScientist settings
+## Step 4: map OpenCode into EEEE Scientist settings
 
 ### Global default runner
 
@@ -457,7 +457,7 @@ opencode:
 
 ### Settings-first path after launch
 
-If DeepScientist is already running, use the visual `Models` page first:
+If EEEE Scientist is already running, use the visual `Models` page first:
 
 - route: `/settings/runners`
 
@@ -482,7 +482,7 @@ In the web Settings page:
 - `Runners -> opencode.config_dir`
   - usually `~/.config/opencode`
 - `Runners -> opencode.model`
-  - use `inherit` unless you want DeepScientist to force a specific `provider/model`
+  - use `inherit` unless you want EEEE Scientist to force a specific `provider/model`
 - `Runners -> opencode.default_agent`
   - optional `--agent`
 - `Runners -> opencode.variant`
@@ -490,7 +490,7 @@ In the web Settings page:
 - `Runners -> opencode.mcp_timeout_ms`
   - timeout for fetching tools from each MCP server during OpenCode startup; this is not tool execution timeout
 
-## Step 5: validate DeepScientist
+## Step 5: validate EEEE Scientist
 
 After direct OpenCode validation works, run:
 
@@ -504,7 +504,7 @@ You want the OpenCode checks to confirm:
 - the startup hello probe succeeds
 - the configured `config_dir` is readable
 
-Then start DeepScientist:
+Then start EEEE Scientist:
 
 ```bash
 ds
@@ -514,7 +514,7 @@ and confirm that a quest actually runs on `opencode`.
 
 ## Model selection and other providers
 
-OpenCode is the most flexible runner in DeepScientist today for users who want to connect other model providers.
+OpenCode is the most flexible runner in EEEE Scientist today for users who want to connect other model providers.
 
 The official docs describe:
 
@@ -525,14 +525,14 @@ The official docs describe:
 
 In practice that means:
 
-- if OpenCode already works with your provider, DeepScientist can reuse it
-- you usually do not need DeepScientist-specific provider code
+- if OpenCode already works with your provider, EEEE Scientist can reuse it
+- you usually do not need EEEE Scientist-specific provider code
 - keep `runners.opencode.model: inherit` when OpenCode itself should decide the default model
-- only set `runners.opencode.model` when you want DeepScientist to override the OpenCode default for every quest turn
+- only set `runners.opencode.model` when you want EEEE Scientist to override the OpenCode default for every quest turn
 
 ## Project-level switching
 
-DeepScientist now supports both levels of switching:
+EEEE Scientist now supports both levels of switching:
 
 ### New quests follow the global default
 
@@ -552,9 +552,9 @@ This means you can:
 - move another quest to OpenCode
 - switch a Claude quest over to OpenCode later if the provider fit is better
 
-## DeepScientist-specific OpenCode behavior
+## EEEE Scientist-specific OpenCode behavior
 
-For each run, DeepScientist creates a quest-local OpenCode home overlay under:
+For each run, EEEE Scientist creates a quest-local OpenCode home overlay under:
 
 ```text
 <quest_root>/.ds/opencode-home/
@@ -568,7 +568,7 @@ It also mirrors first-party skills into:
 <quest_root>/.opencode/skills/
 ```
 
-So users do not need to hand-maintain DeepScientist's MCP or first-party skills inside the quest.
+So users do not need to hand-maintain EEEE Scientist's MCP or first-party skills inside the quest.
 
 ## Common failure cases
 
@@ -586,7 +586,7 @@ Then either:
 - fix PATH
 - or set `runners.opencode.binary` to an absolute path
 
-### `opencode run` works interactively, but DeepScientist doctor fails
+### `opencode run` works interactively, but EEEE Scientist doctor fails
 
 Usually one of these is wrong:
 
@@ -629,7 +629,7 @@ Check that the quest contains:
 <quest_root>/.opencode/skills/
 ```
 
-DeepScientist syncs first-party skill bundles there during quest creation and prompt refresh.
+EEEE Scientist syncs first-party skill bundles there during quest creation and prompt refresh.
 
 ## Recommended defaults
 
@@ -650,4 +650,4 @@ opencode:
   env: {}
 ```
 
-Then do all provider-specific auth and model tuning inside OpenCode first, validate with `opencode run`, and only then switch DeepScientist over.
+Then do all provider-specific auth and model tuning inside OpenCode first, validate with `opencode run`, and only then switch EEEE Scientist over.

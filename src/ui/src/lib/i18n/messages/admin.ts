@@ -2,7 +2,7 @@ import type { I18nMessages } from '@/lib/i18n/messages'
 
 export const adminMessages: I18nMessages = {
   en: {
-    brand_title: 'DeepScientist Admin',
+    brand_title: 'EEEE Scientist Admin',
     brand_subtitle: 'Local operations console',
     nav_dashboard: 'Dashboard',
     nav_quests: 'Quests',
@@ -85,7 +85,7 @@ export const adminMessages: I18nMessages = {
     enum_log: 'log',
   },
   'zh-CN': {
-    brand_title: 'DeepScientist 管理台',
+    brand_title: 'EEEE Scientist 管理台',
     brand_subtitle: '本地运维控制台',
     nav_dashboard: '总览',
     nav_quests: 'Quests',

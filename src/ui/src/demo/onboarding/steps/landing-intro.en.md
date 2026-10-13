@@ -1,8 +1,8 @@
-Welcome to the DeepScientist launch surface.
+Welcome to the EEEE Scientist launch surface.
 
 This is not a generic chat entry. It is where a research idea becomes a **local, auditable, reproducible quest**.
 
-The main DeepScientist loop is:
+The main EEEE Scientist loop is:
 
 1. Choose the task: describe your goal and provide the relevant papers, code, data, or benchmark references
 2. Plan the launch: SetupAgent organizes the goal, materials, constraints, and launch contract

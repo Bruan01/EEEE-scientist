@@ -1,17 +1,17 @@
 # 24 Claude Code 配置指南
 
-DeepScientist 不会为 Claude Code 额外再包一层私有适配器。
+EEEE Scientist 不会为 Claude Code 额外再包一层私有适配器。
 
-它复用的是你机器上已经能正常工作的 `claude` CLI，然后在运行时注入 DeepScientist 的 MCP 和 quest 局部 skills。
+它复用的是你机器上已经能正常工作的 `claude` CLI，然后在运行时注入 EEEE Scientist 的 MCP 和 quest 局部 skills。
 
 正确顺序是：
 
 1. 先安装并认证 Claude Code
 2. 先在终端里确认 `claude` 自己可用
 3. 再运行 `ds doctor`
-4. 最后再把 DeepScientist 切到 `claude` runner
+4. 最后再把 EEEE Scientist 切到 `claude` runner
 
-如果 `claude` 本身还没通，先修 DeepScientist 是错误顺序。
+如果 `claude` 本身还没通，先修 EEEE Scientist 是错误顺序。
 
 ## 官方文档先读哪些
 
@@ -25,11 +25,11 @@ DeepScientist 不会为 Claude Code 额外再包一层私有适配器。
 - Environment variables：`https://code.claude.com/docs/en/env-vars`
 - Ollama + Claude Code：`https://docs.ollama.com/integrations/claude-code`
 
-DeepScientist 依赖的就是同一套本地 Claude Code 配置。
+EEEE Scientist 依赖的就是同一套本地 Claude Code 配置。
 
-## DeepScientist 实际如何调用 Claude Code
+## EEEE Scientist 实际如何调用 Claude Code
 
-DeepScientist 当前用的 headless 调用形态接近：
+EEEE Scientist 当前用的 headless 调用形态接近：
 
 ```bash
 claude -p \
@@ -86,7 +86,7 @@ which claude
 claude --version
 ```
 
-如果你必须用一个非默认路径的 Claude Code binary，就把绝对路径写进 DeepScientist 的 `runners.yaml`。
+如果你必须用一个非默认路径的 Claude Code binary，就把绝对路径写进 EEEE Scientist 的 `runners.yaml`。
 
 ## 第二步：认证 Claude Code
 
@@ -110,11 +110,11 @@ Claude Code 的本地状态通常放在 `~/.claude/`，最重要的文件一般�
 - `~/.claude/settings.local.json`
 - `~/.claude/agents/`
 
-DeepScientist 会从 `runners.claude.config_dir` 指向的目录读取这些内容，并在每次运行前复制到 quest 局部 overlay 里。
+EEEE Scientist 会从 `runners.claude.config_dir` 指向的目录读取这些内容，并在每次运行前复制到 quest 局部 overlay 里。
 
 ## 第三步：先直接验证 Claude Code
 
-在改 DeepScientist 设置之前，先确认 headless Claude Code 自己能跑。
+在改 EEEE Scientist 设置之前，先确认 headless Claude Code 自己能跑。
 
 ### 最小 smoke check
 
@@ -138,11 +138,11 @@ claude -p \
   --tools ""
 ```
 
-如果这里都不通，先别碰 DeepScientist。
+如果这里都不通，先别碰 EEEE Scientist。
 
 ## Claude Code 里最重要的参数
 
-结合当前 CLI help 和官方 settings 文档，DeepScientist 相关的参数主要是：
+结合当前 CLI help 和官方 settings 文档，EEEE Scientist 相关的参数主要是：
 
 - `--model`
   - 指定本次会话模型
@@ -151,17 +151,17 @@ claude -p \
 - `--add-dir`
   - 扩展工具可访问目录
 - `--system-prompt` / `--append-system-prompt`
-  - DeepScientist 不直接依赖这个；它会自己构建 prompt，并作为输入传给 Claude Code
+  - EEEE Scientist 不直接依赖这个；它会自己构建 prompt，并作为输入传给 Claude Code
 - `--mcp-config`
-  - DeepScientist 的内建 MCP 不需要你手写；它会按每次运行自动注入
+  - EEEE Scientist 的内建 MCP 不需要你手写；它会按每次运行自动注入
 - `--agent`
-  - Claude Code CLI 支持，但 DeepScientist 当前更依赖 quest 局部同步到 `.claude/agents/` 的 agents
+  - Claude Code CLI 支持，但 EEEE Scientist 当前更依赖 quest 局部同步到 `.claude/agents/` 的 agents
 
 ## 环境变量与网关
 
 Claude Code 官方 settings 文档明确列出 `ANTHROPIC_API_KEY`。
 
-对 DeepScientist 用户来说，最常见的字段是：
+对 EEEE Scientist 用户来说，最常见的字段是：
 
 - `ANTHROPIC_API_KEY`
   - 标准 Anthropic API key
@@ -170,15 +170,15 @@ Claude Code 官方 settings 文档明确列出 `ANTHROPIC_API_KEY`。
 - `CLAUDE_CODE_MAX_OUTPUT_TOKENS`
   - 如果你的 Claude Code 环境或 provider 支持这个限制
 
-### 一个重要的 DeepScientist 兼容说明
+### 一个重要的 EEEE Scientist 兼容说明
 
 有些第三方 Claude 兼容网关暴露的是 `ANTHROPIC_AUTH_TOKEN`，而不是 `ANTHROPIC_API_KEY`。
 
-DeepScientist 现在会在 `ANTHROPIC_API_KEY` 为空时自动做：
+EEEE Scientist 现在会在 `ANTHROPIC_API_KEY` 为空时自动做：
 
 - `ANTHROPIC_AUTH_TOKEN -> ANTHROPIC_API_KEY`
 
-这是 DeepScientist 的兼容行为，不是 Claude Code 官方保证。
+这是 EEEE Scientist 的兼容行为，不是 Claude Code 官方保证。
 
 如果你的直连 `claude` 终端已经能直接使用 `ANTHROPIC_API_KEY`，优先使用标准字段。
 
@@ -188,14 +188,14 @@ Ollama 官方提供了 Anthropic-compatible API，因此 Claude Code 可以通�
 
 这条路适合：
 
-- 你想让 DeepScientist 使用 `claude` runner，但模型实际由本地 Ollama 提供
-- 你的 Ollama 模型上下文足够长，能承载 DeepScientist 的长 prompt 和工具调用
+- 你想让 EEEE Scientist 使用 `claude` runner，但模型实际由本地 Ollama 提供
+- 你的 Ollama 模型上下文足够长，能承载 EEEE Scientist 的长 prompt 和工具调用
 - 你已经确认 Claude Code 的 headless 模式能和这个本地模型完成一次简单回复
 
 这条路不适合：
 
 - 你想使用 Gemini API；Gemini 官方提供的是 OpenAI-compatible 路线，不是 Anthropic-compatible 路线
-- 你的本地模型不支持工具调用或长上下文，容易在 DeepScientist 的 MCP 场景下失败
+- 你的本地模型不支持工具调用或长上下文，容易在 EEEE Scientist 的 MCP 场景下失败
 
 ### 1. 先让 Ollama 模型可用
 
@@ -235,7 +235,7 @@ claude -p \
 - Claude Code 版本是否支持当前环境变量
 - 该模型是否能稳定按 Anthropic-compatible 协议返回
 
-### 3. 再写入 DeepScientist runner 配置
+### 3. 再写入 EEEE Scientist runner 配置
 
 ```yaml
 claude:
@@ -249,9 +249,9 @@ claude:
     ANTHROPIC_BASE_URL: "http://localhost:11434"
 ```
 
-DeepScientist 会在 `ANTHROPIC_API_KEY` 为空时把 `ANTHROPIC_AUTH_TOKEN` 镜像给 Claude Code 使用。不要在 `runners.yaml` 里写空字符串形式的 `ANTHROPIC_API_KEY: ""`；DeepScientist 会忽略空 env value。
+EEEE Scientist 会在 `ANTHROPIC_API_KEY` 为空时把 `ANTHROPIC_AUTH_TOKEN` 镜像给 Claude Code 使用。不要在 `runners.yaml` 里写空字符串形式的 `ANTHROPIC_API_KEY: ""`；EEEE Scientist 会忽略空 env value。
 
-### 4. 最后验证 DeepScientist
+### 4. 最后验证 EEEE Scientist
 
 ```bash
 ds doctor --runner claude
@@ -267,12 +267,12 @@ ds --runner claude
 原因很简单：
 
 - Claude Code 使用 Anthropic / Anthropic-compatible 协议
-- Gemini 官方给 DeepScientist 用户最容易复用的是 OpenAI-compatible Chat Completions endpoint
+- Gemini 官方给 EEEE Scientist 用户最容易复用的是 OpenAI-compatible Chat Completions endpoint
 - 这两者不是同一种协议
 
 如果你手里有一个把 Gemini 包装成 Anthropic-compatible API 的私有网关，可以按上面的 `ANTHROPIC_BASE_URL` 网关方式配置；否则请优先通过 [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md) 接 Gemini。
 
-## 第四步：映射到 DeepScientist 配置
+## 第四步：映射到 EEEE Scientist 配置
 
 ### 全局默认 runner
 
@@ -329,7 +329,7 @@ claude:
 - `Runners -> claude.env`
   - 写 `ANTHROPIC_API_KEY`、`ANTHROPIC_BASE_URL` 等运行时环境变量
 
-## 第五步：验证 DeepScientist
+## 第五步：验证 EEEE Scientist
 
 当终端里的 Claude Code smoke check 已经通过之后，再运行：
 
@@ -343,7 +343,7 @@ ds doctor
 - startup probe 能返回 `HELLO`
 - 配置目录 `config_dir` 可读取
 
-然后再启动 DeepScientist：
+然后再启动 EEEE Scientist：
 
 ```bash
 ds
@@ -353,7 +353,7 @@ ds
 
 ## 项目级切换
 
-DeepScientist 现在支持两层切换：
+EEEE Scientist 现在支持两层切换：
 
 ### 全局默认值，影响新 quest
 
@@ -373,9 +373,9 @@ default_runner: claude
 - 老 quest 可以继续留在 Codex
 - 同一个 quest 后续也可以从 Codex 切到 Claude，再切回来
 
-## DeepScientist 的 Claude 运行时行为
+## EEEE Scientist 的 Claude 运行时行为
 
-每次 Claude 运行前，DeepScientist 会自动准备：
+每次 Claude 运行前，EEEE Scientist 会自动准备：
 
 - quest 局部 MCP 配置
 - 同步后的 `.claude/agents/` skills
@@ -386,7 +386,7 @@ default_runner: claude
   - `DS_WORKTREE_ROOT`
   - `DS_RUN_ID`
 
-你不需要手写 DeepScientist 的三个内建 MCP 配置。
+你不需要手写 EEEE Scientist 的三个内建 MCP 配置。
 
 ## 常见故障
 
@@ -417,7 +417,7 @@ claude --version
 
 如果你直接运行 Claude Code 时仍然显示 `apiKeySource: none`，请优先显式设置 `ANTHROPIC_API_KEY`。
 
-DeepScientist 可以兼容 `ANTHROPIC_AUTH_TOKEN`，但你自己的终端验证仍然应该尽量使用标准 `ANTHROPIC_API_KEY` 路径。
+EEEE Scientist 可以兼容 `ANTHROPIC_AUTH_TOKEN`，但你自己的终端验证仍然应该尽量使用标准 `ANTHROPIC_API_KEY` 路径。
 
 ### quest 里的 skills 看不到
 
@@ -427,11 +427,11 @@ DeepScientist 可以兼容 `ANTHROPIC_AUTH_TOKEN`，但你自己的终端验证�
 <quest_root>/.claude/agents/
 ```
 
-DeepScientist 会在 quest 创建和 prompt 同步时把一方 skills 写进去。
+EEEE Scientist 会在 quest 创建和 prompt 同步时把一方 skills 写进去。
 
 ### 工具调用后端有，UI 里没显示
 
-当前 DeepScientist 的 Claude tool 事件都是通过标准 `runner.tool_call / runner.tool_result` 事件显示的。
+当前 EEEE Scientist 的 Claude tool 事件都是通过标准 `runner.tool_call / runner.tool_result` 事件显示的。
 
 如果后端能跑但前端空白，先查：
 
@@ -457,4 +457,4 @@ claude:
   env: {}
 ```
 
-然后把认证信息放在 shell 或 `runners.claude.env`，先用 `claude -p` 验证，再启动 DeepScientist。
+然后把认证信息放在 shell 或 `runners.claude.env`，先用 `claude -p` 验证，再启动 EEEE Scientist。

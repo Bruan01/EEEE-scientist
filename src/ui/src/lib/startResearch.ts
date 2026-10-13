@@ -280,7 +280,7 @@ export function listReferenceStartResearchTemplates(): StartResearchTemplateEntr
     goal: [
       '请复现 P-and-B（Planning and Budgeting）论文与官方仓库中的核心 baseline，并在严格保持评测任务一致的前提下，继续探索更高质量、更省 token、且具有学术洞见的改进方向。',
       '',
-      '下面的 endpoint / API key / model 只是参考占位，不是 DeepScientist 的默认配置。请替换成你的真实运行时，例如 base URL `http://<your-host>:<your-port>/v1`、API key `<YOUR_API_KEY>`、模型 `<YOUR_MODEL>`。研究时只围绕你实际填入的那组配置完成 baseline 复现、分析与改进，不要把本示例当成系统默认值。',
+      '下面的 endpoint / API key / model 只是参考占位，不是 EEEE Scientist 的默认配置。请替换成你的真实运行时，例如 base URL `http://<your-host>:<your-port>/v1`、API key `<YOUR_API_KEY>`、模型 `<YOUR_MODEL>`。研究时只围绕你实际填入的那组配置完成 baseline 复现、分析与改进，不要把本示例当成系统默认值。',
       '',
       '要求先完整恢复并验证官方 baseline，再沿着文献调研与实验结果提出新方向。所有新 idea 都必须建立在充分的相关工作阅读、对失败模式的分析，以及对当前最佳 baseline 的清晰理解之上。',
       '',
@@ -333,7 +333,7 @@ export function listReferenceStartResearchTemplates(): StartResearchTemplateEntr
     goal: [
       'Please reproduce the core baselines from the P-and-B (Planning and Budgeting) paper and official repository, then continue exploring stronger and more token-efficient reasoning-control ideas while keeping the task definition and evaluation protocol faithful to the original work.',
       '',
-      'The endpoint / API key / model below are reference placeholders only, not DeepScientist defaults. Replace them with your real runtime setup, for example base URL `http://<your-host>:<your-port>/v1`, API key `<YOUR_API_KEY>`, and model `<YOUR_MODEL>`. The task should stay focused on the actual setup you provide rather than treating this example as a built-in default.',
+      'The endpoint / API key / model below are reference placeholders only, not EEEE Scientist defaults. Replace them with your real runtime setup, for example base URL `http://<your-host>:<your-port>/v1`, API key `<YOUR_API_KEY>`, and model `<YOUR_MODEL>`. The task should stay focused on the actual setup you provide rather than treating this example as a built-in default.',
       '',
       'The workflow should first restore and verify the official baselines, then move into literature-grounded idea generation and evidence-driven experimentation. Every new idea must be justified by careful reading of related work, analysis of failure modes, and a clear understanding of the current best baseline.',
       '',

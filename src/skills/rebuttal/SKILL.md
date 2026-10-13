@@ -44,7 +44,7 @@ It should convert reviewer material into a durable response workflow:
 Default rebuttal stance: analysis before execution.
 Do not jump from “reviewer asked for more evidence” straight to experiments.
 Do not invent rebuttal-only special tools or side workflows.
-Stay inside the normal DeepScientist surface: `memory`, `artifact`, `bash_exec`, plus ordinary stage/companion skills.
+Stay inside the normal EEEE Scientist surface: `memory`, `artifact`, `bash_exec`, plus ordinary stage/companion skills.
 First decide whether the issue is actually:
 
 - a wording / clarity gap

@@ -15,7 +15,7 @@
 
 Cantera is an open-source scientific toolkit for modeling chemical kinetics, thermodynamics, and transport, supporting equilibrium calculations, reactor-network simulations, and one-dimensional flame analyses across multiple programming interfaces.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 Psi4 is an open source ab initio quantum chemistry package for high accuracy molecular electronic structure calculations, with performant C++ kernels and Python driven user workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

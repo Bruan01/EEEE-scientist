@@ -59,8 +59,8 @@ export function connectorGuideDocHref(locale: Locale, link: ConnectorGuideLink) 
 export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> = {
   telegram: {
     summary: {
-      en: 'Create the bot in BotFather, keep polling enabled, then send one direct message and verify from DeepScientist.',
-      zh: '先在 BotFather 创建机器人，保持 polling，然后先发一条私聊消息，再回到 DeepScientist 校验。',
+      en: 'Create the bot in BotFather, keep polling enabled, then send one direct message and verify from EEEE Scientist.',
+      zh: '先在 BotFather 创建机器人，保持 polling，然后先发一条私聊消息，再回到 EEEE Scientist 校验。',
     },
     requiredFieldKeys: ['bot_token'],
     overviewChecks: [
@@ -90,7 +90,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -106,8 +106,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
           assetPath: 'images/connectors/telegram-setup-overview.svg',
           alt: { en: 'Telegram setup overview', zh: 'Telegram 配置步骤示意' },
           caption: {
-            en: 'Start in BotFather, copy the token, then come back to DeepScientist with polling enabled.',
-            zh: '先在 BotFather 创建机器人并复制 token，再回到 DeepScientist，保持 polling 即可。',
+            en: 'Start in BotFather, copy the token, then come back to EEEE Scientist with polling enabled.',
+            zh: '先在 BotFather 创建机器人并复制 token，再回到 EEEE Scientist，保持 polling 即可。',
           },
         },
         checklist: [
@@ -193,7 +193,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -265,8 +265,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
   },
   slack: {
     summary: {
-      en: 'Create a Slack app, enable Socket Mode, generate the app-level token, then install the app and verify from DeepScientist.',
-      zh: '创建 Slack App，开启 Socket Mode，生成 app-level token，然后安装应用并在 DeepScientist 中验证。',
+      en: 'Create a Slack app, enable Socket Mode, generate the app-level token, then install the app and verify from EEEE Scientist.',
+      zh: '创建 Slack App，开启 Socket Mode，生成 app-level token，然后安装应用并在 EEEE Scientist 中验证。',
     },
     requiredFieldKeys: ['bot_token', 'app_token'],
     overviewChecks: [
@@ -296,7 +296,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -345,8 +345,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'verify',
         title: { en: 'Step 3. Mention the app and verify', zh: 'Step 3. 提及应用并验证' },
         description: {
-          en: 'After saving, mention the app or DM it once so DeepScientist can learn a target, then run Check and Probe.',
-          zh: '保存后先 @ 一次应用或发一条私聊，让 DeepScientist 学到目标，再执行校验与探测。',
+          en: 'After saving, mention the app or DM it once so EEEE Scientist can learn a target, then run Check and Probe.',
+          zh: '保存后先 @ 一次应用或发一条私聊，让 EEEE Scientist 学到目标，再执行校验与探测。',
         },
         checklist: [
           {
@@ -394,7 +394,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -424,8 +424,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
             zh: '从凭据页面复制 `app_id` 和 `app_secret`。',
           },
           {
-            en: 'Install or publish the app to the tenant that will chat with DeepScientist.',
-            zh: '把应用安装或发布到将要和 DeepScientist 对话的租户。',
+            en: 'Install or publish the app to the tenant that will chat with EEEE Scientist.',
+            zh: '把应用安装或发布到将要和 EEEE Scientist 对话的租户。',
           },
         ],
       },
@@ -466,8 +466,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
   },
   whatsapp: {
     summary: {
-      en: 'DeepScientist prefers local session mode. Save the local session settings, complete QR or pairing login, then send one real message and verify.',
-      zh: 'DeepScientist 默认推荐本地会话模式。先保存本地会话设置，完成二维码或配对码登录，再发一条真实消息并验证。',
+      en: 'EEEE Scientist prefers local session mode. Save the local session settings, complete QR or pairing login, then send one real message and verify.',
+      zh: 'EEEE Scientist 默认推荐本地会话模式。先保存本地会话设置，完成二维码或配对码登录，再发一条真实消息并验证。',
     },
     requiredFieldKeys: ['auth_method', 'session_dir'],
     overviewChecks: [
@@ -492,7 +492,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -508,8 +508,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
           assetPath: 'images/connectors/whatsapp-setup-overview.svg',
           alt: { en: 'WhatsApp setup overview', zh: 'WhatsApp 配置步骤示意' },
           caption: {
-            en: 'DeepScientist prefers local session mode: choose QR or pairing code, persist the session, then verify with one real message.',
-            zh: 'DeepScientist 默认推荐本地会话模式：先选二维码或配对码，保存 session，再用一条真实消息完成验证。',
+            en: 'EEEE Scientist prefers local session mode: choose QR or pairing code, persist the session, then verify with one real message.',
+            zh: 'EEEE Scientist 默认推荐本地会话模式：先选二维码或配对码，保存 session，再用一条真实消息完成验证。',
           },
         },
         checklist: [
@@ -564,8 +564,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
   },
   qq: {
     summary: {
-      en: 'Use the official QQ bot platform, save App ID and App Secret, send one private message, then let DeepScientist auto-detect the OpenID.',
-      zh: '使用 QQ 官方机器人平台，保存 App ID 与 App Secret，发送第一条私聊消息，然后让 DeepScientist 自动检测 OpenID。',
+      en: 'Use the official QQ bot platform, save App ID and App Secret, send one private message, then let EEEE Scientist auto-detect the OpenID.',
+      zh: '使用 QQ 官方机器人平台，保存 App ID 与 App Secret，发送第一条私聊消息，然后让 EEEE Scientist 自动检测 OpenID。',
     },
     requiredFieldKeys: ['app_id', 'app_secret'],
     overviewChecks: [
@@ -578,8 +578,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         zh: '核心凭据就是 `app_id` 和 `app_secret`。',
       },
       {
-        en: 'The first real private QQ message teaches DeepScientist the correct OpenID automatically.',
-        zh: '第一条真实 QQ 私聊会让 DeepScientist 自动学到正确的 OpenID。',
+        en: 'The first real private QQ message teaches EEEE Scientist the correct OpenID automatically.',
+        zh: '第一条真实 QQ 私聊会让 EEEE Scientist 自动学到正确的 OpenID。',
       },
     ],
     links: [
@@ -595,7 +595,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -630,8 +630,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'bind',
         title: { en: 'Step 3. Send the first private QQ message', zh: 'Step 3. 发送第一条 QQ 私聊消息' },
         description: {
-          en: 'Send one private message from your QQ account to the bot so DeepScientist can detect the OpenID.',
-          zh: '从你的 QQ 账号给机器人发送一条私聊消息，让 DeepScientist 自动检测 OpenID。',
+          en: 'Send one private message from your QQ account to the bot so EEEE Scientist can detect the OpenID.',
+          zh: '从你的 QQ 账号给机器人发送一条私聊消息，让 EEEE Scientist 自动检测 OpenID。',
         },
         image: {
           assetPath: 'images/qq/tencent-cloud-qq-chat.png',
@@ -646,8 +646,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
   },
   weixin: {
     summary: {
-      en: 'Click bind, scan the QR code with WeChat, confirm inside WeChat, and DeepScientist saves the connector automatically.',
-      zh: '点击绑定后，用微信扫码并在微信里确认，DeepScientist 会自动保存这个 connector。',
+      en: 'Click bind, scan the QR code with WeChat, confirm inside WeChat, and EEEE Scientist saves the connector automatically.',
+      zh: '点击绑定后，用微信扫码并在微信里确认，EEEE Scientist 会自动保存这个 connector。',
     },
     requiredFieldKeys: [],
     overviewChecks: [
@@ -656,18 +656,18 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         zh: '微信使用内置 iLink 长轮询运行时，不需要公网 webhook。',
       },
       {
-        en: 'The QR code is generated by DeepScientist. No manual bot token entry is needed during binding.',
-        zh: '二维码由 DeepScientist 自动生成，绑定时不需要手动填写 bot token。',
+        en: 'The QR code is generated by EEEE Scientist. No manual bot token entry is needed during binding.',
+        zh: '二维码由 EEEE Scientist 自动生成，绑定时不需要手动填写 bot token。',
       },
       {
-        en: 'After scanning and confirming, DeepScientist saves the connector automatically and starts polling.',
-        zh: '扫码并确认后，DeepScientist 会自动保存 connector 并开始长轮询。',
+        en: 'After scanning and confirming, EEEE Scientist saves the connector automatically and starts polling.',
+        zh: '扫码并确认后，EEEE Scientist 会自动保存 connector 并开始长轮询。',
       },
     ],
     links: [
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Weixin Guide', zh: 'DeepScientist 微信指南' },
+        label: { en: 'EEEE Scientist Weixin Guide', zh: 'EEEE Scientist 微信指南' },
         docSlug: '10_WEIXIN_CONNECTOR_GUIDE',
       },
       {
@@ -677,7 +677,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -686,13 +686,13 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'platform',
         title: { en: 'Step 1. Prepare the WeChat app', zh: 'Step 1. 准备微信客户端' },
         description: {
-          en: 'Keep the target WeChat account logged in on the phone that will scan the QR code, then return to DeepScientist to complete binding.',
-          zh: '先在要扫码的手机上保持目标微信账号已登录，然后回到 DeepScientist 完成绑定。',
+          en: 'Keep the target WeChat account logged in on the phone that will scan the QR code, then return to EEEE Scientist to complete binding.',
+          zh: '先在要扫码的手机上保持目标微信账号已登录，然后回到 EEEE Scientist 完成绑定。',
         },
         checklist: [
           {
-            en: 'DeepScientist itself still binds from its own QR modal. No extra `npx` install is needed.',
-            zh: 'DeepScientist 本身仍然是从自己的二维码弹窗完成绑定，不需要额外执行 `npx` 安装。',
+            en: 'EEEE Scientist itself still binds from its own QR modal. No extra `npx` install is needed.',
+            zh: 'EEEE Scientist 本身仍然是从自己的二维码弹窗完成绑定，不需要额外执行 `npx` 安装。',
           },
         ],
         image: {
@@ -708,8 +708,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'scan',
         title: { en: 'Step 2. Scan and confirm', zh: 'Step 2. 扫码并确认' },
         description: {
-          en: 'Open the bind modal, scan the QR code with WeChat, then confirm the login inside WeChat. DeepScientist saves the connector automatically.',
-          zh: '打开绑定弹窗后，用微信扫码，再在微信里确认登录。成功后 DeepScientist 会自动保存 connector。',
+          en: 'Open the bind modal, scan the QR code with WeChat, then confirm the login inside WeChat. EEEE Scientist saves the connector automatically.',
+          zh: '打开绑定弹窗后，用微信扫码，再在微信里确认登录。成功后 EEEE Scientist 会自动保存 connector。',
         },
         image: {
           assetPath: 'images/weixin/weixin-qr-confirm.svg',
@@ -740,8 +740,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
   },
   lingzhu: {
     summary: {
-      en: 'Add Lingzhu as a Rokid Glasses companion, auto-generate the Rokid binding fields from the current DeepScientist web address, copy them into Rokid, then save once to finish.',
-      zh: '把 Lingzhu 作为 Rokid Glasses companion 接入，基于当前 DeepScientist 网页地址自动生成 Rokid 绑定字段，复制到 Rokid 后点一次保存即可完成。',
+      en: 'Add Lingzhu as a Rokid Glasses companion, auto-generate the Rokid binding fields from the current EEEE Scientist web address, copy them into Rokid, then save once to finish.',
+      zh: '把 Lingzhu 作为 Rokid Glasses companion 接入，基于当前 EEEE Scientist 网页地址自动生成 Rokid 绑定字段，复制到 Rokid 后点一次保存即可完成。',
     },
     requiredFieldKeys: ['public_base_url', 'auth_ak', 'agent_id'],
     overviewChecks: [
@@ -750,8 +750,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         zh: '绑定真实灵珠设备前，必须先有可访问的公网 IP 或域名。',
       },
       {
-        en: 'The popup now auto-generates the binding values from the current DeepScientist web address.',
-        zh: '弹窗现在会基于当前 DeepScientist 网页地址自动生成绑定值。',
+        en: 'The popup now auto-generates the binding values from the current EEEE Scientist web address.',
+        zh: '弹窗现在会基于当前 EEEE Scientist 网页地址自动生成绑定值。',
       },
       {
         en: 'The probe is still local-first; it does not prove your public exposure is already correct.',
@@ -771,7 +771,7 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
       },
       {
         kind: 'internal',
-        label: { en: 'DeepScientist Settings Reference', zh: 'DeepScientist 设置参考' },
+        label: { en: 'EEEE Scientist Settings Reference', zh: 'EEEE Scientist 设置参考' },
         docSlug: '01_SETTINGS_REFERENCE',
       },
     ],
@@ -780,15 +780,15 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'platform',
         title: { en: 'Step 1. Generate and copy Rokid values', zh: 'Step 1. 生成并复制 Rokid 绑定值' },
         description: {
-          en: 'Open the modal, let DeepScientist generate the binding values automatically, then copy them into the Rokid third-party agent form.',
-          zh: '打开弹窗后，DeepScientist 会自动生成绑定值；把这些值逐项复制到 Rokid 三方智能体表单即可。',
+          en: 'Open the modal, let EEEE Scientist generate the binding values automatically, then copy them into the Rokid third-party agent form.',
+          zh: '打开弹窗后，EEEE Scientist 会自动生成绑定值；把这些值逐项复制到 Rokid 三方智能体表单即可。',
         },
         image: {
           assetPath: 'images/lingzhu/rokid-agent-platform-create.png',
           alt: { en: 'Rokid third-party agent creation form', zh: 'Rokid 三方智能体创建表单' },
           caption: {
-            en: 'Use this form in `agent-develop.rokid.com/space` and paste the generated DeepScientist values into the matching fields.',
-            zh: '在 `agent-develop.rokid.com/space` 使用这个表单，把 DeepScientist 自动生成的字段逐项粘贴进去。',
+            en: 'Use this form in `agent-develop.rokid.com/space` and paste the generated EEEE Scientist values into the matching fields.',
+            zh: '在 `agent-develop.rokid.com/space` 使用这个表单，把 EEEE Scientist 自动生成的字段逐项粘贴进去。',
           },
         },
       },
@@ -796,8 +796,8 @@ export const connectorGuideCatalog: Record<ConnectorName, ConnectorGuideEntry> =
         id: 'probe',
         title: { en: 'Step 2. Test, verify, and save', zh: 'Step 2. 测试、校验并保存' },
         description: {
-          en: 'After the Rokid form is filled, return to DeepScientist to check the runtime snapshot, then save the connector.',
-          zh: '在 Rokid 表单填写完成后，回到 DeepScientist 查看运行时快照，再保存当前 connector。',
+          en: 'After the Rokid form is filled, return to EEEE Scientist to check the runtime snapshot, then save the connector.',
+          zh: '在 Rokid 表单填写完成后，回到 EEEE Scientist 查看运行时快照，再保存当前 connector。',
         },
         image: {
           assetPath: 'images/lingzhu/lingzhu-openclaw-config.svg',

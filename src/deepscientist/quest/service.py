@@ -4021,7 +4021,7 @@ class QuestService:
             "counts": counts,
             "interaction_watchdog": interaction_watchdog,
             "team": {"mode": "single", "active_workers": []},
-            "cloud": {"linked": False, "base_url": "https://deepscientist.cc"},
+            "cloud": {"linked": False, "base_url": "https://your-public-host.example"},
             "history_count": len(history),
             "artifact_count": len(artifacts),
             "recent_artifacts": artifacts[-5:],

@@ -5,7 +5,7 @@ export const labPluginManifest: UnifiedPluginManifest = {
   name: 'Lab',
   version: '1.0.0',
   type: 'builtin',
-  author: 'DeepScientist Team',
+  author: 'EEEE Scientist Team',
   description: 'Lab home surface for team, quests, assets, and copilot modes',
   icon: 'Home',
   frontend: {

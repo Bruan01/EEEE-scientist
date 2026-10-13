@@ -86,7 +86,7 @@ def ensure_home_layout(home: Path) -> dict[str, Path]:
     if not system_quirks.exists():
         system_quirks.write_text(
             "# System Quirks\n\n"
-            "Append-only durable file for confirmed DeepScientist runtime or system bugs "
+            "Append-only durable file for confirmed EEEE Scientist runtime or system bugs "
             "that may help future admin/debug issue reports.\n\n"
             "Each entry should include: expected behavior, actual behavior, reproduction, "
             "impact, workaround, suggested fix, evidence paths, and status. Keep entries "

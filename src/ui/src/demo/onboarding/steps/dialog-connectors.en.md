@@ -1,6 +1,6 @@
 Connector is an optional delivery target, not a required launch field.
 
-If left empty, all progress stays inside the Web workspace. When selected, DeepScientist can send key messages to an external conversation, such as:
+If left empty, all progress stays inside the Web workspace. When selected, EEEE Scientist can send key messages to an external conversation, such as:
 
 - milestone updates
 - long-run completion or failure notices

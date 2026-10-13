@@ -1,6 +1,6 @@
 # 19 External Controller 指南
 
-DeepScientist 已经暴露出足够多的持久状态，因此你可以在不改 core runtime 的前提下，构建一层外部编排控制器。
+EEEE Scientist 已经暴露出足够多的持久状态，因此你可以在不改 core runtime 的前提下，构建一层外部编排控制器。
 
 这篇文档说明一种最小、稳定的 external controller 模式，用来：
 

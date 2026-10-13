@@ -5,7 +5,7 @@ export const cliPluginManifest: UnifiedPluginManifest = {
   name: 'CLI Remote Server',
   version: '1.0.0',
   type: 'builtin',
-  author: 'DeepScientist Team',
+  author: 'EEEE Scientist Team',
   description: 'Remote CLI server management with terminal emulation',
   icon: 'Terminal',
   frontend: {

@@ -15,7 +15,7 @@
 
 Datamol is a lightweight RDKit-first toolkit for molecular standardization, structure conversion, fingerprints, conformer generation, visualization, and molecule file I/O with practical defaults for cheminformatics workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

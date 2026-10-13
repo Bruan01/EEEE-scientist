@@ -15,7 +15,7 @@
 
 PyLith is a finite-element geodynamics package for quasi-static and dynamic simulation of crustal deformation, including earthquake rupture, fault friction, viscoelastic rheology, and volcano-related tectonic processes.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

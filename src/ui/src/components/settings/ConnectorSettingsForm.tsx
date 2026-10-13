@@ -168,7 +168,7 @@ const copy = {
     nextAction: 'Next action',
     bindConnectorTitle: 'Add connector',
     boundTargetsTitle: 'Detected IDs',
-    boundTargetsHint: 'After the first real message reaches DeepScientist, detected conversation IDs will appear here for later selection.',
+    boundTargetsHint: 'After the first real message reaches EEEE Scientist, detected conversation IDs will appear here for later selection.',
     openGuidedSetup: 'Start guided setup',
     wizardClose: 'Close',
     wizardBack: 'Back',
@@ -202,13 +202,13 @@ const copy = {
     qqDetectedOpenIdHint: 'This value appears after the first private QQ message reaches the built-in gateway.',
     qqBindChecklistTitle: 'What to do next',
     qqBindChecklist1: 'Open QQ and send one private message to the bot.',
-    qqBindChecklist2: 'Wait for DeepScientist to detect the OpenID and save it.',
+    qqBindChecklist2: 'Wait for EEEE Scientist to detect the OpenID and save it.',
     qqBindChecklist3: 'Return here and confirm the detected OpenID is no longer empty.',
     qqProbeLockedUntilOpenId: 'The probe unlocks after the first QQ private message is detected.',
-    qqNeedOpenIdFirst: 'Send the first QQ private message so DeepScientist can detect and save the OpenID.',
+    qqNeedOpenIdFirst: 'Send the first QQ private message so EEEE Scientist can detect and save the OpenID.',
     weixinAddConnector: 'Bind WeChat',
     weixinRebindConnector: 'Rebind WeChat',
-    weixinBindHint: 'DeepScientist generates a QR code, you scan it with WeChat, and the connector is saved automatically after confirmation.',
+    weixinBindHint: 'EEEE Scientist generates a QR code, you scan it with WeChat, and the connector is saved automatically after confirmation.',
     weixinCurrentBinding: 'Current WeChat binding',
     weixinAccountId: 'Bot account',
     weixinLoginUserId: 'Owner account',
@@ -216,28 +216,28 @@ const copy = {
     weixinQrModalTitle: 'Scan With WeChat',
     weixinQrLoading: 'Generating WeChat QR code…',
     weixinQrHint1: 'Open WeChat on the phone that will own this binding and scan this QR code.',
-    weixinQrHint2: 'Confirm the login inside WeChat. DeepScientist saves the connector automatically after success.',
+    weixinQrHint2: 'Confirm the login inside WeChat. EEEE Scientist saves the connector automatically after success.',
     weixinQrHint3: '',
     weixinBindingSuccessTitle: 'WeChat connected',
     weixinBindingSuccessBody: 'The WeChat connector was saved automatically.',
     weixinBindingFailedTitle: 'WeChat binding failed',
     weixinDeleteAction: 'Delete WeChat',
     weixinDeleteTitle: 'Delete WeChat binding',
-    weixinDeleteConfirm: 'This will clear the saved WeChat bot token and account binding from DeepScientist.',
+    weixinDeleteConfirm: 'This will clear the saved WeChat bot token and account binding from EEEE Scientist.',
     weixinDeleteSuccessTitle: 'WeChat deleted',
     weixinDeleteSuccessBody: 'The WeChat connector binding was removed.',
     lingzhuQuickSetup: 'Quick setup',
     lingzhuStepEndpoint: 'Gateway endpoint',
     lingzhuStepPlatform: 'Generate binding values',
     lingzhuStepProbe: 'Test, verify, and save',
-    lingzhuNeedPublicIp: 'Lingzhu requires a public IP or public domain. The popup auto-generates values from the current DeepScientist web address, but only a public URL can be registered on Rokid.',
+    lingzhuNeedPublicIp: 'Lingzhu requires a public IP or public domain. The popup auto-generates values from the current EEEE Scientist web address, but only a public URL can be registered on Rokid.',
     lingzhuUseLocalDefaults: 'Use current web address',
     lingzhuGenerateAk: 'Generate AK',
     lingzhuGeneratedValues: 'Generated values',
-    lingzhuLocalHealthUrl: 'DeepScientist health URL',
-    lingzhuLocalSseUrl: 'DeepScientist SSE URL',
+    lingzhuLocalHealthUrl: 'EEEE Scientist health URL',
+    lingzhuLocalSseUrl: 'EEEE Scientist SSE URL',
     lingzhuPublicSseUrl: 'External SSE URL',
-    lingzhuPublicHint: 'The custom agent URL is generated from the current DeepScientist web address. Only a public URL can be registered on Rokid.',
+    lingzhuPublicHint: 'The custom agent URL is generated from the current EEEE Scientist web address. Only a public URL can be registered on Rokid.',
     lingzhuOpenclawConfig: 'OpenClaw config snippet',
     lingzhuCurl: 'Probe curl',
     lingzhuSupportedCommands: 'Supported commands',
@@ -247,15 +247,15 @@ const copy = {
     lingzhuNoProbeYet: 'Run the probe after saving the AK and endpoint values.',
     lingzhuAgentIdHint: 'Use the same agent id on both OpenClaw and Lingzhu.',
     lingzhuPlatformReminder: 'Open the popup, copy the generated values into the Rokid form, then click Save here to finish.',
-    lingzhuCompleteEndpointFirst: 'The current DeepScientist web address has not been generated yet.',
+    lingzhuCompleteEndpointFirst: 'The current EEEE Scientist web address has not been generated yet.',
     lingzhuSavePlatformValuesFirst: 'Save the generated URL, AK, and agent values before checking the runtime snapshot.',
     lingzhuAddConnector: 'Add Lingzhu (Rokid Glasses)',
     lingzhuPlatformUrl: 'Rokid platform',
     lingzhuOpenPlatform: 'Open platform',
     lingzhuGeneratedForRokid: 'Generated fields for Rokid binding',
-    lingzhuRokidBindHint: 'DeepScientist generates these values automatically. Copy them into the Rokid custom agent form, then click Save here to finish binding.',
+    lingzhuRokidBindHint: 'EEEE Scientist generates these values automatically. Copy them into the Rokid custom agent form, then click Save here to finish binding.',
     lingzhuCurrentBindingValues: 'Current Lingzhu values',
-    lingzhuAkPersistenceHint: 'The Custom agent AK is generated randomly. Click Save to persist it, and keep the same AK on the Rokid platform and DeepScientist.',
+    lingzhuAkPersistenceHint: 'The Custom agent AK is generated randomly. Click Save to persist it, and keep the same AK on the Rokid platform and EEEE Scientist.',
     lingzhuCustomAgentId: 'Custom agent ID',
     lingzhuCustomAgentUrl: 'Custom agent URL',
     lingzhuCustomAgentAk: 'Custom agent AK',
@@ -269,17 +269,17 @@ const copy = {
     lingzhuInputTypeText: 'Text',
     lingzhuCopyValue: 'Copy',
     lingzhuCopiedValue: 'Copied',
-    lingzhuIconHint: 'Upload the DeepScientist logo on the Rokid platform. If the platform accepts a URL, you can copy the logo URL below.',
+    lingzhuIconHint: 'Upload the EEEE Scientist logo on the Rokid platform. If the platform accepts a URL, you can copy the logo URL below.',
     lingzhuCopyLogoUrl: 'Copy logo URL',
     lingzhuBindingGuideTitle: 'How to bind Rokid Glasses',
     lingzhuBindingGuide1: 'Open the Rokid platform and go to Project Development -> Third-party Agent -> Create.',
     lingzhuBindingGuide2: 'Choose `Custom Agent`, then paste the generated agent ID, public URL, and AK.',
     lingzhuBindingGuide3: 'Use the default values below for agent name, category, capability summary, opening message, and input type.',
-    lingzhuBindingGuide4: 'Upload the DeepScientist logo as the icon. The custom agent URL must be publicly reachable.',
+    lingzhuBindingGuide4: 'Upload the EEEE Scientist logo as the icon. The custom agent URL must be publicly reachable.',
     lingzhuBindingGuide5: 'After the Rokid form is filled, return here and click Save to finish binding.',
-    lingzhuBindingGuide6: 'When giving a new task from the glasses, start with `我现在的任务是 ...`. Only that prefix is treated as a fresh DeepScientist instruction.',
-    lingzhuBindingGuide7: 'If the connection drops, ask again without that prefix, such as `找DeepScientist` or `继续`. DeepScientist will replay buffered progress updates instead of resubmitting the task.',
-    lingzhuCurrentAddress: 'Current DeepScientist web address',
+    lingzhuBindingGuide6: 'When giving a new task from the glasses, start with `我现在的任务是 ...`. Only that prefix is treated as a fresh EEEE Scientist instruction.',
+    lingzhuBindingGuide7: 'If the connection drops, ask again without that prefix, such as `找EEEE Scientist` or `继续`. EEEE Scientist will replay buffered progress updates instead of resubmitting the task.',
+    lingzhuCurrentAddress: 'Current EEEE Scientist web address',
     lingzhuManualOverrides: 'Manual overrides and debug',
   },
   zh: {
@@ -367,7 +367,7 @@ const copy = {
     nextAction: '当前下一步',
     bindConnectorTitle: '新增 Connector',
     boundTargetsTitle: '已发现 ID',
-    boundTargetsHint: '当第一条真实消息到达 DeepScientist 后，这里会显示后续可选用的会话 ID。',
+    boundTargetsHint: '当第一条真实消息到达 EEEE Scientist 后，这里会显示后续可选用的会话 ID。',
     openGuidedSetup: '开始分步配置',
     wizardClose: '关闭',
     wizardBack: '上一步',
@@ -401,13 +401,13 @@ const copy = {
     qqDetectedOpenIdHint: '当第一条 QQ 私聊到达内置网关后，这里会自动显示。',
     qqBindChecklistTitle: '下一步操作',
     qqBindChecklist1: '打开 QQ，给机器人发送一条私聊消息。',
-    qqBindChecklist2: '等待 DeepScientist 自动检测并保存 OpenID。',
+    qqBindChecklist2: '等待 EEEE Scientist 自动检测并保存 OpenID。',
     qqBindChecklist3: '回到这里确认 OpenID 已不再为空。',
     qqProbeLockedUntilOpenId: '检测到第一条 QQ 私聊并拿到 OpenID 后，测试入口才会解锁。',
-    qqNeedOpenIdFirst: '请先发送第一条 QQ 私聊，让 DeepScientist 自动检测并保存 OpenID。',
+    qqNeedOpenIdFirst: '请先发送第一条 QQ 私聊，让 EEEE Scientist 自动检测并保存 OpenID。',
     weixinAddConnector: '绑定微信',
     weixinRebindConnector: '重新绑定微信',
-    weixinBindHint: 'DeepScientist 会自动生成二维码。你只需要用微信扫码并确认，之后 connector 会自动保存。',
+    weixinBindHint: 'EEEE Scientist 会自动生成二维码。你只需要用微信扫码并确认，之后 connector 会自动保存。',
     weixinCurrentBinding: '当前微信绑定',
     weixinAccountId: '机器人账号',
     weixinLoginUserId: '扫码账号',
@@ -415,28 +415,28 @@ const copy = {
     weixinQrModalTitle: '请使用微信扫码',
     weixinQrLoading: '正在生成微信二维码…',
     weixinQrHint1: '请在将要持有这个绑定的手机微信上扫码。',
-    weixinQrHint2: '扫码后在微信里确认登录。成功后 DeepScientist 会自动保存 connector。',
+    weixinQrHint2: '扫码后在微信里确认登录。成功后 EEEE Scientist 会自动保存 connector。',
     weixinQrHint3: '',
     weixinBindingSuccessTitle: '微信已连接',
     weixinBindingSuccessBody: '微信 connector 已自动保存。',
     weixinBindingFailedTitle: '微信绑定失败',
     weixinDeleteAction: '删除微信',
     weixinDeleteTitle: '删除微信绑定',
-    weixinDeleteConfirm: '这会清掉 DeepScientist 中保存的微信 bot token 和账号绑定信息。',
+    weixinDeleteConfirm: '这会清掉 EEEE Scientist 中保存的微信 bot token 和账号绑定信息。',
     weixinDeleteSuccessTitle: '微信已删除',
     weixinDeleteSuccessBody: '微信 connector 绑定已移除。',
     lingzhuQuickSetup: '快速接入',
     lingzhuStepEndpoint: '网关端点',
     lingzhuStepPlatform: '生成绑定信息',
     lingzhuStepProbe: '测试验证并保存',
-    lingzhuNeedPublicIp: 'Lingzhu 需要公网 IP 或公网域名。弹窗会基于当前 DeepScientist 网页地址自动生成绑定值，但 Rokid 平台只能注册公网 URL。',
+    lingzhuNeedPublicIp: 'Lingzhu 需要公网 IP 或公网域名。弹窗会基于当前 EEEE Scientist 网页地址自动生成绑定值，但 Rokid 平台只能注册公网 URL。',
     lingzhuUseLocalDefaults: '使用当前网页地址',
     lingzhuGenerateAk: '生成 AK',
     lingzhuGeneratedValues: '自动生成值',
-    lingzhuLocalHealthUrl: 'DeepScientist 健康检查 URL',
-    lingzhuLocalSseUrl: 'DeepScientist SSE URL',
+    lingzhuLocalHealthUrl: 'EEEE Scientist 健康检查 URL',
+    lingzhuLocalSseUrl: 'EEEE Scientist SSE URL',
     lingzhuPublicSseUrl: '外部 SSE URL',
-    lingzhuPublicHint: '自定义智能体 URL 会按当前 DeepScientist 网页地址自动生成，但只有公网 URL 才能在 Rokid 平台注册。',
+    lingzhuPublicHint: '自定义智能体 URL 会按当前 EEEE Scientist 网页地址自动生成，但只有公网 URL 才能在 Rokid 平台注册。',
     lingzhuOpenclawConfig: 'OpenClaw 配置片段',
     lingzhuCurl: '探测 curl',
     lingzhuSupportedCommands: '支持的命令',
@@ -446,15 +446,15 @@ const copy = {
     lingzhuNoProbeYet: '保存 AK 和端点后，再执行探测。',
     lingzhuAgentIdHint: 'OpenClaw 与 Lingzhu 两侧应使用同一个 agent id。',
     lingzhuPlatformReminder: '打开弹窗后，把自动生成的值复制到 Rokid 表单里，随后在这里点保存即可完成。',
-    lingzhuCompleteEndpointFirst: '当前 DeepScientist 网页地址还没有成功生成。',
+    lingzhuCompleteEndpointFirst: '当前 EEEE Scientist 网页地址还没有成功生成。',
     lingzhuSavePlatformValuesFirst: '查看运行时快照前，请先保存自动生成的 URL、AK 和 agent 等平台值。',
     lingzhuAddConnector: 'Add Lingzhu（Rokid Glasses）',
     lingzhuPlatformUrl: 'Rokid 平台',
     lingzhuOpenPlatform: '打开平台',
     lingzhuGeneratedForRokid: 'Rokid 平台自动生成字段',
-    lingzhuRokidBindHint: '下面这些值由 DeepScientist 自动生成。复制到 Rokid 自定义智能体表单后，再回到这里点保存即可完成绑定。自定义智能体 URL 必须是公网地址，不能填写 `127.0.0.1`。',
+    lingzhuRokidBindHint: '下面这些值由 EEEE Scientist 自动生成。复制到 Rokid 自定义智能体表单后，再回到这里点保存即可完成绑定。自定义智能体 URL 必须是公网地址，不能填写 `127.0.0.1`。',
     lingzhuCurrentBindingValues: '当前 Lingzhu 绑定值',
-    lingzhuAkPersistenceHint: '自定义智能体 AK 会随机生成。点击保存后才会真正持久化，之后 Rokid 平台和 DeepScientist 都必须使用同一个 AK。',
+    lingzhuAkPersistenceHint: '自定义智能体 AK 会随机生成。点击保存后才会真正持久化，之后 Rokid 平台和 EEEE Scientist 都必须使用同一个 AK。',
     lingzhuCustomAgentId: '自定义智能体ID',
     lingzhuCustomAgentUrl: '自定义智能体url',
     lingzhuCustomAgentAk: '自定义智能体AK',
@@ -468,17 +468,17 @@ const copy = {
     lingzhuInputTypeText: '文字',
     lingzhuCopyValue: '复制',
     lingzhuCopiedValue: '已复制',
-    lingzhuIconHint: '请在 Rokid 平台上传 DeepScientist logo。如果平台支持 URL，也可以直接复制下面的 logo 地址。',
+    lingzhuIconHint: '请在 Rokid 平台上传 EEEE Scientist logo。如果平台支持 URL，也可以直接复制下面的 logo 地址。',
     lingzhuCopyLogoUrl: '复制 logo URL',
     lingzhuBindingGuideTitle: '如何绑定 Rokid Glasses',
     lingzhuBindingGuide1: '打开 Rokid 平台，进入 项目开发 -> 三方智能体 -> 创建。',
     lingzhuBindingGuide2: '选择“自定义智能体”，然后粘贴自动生成的智能体 ID、公网 URL 和 AK。',
     lingzhuBindingGuide3: '智能体名称、类别、功能介绍、开场白、入参类型可以直接使用下方默认值。',
-    lingzhuBindingGuide4: '图标上传 DeepScientist logo。自定义智能体 URL 必须是公网可访问地址。',
+    lingzhuBindingGuide4: '图标上传 EEEE Scientist logo。自定义智能体 URL 必须是公网可访问地址。',
     lingzhuBindingGuide5: 'Rokid 表单填写完成后，回到这里点保存即可完成绑定。',
-    lingzhuBindingGuide6: '眼镜侧下发新任务时，必须以“我现在的任务是 ...”开头；只有这个前缀会被当作新的 DeepScientist 指令。',
-    lingzhuBindingGuide7: '如果中途断开，下一次直接再唤起即可，不要重复任务前缀；例如说“找DeepScientist”或“继续”，系统会优先补发中间进展，而不是重复提交任务。',
-    lingzhuCurrentAddress: '当前 DeepScientist 网页地址',
+    lingzhuBindingGuide6: '眼镜侧下发新任务时，必须以“我现在的任务是 ...”开头；只有这个前缀会被当作新的 EEEE Scientist 指令。',
+    lingzhuBindingGuide7: '如果中途断开，下一次直接再唤起即可，不要重复任务前缀；例如说“找EEEE Scientist”或“继续”，系统会优先补发中间进展，而不是重复提交任务。',
+    lingzhuCurrentAddress: '当前 EEEE Scientist 网页地址',
     lingzhuManualOverrides: '手动覆盖与调试',
   },
 } satisfies Record<Locale, Record<string, string>>
@@ -565,6 +565,7 @@ function lingzhuConfigString(config: Record<string, unknown>, key: string, fallb
   return typeof value === 'string' || typeof value === 'number' ? String(value).trim() : fallback
 }
 
+// This is the upstream Rokid public agent identifier; keep it stable for the remote service.
 const LINGZHU_PUBLIC_AGENT_ID = 'DeepScientist'
 
 function normalizeBaseUrl(value: string) {
@@ -685,19 +686,19 @@ function lingzhuLogoUrl() {
 }
 
 function lingzhuDefaultAgentName(locale: Locale) {
-  return locale === 'zh' ? 'DeepScientist' : 'DeepScientist'
+  return locale === 'zh' ? 'EEEE Scientist' : 'EEEE Scientist'
 }
 
 function lingzhuDefaultCapabilitySummary(locale: Locale) {
   return locale === 'zh'
-    ? 'DeepScientist 是一个本地优先的研究智能体，适合处理科研规划、实验执行、结果分析、论文写作与任务跟进。'
-    : 'DeepScientist is a local-first research agent for planning, experiments, analysis, writing, and execution follow-up.'
+    ? 'EEEE Scientist 是一个本地优先的研究智能体，适合处理科研规划、实验执行、结果分析、论文写作与任务跟进。'
+    : 'EEEE Scientist is a local-first research agent for planning, experiments, analysis, writing, and execution follow-up.'
 }
 
 function lingzhuDefaultOpeningMessage(locale: Locale) {
   return locale === 'zh'
-    ? '你好，我是 DeepScientist。你可以直接告诉我研究目标、实验问题或需要推进的任务。'
-    : 'Hello, I am DeepScientist. Tell me the research goal, experiment question, or task you want to move forward.'
+    ? '你好，我是 EEEE Scientist。你可以直接告诉我研究目标、实验问题或需要推进的任务。'
+    : 'Hello, I am EEEE Scientist. Tell me the research goal, experiment question, or task you want to move forward.'
 }
 
 function resolveWeixinQrContent(payload: { qrcode_content?: unknown; qrcode_url?: unknown }) {
@@ -1177,7 +1178,7 @@ function createQqDraftProfile(): QqDraftProfile {
       : Math.random().toString(36).slice(2, 10)
   return {
     profile_id: `qq-profile-${randomSuffix}`,
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     app_id: '',
     app_secret: '',
   }
@@ -1196,7 +1197,7 @@ function normalizeQqProfilesConfig(config: Record<string, unknown>) {
     usedProfileIds.add(profileId)
     return {
       profile_id: profileId,
-      bot_name: String(item.bot_name || config.bot_name || 'DeepScientist').trim() || 'DeepScientist',
+      bot_name: String(item.bot_name || config.bot_name || 'EEEE Scientist').trim() || 'EEEE Scientist',
       app_id: String(item.app_id || '').trim(),
       app_secret: String(item.app_secret || '').trim(),
       main_chat_id: String(item.main_chat_id || '').trim(),
@@ -1214,7 +1215,7 @@ function normalizeQqProfilesConfig(config: Record<string, unknown>) {
     return [
       normalizeProfile(
         {
-          bot_name: String(config.bot_name || 'DeepScientist').trim() || 'DeepScientist',
+          bot_name: String(config.bot_name || 'EEEE Scientist').trim() || 'EEEE Scientist',
           app_id: legacyAppId,
           app_secret: legacyAppSecret,
           main_chat_id: legacyMainChatId,
@@ -1232,32 +1233,32 @@ type GenericProfileConnectorName = (typeof genericProfileConnectorNames)[number]
 const genericConnectorProfileDefaults: Record<GenericProfileConnectorName, Record<string, unknown>> = {
   telegram: {
     transport: 'polling',
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     bot_token: '',
   },
   discord: {
     transport: 'gateway',
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     bot_token: '',
     application_id: '',
   },
   slack: {
     transport: 'socket_mode',
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     bot_token: '',
     bot_user_id: '',
     app_token: '',
   },
   feishu: {
     transport: 'long_connection',
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     app_id: '',
     app_secret: '',
     api_base_url: 'https://open.feishu.cn',
   },
   whatsapp: {
     transport: 'local_session',
-    bot_name: 'DeepScientist',
+    bot_name: 'EEEE Scientist',
     auth_method: 'qr_browser',
     session_dir: '',
   },
@@ -2371,8 +2372,8 @@ function ConnectorCard({
       createConnector: locale === 'zh' ? '创建 QQ Connector' : 'Create QQ Connector',
       createHint:
         locale === 'zh'
-          ? '先保存 App ID 和 App Secret，再从 QQ 给该 bot 发送一条私聊，DeepScientist 就会自动检测 OpenID。'
-          : 'Save App ID and App Secret first. Then send one private QQ message to that bot and DeepScientist will detect the OpenID automatically.',
+          ? '先保存 App ID 和 App Secret，再从 QQ 给该 bot 发送一条私聊，EEEE Scientist 就会自动检测 OpenID。'
+          : 'Save App ID and App Secret first. Then send one private QQ message to that bot and EEEE Scientist will detect the OpenID automatically.',
       waiting: locale === 'zh' ? '等待绑定' : 'Waiting',
       ready: locale === 'zh' ? '已就绪' : 'Ready',
       bound: locale === 'zh' ? '已绑定' : 'Bound',
@@ -2381,8 +2382,8 @@ function ConnectorCard({
       savedTargets: locale === 'zh' ? '已保存的 QQ 目标' : 'Saved QQ targets',
       bindNotice:
         locale === 'zh'
-          ? '当第一条私聊到达后，DeepScientist 会自动保存 OpenID，并且 QQ bot 会在该会话里回复绑定成功提示。'
-          : 'After the first private message arrives, DeepScientist saves the OpenID automatically and the QQ bot replies with a binding-success notice in that same chat.',
+          ? '当第一条私聊到达后，EEEE Scientist 会自动保存 OpenID，并且 QQ bot 会在该会话里回复绑定成功提示。'
+          : 'After the first private message arrives, EEEE Scientist saves the OpenID automatically and the QQ bot replies with a binding-success notice in that same chat.',
       deleteBot: locale === 'zh' ? '删除 QQ Bot' : 'Delete QQ bot',
       deleteBotConfirm:
         locale === 'zh'
@@ -2439,7 +2440,7 @@ function ConnectorCard({
     const saveNewQqProfile = () => {
       const nextProfile = {
         profile_id: qqWizardDraft.profile_id,
-        bot_name: qqWizardDraft.bot_name.trim() || 'DeepScientist',
+        bot_name: qqWizardDraft.bot_name.trim() || 'EEEE Scientist',
         app_id: qqWizardDraft.app_id.trim(),
         app_secret: qqWizardDraft.app_secret.trim(),
         main_chat_id: null,
@@ -2681,7 +2682,7 @@ function ConnectorCard({
                     <Input
                       value={qqWizardDraft.bot_name}
                       onChange={(event) => setQqWizardDraft((current) => ({ ...current, bot_name: event.target.value }))}
-                      placeholder="DeepScientist"
+                      placeholder="EEEE Scientist"
                       className="rounded-[18px] border-black/[0.08] bg-white/[0.44] shadow-none dark:bg-white/[0.03]"
                     />
                   </div>
@@ -2743,7 +2744,7 @@ function ConnectorCard({
                 <div className="rounded-[20px] border border-black/[0.06] bg-white/[0.62] p-4 dark:border-white/[0.08] dark:bg-white/[0.04]">
                   <div className="text-sm font-medium text-foreground">{qqCopy.currentBot}</div>
                   <div className="mt-2 text-xs text-muted-foreground">
-                    {activeProfileSnapshot?.label || qqWizardDraft.bot_name || 'DeepScientist'} · {qqWizardDraft.app_id || activeProfileSnapshot?.app_id || '—'}
+                    {activeProfileSnapshot?.label || qqWizardDraft.bot_name || 'EEEE Scientist'} · {qqWizardDraft.app_id || activeProfileSnapshot?.app_id || '—'}
                   </div>
                 </div>
               </div>
@@ -2908,7 +2909,7 @@ function ConnectorCard({
             configuredHint: '每个实例都是独立的 connector。点击 Add 会从空白表单开始新增，不会修改已有实例。',
             noConnector: '当前还没有新增任何 connector 实例。',
             addTitle: '新增 Connector',
-            addHint: '先保存当前实例，然后去平台侧发送第一条真实消息，DeepScientist 才能自动识别目标 ID。',
+            addHint: '先保存当前实例，然后去平台侧发送第一条真实消息，EEEE Scientist 才能自动识别目标 ID。',
             waiting: '等待第一条消息',
             ready: '已就绪',
             profileId: 'Profile ID',
@@ -2921,7 +2922,7 @@ function ConnectorCard({
             configuredHint: 'Each profile is an independent connector. Add always starts from a blank draft and never edits an existing one.',
             noConnector: 'No connector profile has been added yet.',
             addTitle: 'Add connector',
-            addHint: 'Save this profile first, then send one real platform message so DeepScientist can discover the target id automatically.',
+            addHint: 'Save this profile first, then send one real platform message so EEEE Scientist can discover the target id automatically.',
             waiting: 'Waiting for first message',
             ready: 'Ready',
             profileId: 'Profile ID',
@@ -3552,7 +3553,7 @@ function ConnectorCard({
                     </Button>
                   </div>
                   <div className="mt-3 flex items-center gap-4 rounded-[18px] border border-black/[0.06] bg-white/[0.44] px-4 py-4 dark:border-white/[0.08] dark:bg-white/[0.03]">
-                    <img src={logoUrl} alt="DeepScientist logo" className="h-14 w-14 rounded-[14px] border border-black/[0.08] bg-white p-2 dark:border-white/[0.12]" />
+                    <img src={logoUrl} alt="EEEE Scientist logo" className="h-14 w-14 rounded-[14px] border border-black/[0.08] bg-white p-2 dark:border-white/[0.12]" />
                     <div className="min-w-0">
                       <div className="text-sm font-medium">{lingzhuDefaultAgentName(locale)}</div>
                       <TruncatedLine value={logoUrl} className="mt-1 text-xs text-muted-foreground" />

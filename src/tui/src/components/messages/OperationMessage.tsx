@@ -25,7 +25,7 @@ const compactDetail = (value?: string, limit = 320) => {
 const buildHeading = (content: string) => {
   const trimmed = content.trim()
   if (!trimmed) {
-    return 'DeepScientist is Working...'
+    return 'EEEE Scientist is Working...'
   }
   return trimmed
 }

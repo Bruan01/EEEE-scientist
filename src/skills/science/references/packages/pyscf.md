@@ -15,7 +15,7 @@
 
 PySCF is a Python-based electronic structure and quantum chemistry package for ab initio molecular and periodic calculations, including Hartree-Fock, post-HF, and multireference workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

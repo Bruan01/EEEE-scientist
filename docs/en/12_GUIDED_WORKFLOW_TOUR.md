@@ -1,14 +1,14 @@
 # 12 Guided Workflow Tour: From Landing Page to Real Workspace
 
-This guide is the shortest path to understanding how DeepScientist is actually used after installation.
+This guide is the shortest path to understanding how EEEE Scientist is actually used after installation.
 
 Use it when:
 
-- you already launched DeepScientist once
+- you already launched EEEE Scientist once
 - you can open the home page
 - you want a concrete walkthrough of what to click, what to fill, and what each surface is for
 
-If you still have not launched DeepScientist yet, start with [00 Quick Start](./00_QUICK_START.md).
+If you still have not launched EEEE Scientist yet, start with [00 Quick Start](./00_QUICK_START.md).
 
 If you want the exact payload and field contract behind `Start Research`, then read [02 Start Research Guide](./02_START_RESEARCH_GUIDE.md) after this page.
 
@@ -166,7 +166,7 @@ Choose one connector target only when:
 - you want milestone delivery outside the browser
 - you already configured that connector correctly
 
-DeepScientist currently keeps one bound external connector target per quest.
+EEEE Scientist currently keeps one bound external connector target per quest.
 
 ### 4.7 Research paper, intensity, decision mode, and launch mode
 

@@ -32,7 +32,7 @@ const CONNECTOR_LABELS: Record<ManagedConnectorName, string> = {
 
 const CONNECTOR_SUBTITLES: Record<ManagedConnectorName, string> = {
   qq: 'Save App ID and App Secret, then wait for the first private QQ message to discover the target.',
-  weixin: 'Start QR login, scan with WeChat, and let DeepScientist save the connector automatically.',
+  weixin: 'Start QR login, scan with WeChat, and let EEEE Scientist save the connector automatically.',
   lingzhu: 'Generate the Rokid binding values here, then copy them into the Lingzhu platform and save once.',
   telegram: 'Guided setup not added in TUI yet. Use raw connectors config if needed.',
   discord: 'Guided setup not added in TUI yet. Use raw connectors config if needed.',

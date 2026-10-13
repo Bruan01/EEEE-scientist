@@ -15,7 +15,7 @@
 
 VAMPIRE is an atomistic spin dynamics code for simulating magnetic materials, enabling finite-temperature magnetism, hysteresis, ultrafast dynamics, and spin-transport studies at atomic resolution.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

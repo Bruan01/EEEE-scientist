@@ -1,6 +1,6 @@
 # 16 Telegram Connector 指南
 
-当你希望通过 Telegram 继续推进 DeepScientist quest 时，请阅读这份指南。
+当你希望通过 Telegram 继续推进 EEEE Scientist quest 时，请阅读这份指南。
 
 当前开源版本中的 Telegram 连接方式使用内置 polling 路径：
 
@@ -29,7 +29,7 @@
 7. 填写 `bot_token`。
 8. 保存连接器配置。
 9. 从 Telegram 给 bot 发送一条真实私聊，例如 `/start` 或 `/help`。
-10. 回到 DeepScientist，确认运行时已经发现这个 target conversation。
+10. 回到 EEEE Scientist，确认运行时已经发现这个 target conversation。
 
 ## 3. 关键配置字段
 
@@ -57,7 +57,7 @@ Telegram 会话会被规范化成 quest-aware connector id，例如：
 - `telegram:direct:<chat_id>`
 - `telegram:group:<chat_id>`
 
-DeepScientist 绑定的是这个规范化后的 conversation id，而不是临时 webhook 状态。
+EEEE Scientist 绑定的是这个规范化后的 conversation id，而不是临时 webhook 状态。
 
 重要规则：
 

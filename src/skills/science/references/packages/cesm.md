@@ -15,7 +15,7 @@
 
 CESM is a coupled Earth system modeling framework for simulating climate dynamics across atmosphere, ocean, land, and sea ice components on HPC systems using CIME workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

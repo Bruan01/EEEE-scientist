@@ -15,7 +15,7 @@
 
 Spglib provides robust crystal symmetry analysis to determine space groups, symmetry operations, and standardized cells from atomic coordinates, supporting crystallography, materials modeling, and solid-state simulation workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

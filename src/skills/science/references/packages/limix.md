@@ -15,7 +15,7 @@
 
 LIMIX provides efficient linear mixed model methods for genomic association, interaction, and variance decomposition analyses, supporting workflows such as single-variant tests, set tests, and eQTL-style statistical genetics studies.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

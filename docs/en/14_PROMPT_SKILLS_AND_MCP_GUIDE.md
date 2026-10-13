@@ -1,6 +1,6 @@
 # 14 Prompt, Skills, and MCP Guide
 
-This guide explains how one DeepScientist turn is actually driven.
+This guide explains how one EEEE Scientist turn is actually driven.
 
 Use it when you want to understand:
 
@@ -15,7 +15,7 @@ If you only want the built-in memory contract, read [07 Memory and MCP](./07_MEM
 
 ## 1. One-sentence summary
 
-DeepScientist does not run from one static mega-prompt.
+EEEE Scientist does not run from one static mega-prompt.
 
 For every turn, it rebuilds a prompt from:
 
@@ -58,9 +58,9 @@ In practice:
 
 Managed quest-local prompt mirror:
 
-- DeepScientist still reads prompt fragments from `quest_root/.codex/prompts/` first when they exist.
+- EEEE Scientist still reads prompt fragments from `quest_root/.codex/prompts/` first when they exist.
 - But that tree is now managed automatically rather than assumed to be a permanent manual fork.
-- Before each real runner turn, DeepScientist compares the active quest-local prompt tree against the repository `src/prompts/` tree and refreshes the active copy when the source changed or the local copy drifted.
+- Before each real runner turn, EEEE Scientist compares the active quest-local prompt tree against the repository `src/prompts/` tree and refreshes the active copy when the source changed or the local copy drifted.
 - Before that refresh, the previous active tree is backed up under `quest_root/.codex/prompt_versions/<backup_id>/`.
 - This means an old quest uses the latest prompt contracts by default, while historical prompt trees remain available for explicit replay.
 
@@ -99,7 +99,7 @@ The runtime is trying to answer three questions before the model acts:
 
 ### 4.1 `system.md`
 
-This is the global DeepScientist operating contract.
+This is the global EEEE Scientist operating contract.
 
 It defines things like:
 
@@ -241,7 +241,7 @@ It includes:
 - how to acknowledge mailbox messages
 - how to compress progress into human-readable updates
 
-This is why DeepScientist can keep the same runtime but behave differently across:
+This is why EEEE Scientist can keep the same runtime but behave differently across:
 
 - long experiments
 - connector replies
@@ -270,7 +270,7 @@ This is the main reason auto-continue turns can stay grounded in the latest inte
 
 ### 4.10 Priority memory
 
-DeepScientist does not inject memory randomly.
+EEEE Scientist does not inject memory randomly.
 
 `PromptBuilder` uses a stage-specific memory plan.
 
@@ -298,16 +298,16 @@ Repository defaults still live under `src/prompts/`.
 Important behavior change:
 
 - `.codex/prompts/` is no longer best understood as a permanent hand-maintained override tree.
-- On each real run, DeepScientist repairs the active quest-local copy back to the current repository prompt source when they differ.
+- On each real run, EEEE Scientist repairs the active quest-local copy back to the current repository prompt source when they differ.
 - Manual edits to the active copy are therefore treated as drift: they are backed up and then replaced on the next run.
 - Historical copies are preserved under `.codex/prompt_versions/<backup_id>/`.
 
-If you need to run a quest against an older prompt version intentionally, start the daemon or one-off run with the official DeepScientist version number:
+If you need to run a quest against an older prompt version intentionally, start the daemon or one-off run with the official EEEE Scientist version number:
 
 - `ds daemon --prompt-version <official_version>`
 - `ds run --prompt-version <official_version> ...`
 
-DeepScientist resolves that to the newest backup recorded for that formal version. If you need one exact backup rather than “latest backup for version X”, you may still pass the exact backup directory name.
+EEEE Scientist resolves that to the newest backup recorded for that formal version. If you need one exact backup rather than “latest backup for version X”, you may still pass the exact backup directory name.
 
 Use `latest` to stay on the managed active prompt tree.
 
@@ -315,7 +315,7 @@ If a prompt change should affect normal future behavior, change the repository p
 
 ## 6. How skills are structured
 
-DeepScientist currently has two skill layers:
+EEEE Scientist currently has two skill layers:
 
 1. standard stage skills
 2. companion skills
@@ -360,7 +360,7 @@ Instead:
 - the skill defines stage-specific discipline
 - the runtime persists state and routes turns
 
-That is the core DeepScientist design choice.
+That is the core EEEE Scientist design choice.
 
 ## 7. What each skill usually leaves behind
 
@@ -387,7 +387,7 @@ These are the durable outputs you should expect:
 
 ## 8. Built-in MCP structure
 
-DeepScientist keeps the built-in MCP surface intentionally small.
+EEEE Scientist keeps the built-in MCP surface intentionally small.
 
 Only these namespaces are built in:
 
@@ -542,7 +542,7 @@ A typical turn looks like this:
 7. outputs are persisted into files, artifacts, memory cards, logs, and Git state
 8. `artifact.interact(...)` keeps the user-facing thread continuous
 
-That is why DeepScientist feels more like a persistent workshop than a stateless chat.
+That is why EEEE Scientist feels more like a persistent workshop than a stateless chat.
 
 ## 11. When to change prompt, skill, or MCP code
 

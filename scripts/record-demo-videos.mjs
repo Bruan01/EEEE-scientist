@@ -40,7 +40,7 @@ function fetchJson(url) {
 function assertDaemonHealthy() {
   const health = fetchJson(`${baseUrl}/api/health`);
   if (!health || health.status !== 'ok') {
-    throw new Error(`DeepScientist daemon is not healthy at ${baseUrl}`);
+    throw new Error(`EEEE Scientist daemon is not healthy at ${baseUrl}`);
   }
 }
 

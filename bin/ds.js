@@ -33,7 +33,7 @@ const pythonCommands = new Set([
   'latex',
   'config',
 ]);
-const UPDATE_PACKAGE_NAME = String(packageJson.name || '@researai/deepscientist').trim() || '@researai/deepscientist';
+const UPDATE_PACKAGE_NAME = String(packageJson.name || 'eeee-scientist').trim() || 'eeee-scientist';
 const UPDATE_CHECK_TTL_MS = 12 * 60 * 60 * 1000;
 
 const optionsWithValues = new Set(['--home', '--host', '--port', '--quest-id', '--mode', '--proxy', '--codex-profile', '--codex', '--auth', '--runner', '--debug-log']);
@@ -159,7 +159,7 @@ function resolveYoloFlag(args, defaultValue = true) {
 }
 
 function printLauncherHelp() {
-  console.log(`DeepScientist launcher
+  console.log(`EEEE Scientist launcher
 
 Usage:
   ds
@@ -196,13 +196,13 @@ Launcher flags:
   --status              Print managed daemon health as JSON
   --stop                Stop the managed daemon
   --restart             Restart the managed daemon
-  --home <path>         Use a custom DeepScientist home
+  --home <path>         Use a custom EEEE Scientist home
   --here                Create/use ./DeepScientist under the current working directory as home
   --proxy <url>         Use an outbound HTTP/WS proxy for npm and Python runtime traffic
   --yolo [true|false]   Control Codex YOLO mode. Default is true; pass false to restore on-request + workspace-write
   --runner <name>      Select builtin runner for this launch: codex, claude, kimi, or opencode
-  --codex-profile <id>  Run DeepScientist with a specific Codex profile, for example \`m27\`
-  --codex <path>        Run DeepScientist with a specific Codex executable path for this launch
+  --codex-profile <id>  Run EEEE Scientist with a specific Codex profile, for example \`m27\`
+  --codex <path>        Run EEEE Scientist with a specific Codex executable path for this launch
   --quest-id <id>       Open the TUI on one quest directly
 
 Update:
@@ -211,17 +211,17 @@ Update:
   ds update --yes       Install the latest npm release immediately
 
 Migration:
-  ds migrate <target>   Move the DeepScientist home/install root to a new absolute path
+  ds migrate <target>   Move the EEEE Scientist home/install root to a new absolute path
   ds migrate <target> --yes --restart
 
 Uninstall:
   ds uninstall          Remove code/runtime only and preserve local data
 
 Runtime:
-  DeepScientist uses uv to manage a locked local Python runtime.
-  If uv is missing, ds bootstraps a local copy under the DeepScientist home automatically.
+  EEEE Scientist uses uv to manage a locked local Python runtime.
+  If uv is missing, ds bootstraps a local copy under the EEEE Scientist home automatically.
   If an active conda environment provides Python ${requiredPythonSpec}, ds prefers it.
-  Otherwise uv provisions a managed Python under the DeepScientist home automatically.
+  Otherwise uv provisions a managed Python under the EEEE Scientist home automatically.
 
 Advanced Python CLI:
   ds init
@@ -907,10 +907,10 @@ function installedCodexCliVersion(binaryPath) {
   }
 }
 
-const OFFICIAL_REPOSITORY_URL = 'https://github.com/ResearAI/DeepScientist';
+const OFFICIAL_REPOSITORY_URL = 'https://github.com/Bruan01/EEEE-scientist';
 
 function officialRepositoryLine() {
-  return `Official open-source repository: ${hyperlink(OFFICIAL_REPOSITORY_URL, OFFICIAL_REPOSITORY_URL)}`;
+  return `Project repository: ${hyperlink(OFFICIAL_REPOSITORY_URL, OFFICIAL_REPOSITORY_URL)}`;
 }
 
 function renderBrandArtwork() {
@@ -1027,9 +1027,9 @@ function printLaunchCard({
 }) {
   const width = Math.max(72, Math.min(process.stdout.columns || 100, 108));
   const divider = colorize('\u001B[38;5;245m', '─'.repeat(Math.max(36, width - 6)));
-  const title = colorize('\u001B[1;38;5;39m', 'ResearAI');
+  const title = colorize('\u001B[1;38;5;39m', 'EEEE Scientist');
   const subtitleLines = [
-    colorize('\u001B[38;5;110m', 'DeepScientist is not just a fully open-source autonomous scientific discovery system.'),
+    colorize('\u001B[38;5;110m', 'EEEE Scientist is not just a fully open-source autonomous scientific discovery system.'),
     colorize('\u001B[38;5;110m', 'It is also a research map that keeps growing from every round.'),
   ];
   const versionLine = colorize('\u001B[38;5;245m', `Version ${packageJson.version}`);
@@ -1122,11 +1122,11 @@ function writeRunnerPreflightReport(home, runnerName, probe) {
   const details = probe && typeof probe.details === 'object' ? probe.details : {};
   const profile = typeof details.profile === 'string' ? details.profile.trim() : '';
   const intro = profile && normalizedRunner === 'codex'
-    ? `DeepScientist blocked startup because the ${runnerLabel} hello probe did not pass for profile \`${profile}\`. Verify that \`codex --profile ${profile}\` works on this machine and that the profile's provider-specific API key, Base URL, and model configuration are already set up.`
-    : `DeepScientist blocked startup because the selected runner (${runnerLabel}) did not pass its startup probe. Start DeepScientist with a runner that already works, or enter the web workspace with the default runner and configure another runner later from Settings.`;
+    ? `EEEE Scientist blocked startup because the ${runnerLabel} hello probe did not pass for profile \`${profile}\`. Verify that \`codex --profile ${profile}\` works on this machine and that the profile's provider-specific API key, Base URL, and model configuration are already set up.`
+    : `EEEE Scientist blocked startup because the selected runner (${runnerLabel}) did not pass its startup probe. Start EEEE Scientist with a runner that already works, or enter the web workspace with the default runner and configure another runner later from Settings.`;
   const introZh = profile && normalizedRunner === 'codex'
-    ? `DeepScientist 启动前进行了 ${runnerLabel} 可用性检查，但 profile \`${profile}\` 的 hello 探测没有通过。请先确认 \`codex --profile ${profile}\` 在当前机器上可以正常启动，并确保该 profile 依赖的 provider API Key、Base URL 和模型配置都已经在 Codex 中配置好。`
-    : `DeepScientist 启动前检查了所选 runner（${runnerLabel}），但它没有通过启动探测。你可以先用已经可用的默认 runner 进入 Web 工作区，再在 Settings 里配置或切换 Claude Code / Kimi Code / OpenCode。`;
+    ? `EEEE Scientist 启动前进行了 ${runnerLabel} 可用性检查，但 profile \`${profile}\` 的 hello 探测没有通过。请先确认 \`codex --profile ${profile}\` 在当前机器上可以正常启动，并确保该 profile 依赖的 provider API Key、Base URL 和模型配置都已经在 Codex 中配置好。`
+    : `EEEE Scientist 启动前检查了所选 runner（${runnerLabel}），但它没有通过启动探测。你可以先用已经可用的默认 runner 进入 Web 工作区，再在 Settings 里配置或切换 Claude Code / Kimi Code / OpenCode。`;
   const renderItems = (items, tone) =>
     items
       .map(
@@ -1139,7 +1139,7 @@ function writeRunnerPreflightReport(home, runnerName, probe) {
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>DeepScientist runner check failed</title>
+    <title>EEEE Scientist runner check failed</title>
     <style>
       :root { color-scheme: light dark; font-family: Inter, system-ui, sans-serif; }
       body {
@@ -1186,7 +1186,7 @@ function writeRunnerPreflightReport(home, runnerName, probe) {
   <body>
     <main class="page">
       <section class="panel">
-        <h1>DeepScientist could not start the selected runner</h1>
+        <h1>EEEE Scientist could not start the selected runner</h1>
         <p class="meta">${escapeHtml(intro)}</p>
         <p class="meta">${escapeHtml(introZh)}</p>
 
@@ -1316,7 +1316,7 @@ function probeRunnerBootstrap(home, runtimePython, runnerName, envOverrides = {}
     },
     guidance: [
       `Run \`${runnerName}\` manually and complete any required setup.`,
-      'Then start DeepScientist again.',
+      'Then start EEEE Scientist again.',
     ],
   };
 }
@@ -1462,7 +1462,7 @@ function probeCodexBootstrap(home, runtimePython, envOverrides = {}) {
     },
     guidance: [
       'Run `codex` manually and complete login.',
-      'Then start DeepScientist again.',
+      'Then start EEEE Scientist again.',
     ],
   };
 }
@@ -1624,7 +1624,7 @@ function parseLauncherArgs(argv) {
 }
 
 function printUpdateHelp() {
-  console.log(`DeepScientist update
+  console.log(`EEEE Scientist update
 
 Usage:
   ds update
@@ -1646,7 +1646,7 @@ Without \`--yes\`, \`ds update\` will ask for a \`Y/N\` confirmation on interact
 }
 
 function printMigrateHelp() {
-  console.log(`DeepScientist migrate
+  console.log(`EEEE Scientist migrate
 
 Usage:
   ds migrate /absolute/target/path
@@ -1657,12 +1657,12 @@ Usage:
 Flags:
   --yes              Skip the interactive double-confirmation prompt
   --restart          Start the managed daemon again from the migrated home
-  --home <path>      Override the current DeepScientist source home/root
+  --home <path>      Override the current EEEE Scientist source home/root
 `);
 }
 
 function printUninstallHelp() {
-  console.log(`DeepScientist uninstall
+  console.log(`EEEE Scientist uninstall
 
 Usage:
   ds uninstall
@@ -1670,13 +1670,13 @@ Usage:
   ds uninstall --yes
 
 Behavior:
-  - removes DeepScientist code, launcher wrappers, and local runtime code
+  - removes EEEE Scientist code, launcher wrappers, and local runtime code
   - preserves local data such as quests, memory, config, logs, plugins, and cache
   - if this command is run from the globally installed npm package, it also removes the npm package itself
 
 Flags:
   --yes              Skip the interactive confirmation prompt
-  --home <path>      Override the target DeepScientist home/root
+  --home <path>      Override the target EEEE Scientist home/root
   --origin <value>   Internal use for npm uninstall integration
 `);
 }
@@ -2155,15 +2155,15 @@ function scheduleDeferredSourceCleanup({ sourceHome, targetHome }) {
 
 async function promptMigrationConfirmation({ sourceHome, targetHome }) {
   if (!process.stdin.isTTY || !process.stdout.isTTY) {
-    throw new Error('DeepScientist migration needs a TTY for confirmation. Re-run with `--yes` to continue non-interactively.');
+    throw new Error('EEEE Scientist migration needs a TTY for confirmation. Re-run with `--yes` to continue non-interactively.');
   }
   console.log('');
-  console.log('DeepScientist home migration');
+  console.log('EEEE Scientist home migration');
   console.log('');
   console.log(`From: ${sourceHome}`);
   console.log(`To:   ${targetHome}`);
   console.log('');
-  console.log('This will stop the managed daemon, copy the full DeepScientist root, verify the copy, update launcher wrappers, and delete the old path after success.');
+  console.log('This will stop the managed daemon, copy the full EEEE Scientist root, verify the copy, update launcher wrappers, and delete the old path after success.');
   const ask = (question) => new Promise((resolve) => {
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     rl.question(question, (answer) => {
@@ -2181,7 +2181,7 @@ async function promptMigrationConfirmation({ sourceHome, targetHome }) {
 
 function printMigrationSummary({ sourceHome, targetHome, restart }) {
   console.log('');
-  console.log('DeepScientist migrate');
+  console.log('EEEE Scientist migrate');
   console.log('');
   console.log(`Source: ${sourceHome}`);
   console.log(`Target: ${targetHome}`);
@@ -2370,10 +2370,10 @@ function printManagedPythonFallbackNotice({ rejectedProbe, source, minimumVersio
       : 'detected system Python';
   console.warn('');
   console.warn(
-    `DeepScientist found ${sourceLabel} at ${pythonVersionText(rejectedProbe)}, which does not satisfy Python ${requiredPythonSpec}.`
+    `EEEE Scientist found ${sourceLabel} at ${pythonVersionText(rejectedProbe)}, which does not satisfy Python ${requiredPythonSpec}.`
   );
   console.warn(
-    `DeepScientist will provision a uv-managed Python ${minimumVersionRequest}+ runtime under ${installDir}.`
+    `EEEE Scientist will provision a uv-managed Python ${minimumVersionRequest}+ runtime under ${installDir}.`
   );
   console.warn('');
 }
@@ -2655,11 +2655,11 @@ function resolveUvBinary(home) {
 function printUvInstallGuidance(home, errorMessage = null) {
   console.error('');
   if (errorMessage) {
-    console.error(`DeepScientist could not prepare a local uv runtime manager: ${errorMessage}`);
+    console.error(`EEEE Scientist could not prepare a local uv runtime manager: ${errorMessage}`);
   } else {
-    console.error('DeepScientist could not find a usable uv runtime manager.');
+    console.error('EEEE Scientist could not find a usable uv runtime manager.');
   }
-  console.error(`DeepScientist normally installs uv automatically under ${runtimeUvBinDir(home)}.`);
+  console.error(`EEEE Scientist normally installs uv automatically under ${runtimeUvBinDir(home)}.`);
   console.error('If the automatic bootstrap fails, install uv manually and run `ds` again.');
   console.error('');
   if (process.platform === 'win32') {
@@ -2725,7 +2725,7 @@ function installLocalUv(home) {
   ensureDir(binDir);
   ensureDir(tempDir);
 
-  console.log(`DeepScientist is installing a local uv runtime manager under ${binDir}.`);
+  console.log(`EEEE Scientist is installing a local uv runtime manager under ${binDir}.`);
   downloadFileWithNode(installerUrl, installerPath);
 
   const installEnv = {
@@ -2819,7 +2819,7 @@ function ensureUvLockPresent() {
   if (fs.existsSync(lockPath)) {
     return lockPath;
   }
-  console.error('DeepScientist is missing `uv.lock` in the installed package.');
+  console.error('EEEE Scientist is missing `uv.lock` in the installed package.');
   console.error('Reinstall the npm package, or from a source checkout run `uv lock` and try again.');
   process.exit(1);
 }
@@ -2830,7 +2830,7 @@ function buildUvSyncFailureGuidance({ installMode = detectInstallMode(repoRoot),
     guidance.push('If you changed Python dependencies in a source checkout, run `uv lock` and try again.');
   } else {
     guidance.push('This npm install already includes a locked `uv.lock`, so this is usually a local Python or network environment issue rather than a missing lockfile.');
-    guidance.push('Re-run `ds` in a clean shell first. If you have an active conda or virtualenv, try deactivating it before starting DeepScientist.');
+    guidance.push('Re-run `ds` in a clean shell first. If you have an active conda or virtualenv, try deactivating it before starting EEEE Scientist.');
   }
 
   const hasPythonEnv =
@@ -2882,7 +2882,7 @@ function ensureUvManagedPython(home, uvBinary, minimumVersionRequest) {
     }
   );
   if (installResult.status !== 0) {
-    console.error('DeepScientist could not install a uv-managed Python runtime.');
+    console.error('EEEE Scientist could not install a uv-managed Python runtime.');
     process.exit(installResult.status ?? 1);
   }
 
@@ -2901,12 +2901,12 @@ function ensureUvManagedPython(home, uvBinary, minimumVersionRequest) {
     .filter(Boolean)
     .pop();
   if (!managedPython) {
-    console.error('DeepScientist installed uv-managed Python, but could not locate the interpreter afterward.');
+    console.error('EEEE Scientist installed uv-managed Python, but could not locate the interpreter afterward.');
     process.exit(findResult.status ?? 1);
   }
   const probe = decoratePythonProbe(probePython(managedPython), 'uv-managed');
   if (!probe || !pythonMeetsMinimum(probe)) {
-    console.error('DeepScientist found a uv-managed Python, but it does not satisfy the required version.');
+    console.error('EEEE Scientist found a uv-managed Python, but it does not satisfy the required version.');
     process.exit(1);
   }
   return probe;
@@ -2934,7 +2934,7 @@ function syncUvProjectEnvironment(home, uvBinary, pythonTarget, editable) {
   if (!editable) {
     // Force-refresh the local project package so same-version source installs
     // don't reuse a stale cached wheel during runtime rebuilds.
-    args.push('--no-editable', '--reinstall-package', 'deepscientist');
+    args.push('--no-editable', '--reinstall-package', 'eeee-scientist');
   }
   step(2, 4, 'Syncing locked Python environment');
   const result = runSync(uvBinary, args, {
@@ -2944,7 +2944,7 @@ function syncUvProjectEnvironment(home, uvBinary, pythonTarget, editable) {
   if (result.status === 0) {
     return;
   }
-  console.error('DeepScientist could not sync the locked Python environment with uv.');
+  console.error('EEEE Scientist could not sync the locked Python environment with uv.');
   for (const line of buildUvSyncFailureGuidance()) {
     console.error(line);
   }
@@ -3019,8 +3019,8 @@ function ensurePythonRuntime(home) {
 
     if (runtimeBroken || stampChanged) {
       const reason = runtimeBroken
-        ? 'DeepScientist is repairing the local uv-managed Python runtime.'
-        : 'DeepScientist detected a runtime change and is rebuilding the local uv-managed environment.';
+        ? 'EEEE Scientist is repairing the local uv-managed Python runtime.'
+        : 'EEEE Scientist detected a runtime change and is rebuilding the local uv-managed environment.';
       console.warn(reason);
       fs.rmSync(stampPath, { force: true });
       fs.rmSync(runtimePythonEnvPath(home), { recursive: true, force: true });
@@ -3071,12 +3071,12 @@ function ensurePythonRuntime(home) {
       };
     }
 
-    console.warn('DeepScientist is retrying the local uv-managed Python runtime repair.');
+    console.warn('EEEE Scientist is retrying the local uv-managed Python runtime repair.');
     fs.rmSync(stampPath, { force: true });
     fs.rmSync(runtimePythonEnvPath(home), { recursive: true, force: true });
   }
 
-  console.error('DeepScientist could not prepare a healthy uv-managed Python runtime.');
+  console.error('EEEE Scientist could not prepare a healthy uv-managed Python runtime.');
   process.exit(1);
 }
 
@@ -3147,7 +3147,7 @@ function ensureInitialized(home, runtimePython) {
   ) {
     return;
   }
-  step(3, 4, 'Preparing DeepScientist home, config, skills, and Git checks');
+  step(3, 4, 'Preparing EEEE Scientist home, config, skills, and Git checks');
   const result = runPythonCli(runtimePython, ['--home', home, 'init'], { capture: true, allowFailure: true });
   const stdout = result.stdout || '';
   let payload = {};
@@ -3163,7 +3163,7 @@ function ensureInitialized(home, runtimePython) {
     }
   }
   if (payload.git && payload.git.installed === false) {
-    console.error('Git is required before DeepScientist can run correctly.');
+    console.error('Git is required before EEEE Scientist can run correctly.');
     process.exit(result.status || 1 || 1);
   }
   fs.writeFileSync(stampPath, `${JSON.stringify(desired, null, 2)}\n`, 'utf8');
@@ -3298,7 +3298,7 @@ function maybePrintOptionalLatexNotice(home) {
     return;
   }
   console.log('Optional LaTeX runtime: not detected.');
-  console.log('DeepScientist still installs and runs normally.');
+  console.log('EEEE Scientist still installs and runs normally.');
   console.log('Install LaTeX only if you want local paper PDF compilation from the web workspace.');
   console.log(`Suggested install: ${latexInstallGuidance()}`);
 }
@@ -3602,10 +3602,10 @@ function aggregateCodeOnlyUninstallPlan(records) {
 
 async function promptUninstallConfirmation({ records, plan }) {
   if (!process.stdin.isTTY || !process.stdout.isTTY) {
-    throw new Error('DeepScientist uninstall needs a TTY for confirmation. Re-run with `--yes` to continue non-interactively.');
+    throw new Error('EEEE Scientist uninstall needs a TTY for confirmation. Re-run with `--yes` to continue non-interactively.');
   }
   console.log('');
-  console.log('DeepScientist uninstall');
+  console.log('EEEE Scientist uninstall');
   console.log('');
   console.log('This removes code and runtime directories, but preserves local data.');
   console.log('');
@@ -4206,7 +4206,7 @@ async function stopDaemon(home) {
   const shutdownDaemonId = sameHomeHealthy ? healthBefore?.daemon_id : state?.daemon_id;
 
   if (!state && !healthyBefore) {
-    console.log('No managed DeepScientist daemon is running.');
+    console.log('No managed EEEE Scientist daemon is running.');
     removeDaemonState(home);
     return;
   }
@@ -4215,7 +4215,7 @@ async function stopDaemon(home) {
     if (!sameHomeHealthy) {
       console.error(
         [
-          `A DeepScientist daemon is reachable at ${url}, but there is no managed daemon state for ${normalizeHomePath(home)}.`,
+          `An EEEE Scientist daemon is reachable at ${url}, but there is no managed daemon state for ${normalizeHomePath(home)}.`,
           'Refusing to stop an unverified daemon.',
         ].join('\n')
       );
@@ -4256,12 +4256,12 @@ async function stopDaemon(home) {
 
   const stillHealthy = await isHealthy(url, authToken);
   if (!stopped && (stillHealthy || (pid && isPidAlive(pid)))) {
-    console.error('DeepScientist daemon is still running after shutdown attempts.');
+    console.error('EEEE Scientist daemon is still running after shutdown attempts.');
     process.exit(1);
   }
 
   removeDaemonState(home);
-  console.log('DeepScientist daemon stopped.');
+  console.log('EEEE Scientist daemon stopped.');
 }
 
 async function uninstallMain(rawArgs) {
@@ -4283,7 +4283,7 @@ async function uninstallMain(rawArgs) {
   if (!options.yes && options.origin !== 'npm') {
     const confirmed = await promptUninstallConfirmation({ records, plan });
     if (!confirmed) {
-      console.log('DeepScientist uninstall cancelled.');
+      console.log('EEEE Scientist uninstall cancelled.');
       process.exit(1);
     }
   }
@@ -4292,7 +4292,7 @@ async function uninstallMain(rawArgs) {
     try {
       await stopDaemon(record.home);
     } catch (error) {
-      console.warn(`DeepScientist could not fully stop the daemon for ${record.home}: ${error instanceof Error ? error.message : String(error)}`);
+      console.warn(`EEEE Scientist could not fully stop the daemon for ${record.home}: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -4319,7 +4319,7 @@ async function uninstallMain(rawArgs) {
   }
 
   console.log('');
-  console.log('DeepScientist code uninstall completed.');
+  console.log('EEEE Scientist code uninstall completed.');
   if (removed.length > 0) {
     console.log('');
     console.log('Removed:');
@@ -4399,15 +4399,15 @@ function runNpmInstallLatest(home, npmBinary) {
 function printUpdateStatus(status, { compact = false } = {}) {
   if (compact) {
     if (status.update_available) {
-      console.log(`DeepScientist update available: ${status.current_version} -> ${status.latest_version}`);
+      console.log(`EEEE Scientist update available: ${status.current_version} -> ${status.latest_version}`);
       console.log(`Update with: ${status.manual_update_command}`);
       return;
     }
-    console.log(`DeepScientist is up to date (${status.current_version}).`);
+    console.log(`EEEE Scientist is up to date (${status.current_version}).`);
     return;
   }
 
-  console.log('DeepScientist update status');
+  console.log('EEEE Scientist update status');
   renderKeyValueRows([
     ['Current', status.current_version],
     ['Latest', status.latest_version || 'unknown'],
@@ -4478,7 +4478,7 @@ function spawnDetachedNode(args, options = {}) {
 async function performSelfUpdate(home, options = {}) {
   const status = checkForUpdates(home, { force: true });
   if (!status.update_available) {
-    const message = `DeepScientist is already on the latest version (${status.current_version}).`;
+    const message = `EEEE Scientist is already on the latest version (${status.current_version}).`;
     mergeUpdateState(home, {
       current_version: status.current_version,
       latest_version: status.latest_version,
@@ -4591,7 +4591,7 @@ async function performSelfUpdate(home, options = {}) {
   if (restartDaemon) {
     const launcherPath = resolveLauncherPath();
     if (!launcherPath) {
-      const message = 'DeepScientist was updated, but the new launcher path could not be resolved for daemon restart.';
+      const message = 'EEEE Scientist was updated, but the new launcher path could not be resolved for daemon restart.';
       mergeUpdateState(home, {
         busy: false,
         last_update_finished_at: new Date().toISOString(),
@@ -4647,8 +4647,8 @@ async function performSelfUpdate(home, options = {}) {
       ok: true,
       target_version: targetVersion,
       message: restartDaemon
-        ? `DeepScientist updated to ${targetVersion}. The daemon is restarting.`
-        : `DeepScientist updated to ${targetVersion}.`,
+        ? `EEEE Scientist updated to ${targetVersion}. The daemon is restarting.`
+        : `EEEE Scientist updated to ${targetVersion}.`,
       log_path: installResult.logPath,
     },
   });
@@ -4658,8 +4658,8 @@ async function performSelfUpdate(home, options = {}) {
     updated: true,
     status: buildUpdateStatus(home),
     message: restartDaemon
-      ? `DeepScientist updated to ${targetVersion}. The daemon is restarting.`
-      : `DeepScientist updated to ${targetVersion}.`,
+      ? `EEEE Scientist updated to ${targetVersion}. The daemon is restarting.`
+      : `EEEE Scientist updated to ${targetVersion}.`,
     log_path: installResult.logPath,
   };
 }
@@ -4686,7 +4686,7 @@ function relaunchLauncherAfterUpdate(rawArgs, home) {
     return {
       ok: false,
       exitCode: 1,
-      message: 'DeepScientist was updated, but the new launcher path could not be resolved for relaunch.',
+      message: 'EEEE Scientist was updated, but the new launcher path could not be resolved for relaunch.',
     };
   }
   const result = spawnSync(process.execPath, [launcherPath, ...normalizeLauncherRelaunchArgs(rawArgs, home)], syncSpawnOptions({
@@ -4726,16 +4726,16 @@ async function maybeHandleStartupUpdate(home, rawArgs, options = {}) {
     return false;
   }
 
-  const confirmed = await promptYesNo(`Install DeepScientist ${status.latest_version} now? [y/N]: `, {
+  const confirmed = await promptYesNo(`Install EEEE Scientist ${status.latest_version} now? [y/N]: `, {
     defaultValue: false,
   });
   if (!confirmed) {
     markUpdateDeferred(home, status.latest_version);
-    console.log(`DeepScientist will remind you later about ${status.latest_version || 'the next release'}.`);
+    console.log(`EEEE Scientist will remind you later about ${status.latest_version || 'the next release'}.`);
     return false;
   }
 
-  console.log('Updating DeepScientist now...');
+  console.log('Updating EEEE Scientist now...');
   const payload = await performSelfUpdate(home, {
     host: options.host,
     port: options.port,
@@ -4746,11 +4746,11 @@ async function maybeHandleStartupUpdate(home, rawArgs, options = {}) {
     console.log(`Update log: ${payload.log_path}`);
   }
   if (!payload.ok) {
-    console.log('DeepScientist will continue launching with the current session.');
+    console.log('EEEE Scientist will continue launching with the current session.');
     return false;
   }
 
-  console.log('Relaunching DeepScientist...');
+  console.log('Relaunching EEEE Scientist...');
   const relaunch = relaunchLauncherAfterUpdate(rawArgs, home);
   if (!relaunch.ok) {
     console.error(relaunch.message);
@@ -4774,7 +4774,7 @@ async function startBackgroundUpdateWorker(home, options = {}) {
     return {
       ok: true,
       started: false,
-      message: `DeepScientist is already on the latest version (${status.current_version}).`,
+      message: `EEEE Scientist is already on the latest version (${status.current_version}).`,
       status,
     };
   }
@@ -4816,7 +4816,7 @@ async function startBackgroundUpdateWorker(home, options = {}) {
   return {
     ok: true,
     started: true,
-    message: 'DeepScientist update worker started.',
+    message: 'EEEE Scientist update worker started.',
     status: buildUpdateStatus(home),
   };
 }
@@ -4864,9 +4864,9 @@ async function maybeHandleMiniMaxCodexVersion(home, runtimePython, options = {})
   console.log('');
   console.log(colorize('\u001B[1;38;5;214m', 'MiniMax compatibility check'));
   console.log(
-    `DeepScientist detected MiniMax profile \`${effectiveProfile}\`, but installed Codex CLI is ${formatCodexCliVersion(version)}.`
+    `EEEE Scientist detected MiniMax profile \`${effectiveProfile}\`, but installed Codex CLI is ${formatCodexCliVersion(version)}.`
   );
-  console.log('MiniMax currently requires Codex CLI 0.57.0 for the documented DeepScientist path.');
+  console.log('MiniMax currently requires Codex CLI 0.57.0 for the documented EEEE Scientist path.');
   const confirmed = await promptYesNo('Reinstall Codex CLI to 0.57.0 now? [y/N]: ', {
     defaultValue: false,
   });
@@ -4997,7 +4997,7 @@ async function startDaemon(home, runtimePython, host, port, proxy = null, envOve
       state
         ? daemonIdentityError({ url: browserUrl, home, health: existingHealth, state })
         : [
-            `A DeepScientist daemon is already listening at ${browserUrl}, but it is not associated with the managed state for ${normalizeHomePath(home)}.`,
+            `An EEEE Scientist daemon is already listening at ${browserUrl}, but it is not associated with the managed state for ${normalizeHomePath(home)}.`,
             'Use a different port or stop the foreign daemon first.',
           ].join('\n')
     );
@@ -5022,7 +5022,7 @@ async function startDaemon(home, runtimePython, host, port, proxy = null, envOve
     DEEPSCIENTIST_ENABLE_RUNNER: effectiveRunner,
   };
   if (startupRunner.fallback) {
-    console.log(`WARNING: ${requestedRunner} is not ready yet. Starting DeepScientist with fallback runner \`${effectiveRunner}\` for this session.`);
+    console.log(`WARNING: ${requestedRunner} is not ready yet. Starting EEEE Scientist with fallback runner \`${effectiveRunner}\` for this session.`);
   }
 
   ensureNodeBundle('src/ui', 'dist/index.html');
@@ -5070,7 +5070,7 @@ async function startDaemon(home, runtimePython, host, port, proxy = null, envOve
     await sleep(250);
   }
 
-  console.error('DeepScientist daemon failed to become healthy.');
+  console.error('EEEE Scientist daemon failed to become healthy.');
   console.error(`Expected local URL: ${launchUrl}`);
   console.error(`Daemon bind URL: ${bindLaunchUrl}`);
   if (authEnabled && desiredAuthToken) {
@@ -5133,7 +5133,7 @@ function handleRunnerPreflightFailure(error) {
   const warningLabel = colorize('\u001B[1;38;5;214m', 'WARNING');
   console.error('');
   const runnerLabel = String(error.runnerName || 'codex').trim() || 'runner';
-  console.error(`${errorLabel} DeepScientist could not start because ${runnerLabel} is not ready yet.`);
+  console.error(`${errorLabel} EEEE Scientist could not start because ${runnerLabel} is not ready yet.`);
   console.error(`Report: ${error.reportPath}`);
   if (Array.isArray(error.probe?.errors)) {
     for (const item of error.probe.errors) {
@@ -5149,7 +5149,7 @@ function handleRunnerPreflightFailure(error) {
   const guidance = Array.isArray(error.probe?.guidance) && error.probe.guidance.length > 0
     ? error.probe.guidance
     : [
-        'In most installs, `npm install -g @researai/deepscientist` also installs the bundled Codex dependency.',
+        'In most installs, `npm install -g eeee-scientist` also installs the bundled Codex dependency.',
         'If `codex` is still missing, run `npm install -g @openai/codex`.',
         'Run `codex login` (or just `codex`) and finish authentication.',
         'Run `ds doctor` and confirm the Codex check passes.',
@@ -5229,7 +5229,7 @@ async function updateMain(rawArgs) {
     if (options.json) {
       console.log(JSON.stringify(payload, null, 2));
     } else {
-      console.log(`DeepScientist will remind you later about ${payload.latest_version || 'the next release'}.`);
+      console.log(`EEEE Scientist will remind you later about ${payload.latest_version || 'the next release'}.`);
     }
     process.exit(0);
   }
@@ -5239,7 +5239,7 @@ async function updateMain(rawArgs) {
     if (options.json) {
       console.log(JSON.stringify(payload, null, 2));
     } else {
-      console.log(`DeepScientist will stop prompting for ${payload.last_skipped_version || payload.latest_version || 'this release'}.`);
+      console.log(`EEEE Scientist will stop prompting for ${payload.last_skipped_version || payload.latest_version || 'this release'}.`);
     }
     process.exit(0);
   }
@@ -5295,12 +5295,12 @@ async function updateMain(rawArgs) {
     process.exit(0);
   }
 
-  const confirmed = await promptYesNo(`Install DeepScientist ${status.latest_version} now? [y/N]: `, {
+  const confirmed = await promptYesNo(`Install EEEE Scientist ${status.latest_version} now? [y/N]: `, {
     defaultValue: false,
   });
   if (!confirmed) {
     const payload = markUpdateDeferred(home, status.latest_version);
-    console.log(`DeepScientist will remind you later about ${payload.latest_version || 'the next release'}.`);
+    console.log(`EEEE Scientist will remind you later about ${payload.latest_version || 'the next release'}.`);
     process.exit(0);
   }
 
@@ -5331,19 +5331,19 @@ async function migrateMain(rawArgs) {
   const sourceHome = realpathOrSelf(options.home || resolveHome(rawArgs));
   const targetHome = path.resolve(options.target);
   if (!fs.existsSync(sourceHome)) {
-    console.error(`DeepScientist source path does not exist: ${sourceHome}`);
+    console.error(`EEEE Scientist source path does not exist: ${sourceHome}`);
     process.exit(1);
   }
   if (isPathEqual(sourceHome, targetHome)) {
-    console.error('DeepScientist source and target paths are identical. Choose a different migration target.');
+    console.error('EEEE Scientist source and target paths are identical. Choose a different migration target.');
     process.exit(1);
   }
   if (isPathInside(targetHome, sourceHome) || isPathInside(sourceHome, targetHome)) {
-    console.error('DeepScientist migration requires two separate sibling paths. Do not nest one path inside the other.');
+    console.error('EEEE Scientist migration requires two separate sibling paths. Do not nest one path inside the other.');
     process.exit(1);
   }
   if (fs.existsSync(targetHome)) {
-    console.error(`DeepScientist target path already exists: ${targetHome}`);
+    console.error(`EEEE Scientist target path already exists: ${targetHome}`);
     process.exit(1);
   }
 
@@ -5351,7 +5351,7 @@ async function migrateMain(rawArgs) {
   if (!options.yes) {
     const confirmed = await promptMigrationConfirmation({ sourceHome, targetHome });
     if (!confirmed) {
-      console.log('DeepScientist migration cancelled.');
+      console.log('EEEE Scientist migration cancelled.');
       process.exit(1);
     }
   }
@@ -5363,7 +5363,7 @@ async function migrateMain(rawArgs) {
   if (state || healthMatchesHome({ health, home: sourceHome })) {
     await stopDaemon(sourceHome);
   } else if (health && health.status === 'ok') {
-    console.log(`Skipping daemon stop because ${url} belongs to another DeepScientist home.`);
+    console.log(`Skipping daemon stop because ${url} belongs to another EEEE Scientist home.`);
   }
 
   const pythonRuntime = ensurePythonRuntime(sourceHome);
@@ -5392,7 +5392,7 @@ async function migrateMain(rawArgs) {
         process.stderr.write('\n');
       }
     }
-    console.error('DeepScientist migration failed.');
+    console.error('EEEE Scientist migration failed.');
     process.exit(result.status ?? 1);
   }
 
@@ -5427,7 +5427,7 @@ async function migrateMain(rawArgs) {
   }
 
   console.log('');
-  console.log('DeepScientist migration completed.');
+  console.log('EEEE Scientist migration completed.');
   console.log(`New home: ${targetHome}`);
   if (payload.summary) {
     console.log(payload.summary);

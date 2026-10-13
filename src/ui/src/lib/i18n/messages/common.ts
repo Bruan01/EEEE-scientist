@@ -68,7 +68,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       'Paste only the Google Scholar user id from the profile URL query parameter “?user=...”.',
     register_sidebar_title: 'Register',
-    register_sidebar_tagline: 'For serious researchers: verify once, then build with DeepScientist.',
+    register_sidebar_tagline: 'For serious researchers: verify once, then build with EEEE Scientist.',
     register_sidebar_not_set: 'Not set',
     register_sidebar_guide_step1_title: 'Step 1 guidance',
     register_sidebar_guide_step2_title: 'Step 2 guidance',
@@ -149,7 +149,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: 'Showing {start} to {end} of {total} results',
     pricing_temporary_promo_notice:
-      'Temporary launch notice: At this stage, all users can access DeepScientist without making real payments. To lower the barrier for onboarding and support early research exploration, we are running a limited promotional policy in which newly registered accounts are automatically granted a temporary Plus membership and an initial bonus of 900 points after successful registration, so users can immediately start AutoFigure-Edit, DeepReviewer, and other core workflows. This is a transitional activity and may be adjusted, paused, or ended in later versions based on service capacity and policy updates; when formal billing is enabled, all charges and settlement rules will follow the backend-authoritative pricing and legal terms.',
+      'Temporary launch notice: At this stage, all users can access EEEE Scientist without making real payments. To lower the barrier for onboarding and support early research exploration, we are running a limited promotional policy in which newly registered accounts are automatically granted a temporary Plus membership and an initial bonus of 900 points after successful registration, so users can immediately start AutoFigure-Edit, DeepReviewer, and other core workflows. This is a transitional activity and may be adjusted, paused, or ended in later versions based on service capacity and policy updates; when formal billing is enabled, all charges and settlement rules will follow the backend-authoritative pricing and legal terms.',
     pricing_version_label: 'Version',
     pricing_updated_label: 'Updated',
   },
@@ -219,7 +219,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       '请仅填写 Google Scholar 主页链接中的 user 参数值（?user=...）。',
     register_sidebar_title: '注册',
-    register_sidebar_tagline: '面向严肃科研用户：一次验证，随后即可在 DeepScientist 高效开展研究。',
+    register_sidebar_tagline: '面向严肃科研用户：一次验证，随后即可在 EEEE Scientist 高效开展研究。',
     register_sidebar_not_set: '未设置',
     register_sidebar_guide_step1_title: 'Step 1 指引',
     register_sidebar_guide_step2_title: 'Step 2 指引',
@@ -286,7 +286,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: '显示第 {start} - {end} 条，共 {total} 条',
     pricing_temporary_promo_notice:
-      '临时活动说明：当前阶段，所有用户暂时都无需进行实际付费即可使用 DeepScientist。为了降低新用户上手门槛并支持早期科研探索，我们正在执行一项限时注册活动：用户注册成功后，系统将自动赠送临时 Plus 会员资格，并一次性发放 900 积分，便于你立即体验 AutoFigure-Edit、DeepReviewer 等核心功能流程。该活动属于过渡性运营安排，后续可能会根据服务承载能力与平台策略进行调整、暂停或结束；当正式计费开启后，所有费用与结算规则将以后端生效配置及法律条款页面为准。',
+      '临时活动说明：当前阶段，所有用户暂时都无需进行实际付费即可使用 EEEE Scientist。为了降低新用户上手门槛并支持早期科研探索，我们正在执行一项限时注册活动：用户注册成功后，系统将自动赠送临时 Plus 会员资格，并一次性发放 900 积分，便于你立即体验 AutoFigure-Edit、DeepReviewer 等核心功能流程。该活动属于过渡性运营安排，后续可能会根据服务承载能力与平台策略进行调整、暂停或结束；当正式计费开启后，所有费用与结算规则将以后端生效配置及法律条款页面为准。',
     pricing_version_label: '版本号',
     pricing_updated_label: '更新时间',
   },
@@ -357,7 +357,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       'Collez uniquement l’identifiant utilisateur Google Scholar depuis le paramètre d’URL « ?user=... ».',
     register_sidebar_title: 'Inscription',
-    register_sidebar_tagline: 'Pour les chercheurs exigeants : vérifiez une fois, puis construisez avec DeepScientist.',
+    register_sidebar_tagline: 'Pour les chercheurs exigeants : vérifiez une fois, puis construisez avec EEEE Scientist.',
     register_sidebar_not_set: 'Non défini',
     register_sidebar_guide_step1_title: 'Guide de l’étape 1',
     register_sidebar_guide_step2_title: 'Guide de l’étape 2',
@@ -436,7 +436,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: 'Affichage de {start} à {end} sur {total} résultats',
     pricing_temporary_promo_notice:
-      'Avis de lancement temporaire : à ce stade, tous les utilisateurs peuvent accéder à DeepScientist sans paiement réel. Pour réduire la barrière d’entrée et soutenir l’exploration scientifique précoce, nous appliquons une politique promotionnelle limitée : les nouveaux comptes reçoivent automatiquement un abonnement Plus temporaire et un bonus initial de 900 points après inscription réussie, afin de démarrer immédiatement AutoFigure-Edit, DeepReviewer et d’autres flux clés. Cette mesure est transitoire et pourra être ajustée, suspendue ou arrêtée dans de futures versions selon la capacité du service et les mises à jour de politique ; lorsque la facturation officielle sera activée, tous les frais et règles de règlement suivront la tarification autorisée par le backend ainsi que les conditions juridiques.',
+      'Avis de lancement temporaire : à ce stade, tous les utilisateurs peuvent accéder à EEEE Scientist sans paiement réel. Pour réduire la barrière d’entrée et soutenir l’exploration scientifique précoce, nous appliquons une politique promotionnelle limitée : les nouveaux comptes reçoivent automatiquement un abonnement Plus temporaire et un bonus initial de 900 points après inscription réussie, afin de démarrer immédiatement AutoFigure-Edit, DeepReviewer et d’autres flux clés. Cette mesure est transitoire et pourra être ajustée, suspendue ou arrêtée dans de futures versions selon la capacité du service et les mises à jour de politique ; lorsque la facturation officielle sera activée, tous les frais et règles de règlement suivront la tarification autorisée par le backend ainsi que les conditions juridiques.',
     pricing_version_label: 'Version',
     pricing_updated_label: 'Mis à jour',
   },
@@ -507,7 +507,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       'プロフィール URL のクエリパラメータ「?user=...」にある Google Scholar の user id のみを貼り付けてください。',
     register_sidebar_title: '登録',
-    register_sidebar_tagline: '本気の研究者向け：一度認証すれば、その後は DeepScientist で構築できます。',
+    register_sidebar_tagline: '本気の研究者向け：一度認証すれば、その後は EEEE Scientist で構築できます。',
     register_sidebar_not_set: '未設定',
     register_sidebar_guide_step1_title: 'ステップ 1 ガイド',
     register_sidebar_guide_step2_title: 'ステップ 2 ガイド',
@@ -580,7 +580,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: '{total} 件中 {start} から {end} を表示',
     pricing_temporary_promo_notice:
-      '一時的なリリース案内：現段階では、すべてのユーザーが実際の支払いなしで DeepScientist を利用できます。導入の障壁を下げ、初期の研究探索を支援するため、期間限定のプロモーションを実施しており、新規登録アカウントには登録成功後に一時的な Plus 会員資格と 900 ポイントの初期ボーナスが自動付与されます。これにより AutoFigure-Edit、DeepReviewer などの主要ワークフローをすぐ開始できます。これは移行期の施策であり、サービス容量や方針更新に応じて将来のバージョンで調整・停止・終了される場合があります。正式な課金開始後は、すべての料金と精算規則はバックエンドで有効な価格設定と法的条項に従います。',
+      '一時的なリリース案内：現段階では、すべてのユーザーが実際の支払いなしで EEEE Scientist を利用できます。導入の障壁を下げ、初期の研究探索を支援するため、期間限定のプロモーションを実施しており、新規登録アカウントには登録成功後に一時的な Plus 会員資格と 900 ポイントの初期ボーナスが自動付与されます。これにより AutoFigure-Edit、DeepReviewer などの主要ワークフローをすぐ開始できます。これは移行期の施策であり、サービス容量や方針更新に応じて将来のバージョンで調整・停止・終了される場合があります。正式な課金開始後は、すべての料金と精算規則はバックエンドで有効な価格設定と法的条項に従います。',
     pricing_version_label: 'バージョン',
     pricing_updated_label: '更新日',
   },
@@ -651,7 +651,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       '프로필 URL 쿼리 파라미터 “?user=...”의 Google Scholar user id만 붙여 넣으세요.',
     register_sidebar_title: '회원가입',
-    register_sidebar_tagline: '진지한 연구자를 위해: 한 번 인증하고, 그다음은 DeepScientist에서 시작하세요.',
+    register_sidebar_tagline: '진지한 연구자를 위해: 한 번 인증하고, 그다음은 EEEE Scientist에서 시작하세요.',
     register_sidebar_not_set: '설정 안 됨',
     register_sidebar_guide_step1_title: '1단계 안내',
     register_sidebar_guide_step2_title: '2단계 안내',
@@ -724,7 +724,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: '{total}개 결과 중 {start}~{end} 표시',
     pricing_temporary_promo_notice:
-      '임시 출시 안내: 현재 단계에서는 모든 사용자가 실제 결제 없이 DeepScientist를 이용할 수 있습니다. 초기 온보딩 장벽을 낮추고 연구 탐색을 지원하기 위해, 신규 가입 계정에는 가입 성공 후 임시 Plus 멤버십과 900포인트의 초기 보너스를 자동으로 부여하는 한시적 프로모션 정책을 운영하고 있습니다. 이를 통해 AutoFigure-Edit, DeepReviewer 및 기타 핵심 워크플로를 즉시 시작할 수 있습니다. 이 정책은 과도기적 운영 조치이며, 서비스 수용량과 정책 업데이트에 따라 이후 버전에서 조정, 중단 또는 종료될 수 있습니다. 정식 과금이 시작되면 모든 비용과 정산 규칙은 백엔드 기준 가격 정책과 법적 약관을 따릅니다.',
+      '임시 출시 안내: 현재 단계에서는 모든 사용자가 실제 결제 없이 EEEE Scientist를 이용할 수 있습니다. 초기 온보딩 장벽을 낮추고 연구 탐색을 지원하기 위해, 신규 가입 계정에는 가입 성공 후 임시 Plus 멤버십과 900포인트의 초기 보너스를 자동으로 부여하는 한시적 프로모션 정책을 운영하고 있습니다. 이를 통해 AutoFigure-Edit, DeepReviewer 및 기타 핵심 워크플로를 즉시 시작할 수 있습니다. 이 정책은 과도기적 운영 조치이며, 서비스 수용량과 정책 업데이트에 따라 이후 버전에서 조정, 중단 또는 종료될 수 있습니다. 정식 과금이 시작되면 모든 비용과 정산 규칙은 백엔드 기준 가격 정책과 법적 약관을 따릅니다.',
     pricing_version_label: '버전',
     pricing_updated_label: '업데이트',
   },
@@ -795,7 +795,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
     register_method_scholar_prompt:
       'Вставьте только Google Scholar user id из параметра URL «?user=...».',
     register_sidebar_title: 'Регистрация',
-    register_sidebar_tagline: 'Для серьёзных исследователей: подтвердите себя один раз и работайте в DeepScientist.',
+    register_sidebar_tagline: 'Для серьёзных исследователей: подтвердите себя один раз и работайте в EEEE Scientist.',
     register_sidebar_not_set: 'Не задано',
     register_sidebar_guide_step1_title: 'Подсказка к шагу 1',
     register_sidebar_guide_step2_title: 'Подсказка к шагу 2',
@@ -874,7 +874,7 @@ export const commonMessages: Partial<Record<UILanguage, Record<string, string>>>
 
     pagination_showing: 'Показаны результаты с {start} по {end} из {total}',
     pricing_temporary_promo_notice:
-      'Временное уведомление о запуске: на текущем этапе все пользователи могут пользоваться DeepScientist без реальных платежей. Чтобы снизить порог входа и поддержать раннее исследовательское изучение, действует ограниченная промо-политика: после успешной регистрации новые аккаунты автоматически получают временное членство Plus и стартовый бонус в 900 баллов, чтобы сразу начать работу с AutoFigure-Edit, DeepReviewer и другими ключевыми сценариями. Это переходная мера, которая может быть скорректирована, приостановлена или завершена в будущих версиях в зависимости от нагрузки сервиса и обновлений политики; после запуска официальной тарификации все списания и правила расчётов будут определяться ценами, утверждёнными на backend, и юридическими условиями.',
+      'Временное уведомление о запуске: на текущем этапе все пользователи могут пользоваться EEEE Scientist без реальных платежей. Чтобы снизить порог входа и поддержать раннее исследовательское изучение, действует ограниченная промо-политика: после успешной регистрации новые аккаунты автоматически получают временное членство Plus и стартовый бонус в 900 баллов, чтобы сразу начать работу с AutoFigure-Edit, DeepReviewer и другими ключевыми сценариями. Это переходная мера, которая может быть скорректирована, приостановлена или завершена в будущих версиях в зависимости от нагрузки сервиса и обновлений политики; после запуска официальной тарификации все списания и правила расчётов будут определяться ценами, утверждёнными на backend, и юридическими условиями.',
     pricing_version_label: 'Версия',
     pricing_updated_label: 'Обновлено',
   },

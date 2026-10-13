@@ -14,7 +14,7 @@ def default_qq_profile() -> dict[str, Any]:
         "app_id": None,
         "app_secret": None,
         "app_secret_env": None,
-        "bot_name": "DeepScientist",
+        "bot_name": "EEEE Scientist",
         "main_chat_id": None,
     }
 
@@ -98,7 +98,7 @@ def merge_qq_profile_config(shared_config: dict[str, Any] | None, profile: dict[
             "app_id": _as_text(profile.get("app_id")),
             "app_secret": app_secret,
             "app_secret_env": None if app_secret else app_secret_env,
-            "bot_name": _as_text(profile.get("bot_name")) or str(normalized.get("bot_name") or "DeepScientist"),
+            "bot_name": _as_text(profile.get("bot_name")) or str(normalized.get("bot_name") or "EEEE Scientist"),
             "main_chat_id": _as_text(profile.get("main_chat_id")),
             "enabled": bool(normalized.get("enabled", False)) and bool(profile.get("enabled", True)),
             "transport": "gateway_direct",
@@ -129,7 +129,7 @@ def normalize_qq_connector_config(config: dict[str, Any] | None) -> dict[str, An
         "app_id": None,
         "app_secret": None,
         "app_secret_env": None,
-        "bot_name": "DeepScientist",
+        "bot_name": "EEEE Scientist",
         "command_prefix": "/",
         "main_chat_id": None,
         "require_at_in_groups": True,
@@ -146,7 +146,7 @@ def normalize_qq_connector_config(config: dict[str, Any] | None) -> dict[str, An
     shared = {**shared_defaults, **payload}
     shared["transport"] = "gateway_direct"
     shared["command_prefix"] = _as_text(shared.get("command_prefix")) or "/"
-    shared["bot_name"] = _as_text(shared.get("bot_name")) or "DeepScientist"
+    shared["bot_name"] = _as_text(shared.get("bot_name")) or "EEEE Scientist"
     _normalize_secret_pair(shared, "app_secret", "app_secret_env")
 
     raw_profiles = payload.get("profiles")

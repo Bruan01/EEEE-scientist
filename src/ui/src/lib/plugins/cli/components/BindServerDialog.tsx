@@ -23,7 +23,7 @@ export function BindServerDialog({
   const apiBaseUrl = (apiClient.defaults.baseURL || '').replace(/\/$/, '')
   const serverUrl =
     apiBaseUrl ||
-    (process.env.NEXT_PUBLIC_API_URL || 'http://deepscientist.cc:8080')
+    (process.env.NEXT_PUBLIC_API_URL || 'http://127.0.0.1:20999')
 
   useEffect(() => {
     if (!open) return
@@ -87,7 +87,7 @@ export function BindServerDialog({
             </p>
             <p className="mt-2 text-xs text-[var(--cli-muted-1)]">
               {t('bind_option_custom_dir', {
-                example: 'bash install.sh --dir ~/.deepscientist --token ...',
+                example: 'bash install.sh --dir ~/DeepScientist --token ...',
               })}
             </p>
             <p className="mt-2 text-xs text-[var(--cli-muted-1)]">

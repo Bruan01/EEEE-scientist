@@ -15,7 +15,7 @@
 
 SfePy is a Python finite element framework for solving coupled PDEs in 1D, 2D, and 3D using weak formulations, configurable problem definition files, and external meshes.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

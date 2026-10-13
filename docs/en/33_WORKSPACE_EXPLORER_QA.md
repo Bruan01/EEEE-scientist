@@ -43,7 +43,7 @@ To check whether a terminal-created file is visible, switch to `FILES` and refre
 
 ## 4. Will a terminal-created folder appear automatically?
 
-No. DeepScientist does not currently watch the local filesystem.
+No. EEEE Scientist does not currently watch the local filesystem.
 
 After creating files manually:
 
@@ -107,7 +107,7 @@ No.
 A file created inside a git worktree appears in that worktree's `git status`, often as untracked. It enters Git history only after:
 
 - `git add` / `git commit`
-- or a DeepScientist artifact / checkpoint flow records it
+- or an EEEE Scientist artifact / checkpoint flow records it
 
 Also note that a `.ds/worktrees/<name>` worktree has its own git status; it may not appear in the quest root's `git status`.
 

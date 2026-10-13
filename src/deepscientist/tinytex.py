@@ -162,7 +162,7 @@ def inspect_latex_runtime(home: Path | None = None) -> dict[str, Any]:
 
 
 def _download_installer(url: str) -> tuple[bool, str]:
-    request = Request(url, headers={"User-Agent": "DeepScientist TinyTeX bootstrap"})
+    request = Request(url, headers={"User-Agent": "EEEE Scientist TinyTeX bootstrap"})
     try:
         with urlopen(request, timeout=30) as response:  # noqa: S310
             payload = response.read()
@@ -255,7 +255,7 @@ def install_tinytex(home: Path | None = None) -> dict[str, Any]:
         return {
             "ok": False,
             "changed": False,
-            "summary": "TinyTeX installer finished, but DeepScientist could not find the managed pdflatex runtime afterward.",
+            "summary": "TinyTeX installer finished, but EEEE Scientist could not find the managed pdflatex runtime afterward.",
             "errors": ["Installation did not expose a discoverable TinyTeX `pdflatex` binary."],
             "guidance": [
                 "Open the TinyTeX documentation and verify the install location.",

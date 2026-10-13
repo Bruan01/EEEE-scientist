@@ -15,7 +15,7 @@
 
 NWChem is a high-performance computational chemistry package for scalable ab initio and molecular simulations, including quantum electronic structure, molecular dynamics, and spectroscopy on HPC systems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

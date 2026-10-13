@@ -15,7 +15,7 @@
 
 Sunny.jl models magnetic materials with symmetry-aware Hamiltonians, quantum spin excitations, finite-temperature spin dynamics, and fitting to neutron or X-ray scattering data.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

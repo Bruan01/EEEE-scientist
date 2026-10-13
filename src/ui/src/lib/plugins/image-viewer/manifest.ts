@@ -24,7 +24,7 @@ export const imageViewerManifest: UnifiedPluginManifest = {
   description: "View images with zoom, pan, and rotation support",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "Image",
 
   // ============================================================

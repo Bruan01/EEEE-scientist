@@ -4,7 +4,7 @@ This guide covers the operator-facing `Settings` pages that are not primarily ab
 
 These routes are for runtime supervision, diagnostics, fleet inspection, repair workflow, controller execution, and admin search.
 
-Use this guide after DeepScientist is already running and you want to understand which `Settings` page to open next.
+Use this guide after EEEE Scientist is already running and you want to understand which `Settings` page to open next.
 
 ## How To Use This Guide
 
@@ -12,7 +12,7 @@ This guide is not a field reference. It is an operator manual.
 
 Use it when:
 
-- DeepScientist is already open in the browser
+- EEEE Scientist is already open in the browser
 - something looks wrong, stale, blocked, or unclear
 - you need to know which `Settings` page to open first
 

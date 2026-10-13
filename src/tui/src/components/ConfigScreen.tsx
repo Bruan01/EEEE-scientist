@@ -445,7 +445,7 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({ panel, availableHeig
       ) : null}
       <Box marginTop={1} flexDirection="column">
         <Text color={theme.text.secondary}>Scan this QR code with WeChat, then confirm the login on the phone.</Text>
-        <Text color={theme.text.secondary}>DeepScientist will save the connector automatically after confirmation.</Text>
+        <Text color={theme.text.secondary}>EEEE Scientist will save the connector automatically after confirmation.</Text>
       </Box>
     </Box>
   )

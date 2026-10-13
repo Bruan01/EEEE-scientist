@@ -15,7 +15,7 @@
 
 Enzo-E is an exascale-oriented astrophysics and cosmology simulation code built on the Cello AMR framework for massively parallel hydrodynamics and structure-formation studies.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

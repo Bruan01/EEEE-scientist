@@ -15,7 +15,7 @@
 
 Specutils provides shared data models and analysis utilities for astronomical spectra, supporting spectral extraction, line measurements, continuum handling, and interoperable spectroscopy workflows in Python astronomy.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

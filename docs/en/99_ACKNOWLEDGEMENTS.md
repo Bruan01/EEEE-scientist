@@ -1,6 +1,6 @@
 # 99 Acknowledgements: Credits and Thanks
 
-DeepScientist was shaped by many prior systems, open-source efforts, and research discussions. We would like to express sincere thanks to the projects and individuals who inspired, informed, or supported this work.
+EEEE Scientist was shaped by many prior systems, open-source efforts, and research discussions. We would like to express sincere thanks to the projects and individuals who inspired, informed, or supported this work.
 
 ## Project acknowledgements
 

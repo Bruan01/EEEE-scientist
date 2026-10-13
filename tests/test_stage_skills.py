@@ -135,7 +135,7 @@ def test_unified_science_skill_contains_fermilink_package_catalog() -> None:
         card = root / by_id[package_id]["card"]
         assert card.exists(), f"missing package card for {package_id}"
         card_text = card.read_text(encoding="utf-8")
-        assert "DeepScientist Runtime Rule" in card_text
+        assert "EEEE Scientist Runtime Rule" in card_text
         assert "artifact.science" in card_text
 
     assert "robotics_physics" not in by_id["pyscf"]["domains"]

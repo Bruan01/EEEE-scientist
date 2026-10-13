@@ -2,14 +2,14 @@
 
 This document does two things:
 
-1. clarifies the DeepScientist open-source license and responsibility boundary
+1. clarifies the EEEE Scientist open-source license and responsibility boundary
 2. lists the main risks that you, not the project maintainers, must control
 
-This is not legal advice. If you plan to use DeepScientist in a company environment, production environment, external-facing service, or regulated workflow, have your own legal, security, and operations teams review it again.
+This is not legal advice. If you plan to use EEEE Scientist in a company environment, production environment, external-facing service, or regulated workflow, have your own legal, security, and operations teams review it again.
 
 ## 1. License And Responsibility Boundary
 
-DeepScientist is released under the Apache License 2.0.
+EEEE Scientist is released under the Apache License 2.0.
 
 The full license text is in the repository root:
 
@@ -19,14 +19,14 @@ The full license text is in the repository root:
 
 The practical meaning is:
 
-- DeepScientist is distributed under Apache 2.0
-- the software license does not grant trademark rights in the DeepScientist name or logo
+- EEEE Scientist is distributed under Apache 2.0
+- the software license does not grant trademark rights in the EEEE Scientist name or logo
 - citation guidance is a separate academic attribution request, not an extra software license condition
-- DeepScientist is provided on an "AS IS" basis, without warranties
-- the project authors and maintainers are not responsible for any direct or indirect consequence caused by using, deploying, modifying, redistributing, or exposing DeepScientist
+- EEEE Scientist is provided on an "AS IS" basis, without warranties
+- the project authors and maintainers are not responsible for any direct or indirect consequence caused by using, deploying, modifying, redistributing, or exposing EEEE Scientist
 - you are responsible for runtime environment control, permission boundaries, public exposure, third-party account binding, output review, data handling, and compliance
 
-In other words, DeepScientist is a high-capability automation system. It is not a managed service and it is not a security-audited guarantee layer. You must control the operating boundary yourself.
+In other words, EEEE Scientist is a high-capability automation system. It is not a managed service and it is not a security-audited guarantee layer. You must control the operating boundary yourself.
 
 ## 2. Main Risk Areas
 
@@ -34,7 +34,7 @@ These risks are real, and they compound each other.
 
 ### 2.1 Host And Server Damage
 
-DeepScientist can drive models to execute commands, modify files, install dependencies, run scripts, and read or write project directories.
+EEEE Scientist can drive models to execute commands, modify files, install dependencies, run scripts, and read or write project directories.
 
 That means it can:
 
@@ -49,7 +49,7 @@ If you run it directly on a high-privilege host, production machine, shared deve
 
 ### 2.2 Fabricated Results, Wrong Conclusions, And Research Risk
 
-DeepScientist is model-driven. It does not guarantee truth.
+EEEE Scientist is model-driven. It does not guarantee truth.
 
 It may:
 
@@ -77,7 +77,7 @@ If your data, projects, or paper drafts are not backed up, this kind of damage m
 
 ### 2.4 Secret, Credential, And Privacy Leakage
 
-DeepScientist may touch sensitive material such as:
+EEEE Scientist may touch sensitive material such as:
 
 - API keys
 - environment variables
@@ -89,7 +89,7 @@ DeepScientist may touch sensitive material such as:
 If you:
 
 - expose the site publicly
-- share the DeepScientist page casually
+- share the EEEE Scientist page casually
 - allow untrusted users into the runtime environment
 - send config files, logs, screenshots, or quest files that contain sensitive material
 
@@ -104,7 +104,7 @@ Once connectors are bound, the risk is no longer only "can someone open the page
 
 ### 2.5 Public Exposure And Unauthorized Access
 
-If you bind DeepScientist to `0.0.0.0`, a public IP, a reverse proxy, a tunnel, or a public domain, you are exposing an automation-capable system to the outside.
+If you bind EEEE Scientist to `0.0.0.0`, a public IP, a reverse proxy, a tunnel, or a public domain, you are exposing an automation-capable system to the outside.
 
 That can lead to:
 
@@ -120,7 +120,7 @@ Unless you fully understand the consequences, do not casually share the site add
 
 ### 2.6 Third-Party Platform And Account Compliance
 
-DeepScientist can integrate with QQ, WeChat, Lingzhu, and other external platforms.
+EEEE Scientist can integrate with QQ, WeChat, Lingzhu, and other external platforms.
 
 You are responsible for:
 
@@ -133,7 +133,7 @@ The project maintainers do not guarantee that your usage will satisfy local law,
 
 ### 2.7 Malicious Inputs, Prompt Injection, And Supply-Chain Risk
 
-DeepScientist can read:
+EEEE Scientist can read:
 
 - repositories
 - papers
@@ -154,7 +154,7 @@ If the model follows those instructions, the resulting behavior can become much 
 
 ### 2.8 Resource, Cost, And Abuse Risk
 
-DeepScientist may run for a long time, call models repeatedly, download dependencies, execute experiments, and produce large numbers of files.
+EEEE Scientist may run for a long time, call models repeatedly, download dependencies, execute experiments, and produce large numbers of files.
 
 You are responsible for:
 
@@ -165,11 +165,11 @@ You are responsible for:
 
 ## 3. Minimum Safety Practices Strongly Recommended
 
-If you plan to use DeepScientist seriously, at least do the following.
+If you plan to use EEEE Scientist seriously, at least do the following.
 
 ### 3.1 Prefer Docker Or Another Isolated Environment
 
-Strongly prefer running DeepScientist inside Docker, a virtual machine, or an equivalent isolation boundary instead of running it directly on a privileged host.
+Strongly prefer running EEEE Scientist inside Docker, a virtual machine, or an equivalent isolation boundary instead of running it directly on a privileged host.
 
 The goal is simple:
 
@@ -182,7 +182,7 @@ The goal is simple:
 
 Strong recommendation:
 
-- run DeepScientist under a dedicated non-root user
+- run EEEE Scientist under a dedicated non-root user
 - do not start it as `root`
 - do not give it default write access to the whole machine
 - do not let it touch sensitive host directories by default
@@ -191,7 +191,7 @@ If you must run it on a server, least privilege matters even more.
 
 ### 3.3 Do Not Run It Directly On Production Or Critical Machines
 
-Avoid running DeepScientist directly on:
+Avoid running EEEE Scientist directly on:
 
 - production database hosts
 - live business servers
@@ -203,7 +203,7 @@ Avoid running DeepScientist directly on:
 
 Unless you already have proper access control in place, do not:
 
-- post the DeepScientist URL in public groups
+- post the EEEE Scientist URL in public groups
 - map a `0.0.0.0`-bound port directly to the public internet
 - publish an unauthenticated reverse-proxy address
 - give other people direct operational access to a runtime that already has connectors bound
@@ -253,8 +253,8 @@ At minimum:
 
 The shortest safe summary is:
 
-1. DeepScientist is released under Apache 2.0.
-2. The project authors and maintainers are not responsible for any consequence caused by your use of DeepScientist.
+1. EEEE Scientist is released under Apache 2.0.
+2. The project authors and maintainers are not responsible for any consequence caused by your use of EEEE Scientist.
 3. It may damage a server, delete files, leak credentials, send wrong external messages, or fabricate results.
 4. Strongly prefer Docker or an equivalent isolated environment, and always run under a non-root account.
 5. Do not casually share the site address, and do not expose a runtime with bound WeChat, QQ, or other connectors to uncontrolled users.

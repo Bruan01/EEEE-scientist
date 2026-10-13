@@ -1,4 +1,4 @@
-# DeepScientist Core
+# EEEE Scientist Core
 
 This local workspace is built for quest-driven research with file memory, Git history, and Codex execution.
 

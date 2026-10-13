@@ -15,7 +15,7 @@
 
 Quimb is a Python package for quantum information and many-body physics, combining tensor-network algorithms with exact operator methods for entanglement, spectra, and dynamics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

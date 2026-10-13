@@ -11,12 +11,12 @@ skill_role: companion
 This companion skill is adapted from `Yuan1z0825/nature-skills/tree/main/nature-polishing`.
 See `UPSTREAM_LICENSE.txt` for the upstream MIT license.
 
-## DeepScientist integration
+## EEEE Scientist integration
 
 - Follow the shared interaction contract injected by the system prompt.
 - Use this inside `write`, `review`, or `rebuttal` when the user asks for Nature-leaning English, Chinese-to-English manuscript polishing, section restructuring, or publication-quality academic prose.
 - Apply it after the evidence and claim boundary are clear. Do not use style polishing to hide missing support, overstate novelty, or make unsupported claims sound stronger.
-- Keep DeepScientist manuscript hygiene rules authoritative: no user/operator/agent provenance, route-control wording, prompt state, or local implementation shorthand in paper-facing prose.
+- Keep EEEE Scientist manuscript hygiene rules authoritative: no user/operator/agent provenance, route-control wording, prompt state, or local implementation shorthand in paper-facing prose.
 
 Use this skill to improve scientific writing at two levels:
 

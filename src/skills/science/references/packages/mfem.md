@@ -15,7 +15,7 @@
 
 MFEM is a modular, scalable C++ finite element library for high-order PDE discretization, adaptive meshing, and MPI/GPU-enabled scientific simulation from laptops to supercomputers.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

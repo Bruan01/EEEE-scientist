@@ -170,7 +170,7 @@ _BROWSER_AUTH_QUERY_PARAM = "token"
 _BROWSER_AUTH_STORAGE_KEY = "ds_local_auth_token"
 _BROWSER_AUTH_PUBLIC_ROUTE_NAMES = {"root", "spa_root", "ui_asset", "asset", "auth_login"}
 _BROWSER_AUTH_EXEMPT_ROUTE_NAMES = {"lingzhu_health", "lingzhu_sse"}
-_BROWSER_AUTH_REALM = "DeepScientist"
+_BROWSER_AUTH_REALM = "EEEE Scientist"
 
 
 @dataclass(frozen=True)
@@ -984,7 +984,7 @@ class DaemonApp:
                 "以避免进入重复崩溃循环。请先检查运行环境或 runner 侧问题，再手动恢复。"
             ),
             en=(
-                "DeepScientist detected repeated crash recovery attempts in a short window, "
+                "EEEE Scientist detected repeated crash recovery attempts in a short window, "
                 "so automatic continuation has been paused to avoid a crash loop. "
                 "Inspect the runtime or runner path before resuming manually."
             ),
@@ -1071,9 +1071,9 @@ class DaemonApp:
         if not launcher_path:
             launcher_path = str(self.repo_root / "bin" / "ds.js")
         if not node_binary:
-            raise RuntimeError("Node.js is not available on PATH, so DeepScientist cannot check npm updates.")
+            raise RuntimeError("Node.js is not available on PATH, so EEEE Scientist cannot check npm updates.")
         if not Path(launcher_path).exists():
-            raise RuntimeError(f"DeepScientist launcher path does not exist: {launcher_path}")
+            raise RuntimeError(f"EEEE Scientist launcher path does not exist: {launcher_path}")
         return [node_binary, launcher_path, "update", "--home", str(self.home)]
 
     def system_update_status(self) -> dict[str, object]:
@@ -1090,15 +1090,15 @@ class DaemonApp:
                 **_windows_hidden_subprocess_kwargs(),
             )
         except subprocess.TimeoutExpired as exc:
-            raise RuntimeError("DeepScientist update check timed out.") from exc
+            raise RuntimeError("EEEE Scientist update check timed out.") from exc
         if result.returncode != 0:
             raise RuntimeError((result.stderr or result.stdout or "Update check failed.").strip())
         try:
             payload = json.loads(result.stdout or "{}")
         except json.JSONDecodeError as exc:
-            raise RuntimeError("DeepScientist update check returned invalid JSON.") from exc
+            raise RuntimeError("EEEE Scientist update check returned invalid JSON.") from exc
         if not isinstance(payload, dict):
-            raise RuntimeError("DeepScientist update check returned an invalid payload.")
+            raise RuntimeError("EEEE Scientist update check returned an invalid payload.")
         return payload
 
     def request_system_update(self, *, action: str) -> dict[str, object]:
@@ -1138,15 +1138,15 @@ class DaemonApp:
                 **_windows_hidden_subprocess_kwargs(),
             )
         except subprocess.TimeoutExpired as exc:
-            raise RuntimeError("DeepScientist update request timed out.") from exc
+            raise RuntimeError("EEEE Scientist update request timed out.") from exc
         if result.returncode != 0:
             raise RuntimeError((result.stderr or result.stdout or "Update request failed.").strip())
         try:
             payload = json.loads(result.stdout or "{}")
         except json.JSONDecodeError as exc:
-            raise RuntimeError("DeepScientist update request returned invalid JSON.") from exc
+            raise RuntimeError("EEEE Scientist update request returned invalid JSON.") from exc
         if not isinstance(payload, dict):
-            raise RuntimeError("DeepScientist update request returned an invalid payload.")
+            raise RuntimeError("EEEE Scientist update request returned an invalid payload.")
         return payload
 
     def _process_terminal_attach_request(
@@ -4241,8 +4241,8 @@ class DaemonApp:
         )
         runner_label = self._connector_runner_label(runner_name)
         user_notice = self._polite_copy(
-            zh=f"DeepScientist 意外停止运行，请检查你所绑定的{runner_label}是否能够顺利连接。",
-            en=f"DeepScientist stopped unexpectedly. Please check whether the bound {runner_label} can connect normally.",
+            zh=f"EEEE Scientist 意外停止运行，请检查你所绑定的{runner_label}是否能够顺利连接。",
+            en=f"EEEE Scientist stopped unexpectedly. Please check whether the bound {runner_label} can connect normally.",
         )
         notice_message = "\n".join([user_notice, "", summary]).strip()
         if normalized_guidance:
@@ -4650,7 +4650,7 @@ class DaemonApp:
         if self._shutdown_requested.is_set():
             return {
                 "ok": True,
-                "message": "DeepScientist daemon shutdown is already in progress.",
+                "message": "EEEE Scientist daemon shutdown is already in progress.",
                 "source": source,
             }
         interrupted_quests: list[str] = []
@@ -4692,7 +4692,7 @@ class DaemonApp:
         ).start()
         return {
             "ok": True,
-            "message": "DeepScientist daemon shutdown requested.",
+            "message": "EEEE Scientist daemon shutdown requested.",
             "source": source,
             "interrupted_quests": interrupted_quests,
         }
@@ -4735,7 +4735,7 @@ class DaemonApp:
             "session_key": session_key,
             "qrcode_content": qrcode_content,
             "qrcode_url": qrcode_content,
-            "message": "Weixin QR code is ready. Scan it with WeChat to connect DeepScientist.",
+            "message": "Weixin QR code is ready. Scan it with WeChat to connect EEEE Scientist.",
         }
 
     def wait_weixin_login_qr(self, *, session_key: str, timeout_ms: int = 1_500) -> dict[str, Any]:
@@ -4858,7 +4858,7 @@ class DaemonApp:
                 "status": "confirmed",
                 "errors": save_result.get("errors") or [],
                 "warnings": save_result.get("warnings") or [],
-                "message": "Weixin login succeeded, but DeepScientist could not persist the connector config.",
+                "message": "Weixin login succeeded, but EEEE Scientist could not persist the connector config.",
             }
         self.reload_connectors_config()
         self._weixin_login_sessions.pop(str(session.get("session_key") or ""), None)
@@ -7034,13 +7034,13 @@ class DaemonApp:
         has_explicit_runner_failure = bool(readiness_summary or readiness_errors or readiness_guidance)
         if reason == "stalled_turn_recovery_pending":
             return self._polite_copy(
-                zh=f"正在启动 DeepScientist，当前会先恢复 `{quest_id}` 里停滞的运行，再继续处理您的新消息。",
-                en=f"DeepScientist is starting up. I’m recovering the stalled run in `{quest_id}` first, then I’ll continue with your new message.",
+                zh=f"正在启动 EEEE Scientist，当前会先恢复 `{quest_id}` 里停滞的运行，再继续处理您的新消息。",
+                en=f"EEEE Scientist is starting up. I’m recovering the stalled run in `{quest_id}` first, then I’ll continue with your new message.",
             )
         if started or auto_resumed:
             return self._polite_copy(
-                zh=f"已经成功收到消息，DeepScientist 已经启动并开始处理 `{quest_id}` 啦。",
-                en=f"Message received successfully. DeepScientist has started and is now processing `{quest_id}`.",
+                zh=f"已经成功收到消息，EEEE Scientist 已经启动并开始处理 `{quest_id}` 啦。",
+                en=f"Message received successfully. EEEE Scientist has started and is now processing `{quest_id}`.",
             )
         if queued:
             return self._polite_copy(
@@ -7051,10 +7051,10 @@ class DaemonApp:
             status_line = f" 当前状态：{readiness_summary}" if readiness_summary else ""
             return self._polite_copy(
                 zh=(
-                    f"DeepScientist 仍然不在线哟，请检查你所绑定的{runner_label}是否能够顺利连接。{status_line}"
+                    f"EEEE Scientist 仍然不在线哟，请检查你所绑定的{runner_label}是否能够顺利连接。{status_line}"
                 ),
                 en=(
-                    f"DeepScientist is still offline. Please check whether the bound {runner_label} can connect normally."
+                    f"EEEE Scientist is still offline. Please check whether the bound {runner_label} can connect normally."
                     f"{(' Current status: ' + readiness_summary) if readiness_summary else ''}"
                 ),
             )
@@ -8843,9 +8843,9 @@ class DaemonApp:
         self._start_terminal_attach_server(host, port)
         self._start_background_connectors()
         self._resume_reconciled_quests()
-        print(f"DeepScientist daemon listening on http://{host}:{port}")
+        print(f"EEEE Scientist daemon listening on http://{host}:{port}")
         if self.browser_auth_enabled and self.browser_auth_token:
-            print(f"DeepScientist auth token: {self.browser_auth_token}")
+            print(f"EEEE Scientist auth token: {self.browser_auth_token}")
         try:
             server.serve_forever()
         except KeyboardInterrupt:

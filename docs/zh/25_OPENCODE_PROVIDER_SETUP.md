@@ -1,8 +1,8 @@
 # 25 OpenCode 配置指南
 
-DeepScientist 对 OpenCode 也不会额外维护一层独立 provider 适配。
+EEEE Scientist 对 OpenCode 也不会额外维护一层独立 provider 适配。
 
-它复用的是你机器上已经能正常工作的 `opencode` CLI，在运行时注入 DeepScientist MCP，并同步一方 skills 到 OpenCode 的项目目录。
+它复用的是你机器上已经能正常工作的 `opencode` CLI，在运行时注入 EEEE Scientist MCP，并同步一方 skills 到 OpenCode 的项目目录。
 
 正确顺序是：
 
@@ -10,9 +10,9 @@ DeepScientist 对 OpenCode 也不会额外维护一层独立 provider 适配。
 2. 先在 OpenCode 里完成 provider 认证和配置
 3. 先直接验证 `opencode run`
 4. 再运行 `ds doctor`
-5. 最后再把 DeepScientist 切到 `opencode` runner
+5. 最后再把 EEEE Scientist 切到 `opencode` runner
 
-如果 `opencode` 本身还没通，先修 DeepScientist 是错误顺序。
+如果 `opencode` 本身还没通，先修 EEEE Scientist 是错误顺序。
 
 ## 官方文档先读哪些
 
@@ -27,11 +27,11 @@ DeepScientist 对 OpenCode 也不会额外维护一层独立 provider 适配。
 - Ollama OpenAI compatibility：`https://docs.ollama.com/openai`
 - Ollama + OpenCode：`https://docs.ollama.com/integrations/opencode`
 
-DeepScientist 依赖的就是同一套本地 OpenCode 配置。
+EEEE Scientist 依赖的就是同一套本地 OpenCode 配置。
 
-## DeepScientist 实际如何调用 OpenCode
+## EEEE Scientist 实际如何调用 OpenCode
 
-DeepScientist 当前对 OpenCode 的调用形态接近：
+EEEE Scientist 当前对 OpenCode 的调用形态接近：
 
 ```bash
 opencode run \
@@ -51,7 +51,7 @@ opencode run \
 
 这三个 quest 局部 MCP server。
 
-同时会把 DeepScientist 一方 skills 同步到：
+同时会把 EEEE Scientist 一方 skills 同步到：
 
 ```text
 <quest_root>/.opencode/skills/
@@ -127,11 +127,11 @@ OpenCode 的凭据默认存放在：
 ~/.config/opencode/opencode.json
 ```
 
-如果你第一次接触 OpenCode provider，建议先在 OpenCode 自己的 TUI/CLI 里把 provider 接通，再回到 DeepScientist。
+如果你第一次接触 OpenCode provider，建议先在 OpenCode 自己的 TUI/CLI 里把 provider 接通，再回到 EEEE Scientist。
 
 ## 第三步：先直接验证 OpenCode
 
-在改 DeepScientist 设置之前，先确认 OpenCode 自己能跑。
+在改 EEEE Scientist 设置之前，先确认 OpenCode 自己能跑。
 
 ### 最小 smoke check
 
@@ -156,11 +156,11 @@ opencode run \
   "Reply with exactly HELLO"
 ```
 
-如果这里不通，先别碰 DeepScientist。
+如果这里不通，先别碰 EEEE Scientist。
 
 ## OpenCode 里最重要的配置概念
 
-结合当前官方文档和 CLI help，DeepScientist 相关的 OpenCode 概念主要有：
+结合当前官方文档和 CLI help，EEEE Scientist 相关的 OpenCode 概念主要有：
 
 - 全局配置文件：`~/.config/opencode/opencode.json`
 - 凭据文件：`~/.local/share/opencode/auth.json`
@@ -183,7 +183,7 @@ OpenCode 官方 config 文档强调：配置是合并的，不是整份替换。
 - `.opencode/plugins/`
 - `.opencode/tools/`
 
-这和 DeepScientist 当前同步 quest 局部 skills 的方式是兼容的。
+这和 EEEE Scientist 当前同步 quest 局部 skills 的方式是兼容的。
 
 ## Provider 配置
 
@@ -207,21 +207,21 @@ OpenCode 官方 provider 文档当前说明了：
 }
 ```
 
-这对 DeepScientist 的含义是：
+这对 EEEE Scientist 的含义是：
 
 - 如果 OpenCode 自己已经能走你的 provider
-- DeepScientist 一般可以直接复用
-- 通常不需要再写 DeepScientist 私有 provider 适配
+- EEEE Scientist 一般可以直接复用
+- 通常不需要再写 EEEE Scientist 私有 provider 适配
 
 ## Gemini
 
-如果你想在 DeepScientist 里用 Gemini，当前最推荐的 runner 是 OpenCode。
+如果你想在 EEEE Scientist 里用 Gemini，当前最推荐的 runner 是 OpenCode。
 
 原因是：
 
 - Gemini 官方提供 OpenAI-compatible endpoint
 - OpenCode 官方支持自定义 OpenAI-compatible provider
-- DeepScientist 的 OpenCode runner 会复用 `~/.config/opencode/opencode.json`，并可以把 `runners.opencode.env` 里的 `GEMINI_API_KEY` 传给 OpenCode
+- EEEE Scientist 的 OpenCode runner 会复用 `~/.config/opencode/opencode.json`，并可以把 `runners.opencode.env` 里的 `GEMINI_API_KEY` 传给 OpenCode
 
 ### 1. 先准备 Gemini API key
 
@@ -282,11 +282,11 @@ opencode run \
   "Reply with exactly HELLO."
 ```
 
-如果这一步失败，先修 OpenCode provider，不要先改 DeepScientist。
+如果这一步失败，先修 OpenCode provider，不要先改 EEEE Scientist。
 
-### 4. 再映射到 DeepScientist
+### 4. 再映射到 EEEE Scientist
 
-如果你希望 OpenCode 自己决定默认模型，DeepScientist 里保持 `model: inherit`：
+如果你希望 OpenCode 自己决定默认模型，EEEE Scientist 里保持 `model: inherit`：
 
 ```yaml
 opencode:
@@ -298,7 +298,7 @@ opencode:
     GEMINI_API_KEY: "..."
 ```
 
-如果你希望 DeepScientist 每次都强制用 Gemini：
+如果你希望 EEEE Scientist 每次都强制用 Gemini：
 
 ```yaml
 opencode:
@@ -398,9 +398,9 @@ opencode run \
   "Reply with exactly HELLO."
 ```
 
-哪个命令能通，DeepScientist 里的 `model` 就按哪个写。
+哪个命令能通，EEEE Scientist 里的 `model` 就按哪个写。
 
-### 4. 再映射到 DeepScientist
+### 4. 再映射到 EEEE Scientist
 
 内置 Ollama provider 示例：
 
@@ -429,7 +429,7 @@ ds doctor --runner opencode
 ds --runner opencode
 ```
 
-如果 DeepScientist 里跑不通，但直接 `opencode run --model ...` 能通，优先检查 `runners.opencode.model` 是否和你验证过的模型字符串完全一致。
+如果 EEEE Scientist 里跑不通，但直接 `opencode run --model ...` 能通，优先检查 `runners.opencode.model` 是否和你验证过的模型字符串完全一致。
 
 ## Agents 和 skills
 
@@ -439,7 +439,7 @@ OpenCode 官方支持：
 - 在 `~/.config/opencode/agents/` 或 `.opencode/agents/` 下放 agent 文件
 - 在 `.opencode/skills/<name>/SKILL.md` 下放 skills
 
-DeepScientist 当前会把自己的 first-party skills 映射到：
+EEEE Scientist 当前会把自己的 first-party skills 映射到：
 
 ```text
 <quest_root>/.opencode/skills/deepscientist-*/
@@ -448,10 +448,10 @@ DeepScientist 当前会把自己的 first-party skills 映射到：
 所以从用户角度看：
 
 - 你自己的 OpenCode 全局 agent 仍然是全局的
-- DeepScientist 的 quest skills 会按 quest 同步
+- EEEE Scientist 的 quest skills 会按 quest 同步
 - 如果你需要特定 OpenCode agent，也可以通过 `runners.opencode.default_agent` 透传 `--agent`
 
-## 第四步：映射到 DeepScientist 配置
+## 第四步：映射到 EEEE Scientist 配置
 
 ### 全局默认 runner
 
@@ -493,7 +493,7 @@ opencode:
 - `Runners -> opencode.config_dir`
   - 一般是 `~/.config/opencode`
 - `Runners -> opencode.model`
-  - 不想让 DeepScientist 强制覆盖模型时保持 `inherit`
+  - 不想让 EEEE Scientist 强制覆盖模型时保持 `inherit`
 - `Runners -> opencode.default_agent`
   - 对应 OpenCode 的 `--agent`
 - `Runners -> opencode.variant`
@@ -501,7 +501,7 @@ opencode:
 - `Runners -> opencode.mcp_timeout_ms`
   - OpenCode 启动时从每个 MCP server 拉取 tools 的超时；这不是工具执行超时
 
-## 第五步：验证 DeepScientist
+## 第五步：验证 EEEE Scientist
 
 当终端里的 OpenCode 已经验证通过之后，再运行：
 
@@ -515,7 +515,7 @@ ds doctor
 - startup hello probe 成功
 - `config_dir` 可读
 
-然后再启动 DeepScientist：
+然后再启动 EEEE Scientist：
 
 ```bash
 ds
@@ -525,7 +525,7 @@ ds
 
 ## 模型接入与其他 provider
 
-如果你想通过 OpenCode 接更多模型/provider，OpenCode 是当前 DeepScientist 内建 runner 里最灵活的一条路径。
+如果你想通过 OpenCode 接更多模型/provider，OpenCode 是当前 EEEE Scientist 内建 runner 里最灵活的一条路径。
 
 官方文档已经覆盖：
 
@@ -534,16 +534,16 @@ ds
 - 本地模型
 - 大量第三方 provider
 
-对 DeepScientist 来说，这意味着：
+对 EEEE Scientist 来说，这意味着：
 
 - 只要 OpenCode 自己已经能跑该 provider
-- DeepScientist 一般就能复用
+- EEEE Scientist 一般就能复用
 - 如果希望 OpenCode 自己决定默认模型，保持 `runners.opencode.model: inherit`
-- 只有当你明确要让 DeepScientist 每次 quest turn 都强制指定某个模型时，才写死 `runners.opencode.model`
+- 只有当你明确要让 EEEE Scientist 每次 quest turn 都强制指定某个模型时，才写死 `runners.opencode.model`
 
 ## 项目级切换
 
-DeepScientist 现在支持两层切换：
+EEEE Scientist 现在支持两层切换：
 
 ### 新 quest 跟随全局默认值
 
@@ -563,9 +563,9 @@ default_runner: opencode
 - 某个 quest 改到 OpenCode
 - 某个 Claude quest 后面再切到 OpenCode
 
-## DeepScientist 的 OpenCode 运行时行为
+## EEEE Scientist 的 OpenCode 运行时行为
 
-每次运行前，DeepScientist 会在 quest 下创建 OpenCode 局部 runtime home：
+每次运行前，EEEE Scientist 会在 quest 下创建 OpenCode 局部 runtime home：
 
 ```text
 <quest_root>/.ds/opencode-home/
@@ -579,7 +579,7 @@ default_runner: opencode
 <quest_root>/.opencode/skills/
 ```
 
-所以你不需要手写 DeepScientist 自己的 MCP 或一方 skills。
+所以你不需要手写 EEEE Scientist 自己的 MCP 或一方 skills。
 
 ## 常见故障
 
@@ -636,7 +636,7 @@ runners:
 <quest_root>/.opencode/skills/
 ```
 
-DeepScientist 会在 quest 创建和 prompt 同步时自动写进去。
+EEEE Scientist 会在 quest 创建和 prompt 同步时自动写进去。
 
 ## 推荐默认值
 
@@ -657,4 +657,4 @@ opencode:
   env: {}
 ```
 
-然后所有 provider 认证、模型和 agent 调优都先在 OpenCode 自己那边跑通，再把 DeepScientist 切过来。
+然后所有 provider 认证、模型和 agent 调优都先在 OpenCode 自己那边跑通，再把 EEEE Scientist 切过来。

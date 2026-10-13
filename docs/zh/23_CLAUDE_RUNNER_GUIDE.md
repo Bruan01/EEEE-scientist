@@ -1,8 +1,8 @@
-# 23 Claude Runner 指南：用 Claude Code CLI 驱动 DeepScientist
+# 23 Claude Runner 指南：用 Claude Code CLI 驱动 EEEE Scientist
 
-DeepScientist 支持 `codex` 和 `claude` 两个 runner。本文说明如何用 Claude Code CLI 替代 Codex 作为执行引擎。
+EEEE Scientist 支持 `codex` 和 `claude` 两个 runner。本文说明如何用 Claude Code CLI 替代 Codex 作为执行引擎。
 
-计费说明：DeepScientist 不调用模型 API，只启动本机 CLI 子进程。使用 Claude runner 走的是你的 Claude 订阅额度（Max / Pro），不是 Anthropic API 按量计费。
+计费说明：EEEE Scientist 不调用模型 API，只启动本机 CLI 子进程。使用 Claude runner 走的是你的 Claude 订阅额度（Max / Pro），不是 Anthropic API 按量计费。
 
 ## 1. 安装并验证 Claude Code CLI
 
@@ -14,12 +14,12 @@ claude -p "Reply with exactly OK."
 
 如果最后一步不通（未认证、订阅不支持、命令找不到），先修通 CLI 再继续。
 
-## 2. 初始化 DeepScientist 并修改配置
+## 2. 初始化 EEEE Scientist 并修改配置
 
-先确保 DeepScientist 已安装，然后初始化配置目录：
+先确保 EEEE Scientist 已安装，然后初始化配置目录：
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 ds init
 ```
 

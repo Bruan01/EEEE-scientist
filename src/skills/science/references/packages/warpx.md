@@ -15,7 +15,7 @@
 
 WarpX is a high-performance electromagnetic and electrostatic particle-in-cell simulator for plasma and accelerator modeling, with mesh refinement, boosted-frame techniques, and scalable CPU and GPU execution on supercomputers.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

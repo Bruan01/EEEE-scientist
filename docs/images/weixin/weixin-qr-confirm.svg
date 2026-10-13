@@ -7,7 +7,7 @@
   <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">One QR image in the modal, phone-side confirmation, automatic persistence</text>
 
   <rect x="86" y="190" width="484" height="456" rx="28" fill="#FBFCFF" stroke="#DCE4F4" stroke-width="2"/>
-  <text x="118" y="244" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">DeepScientist modal</text>
+  <text x="118" y="244" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">EEEE Scientist modal</text>
   <rect x="158" y="288" width="340" height="340" rx="26" fill="#fff" stroke="#CBD5E1" stroke-width="2"/>
   <rect x="198" y="328" width="260" height="260" fill="#111827"/>
   <rect x="220" y="350" width="60" height="60" fill="#fff"/>
@@ -26,5 +26,5 @@
   <text x="896" y="440" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Confirm login</text>
   <rect x="874" y="500" width="140" height="82" rx="18" fill="#86EFAC"/>
   <text x="895" y="548" fill="#14532D" font-family="Arial, sans-serif" font-size="18" font-weight="700">Saved automatically</text>
-  <text x="742" y="638" fill="#475569" font-family="Arial, sans-serif" font-size="17">DeepScientist persists the returned token and account ids.</text>
+  <text x="742" y="638" fill="#475569" font-family="Arial, sans-serif" font-size="17">EEEE Scientist persists the returned token and account ids.</text>
 </svg>

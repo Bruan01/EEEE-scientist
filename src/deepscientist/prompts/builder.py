@@ -703,7 +703,7 @@ class PromptBuilder:
             f"- web_ui_root: {(self.repo_root / 'src' / 'ui').resolve()}",
             f"- tui_root: {(self.repo_root / 'src' / 'tui').resolve()}",
             "- install_path_rule: treat the paths above as the active local checkout / install roots for this admin session unless fresh evidence proves a different deployed copy is in use.",
-            "- github_origin: https://github.com/ResearAI/DeepScientist",
+            "- github_origin: https://github.com/Bruan01/EEEE-scientist",
         ]
         if isinstance(targets, dict) and targets:
             lines.extend(
@@ -1483,7 +1483,7 @@ class PromptBuilder:
                 f"- sibling_quest_brief_glob: {(self.home / 'quests' / '*' / 'brief.md')}",
                 "- cross_quest_recall_rule: you may use `bash_exec(...)` to scan sibling quest briefs and deep-read materially relevant sibling quest papers, especially Conclusion and Limitations / Discussion.",
                 "- framework_quirks_rule: read or append `framework_quirks.md` only for durable framework-layer pitfalls and workarounds that future quests should know before touching the same surface.",
-                "- system_quirks_rule: read or append `system_quirks.md` only for confirmed DeepScientist runtime/system bugs, with expected behavior, actual behavior, reproduction, impact, workaround, suggested fix, evidence paths, and status.",
+                "- system_quirks_rule: read or append `system_quirks.md` only for confirmed EEEE Scientist runtime/system bugs, with expected behavior, actual behavior, reproduction, impact, workaround, suggested fix, evidence paths, and status.",
                 "- privacy_rule: do not write secrets, tokens, private hostnames, private paths, or raw logs to either quirks file; redact before recording.",
                 "- fix_first_rule: prefer fixing code over recording permanent quirks; use quirks for confirmed behavior that cannot be fixed immediately or for short-lived workaround memory while the fix lands.",
             ]
@@ -1671,7 +1671,7 @@ class PromptBuilder:
             elif custom_profile == "admin_ops":
                 lines.extend(
                     [
-                        "- admin_ops_entry_rule: this is an administrator diagnosis / repair session for the local DeepScientist runtime rather than an ordinary end-user research quest.",
+                        "- admin_ops_entry_rule: this is an administrator diagnosis / repair session for the local EEEE Scientist runtime rather than an ordinary end-user research quest.",
                         "- admin_ops_scope_rule: treat `startup_contract.admin_session`, `entry_state_summary`, `custom_brief`, and `review_materials` as the active incident context packet.",
                         "- admin_ops_truth_rule: prefer documented daemon APIs, durable quest files, config files, connector state, runtime logs, and bounded `bash_exec(...)` inspection over speculation.",
                         "- admin_ops_repair_rule: diagnose first, then apply the smallest safe fix allowed by the repair policy; avoid direct mutation of undocumented `.ds/*` internals when a safer route exists.",

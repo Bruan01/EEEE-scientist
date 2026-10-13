@@ -28,7 +28,7 @@ else:
 def require_yaml() -> None:
     if yaml is None:
         raise RuntimeError(
-            "PyYAML is required for DeepScientist Core. Install it with `pip install pyyaml`."
+            "PyYAML is required for EEEE Scientist Core. Install it with `pip install pyyaml`."
         ) from YAML_IMPORT_ERROR
 
 

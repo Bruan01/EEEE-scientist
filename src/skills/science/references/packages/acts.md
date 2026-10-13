@@ -15,7 +15,7 @@
 
 ACTS is a modern C++ toolkit for experiment independent charged particle track reconstruction, detector geometry, and fast tracking simulation in high energy physics workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -10,7 +10,7 @@ skill_role: companion
 This companion skill is adapted from `Yuan1z0825/nature-skills/tree/main/nature-figure`.
 See `UPSTREAM_LICENSE.txt` for the upstream MIT license.
 
-## DeepScientist integration
+## EEEE Scientist integration
 
 - Follow the shared interaction contract injected by the system prompt.
 - Use this for Nature-family or other high-impact journal figure work when the figure itself is a submission-grade deliverable, especially multi-panel or journal-export work.

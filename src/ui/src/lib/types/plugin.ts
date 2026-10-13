@@ -510,7 +510,7 @@ export interface UnifiedPluginManifest {
   /** Plugin dependencies (pluginId -> version range) */
   dependencies?: Record<string, string>;
 
-  /** Minimum DeepScientist version requirement */
+  /** Minimum EEEE Scientist version requirement */
   engines?: {
     deepscientist: string;
   };

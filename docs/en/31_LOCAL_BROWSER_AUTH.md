@@ -1,6 +1,6 @@
 # 31 Local Browser Auth
 
-DeepScientist can optionally protect the local web workspace with a generated 16-character password.
+EEEE Scientist can optionally protect the local web workspace with a generated 16-character password.
 
 This protection is local-first:
 
@@ -10,14 +10,14 @@ This protection is local-first:
 
 ## What Happens On Startup
 
-When you run `ds --auth true`, DeepScientist starts the daemon and prints two important things in the terminal:
+When you run `ds --auth true`, EEEE Scientist starts the daemon and prints two important things in the terminal:
 
 - the local browser URL, such as `http://127.0.0.1:20999`
 - the generated local access password for that launch
 
 The browser URL is no longer expected to carry `?token=...`.
 
-If the browser is not already authenticated, DeepScientist shows a password modal on top of the landing page before it loads quests, docs, settings, or workspace data.
+If the browser is not already authenticated, EEEE Scientist shows a password modal on top of the landing page before it loads quests, docs, settings, or workspace data.
 
 ## How To View The Password
 

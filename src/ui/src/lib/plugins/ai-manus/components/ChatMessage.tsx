@@ -385,7 +385,7 @@ function ChatMessageBase({
     senderType === 'agent' && typeof messageContent.metadata?.sender_avatar_url === 'string'
       ? messageContent.metadata.sender_avatar_url
       : fallbackAvatar
-  const assistantTitle = senderName || 'DeepScientist'
+  const assistantTitle = senderName || 'EEEE Scientist'
   const deliveryState =
     typeof messageContent.metadata?.delivery_state === 'string'
       ? messageContent.metadata.delivery_state.toLowerCase()
@@ -455,13 +455,13 @@ function ChatMessageBase({
       <>
         <img
           src={BRAND_LOGO_SMALL_SRC}
-          alt="DeepScientist logo"
+          alt="EEEE Scientist logo"
           className={cn(avatarClassName, 'dark:hidden')}
           draggable={false}
         />
         <img
           src={BRAND_LOGO_SMALL_SRC_INVERTED}
-          alt="DeepScientist logo"
+          alt="EEEE Scientist logo"
           className={cn(avatarClassName, 'hidden dark:block')}
           draggable={false}
         />

@@ -15,7 +15,7 @@
 
 Snakemake is a Python based workflow management system for reproducible and scalable scientific data pipelines that execute on local machines, HPC clusters, grids, and cloud environments.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

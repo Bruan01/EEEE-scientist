@@ -15,7 +15,7 @@
 
 CalculiX is an open-source three-dimensional finite element package for structural and thermomechanical simulation, with ABAQUS-style input decks and engineering stress analysis workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

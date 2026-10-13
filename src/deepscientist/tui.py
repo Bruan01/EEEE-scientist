@@ -105,7 +105,7 @@ def render_tui(base_url: str, *, quest_id: str | None = None, cursor: int = 0) -
             )
 
     lines = [
-        "DeepScientist TUI",
+        "EEEE Scientist TUI",
         "=" * 24,
         "",
         "Quests:",

@@ -1553,7 +1553,7 @@ def test_codex_bootstrap_fallback_persists_runner_model_as_inherit(monkeypatch, 
                 "stderr_excerpt": "",
             },
             "guidance": [
-                "DeepScientist switched the Codex runner model to `inherit` so future runs keep using the current Codex default model."
+                "EEEE Scientist switched the Codex runner model to `inherit` so future runs keep using the current Codex default model."
             ],
         },
     )
@@ -1617,7 +1617,7 @@ def test_codex_bootstrap_probe_persists_failure_state(monkeypatch, temp_home: Pa
             "warnings": ["Codex returned stderr during the startup probe."],
             "errors": [
                 "Codex did not complete the startup hello probe successfully.",
-                "Run `codex` once and complete login before starting DeepScientist.",
+                "Run `codex` once and complete login before starting EEEE Scientist.",
             ],
             "details": {
                 "binary": "codex",

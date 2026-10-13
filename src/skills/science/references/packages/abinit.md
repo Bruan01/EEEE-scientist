@@ -15,7 +15,7 @@
 
 ABINIT is a first-principles atomic-scale simulation package for computing electronic, structural, vibrational, and dielectric properties of materials using DFT and related methods.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

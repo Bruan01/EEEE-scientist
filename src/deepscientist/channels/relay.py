@@ -604,13 +604,13 @@ class GenericRelayChannel(BaseChannel):
     def _looks_like_mention(self, text: str, *, profile: dict[str, Any] | None = None) -> bool:
         lowered = (text or "").lower()
         profile_config = profile or {}
-        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "DeepScientist").strip().lower()
+        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "EEEE Scientist").strip().lower()
         return f"@{bot_name}" in lowered
 
     def _strip_mention_prefix(self, text: str, *, profile: dict[str, Any] | None = None) -> str:
         cleaned = str(text or "").strip()
         profile_config = profile or {}
-        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "DeepScientist").strip()
+        bot_name = str(profile_config.get("bot_name") or self.config.get("bot_name") or "EEEE Scientist").strip()
         prefix = f"@{bot_name}"
         if cleaned.startswith(prefix):
             return cleaned[len(prefix):].strip()

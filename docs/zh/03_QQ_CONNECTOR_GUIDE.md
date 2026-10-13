@@ -1,21 +1,21 @@
-# 03 QQ 连接器指南：如何用 QQ 与 DeepScientist 沟通
+# 03 QQ 连接器指南：如何用 QQ 与 EEEE Scientist 沟通
 
-本文说明如何通过 QQ 与 DeepScientist 对话，以及如何在 DeepScientist 的 `Settings` 页面完成 QQ connector 配置。
+本文说明如何通过 QQ 与 EEEE Scientist 对话，以及如何在 EEEE Scientist 的 `Settings` 页面完成 QQ connector 配置。
 
 适用范围：
 
-- 当前 DeepScientist 内置 QQ 官方 Gateway 直连方案
+- 当前 EEEE Scientist 内置 QQ 官方 Gateway 直连方案
 - 不需要公网 callback URL
 - 不需要 `relay_url`
 - 不需要额外安装 QQ 插件
 
-如果你此前参考过 OpenClaw / NanoClaw 一类的文章，请特别注意：DeepScientist 的 QQ 接入方式已经内置在运行时里，配置入口是 `Settings > Connectors > QQ`，而不是命令行安装插件。
+如果你此前参考过 OpenClaw / NanoClaw 一类的文章，请特别注意：EEEE Scientist 的 QQ 接入方式已经内置在运行时里，配置入口是 `Settings > Connectors > QQ`，而不是命令行安装插件。
 
 ## 1. 你最终会得到什么
 
 完成本文档后，你应该可以做到：
 
-- 用 QQ 私聊 DeepScientist
+- 用 QQ 私聊 EEEE Scientist
 - 让 QQ 自动绑定到当前最新项目
 - 在 QQ 中使用 `/new`、`/use latest`、`/status` 等命令
 - 在 `Settings` 页面看到自动检测到的 `openid`
@@ -26,7 +26,7 @@
 
 开始前，建议先确认下面几项：
 
-- DeepScientist 已经成功安装，并且 daemon / web UI 正在运行
+- EEEE Scientist 已经成功安装，并且 daemon / web UI 正在运行
 - 你可以正常打开 `Settings > Connectors`
 - 你已经准备好 QQ 机器人的 `AppID` 和 `AppSecret`
 - 你有一个真实的 QQ 账号可以主动给机器人发送第一条私聊消息
@@ -69,7 +69,7 @@ https://q.qq.com/qqbot/openclaw/login.html
 
 创建成功后，请立即记录下面两项：
 
-| 字段 | 说明 | 是否必填到 DeepScientist |
+| 字段 | 说明 | 是否必填到 EEEE Scientist |
 | --- | --- | --- |
 | `AppID` | 机器人唯一标识 | 必填 |
 | `AppSecret` | 调用 QQ Bot API 的密钥 | 必填 |
@@ -78,13 +78,13 @@ https://q.qq.com/qqbot/openclaw/login.html
 
 - `AppSecret` 往往只在创建或重置时显示一次。
 - 如果你没有保存 `AppSecret`，后续通常只能去控制台重置。
-- DeepScientist 只需要这两个凭据即可启动 QQ 官方 Gateway 直连。
+- EEEE Scientist 只需要这两个凭据即可启动 QQ 官方 Gateway 直连。
 
-## 3. 在 DeepScientist 里，不需要做什么
+## 3. 在 EEEE Scientist 里，不需要做什么
 
 如果你是从 OpenClaw 相关文章迁移过来的，这一节很重要。
 
-在 DeepScientist 中，下面这些步骤都不需要做：
+在 EEEE Scientist 中，下面这些步骤都不需要做：
 
 - 不需要安装 `@sliverp/qqbot`
 - 不需要执行 `openclaw channels add ...`
@@ -92,7 +92,7 @@ https://q.qq.com/qqbot/openclaw/login.html
 - 不需要配置 `relay_url`
 - 不需要在第一次联通前手动填写 `openid`
 
-DeepScientist 当前的 QQ 路径是：
+EEEE Scientist 当前的 QQ 路径是：
 
 - 固定 `transport: gateway_direct`
 - 直接使用 `app_id + app_secret`
@@ -160,12 +160,12 @@ DeepScientist 当前的 QQ 路径是：
 在第一次私聊前，QQ 测试结果很可能出现这类提示：
 
 ```text
-QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so DeepScientist can auto-detect and save the `openid`.
+QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so EEEE Scientist can auto-detect and save the `openid`.
 ```
 
 这通常不是致命错误，而是在提醒你：
 
-- DeepScientist 已经能做 `access_token` 交换和 `/gateway` 探测
+- EEEE Scientist 已经能做 `access_token` 交换和 `/gateway` 探测
 - 但还没有一个可以主动发消息的目标 `openid`
 
 换句话说：
@@ -190,7 +190,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 你好
 ```
 
-如果接入正常，DeepScientist 会自动检测这次私聊对应的 `openid`，并写回 `main_chat_id`。
+如果接入正常，EEEE Scientist 会自动检测这次私聊对应的 `openid`，并写回 `main_chat_id`。
 
 ### 第五步：回到 Settings 页面确认状态
 
@@ -209,7 +209,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 
 - `发送测试消息`
 
-如果成功，说明 DeepScientist 已经能够：
+如果成功，说明 EEEE Scientist 已经能够：
 
 - 主动向该 QQ 用户发送消息
 - 接收该 QQ 用户的新消息
@@ -226,7 +226,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 
 ## 5.3 主实验指标图自动推送
 
-当 QQ 是当前 quest 的绑定连接器时，DeepScientist 现在会在每次主实验完成后自动发送指标时间线图片。
+当 QQ 是当前 quest 的绑定连接器时，EEEE Scientist 现在会在每次主实验完成后自动发送指标时间线图片。
 
 当前行为：
 
@@ -236,7 +236,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 - 超过 baseline 的点会额外标星
 - 最新点使用莫兰迪深红色填充
 - 较早的点使用莫兰迪深蓝色填充
-- 如果指标有多个，DeepScientist 会按顺序发送，并在相邻两张图之间间隔约 2 秒
+- 如果指标有多个，EEEE Scientist 会按顺序发送，并在相邻两张图之间间隔约 2 秒
 
 这些图来自 quest 本地生成的文件，并会作为 QQ 原生图片自动发送。
 
@@ -249,11 +249,11 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 | `app_id is required` / `app_secret is required` | 凭据没填完整 | 回到 Settings 补全后重新保存 |
 | `401` / `invalid credential` / token 获取失败 | `AppID` 或 `AppSecret` 有误，或者 secret 已被重置 | 到 QQ 机器人后台重新核对并保存 |
 | `QQ readiness is healthy, but no OpenID has been learned yet...` | 凭据大概率已经生效，但系统还不知道要给哪个 QQ 用户发主动消息 | 先用你的 QQ 私聊机器人一条消息，让系统自动发现 `openid` |
-| `QQ callback flow usually needs public_callback_url...` | 这是旧式 callback/relay 思路下的提示，不是当前 DeepScientist 推荐路径 | 保持 `transport = gateway_direct`，不要额外配置 callback URL |
+| `QQ callback flow usually needs public_callback_url...` | 这是旧式 callback/relay 思路下的提示，不是当前 EEEE Scientist 推荐路径 | 保持 `transport = gateway_direct`，不要额外配置 callback URL |
 | `QQ relay mode needs relay_url...` | 说明 transport 被错误切到了 relay 模式 | 改回 `gateway_direct` |
 | `Detected OpenID` 一直为空 | 机器人还没收到第一条私聊，或者配置改完后 gateway 没重启成功 | 确认先保存配置，再从 QQ 私聊机器人，必要时重启 gateway |
 
-## 6. 如何在 QQ 中和 DeepScientist 沟通
+## 6. 如何在 QQ 中和 EEEE Scientist 沟通
 
 常用命令：
 
@@ -276,7 +276,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 
 ### 7.1 误以为 QQ 需要公网回调
 
-当前 DeepScientist 的 QQ 方案不需要公网 callback。
+当前 EEEE Scientist 的 QQ 方案不需要公网 callback。
 
 看到这些字段时，请注意：
 
@@ -294,7 +294,7 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 
 ### 7.3 误以为 `openid` 需要自己去找
 
-在 DeepScientist 里，最简单的方式不是手工查 `openid`，而是：
+在 EEEE Scientist 里，最简单的方式不是手工查 `openid`，而是：
 
 1. 先保存 `App ID` 和 `App secret`
 2. 再用 QQ 给机器人发一条私聊消息
@@ -342,4 +342,4 @@ QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, t
 说明：
 
 - 本文中的“注册 QQ 机器人”流程和截图参考了上面的腾讯云文章
-- 但 DeepScientist 的配置方式以当前 DeepScientist 内置 QQ connector 为准
+- 但 EEEE Scientist 的配置方式以当前 EEEE Scientist 内置 QQ connector 为准

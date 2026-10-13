@@ -21,7 +21,7 @@ export const codeViewerManifest: UnifiedPluginManifest = {
   description: "Syntax-highlighted code viewer with line numbers and copy support",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "Code",
 
   // ============================================================

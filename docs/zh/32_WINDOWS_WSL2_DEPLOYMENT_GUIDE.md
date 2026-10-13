@@ -1,6 +1,6 @@
 # 32 Windows + WSL2 部署指南
 
-本指南适用于 Windows 10/11 用户，通过 WSL2 在本地部署 DeepScientist，并使用阿里百炼 Coding Plan 作为模型后端。步骤覆盖 WSL2 安装、迁移到 D 盘、npm 免 `sudo` 配置、DeepScientist 与固定版本 Codex CLI 安装，以及常见问题排查。
+本指南适用于 Windows 10/11 用户，通过 WSL2 在本地部署 EEEE Scientist，并使用阿里百炼 Coding Plan 作为模型后端。步骤覆盖 WSL2 安装、迁移到 D 盘、npm 免 `sudo` 配置、EEEE Scientist 与固定版本 Codex CLI 安装，以及常见问题排查。
 
 ## 适用环境
 
@@ -96,10 +96,10 @@ echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 4. 安装 DeepScientist 和固定版本 Codex CLI
+## 4. 安装 EEEE Scientist 和固定版本 Codex CLI
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 npm install -g @openai/codex@0.57.0
 ```
 
@@ -164,7 +164,7 @@ codex --profile bailian
 
 ## 6. 安装 uv
 
-DeepScientist 的 Python 运行时依赖 `uv`：
+EEEE Scientist 的 Python 运行时依赖 `uv`：
 
 ```bash
 curl -LsSf https://github.com/astral-sh/uv/releases/latest/download/uv-installer.sh | sh
@@ -173,7 +173,7 @@ source ~/.bashrc
 uv --version
 ```
 
-## 7. 运行诊断并启动 DeepScientist
+## 7. 运行诊断并启动 EEEE Scientist
 
 ### 7.1 运行诊断
 
@@ -219,7 +219,7 @@ ds --stop
 | `wsl --import` 报 `HCS_E_HYPERV_NOT_INSTALLED` | 在 BIOS 中开启虚拟化，并执行 `bcdedit /set hypervisorlaunchtype auto` 后重启 |
 | `npm install -g` 权限错误 | 确认已把 npm 全局路径配置到用户目录 |
 | `ds doctor` 提示 Codex 版本不兼容 | 确认安装的是 `@openai/codex@0.57.0` |
-| Codex 可用但 DeepScientist 启动失败 | 确认启动时带了 `--codex-profile bailian` |
+| Codex 可用但 EEEE Scientist 启动失败 | 确认启动时带了 `--codex-profile bailian` |
 | `wire_api = "chat"` 弃用警告 | 目前可忽略；未来待上游兼容后可切到 `responses` |
 | `uv` 下载失败 | 配置代理，或尝试 `pip install uv --user` 作为替代 |
 
@@ -238,7 +238,7 @@ ds --stop
   sudo apt install -y texlive-latex-base texlive-latex-recommended texlive-fonts-recommended texlive-bibtex-extra
   ```
 
-  或使用 DeepScientist 内置运行时：
+  或使用 EEEE Scientist 内置运行时：
 
   ```bash
   ds latex install-runtime
@@ -255,7 +255,7 @@ ds --stop
 - Node.js 20.x
 - npm 10.8.2
 - Codex CLI 0.57.0
-- DeepScientist 1.6.0
+- EEEE Scientist 1.6.0
 - 阿里百炼 Coding Plan（`qwen3.5-plus`）
 
 如果后续项目版本、Codex 版本或阿里百炼 API 兼容方式发生变化，请以最新官方文档为准，并优先复查：

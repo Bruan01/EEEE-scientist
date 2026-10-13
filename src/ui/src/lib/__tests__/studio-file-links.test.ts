@@ -55,7 +55,7 @@ describe('resolveStudioFileLinkTarget', () => {
 
     expect(
       resolveStudioFileLinkTarget(
-        'http://deepscientist.cc:20999/ssdwork/DeepScientist/quests/104/baselines/local/citeeval-repaired-local-vllm/STATUS.md',
+        'http://127.0.0.1:20999/ssdwork/DeepScientist/quests/104/baselines/local/citeeval-repaired-local-vllm/STATUS.md',
         {
           currentOrigin: 'http://127.0.0.1:20999',
           questId: '104',

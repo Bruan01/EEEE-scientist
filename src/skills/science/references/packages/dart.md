@@ -15,7 +15,7 @@
 
 DART is a C++20 robotics and animation dynamics engine with stable articulated rigid-body simulation, collision and constraint handling, and Python bindings via dartpy.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

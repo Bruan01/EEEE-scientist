@@ -1,6 +1,6 @@
 # 07 Memory 与 MCP：内建 MCP 和记忆协议
 
-本文定义 DeepScientist Core 内建的 3 个 MCP namespace 的含义与使用纪律：
+本文定义 EEEE Scientist Core 内建的 3 个 MCP namespace 的含义与使用纪律：
 
 - `memory`
 - `artifact`
@@ -275,7 +275,7 @@ bash_exec.bash_exec(mode="await", id="<bash_id>", wait_timeout_seconds=1800)
 
 `~/DeepScientist/framework_quirks.md` 是 runtime-wide 的 append-only 文档，用于记录 framework-layer 坑，例如 validator path quirk、closure protocol gotcha、artifact/memory/prompt 契约中未来 quest 容易重复踩的问题。文件由 `ensure_home_layout` scaffold，但只有 runtime prompt 允许 cross-quest recall 时才应使用。
 
-`~/DeepScientist/system_quirks.md` 是 runtime-wide 的 append-only 文档，用于记录已确认的 DeepScientist runtime / system bug。它和 `framework_quirks.md` 分开：
+`~/DeepScientist/system_quirks.md` 是 runtime-wide 的 append-only 文档，用于记录已确认的 EEEE Scientist runtime / system bug。它和 `framework_quirks.md` 分开：
 
 - `framework_quirks.md` 服务 idea / decision / finalize 等研究流程判断
 - `system_quirks.md` 服务 admin / debug / settings issue 报告

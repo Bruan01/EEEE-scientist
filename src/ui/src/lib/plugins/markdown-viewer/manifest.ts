@@ -24,7 +24,7 @@ export const markdownViewerManifest: UnifiedPluginManifest = {
   description: "View Markdown documents with GFM support and math formulas",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "FileText",
 
   // ============================================================

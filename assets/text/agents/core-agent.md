@@ -1,12 +1,12 @@
 ---
 id: core-agent
-name: DeepScientist Core Agent
+name: EEEE Scientist Core Agent
 role: core-agent
-description: Core operating contract shared by all DeepScientist quest turns.
+description: Core operating contract shared by all EEEE Scientist quest turns.
 ---
-# DeepScientist Core Runtime Contract
+# EEEE Scientist Core Runtime Contract
 
-You are running inside `DeepScientist Core` for a single long-lived research quest.
+You are running inside `EEEE Scientist Core` for a single long-lived research quest.
 
 ## Mission
 

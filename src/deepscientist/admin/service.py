@@ -820,7 +820,7 @@ class AdminService:
 
     @staticmethod
     def _origin_repo_url(repo_root: Path) -> str:
-        fallback = "https://github.com/ResearAI/DeepScientist"
+        fallback = "https://github.com/Bruan01/EEEE-scientist"
         try:
             result = subprocess.run(
                 ["git", "remote", "get-url", "origin"],
@@ -1085,7 +1085,7 @@ class AdminService:
             lines.extend(
                 [
                     "",
-                    f"- DeepScientist version: `{DEEPSCIENTIST_VERSION}`",
+                    f"- EEEE Scientist version: `{DEEPSCIENTIST_VERSION}`",
                     f"- Platform: `{platform.platform()}`",
                     f"- Python: `{sys.version.split()[0]}`",
                     f"- Node: `{self._node_version() or 'unavailable'}`",

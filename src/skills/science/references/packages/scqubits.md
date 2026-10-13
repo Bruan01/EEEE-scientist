@@ -15,7 +15,7 @@
 
 scqubits is a Python package for modeling superconducting qubit circuits, computing energy spectra and matrix elements, and analyzing coupled qubit resonator Hilbert spaces for circuit QED research.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

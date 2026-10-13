@@ -123,7 +123,7 @@ def normalize_codex_reasoning_effort(
         "high",
         (
             f"Codex CLI {version_text} does not support `xhigh`; "
-            "DeepScientist downgraded reasoning effort to `high` automatically."
+            "EEEE Scientist downgraded reasoning effort to `high` automatically."
         ),
     )
 
@@ -192,10 +192,10 @@ def adapt_profile_only_provider_config(
     return (
         adapted,
         (
-            f"DeepScientist overrode conflicting top-level {field_text} with values from profile "
+            f"EEEE Scientist overrode conflicting top-level {field_text} with values from profile "
             f"`{normalized_profile}` for Codex compatibility."
             if conflicted_fields
-            else f"DeepScientist promoted `{normalized_profile}` profile {field_text} to the top level for Codex compatibility."
+            else f"EEEE Scientist promoted `{normalized_profile}` profile {field_text} to the top level for Codex compatibility."
         ),
     )
 

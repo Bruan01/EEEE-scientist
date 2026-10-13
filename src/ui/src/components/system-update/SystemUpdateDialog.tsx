@@ -15,23 +15,23 @@ import type { SystemUpdateStatus } from '@/types'
 const COPY = {
   zh: {
     title: '发现新版本',
-    body: 'DeepScientist 检测到新的 npm 版本。请在终端运行下面这条命令完成更新。',
+    body: 'EEEE Scientist 检测到新的 npm 版本。请在终端运行下面这条命令完成更新。',
     current: '当前版本',
     latest: '最新版本',
     command: '更新命令',
-    busy: 'DeepScientist 正在更新中。若你是从其他终端触发更新，请等待完成后再刷新当前页面。',
-    updated: '更新已经完成。如需使用最新版本，请重新启动 DeepScientist。',
+    busy: 'EEEE Scientist 正在更新中。若你是从其他终端触发更新，请等待完成后再刷新当前页面。',
+    updated: '更新已经完成。如需使用最新版本，请重新启动 EEEE Scientist。',
     close: '关闭',
     checkError: '更新检查失败',
   },
   en: {
     title: 'Update Available',
-    body: 'DeepScientist found a newer npm release. Run the command below in your terminal to update it.',
+    body: 'EEEE Scientist found a newer npm release. Run the command below in your terminal to update it.',
     current: 'Current version',
     latest: 'Latest version',
     command: 'Update command',
-    busy: 'DeepScientist is updating. If another terminal started the update, wait for it to finish and then reload this page.',
-    updated: 'The update has completed. Restart DeepScientist to use the latest version.',
+    busy: 'EEEE Scientist is updating. If another terminal started the update, wait for it to finish and then reload this page.',
+    updated: 'The update has completed. Restart EEEE Scientist to use the latest version.',
     close: 'Close',
     checkError: 'Update check failed',
   },
@@ -54,7 +54,7 @@ export function SystemUpdateDialog({
   const t = COPY[locale]
   const showResult = Boolean(status && !status.busy && status.last_update_result)
   const message = status?.last_update_result?.message || null
-  const command = status?.manual_update_command || 'npm install -g @researai/deepscientist@latest'
+  const command = status?.manual_update_command || 'npm install -g eeee-scientist@latest'
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>

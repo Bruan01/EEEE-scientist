@@ -1,5 +1,5 @@
 /**
- * ASCII Art for DeepScientist CLI
+ * ASCII Art for EEEE Scientist CLI
  * Inspired by Gemini CLI style with segmented colors:
  * - DEEP: Blue
  * - SCI: Red

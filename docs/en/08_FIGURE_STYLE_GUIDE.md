@@ -1,6 +1,6 @@
 # 08 Figure Style Guide: Figure and Plot Style
 
-This page defines the default DeepScientist figure language for experiment summaries, analysis campaigns, and paper-facing plots.
+This page defines the default EEEE Scientist figure language for experiment summaries, analysis campaigns, and paper-facing plots.
 
 ## Core rule
 

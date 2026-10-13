@@ -1,6 +1,6 @@
 ---
 name: science
-description: Use for natural-science or engineering tasks, scientific software routing, simulation, dataset analysis, model fitting, package checks, HPC-through-shell work, validation, and evidence-backed scientific claims using DeepScientist's `artifact.science(...)` Science Evidence Graph. Includes a progressive-disclosure catalog of FermiLink skilled-scipkg package cards.
+description: Use for natural-science or engineering tasks, scientific software routing, simulation, dataset analysis, model fitting, package checks, HPC-through-shell work, validation, and evidence-backed scientific claims using EEEE Scientist's `artifact.science(...)` Science Evidence Graph. Includes a progressive-disclosure catalog of FermiLink skilled-scipkg package cards.
 skill_role: companion
 skill_order: 160
 ---
@@ -29,7 +29,7 @@ Use this skill when the task includes any of these signals:
 - User-visible milestones or blockers: `artifact.interact(...)`.
 - Package knowledge: this skill's references and package cards.
 - Do not create a top-level `science` MCP namespace.
-- Do not migrate FermiLink runner, HPC profile manager, CLI workflow, FastAPI backend, Chainlit UI, or source implementation into DeepScientist runtime.
+- Do not migrate FermiLink runner, HPC profile manager, CLI workflow, FastAPI backend, Chainlit UI, or source implementation into EEEE Scientist runtime.
 
 ## Progressive Disclosure
 
@@ -106,7 +106,7 @@ whether the task is actually suited to autonomous work:
 ## Package Catalog Provenance
 
 The package catalog is generated from FermiLink's skilled-scipkg channel and is
-stored as DeepScientist-native routing material. The cards preserve package ids,
+stored as EEEE Scientist-native routing material. The cards preserve package ids,
 descriptions, tags, knowledge URLs, source archive URLs, and upstream project
 URLs. They do not vendor package source trees and do not install runtimes.
 
@@ -122,7 +122,7 @@ knowledge-base text into reports without attribution.
 - Do not submit remote/HPC jobs without a log path and status-reading plan.
 - Do not create science evidence only in chat.
 - Do not let package-card metadata override task-specific evidence.
-- Do not use FermiLink as a runtime dependency; use the DeepScientist-native
+- Do not use FermiLink as a runtime dependency; use the EEEE Scientist-native
   package cards as routing references and keep real execution in
   `bash_exec(...)`.
 

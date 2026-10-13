@@ -192,7 +192,7 @@ def test_daemon_browser_auth_query_token_bootstraps_cookie_session(temp_home: Pa
         opener = build_opener(HTTPCookieProcessor(cookie_jar))
         with opener.open(f"{base_url}/?token=0123456789abcdef") as response:  # noqa: S310
             html = response.read().decode("utf-8")
-        assert "DeepScientist UI bundle is not built yet" in html or "window.__DEEPSCIENTIST_RUNTIME__" in html
+        assert "EEEE Scientist UI bundle is not built yet" in html or "window.__DEEPSCIENTIST_RUNTIME__" in html
         assert any(cookie.name == "ds_local_auth" for cookie in cookie_jar)
 
         health = _open_json_with_opener(opener, f"{base_url}/api/health")
@@ -780,7 +780,7 @@ def test_user_turn_prompt_flow_e2e_keeps_warm_style_first_guidance(temp_home: Pa
     top_block = "\n".join(prompt.splitlines()[:50])
     assert turn_mode == "answering"
     assert skill_id == "scout"
-    assert "# DeepScientist Copilot System Prompt" in top_block
+    assert "# EEEE Scientist Copilot System Prompt" in top_block
     assert "request-scoped help" in top_block
     assert "turn_self_routing_rule" in prompt
     assert "micro_task_stop_rule" in prompt
@@ -1086,7 +1086,7 @@ def test_daemon_update_request_starts_background_worker_with_restart(
                 {
                     "ok": True,
                     "started": True,
-                    "message": "DeepScientist update worker started.",
+                    "message": "EEEE Scientist update worker started.",
                 }
             ),
             stderr="",
@@ -1124,7 +1124,7 @@ def test_weixin_qr_login_handlers_persist_connector_config(
             "profile_id": "telegram-deepscientist",
             "enabled": False,
             "transport": "polling",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "TELEGRAM_BOT_TOKEN",
         }
@@ -1134,7 +1134,7 @@ def test_weixin_qr_login_handlers_persist_connector_config(
             "profile_id": "discord-deepscientist",
             "enabled": False,
             "transport": "gateway",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "DISCORD_BOT_TOKEN",
             "application_id": None,
@@ -1145,7 +1145,7 @@ def test_weixin_qr_login_handlers_persist_connector_config(
             "profile_id": "slack-deepscientist",
             "enabled": False,
             "transport": "socket_mode",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "bot_token": None,
             "bot_token_env": "SLACK_BOT_TOKEN",
             "bot_user_id": None,
@@ -1158,7 +1158,7 @@ def test_weixin_qr_login_handlers_persist_connector_config(
             "profile_id": "feishu-deepscientist",
             "enabled": False,
             "transport": "long_connection",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "app_id": None,
             "app_secret": None,
             "app_secret_env": "FEISHU_APP_SECRET",
@@ -1170,7 +1170,7 @@ def test_weixin_qr_login_handlers_persist_connector_config(
             "profile_id": "whatsapp-deepscientist",
             "enabled": False,
             "transport": "local_session",
-            "bot_name": "DeepScientist",
+            "bot_name": "EEEE Scientist",
             "auth_method": "qr_browser",
             "session_dir": "~/.deepscientist/connectors/whatsapp",
         }
@@ -1326,7 +1326,7 @@ def test_daemon_serves_health_and_ui(temp_home: Path, project_root: Path, python
             [
                 r"\documentclass{article}",
                 r"\title{Daemon API Paper}",
-                r"\author{DeepScientist}",
+                r"\author{EEEE Scientist}",
                 r"\date{}",
                 r"\begin{document}",
                 r"\maketitle",
@@ -1537,12 +1537,12 @@ def test_daemon_serves_health_and_ui(temp_home: Path, project_root: Path, python
         root_request = Request("http://127.0.0.1:20901/")
         with urlopen(root_request) as response:  # noqa: S310
             html = response.read().decode("utf-8")
-        assert "DeepScientist" in html
+        assert "EEEE Scientist" in html
         assert "Copilot" in html
         assert "/assets/fonts/ds-fonts.css" in html
         with urlopen(f"http://127.0.0.1:20901/projects/{quest_id}") as response:  # noqa: S310
             project_html = response.read().decode("utf-8")
-        assert "DeepScientist" in project_html
+        assert "EEEE Scientist" in project_html
         assert "Copilot" in project_html
 
         with urlopen("http://127.0.0.1:20901/assets/fonts/ds-fonts.css") as response:  # noqa: S310
@@ -2788,7 +2788,7 @@ def test_ui_root_shows_build_instructions_when_bundle_missing(
 
     assert status == 200
     assert headers["Content-Type"] == "text/html; charset=utf-8"
-    assert "DeepScientist UI bundle is not built yet" in html
+    assert "EEEE Scientist UI bundle is not built yet" in html
     assert "npm --prefix src/ui run build" in html
 
 
@@ -8611,7 +8611,7 @@ def test_stop_then_user_text_continues_same_quest_context(temp_home: Path) -> No
     assert stop_payload["interrupted"] is True
     assert stop_payload["snapshot"]["status"] == "stopped"
     assert stop_payload["snapshot"]["pending_user_message_count"] == 0
-    assert "DeepScientist" in str(stop_payload["notice"]["message"])
+    assert "EEEE Scientist" in str(stop_payload["notice"]["message"])
     assert "停止状态" in str(stop_payload["notice"]["message"])
     assert "发送任意新指令" in str(stop_payload["notice"]["message"])
     queue_after_stop = json.loads((quest_root / ".ds" / "user_message_queue.json").read_text(encoding="utf-8"))
@@ -8641,14 +8641,14 @@ def test_stop_then_user_text_continues_same_quest_context(temp_home: Path) -> No
     assert any(item.get("role") == "user" and item.get("content") == follow_up for item in history)
     assert any(
         item.get("role") == "assistant"
-        and "DeepScientist" in str(item.get("content") or "")
+        and "EEEE Scientist" in str(item.get("content") or "")
         and "停止状态" in str(item.get("content") or "")
         for item in history
     )
     outbox_path = temp_home / "logs" / "connectors" / "local" / "outbox.jsonl"
     outbox = [json.loads(line) for line in outbox_path.read_text(encoding="utf-8").splitlines() if line.strip()]
     assert any(
-        "DeepScientist" in str(item.get("message") or "")
+        "EEEE Scientist" in str(item.get("message") or "")
         and "停止状态" in str(item.get("message") or "")
         and "发送任意新指令" in str(item.get("message") or "")
         for item in outbox

@@ -15,7 +15,7 @@
 
 PyFR is a Python framework for high-order flux-reconstruction simulation of advection-diffusion governing equations on mixed unstructured meshes, optimized for CPUs and GPUs via a templated kernel language.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

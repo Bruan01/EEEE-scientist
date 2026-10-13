@@ -1,6 +1,6 @@
 # HPC Via `bash_exec`
 
-DeepScientist does not embed an HPC scheduler. The agent operates HPC through
+EEEE Scientist does not embed an HPC scheduler. The agent operates HPC through
 `bash_exec(...)` just like any other terminal action.
 
 ## Pattern

@@ -54,7 +54,7 @@ function authCopy(locale: 'en' | 'zh'): AuthCopy {
   if (locale === 'zh') {
     return {
       title: '输入本地访问密码',
-      subtitle: 'DeepScientist 已启用本地密码模式。输入启动时生成的 16 位密码后才能继续使用。',
+      subtitle: 'EEEE Scientist 已启用本地密码模式。输入启动时生成的 16 位密码后才能继续使用。',
       placeholder: '请输入 16 位密码',
       submit: '继续',
       loading: '正在验证本地访问权限…',
@@ -64,13 +64,13 @@ function authCopy(locale: 'en' | 'zh'): AuthCopy {
       helperViewToken: '查看密码：回到启动 `ds` 的终端输出，或执行 `ds --status`。',
       helperDisableAuth: '关闭密码：重新启动时使用 `ds --auth false`。',
       backgroundEyebrow: '本地优先科研工作区',
-      backgroundTitle: 'DeepScientist 会先锁住本地入口，再继续打开研究工作区。',
+      backgroundTitle: 'EEEE Scientist 会先锁住本地入口，再继续打开研究工作区。',
       backgroundBody: '输入本次启动生成的本地访问密码后，首页、项目列表和工作区才会继续加载。',
     }
   }
   return {
     title: 'Enter the Local Access Password',
-    subtitle: 'DeepScientist is running in local password mode. Enter the generated 16-character password to continue.',
+    subtitle: 'EEEE Scientist is running in local password mode. Enter the generated 16-character password to continue.',
     placeholder: 'Enter the 16-character password',
     submit: 'Continue',
     loading: 'Checking local access…',
@@ -80,7 +80,7 @@ function authCopy(locale: 'en' | 'zh'): AuthCopy {
     helperViewToken: 'View the password in the terminal where `ds` was started, or run `ds --status`.',
     helperDisableAuth: 'Disable the password on the next launch with `ds --auth false`.',
     backgroundEyebrow: 'Local-first research workspace',
-    backgroundTitle: 'DeepScientist locks the local browser entry before opening the research workspace.',
+    backgroundTitle: 'EEEE Scientist locks the local browser entry before opening the research workspace.',
     backgroundBody: 'Enter the password generated for this launch, then the landing page, quest list, and workspace will continue to load.',
   }
 }
@@ -152,13 +152,13 @@ function AuthLockScreen(props: {
             <div className="flex items-center gap-2 rounded-full px-2 py-1">
               <img
                 src={BRAND_LOGO_SMALL_SRC}
-                alt="DeepScientist"
+                alt="EEEE Scientist"
                 width={28}
                 height={28}
                 className="object-contain"
                 draggable={false}
               />
-              <span className="text-sm font-semibold tracking-tight text-[#2D2A26]">DeepScientist</span>
+              <span className="text-sm font-semibold tracking-tight text-[#2D2A26]">EEEE Scientist</span>
             </div>
             <div className="flex items-center gap-2">
               <Button

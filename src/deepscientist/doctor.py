@@ -120,7 +120,7 @@ def _check_python_runtime() -> dict[str, Any]:
             summary="Local Python runtime is not healthy.",
             errors=[str(exc)],
             guidance=[
-                "Reinstall the package or rerun `ds` so DeepScientist can rebuild its local Python runtime.",
+                "Reinstall the package or rerun `ds` so EEEE Scientist can rebuild its local Python runtime.",
             ],
             details={"python": sys.executable, "version": sys.version.split()[0]},
         )
@@ -145,7 +145,7 @@ def _check_home_writable(home: Path) -> dict[str, Any]:
             check_id="home_writable",
             label="Home path",
             ok=False,
-            summary="DeepScientist home is not writable.",
+            summary="EEEE Scientist home is not writable.",
             errors=[str(exc)],
             guidance=[
                 f"Ensure `{home}` exists and is writable by the current user.",
@@ -156,7 +156,7 @@ def _check_home_writable(home: Path) -> dict[str, Any]:
         check_id="home_writable",
         label="Home path",
         ok=True,
-        summary="DeepScientist home exists and is writable.",
+        summary="EEEE Scientist home exists and is writable.",
         details={"home": str(home)},
     )
 
@@ -187,7 +187,7 @@ def _check_uv(home: Path) -> dict[str, Any]:
     resolved = _resolve_uv_binary(home)
     if not resolved:
         guidance = [
-            "Run `ds` once so DeepScientist can bootstrap a local uv runtime manager automatically.",
+            "Run `ds` once so EEEE Scientist can bootstrap a local uv runtime manager automatically.",
         ]
         if sys.platform == "win32":
             guidance.append('PowerShell: `powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"`')
@@ -197,8 +197,8 @@ def _check_uv(home: Path) -> dict[str, Any]:
             check_id="uv",
             label="uv runtime manager",
             ok=False,
-            summary="uv is not available to DeepScientist.",
-            errors=["DeepScientist cannot provision or repair its local Python runtime without `uv`."],
+            summary="uv is not available to EEEE Scientist.",
+            errors=["EEEE Scientist cannot provision or repair its local Python runtime without `uv`."],
             guidance=guidance,
         )
 
@@ -321,7 +321,7 @@ def _check_runner(config_manager: ConfigManager, runner_name: str) -> dict[str, 
             check_id=normalized_runner,
             label=label,
             ok=False,
-            summary=f"{label} is not available to DeepScientist.",
+            summary=f"{label} is not available to EEEE Scientist.",
             errors=[f"Runner binary `{binary}` could not be resolved."],
             guidance=guidance,
             details={"binary": binary},
@@ -469,7 +469,7 @@ def _check_recent_runtime_failures(home: Path) -> dict[str, Any]:
             check_id="recent_runtime_failures",
             label="Recent runtime failures",
             ok=True,
-            summary="DeepScientist recently suppressed auto-resume to avoid a crash loop.",
+            summary="EEEE Scientist recently suppressed auto-resume to avoid a crash loop.",
             warnings=["Automatic continuation was paused after repeated recovery attempts in a short window."],
             guidance=[
                 "Inspect the most recent failing runner path before using `/resume` again.",
@@ -477,7 +477,7 @@ def _check_recent_runtime_failures(home: Path) -> dict[str, Any]:
             ],
             details=details,
             problem="Automatic crash recovery was suppressed.",
-            why="The same quest hit repeated recovery attempts in a short window, so DeepScientist parked it instead of looping forever.",
+            why="The same quest hit repeated recovery attempts in a short window, so EEEE Scientist parked it instead of looping forever.",
             fix=[
                 "Open the latest failing quest logs and identify the deterministic runner/provider error.",
                 "Resume manually only after the underlying runner or provider issue is corrected.",
@@ -594,16 +594,16 @@ def _check_shell_backend() -> dict[str, Any]:
     if sys.platform == "win32":
         warnings.append("Native Windows support is currently experimental; WSL2 remains the most battle-tested path.")
         if not exec_binary:
-            errors.append("DeepScientist could not resolve a Windows command shell for bash_exec.")
+            errors.append("EEEE Scientist could not resolve a Windows command shell for bash_exec.")
             guidance.append("Install PowerShell (`pwsh`) or ensure `powershell.exe` is available on PATH.")
         if not terminal_binary:
-            errors.append("DeepScientist could not resolve a Windows interactive shell backend.")
+            errors.append("EEEE Scientist could not resolve a Windows interactive shell backend.")
             guidance.append("Ensure `powershell.exe` is available on PATH for the interactive terminal surface.")
     return _make_check(
         check_id="shell_backend",
         label="Shell backend",
         ok=len(errors) == 0,
-        summary="DeepScientist resolved platform shell backends for command and terminal sessions." if len(errors) == 0 else "DeepScientist could not resolve a required shell backend.",
+        summary="EEEE Scientist resolved platform shell backends for command and terminal sessions." if len(errors) == 0 else "EEEE Scientist could not resolve a required shell backend.",
         warnings=warnings,
         errors=errors,
         guidance=guidance,
@@ -673,7 +673,7 @@ def _check_ui_port(home: Path, config_manager: ConfigManager) -> dict[str, Any]:
                 check_id="ui_port",
                 label="Web port",
                 ok=True,
-                summary="DeepScientist daemon is already running on the configured port.",
+                summary="EEEE Scientist daemon is already running on the configured port.",
                 guidance=[f"Open {browser_url} in your browser or stop it with `ds --stop`."],
                 details={"browser_url": browser_url, "host": host, "port": port},
             )
@@ -681,7 +681,7 @@ def _check_ui_port(home: Path, config_manager: ConfigManager) -> dict[str, Any]:
             check_id="ui_port",
             label="Web port",
             ok=False,
-            summary="The configured port is already used by another DeepScientist home.",
+            summary="The configured port is already used by another EEEE Scientist home.",
             errors=[f"{browser_url} is already serving a daemon for `{daemon_home}`."],
             guidance=[
                 f"If you intended to use that running instance, run `ds --home {daemon_home} doctor` and open {browser_url}.",
@@ -815,7 +815,7 @@ def _normalize_doctor_runner_targets(runner_names: list[str] | None) -> list[str
 
 def render_doctor_report(report: dict[str, Any]) -> str:
     lines = [
-        "DeepScientist doctor",
+        "EEEE Scientist doctor",
         "",
         f"Home: {report.get('home')}",
         f"Web UI: {report.get('browser_url')}",
@@ -906,7 +906,7 @@ def render_doctor_report(report: dict[str, Any]) -> str:
         lines.append("")
 
     if report.get("ok"):
-        lines.append("Everything looks ready. Run `ds` to start DeepScientist.")
+        lines.append("Everything looks ready. Run `ds` to start EEEE Scientist.")
     else:
-        lines.append("DeepScientist is not fully ready yet. Fix the failed checks above, then rerun `ds doctor`.")
+        lines.append("EEEE Scientist is not fully ready yet. Fix the failed checks above, then rerun `ds doctor`.")
     return "\n".join(lines).rstrip() + "\n"

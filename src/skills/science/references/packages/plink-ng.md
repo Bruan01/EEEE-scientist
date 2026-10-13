@@ -15,7 +15,7 @@
 
 PLINK-NG provides high-performance whole-genome association and population genetics analyses, supporting large cohort genotype, VCF, and dosage datasets for GWAS, quality control, and relatedness workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

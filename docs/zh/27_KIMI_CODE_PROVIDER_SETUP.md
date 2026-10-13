@@ -1,10 +1,10 @@
 # Kimi Code Provider 配置指南
 
-当你希望 DeepScientist 通过官方 `kimi` CLI 运行，并且把它作为一个独立 builtin runner 使用时，使用这份文档；不要再把 Kimi 混在 Claude 路径里。
+当你希望 EEEE Scientist 通过官方 `kimi` CLI 运行，并且把它作为一个独立 builtin runner 使用时，使用这份文档；不要再把 Kimi 混在 Claude 路径里。
 
-## DeepScientist 的前提假设
+## EEEE Scientist 的前提假设
 
-- 已安装官方 `kimi` CLI，并且在启动 DeepScientist 的同一个 shell 里执行 `kimi --version` 能成功。
+- 已安装官方 `kimi` CLI，并且在启动 EEEE Scientist 的同一个 shell 里执行 `kimi --version` 能成功。
 - 已经至少执行过一次 `kimi login`，或者手动启动过 `kimi` 完成首次登录。
 - 全局 Kimi home 默认位于 `~/.kimi/`。
 
@@ -21,9 +21,9 @@ kimi:
   yolo: true
 ```
 
-## DeepScientist 的运行方式
+## EEEE Scientist 的运行方式
 
-- DeepScientist 会把你配置的 `~/.kimi` 复制到 quest 隔离运行目录 `.ds/kimi-home/.kimi`。
+- EEEE Scientist 会把你配置的 `~/.kimi` 复制到 quest 隔离运行目录 `.ds/kimi-home/.kimi`。
 - quest 内的技能会同步到 `.kimi/skills`。
 - 内置 MCP 会通过生成的 `.kimi/mcp.json` 注入进去。
 - prompt 通过 stdin 发送，所以长 prompt 不会再撞到 argv 长度限制。

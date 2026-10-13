@@ -1,6 +1,6 @@
 # 15 Codex Provider 配置
 
-DeepScientist 不会为 MiniMax、GLM、火山方舟、阿里百炼等 provider 额外维护一套独立适配层。
+EEEE Scientist 不会为 MiniMax、GLM、火山方舟、阿里百炼等 provider 额外维护一套独立适配层。
 
 它复用的是你本机已经能正常工作的 Codex CLI。
 
@@ -11,7 +11,7 @@ DeepScientist 不会为 MiniMax、GLM、火山方舟、阿里百炼等 provider 
 3. 然后运行 `ds doctor`
 4. 最后再运行 `ds` 或 `ds --codex-profile <name>`
 
-如果 Codex 本身还没工作，先修 DeepScientist 是错误顺序。
+如果 Codex 本身还没工作，先修 EEEE Scientist 是错误顺序。
 
 如果你要配置其他内建 runner，请同时参考：
 
@@ -29,11 +29,11 @@ Codex provider 配置请以 OpenAI Codex 文档和目标 provider 文档为准�
 - Ollama + Codex：`https://docs.ollama.com/integrations/codex`
 - Gemini OpenAI compatibility：`https://ai.google.dev/gemini-api/docs/openai`
 
-对 DeepScientist 来说，最重要的映射关系是：
+对 EEEE Scientist 来说，最重要的映射关系是：
 
 - Codex 的 provider、profile、模型名仍然写在 `~/.codex/config.toml`
-- DeepScientist 的 Codex runner 主要透传 `--profile`、`--model`、`approval_policy`、`sandbox_mode`、reasoning effort 和 env
-- DeepScientist 当前不会替 Codex 额外追加 `--oss` 或 `--local-provider`，所以要在 DeepScientist 中稳定复用 Ollama 时，优先使用 Codex profile，而不是只依赖一次性的 CLI 参数
+- EEEE Scientist 的 Codex runner 主要透传 `--profile`、`--model`、`approval_policy`、`sandbox_mode`、reasoning effort 和 env
+- EEEE Scientist 当前不会替 Codex 额外追加 `--oss` 或 `--local-provider`，所以要在 EEEE Scientist 中稳定复用 Ollama 时，优先使用 Codex profile，而不是只依赖一次性的 CLI 参数
 - 如果某个 provider 只提供 OpenAI Chat Completions，而没有 Responses API，最新版 Codex 路径可能不适合；这种场景优先考虑 [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md)
 
 ## 哪些文件最重要
@@ -66,10 +66,10 @@ codex exec --help
 1. 安装 Codex CLI，并确认正在使用的二进制就是你想要的那个
 2. 准备 `~/.codex/config.toml`
 3. 直接验证 `codex` 或 `codex --profile <name>`
-4. 用 `ds doctor` 验证 DeepScientist
-5. 最后再让 DeepScientist 复用这套 Codex 配置
+4. 用 `ds doctor` 验证 EEEE Scientist
+5. 最后再让 EEEE Scientist 复用这套 Codex 配置
 
-`codex login` 不等于 DeepScientist 的启动探测。login 只说明认证流程完成；`ds doctor` 会真的发送一次非交互式 Codex 请求，并要求返回 `HELLO`。如果 login 成功但 `ds doctor` 失败，请在同一个 shell 里先跑：
+`codex login` 不等于 EEEE Scientist 的启动探测。login 只说明认证流程完成；`ds doctor` 会真的发送一次非交互式 Codex 请求，并要求返回 `HELLO`。如果 login 成功但 `ds doctor` 失败，请在同一个 shell 里先跑：
 
 ```bash
 printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -
@@ -92,7 +92,7 @@ which codex
 codex --version
 ```
 
-如果你必须使用特定版本或特定路径的 Codex，可执行文件路径记下来，后续通过 `--codex` 传给 DeepScientist。
+如果你必须使用特定版本或特定路径的 Codex，可执行文件路径记下来，后续通过 `--codex` 传给 EEEE Scientist。
 
 例如：
 
@@ -156,7 +156,7 @@ env_key = "MYPROVIDER_API_KEY"
 requires_openai_auth = false
 ```
 
-然后在启动 Codex 或 DeepScientist 的 shell 里导出环境变量：
+然后在启动 Codex 或 EEEE Scientist 的 shell 里导出环境变量：
 
 ```bash
 export MYPROVIDER_API_KEY="..."
@@ -280,15 +280,15 @@ codex --profile provider_alias
 codex exec --profile provider_alias "Reply with exactly OK."
 ```
 
-如果这里都还不通，不要先怪 DeepScientist，先把 Codex 自己修通。为了尽量贴近 DeepScientist 的实际探测，优先再跑：
+如果这里都还不通，不要先怪 EEEE Scientist，先把 Codex 自己修通。为了尽量贴近 EEEE Scientist 的实际探测，优先再跑：
 
 ```bash
 printf 'Reply with exactly HELLO.' | codex --search --profile provider_alias exec --json --cd /tmp --skip-git-repo-check -
 ```
 
-## 第五步：把同一套配置映射给 DeepScientist
+## 第五步：把同一套配置映射给 EEEE Scientist
 
-DeepScientist 推荐三种使用方式。
+EEEE Scientist 推荐三种使用方式。
 
 ### 1. 默认 OpenAI 登录路径
 
@@ -309,7 +309,7 @@ ds --codex-profile glm
 
 ### 3. 持久化写入 `runners.yaml`
 
-如果你希望 DeepScientist 默认总是走同一个 Codex profile，可以写进 `runners.yaml`：
+如果你希望 EEEE Scientist 默认总是走同一个 Codex profile，可以写进 `runners.yaml`：
 
 ```yaml
 codex:
@@ -327,8 +327,8 @@ codex:
 
 - `profile` 一般应该写你本地 Codex profile 的别名，例如 `glm`、`ark`、`bailian`、`m25`、`m27-local`
 - 对 provider-backed 的 Codex profile，优先使用 `model: inherit`
-- 只有当你非常确定 provider 接受那个显式模型名时，才在 DeepScientist 里硬写 `model:`
-- DeepScientist 实际运行 Codex 时会在 `.ds/codex-home` 下构造一个隔离运行时 home，但会先复制你 `~/.codex` 里的 auth、config、skills、agents 和 prompts
+- 只有当你非常确定 provider 接受那个显式模型名时，才在 EEEE Scientist 里硬写 `model:`
+- EEEE Scientist 实际运行 Codex 时会在 `.ds/codex-home` 下构造一个隔离运行时 home，但会先复制你 `~/.codex` 里的 auth、config、skills、agents 和 prompts
 - 如果 `ds doctor` 报 startup probe 失败，先看报告里的 `probe command`、`exit code`、`stderr excerpt` 和 `stdout excerpt`；这些字段反映的是真实 Codex 请求失败，而不只是 login 状态
 
 ## 不改 `config.toml` 的临时覆盖方式
@@ -343,7 +343,7 @@ codex -c model_provider="yunyi" -c model="gpt-5.4"
 codex exec -c model_reasoning_effort="high" "Reply with exactly OK."
 ```
 
-这很适合临时验证；但如果你希望 DeepScientist 稳定复用，还是推荐把 profile 写进 `~/.codex/config.toml`。
+这很适合临时验证；但如果你希望 EEEE Scientist 稳定复用，还是推荐把 profile 写进 `~/.codex/config.toml`。
 
 ## OpenAI
 
@@ -353,7 +353,7 @@ codex exec -c model_reasoning_effort="high" "Reply with exactly OK."
 - 已成功执行 `codex login`
 - 能直接运行 `codex` 或 `codex exec "Reply with exactly OK."`
 
-### DeepScientist 命令
+### EEEE Scientist 命令
 
 ```bash
 ds doctor
@@ -373,7 +373,7 @@ codex:
 
 ## Ollama
 
-Ollama 官方同时提供 OpenAI-compatible API 和 Codex 集成说明。对 DeepScientist 来说，推荐把它整理成一个 Codex profile，然后通过 `ds doctor --codex-profile <name>` 使用。
+Ollama 官方同时提供 OpenAI-compatible API 和 Codex 集成说明。对 EEEE Scientist 来说，推荐把它整理成一个 Codex profile，然后通过 `ds doctor --codex-profile <name>` 使用。
 
 ### 什么时候适合走 Codex + Ollama
 
@@ -386,7 +386,7 @@ Ollama 官方同时提供 OpenAI-compatible API 和 Codex 集成说明。对 Dee
 不适合：
 
 - 你的 Ollama 版本只有 `/v1/chat/completions` 可用
-- 模型上下文很短，无法承载 DeepScientist 的长任务 prompt
+- 模型上下文很短，无法承载 EEEE Scientist 的长任务 prompt
 - 你只是想接 Gemini 这类远程 OpenAI-compatible provider；那通常优先走 OpenCode
 
 ### 1. 先安装和启动 Ollama
@@ -422,7 +422,7 @@ curl http://localhost:11434/v1/responses \
   }'
 ```
 
-如果 `/v1/responses` 失败，先升级 Ollama 或换模型，不要直接进入 DeepScientist。
+如果 `/v1/responses` 失败，先升级 Ollama 或换模型，不要直接进入 EEEE Scientist。
 
 ### 3. 用 Ollama 官方 Codex 集成生成配置
 
@@ -439,7 +439,7 @@ sed -n '1,220p' ~/.codex/config.toml
 codex --help
 ```
 
-如果你要让 DeepScientist 稳定复用这条路径，请确认 `~/.codex/config.toml` 里有一个命名 profile。形态可以类似这样：
+如果你要让 EEEE Scientist 稳定复用这条路径，请确认 `~/.codex/config.toml` 里有一个命名 profile。形态可以类似这样：
 
 ```toml
 [model_providers.ollama-launch]
@@ -464,7 +464,7 @@ codex exec --profile ollama-launch "Reply with exactly OK."
 
 如果这里不通，先修 Ollama 或 Codex profile。
 
-### 5. 再映射到 DeepScientist
+### 5. 再映射到 EEEE Scientist
 
 一次性启动：
 
@@ -503,11 +503,11 @@ https://generativelanguage.googleapis.com/v1beta/openai/
 export GEMINI_API_KEY="..."
 ```
 
-但对 Codex + DeepScientist 来说，Gemini **不是首推路径**：
+但对 Codex + EEEE Scientist 来说，Gemini **不是首推路径**：
 
 - Gemini 官方 OpenAI compatibility 文档主打 Chat Completions
 - 最新 Codex provider 路线更偏向 Responses API
-- DeepScientist 的 Codex runner 依赖 Codex profile 稳定工作，不会替你在运行时改协议
+- EEEE Scientist 的 Codex runner 依赖 Codex profile 稳定工作，不会替你在运行时改协议
 
 所以如果你想用 Gemini，优先看 [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md) 里的 Gemini 小节。
 
@@ -768,4 +768,4 @@ codex:
 8. 再跑 `ds doctor --codex-profile <name>`
 9. 最后再跑 `ds --codex-profile <name>`
 
-如果 `codex --profile <name>` 还没通，就先修 Codex 自己，不要先怀疑 DeepScientist。
+如果 `codex --profile <name>` 还没通，就先修 Codex 自己，不要先怀疑 EEEE Scientist。

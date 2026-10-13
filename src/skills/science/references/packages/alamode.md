@@ -15,7 +15,7 @@
 
 ALAMODE computes harmonic and anharmonic force constants from first-principles data to analyze phonons, lattice anharmonicity, and lattice thermal conductivity in crystalline and low-dimensional solids.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

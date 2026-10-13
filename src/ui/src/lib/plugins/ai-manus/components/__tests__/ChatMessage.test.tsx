@@ -40,7 +40,7 @@ describe('ChatMessage', () => {
 
     const { container } = render(<ChatMessage message={message} displayStreaming />)
 
-    expect(screen.getByText('DeepScientist')).toBeInTheDocument()
+    expect(screen.getByText('EEEE Scientist')).toBeInTheDocument()
     expect(container.querySelector('[data-content-streaming="true"]')).toBeTruthy()
   })
 
@@ -60,7 +60,7 @@ describe('ChatMessage', () => {
     render(<ChatMessage message={message} />)
 
     expect(screen.getByText('Restored user message')).toBeInTheDocument()
-    expect(screen.queryByText('DeepScientist')).toBeNull()
+    expect(screen.queryByText('EEEE Scientist')).toBeNull()
   })
 
   it('renders tool chips', () => {

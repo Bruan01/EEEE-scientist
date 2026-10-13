@@ -15,7 +15,7 @@
 
 Packmol generates initial molecular dynamics coordinates by packing molecules into user-defined regions while satisfying minimum-distance constraints to prevent destabilizing atomic overlaps.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

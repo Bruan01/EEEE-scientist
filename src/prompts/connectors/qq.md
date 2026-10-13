@@ -36,7 +36,7 @@
 
 - always supported:
   - concise plain-text QQ replies through `artifact.interact(...)`
-  - ordinary threaded continuity through DeepScientist interaction threads
+  - ordinary threaded continuity through EEEE Scientist interaction threads
   - automatic reply-to-recent-message behavior when the QQ channel has a recent inbound message id for this conversation
 - supported only when the active-surface block says the capability is enabled:
   - native QQ markdown send when `qq_enable_markdown_send: True`
@@ -136,7 +136,7 @@ artifact.interact(
 
 ### 2. Continue the current QQ thread with automatic reply context
 
-Use the normal `artifact.interact(...)` call. When DeepScientist already knows the most recent inbound QQ `message_id` for this conversation, the runtime will attach the reply to that thread automatically.
+Use the normal `artifact.interact(...)` call. When EEEE Scientist already knows the most recent inbound QQ `message_id` for this conversation, the runtime will attach the reply to that thread automatically.
 
 ```python
 artifact.interact(

@@ -15,7 +15,7 @@
 
 anndata provides an efficient annotated matrix container for single-cell and spatial omics, supporting metadata-rich observations, variables, sparse storage, and on-disk workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 yt is a Python library for physically meaningful analysis and visualization of volumetric simulation data across structured and unstructured meshes, particles, and adaptive mesh refinement datasets.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 Community-driven Python bioinformatics library with reusable data structures and algorithms for sequence processing, phylogenetics, microbiome ecology, diversity metrics, ordination, and omic data analysis.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

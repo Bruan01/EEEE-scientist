@@ -15,7 +15,7 @@
 
 PIConGPU performs fully relativistic 3D3V particle-in-cell plasma simulations with self-consistent electromagnetic fields, ionization, radiation diagnostics, and exascale GPU manycore scalability.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

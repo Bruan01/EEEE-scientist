@@ -15,7 +15,7 @@
 
 Bloqade is QuEra's Python SDK and eDSL suite for programming, compiling, and simulating neutral-atom quantum computing workflows on Rydberg-atom hardware and related backends.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

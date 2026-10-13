@@ -15,7 +15,7 @@
 
 JDFTx is a high-performance electronic-structure code implementing joint density functional theory for quantum simulations of solids, surfaces, and electrochemical interfaces with continuum solvation and advanced DFT capabilities.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

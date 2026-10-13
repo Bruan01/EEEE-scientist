@@ -5,7 +5,7 @@
   <path d="M92 108C92 99.16 99.16 92 108 92C116.84 92 124 99.16 124 108C124 116.84 116.84 124 108 124C99.16 124 92 116.84 92 108Z" fill="#fff" fill-opacity=".2"/>
   <path d="M101 116V100H115" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
   <text x="164" y="98" fill="#0F172A" font-family="Arial, sans-serif" font-size="34" font-weight="700">WeChat Version And Plugin Entry Check</text>
-  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Reference precheck from the personal WeChat guide before you bind in DeepScientist</text>
+  <text x="164" y="138" fill="#475569" font-family="Arial, sans-serif" font-size="20">Reference precheck from the personal WeChat guide before you bind in EEEE Scientist</text>
 
   <rect x="88" y="196" width="492" height="430" rx="28" fill="#F8FAFF" stroke="#D5DDF0" stroke-width="2"/>
   <text x="120" y="252" fill="#0F172A" font-family="Arial, sans-serif" font-size="28" font-weight="700">Compatibility checklist</text>
@@ -29,5 +29,5 @@
   <text x="818" y="422" fill="#0F172A" font-family="Arial, sans-serif" font-size="18">Settings</text>
   <rect x="786" y="458" width="228" height="54" rx="18" fill="#DCFCE7" stroke="#22C55E"/>
   <text x="818" y="492" fill="#166534" font-family="Arial, sans-serif" font-size="18" font-weight="700">Plugins</text>
-  <text x="702" y="616" fill="#475569" font-family="Arial, sans-serif" font-size="17">DeepScientist still binds from its own QR modal.</text>
+  <text x="702" y="616" fill="#475569" font-family="Arial, sans-serif" font-size="17">EEEE Scientist still binds from its own QR modal.</text>
 </svg>

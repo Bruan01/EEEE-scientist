@@ -15,7 +15,7 @@
 
 CavMD simulates cavity-coupled molecular dynamics for vibrational strong and ultrastrong coupling, spanning classical and path-integral regimes with workflows for setup, job submission, post-processing, and plotting.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

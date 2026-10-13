@@ -102,7 +102,7 @@ def diagnose_runner_failure(
             ),
             guidance=(
                 "Check the configured provider account, quota, billing status, credentials, and API-key scope.",
-                "Verify the same Codex profile works outside DeepScientist before resuming the quest.",
+                "Verify the same Codex profile works outside EEEE Scientist before resuming the quest.",
                 "Do not relaunch the same quest repeatedly until the provider account state is healthy.",
             ),
             retriable=False,
@@ -120,12 +120,12 @@ def diagnose_runner_failure(
             code="codex_upstream_provider_error",
             problem="The configured Codex upstream provider rejected or could not serve the request.",
             why=(
-                "This is an external provider/API service condition. DeepScientist can retry with backoff, "
+                "This is an external provider/API service condition. EEEE Scientist can retry with backoff, "
                 "but it cannot repair upstream provider availability from inside the quest runtime."
             ),
             guidance=(
                 "Check the configured provider service health, rate limits, and API status.",
-                "Verify the same Codex profile works outside DeepScientist before resuming the quest.",
+                "Verify the same Codex profile works outside EEEE Scientist before resuming the quest.",
                 "Do not repeatedly relaunch the same quest if the provider continues returning the same upstream error.",
             ),
             retriable=True,
@@ -201,7 +201,7 @@ def diagnose_runner_failure(
                 "or kaomoji symbols."
             ),
             guidance=(
-                "Update to a DeepScientist build that sanitizes non-GBK prompt characters before Codex on Windows.",
+                "Update to an EEEE Scientist build that sanitizes non-GBK prompt characters before Codex on Windows.",
                 "If you are already on the latest build, remove emoji or decorative symbols such as `•` from custom prompts, notes, or connector-facing text.",
                 "Prefer a UTF-8 terminal (`chcp 65001`) or the WSL2 deployment path when possible.",
             ),
@@ -229,7 +229,7 @@ def diagnose_runner_failure(
             why="The selected provider or Codex account could not access the requested model id.",
             guidance=(
                 "Set `model: inherit` for provider-backed Codex profiles unless the provider explicitly supports the model id.",
-                "If you need a fixed model, verify that the same model works in plain `codex exec` before retrying DeepScientist.",
+                "If you need a fixed model, verify that the same model works in plain `codex exec` before retrying EEEE Scientist.",
             ),
             retriable=False,
             matched_text="model unavailable",

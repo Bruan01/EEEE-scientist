@@ -193,7 +193,7 @@ Examples:
 ## Nature Companion Skills
 
 The `nature-*` skills are focused companion skills adapted from `Yuan1z0825/nature-skills`.
-They can improve specific manuscript surfaces, but they do not replace DeepScientist's paper contract.
+They can improve specific manuscript surfaces, but they do not replace EEEE Scientist's paper contract.
 
 Use them as a short handoff inside the `write` flow:
 
@@ -202,7 +202,7 @@ Use them as a short handoff inside the `write` flow:
 3. Read only the matching `nature-*` skill and any referenced files it says are needed.
 4. Produce a bounded output: revised section text, data-availability block, figure/export plan, or PPTX deck.
 5. Return to `write` and update the durable paper surfaces before claiming progress: draft files, `paper/evidence_ledger.*`, `paper/paper_experiment_matrix.*`, `paper/references.bib`, figure/table catalogs, or bundle manifests as applicable.
-6. Re-run the normal write validation gates. A Nature companion output is not manuscript-ready until DeepScientist coverage, language, citation, and artifact checks still pass.
+6. Re-run the normal write validation gates. A Nature companion output is not manuscript-ready until EEEE Scientist coverage, language, citation, and artifact checks still pass.
 
 - `nature-polishing`: use for Nature-leaning English, section restructuring, and Chinese-to-English academic polish. Apply it after the evidence boundary is clear, and keep unsupported claims downgraded or marked as blockers.
 - `nature-data`: use for Data Availability, source-data, repository, dataset-citation, restricted-data, and FAIR metadata sections. Draft from verified inventory and leave unresolved fields explicit.

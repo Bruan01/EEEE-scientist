@@ -15,7 +15,7 @@
 
 Perceval is a Python framework for designing, simulating, and executing discrete-variable photonic quantum circuits with linear optics models and Quandela hardware connectivity.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

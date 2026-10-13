@@ -15,7 +15,7 @@
 
 Open Porous Media simulators provide fully implicit reservoir modeling for black-oil production, CO2 and hydrogen storage, thermal, solvent, and polymer processes using Eclipse-compatible input decks at industrial scale.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

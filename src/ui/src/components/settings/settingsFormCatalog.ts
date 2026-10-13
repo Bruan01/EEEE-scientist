@@ -36,7 +36,7 @@ export const configSections: SettingsSection[] = [
         kind: 'text',
         placeholder: '/home/you/DeepScientist',
         description: 'Root directory for config, projects, memory, logs, and caches.',
-        whereToGet: 'Use your installed DeepScientist home directory. Usually keep the generated path.',
+        whereToGet: 'Use your installed EEEE Scientist home directory. Usually keep the generated path.',
       },
       {
         key: 'default_runner',
@@ -55,7 +55,7 @@ export const configSections: SettingsSection[] = [
         key: 'default_locale',
         label: 'Default locale',
         kind: 'select',
-        description: 'Primary language used by system prompts and runtime defaults. On the first web launch, DeepScientist initializes this from your browser language.',
+        description: 'Primary language used by system prompts and runtime defaults. On the first web launch, EEEE Scientist initializes this from your browser language.',
         whereToGet: 'Leave it as initialized, or override it here if you want the runtime to always prefer a specific language.',
         options: [
           { label: '中文 (zh-CN)', value: 'zh-CN' },
@@ -141,7 +141,7 @@ export const configSections: SettingsSection[] = [
         key: 'ui.default_mode',
         label: 'Default start mode',
         kind: 'select',
-        description: 'Preferred startup surface when launching DeepScientist.',
+        description: 'Preferred startup surface when launching EEEE Scientist.',
         whereToGet: 'Choose `both` to keep current web + TUI behavior, or narrow it for a focused workflow.',
         options: [
           { label: 'Both', value: 'both' },
@@ -222,7 +222,7 @@ export const configSections: SettingsSection[] = [
   {
     id: 'git',
     title: 'Git behavior',
-    description: 'How DeepScientist checkpoints and exports project state.',
+    description: 'How EEEE Scientist checkpoints and exports project state.',
     fields: [
       {
         key: 'git.auto_checkpoint',
@@ -287,14 +287,14 @@ export const configSections: SettingsSection[] = [
   {
     id: 'bootstrap',
     title: 'Codex bootstrap',
-    description: 'First-start Codex readiness gate. DeepScientist flips this to ready after the startup hello probe succeeds once.',
+    description: 'First-start Codex readiness gate. EEEE Scientist flips this to ready after the startup hello probe succeeds once.',
     fields: [
       {
         key: 'bootstrap.codex_ready',
         label: 'Codex ready',
         kind: 'boolean',
         description: 'Whether the startup Codex hello probe has already succeeded on this home directory.',
-        whereToGet: 'Keep this false if you want DeepScientist to re-check Codex login on the next daemon start. It flips to true automatically after a successful startup probe.',
+        whereToGet: 'Keep this false if you want EEEE Scientist to re-check Codex login on the next daemon start. It flips to true automatically after a successful startup probe.',
       },
       {
         key: 'bootstrap.codex_last_checked_at',
@@ -310,7 +310,7 @@ export const configSections: SettingsSection[] = [
         kind: 'text',
         placeholder: 'Codex startup probe completed.',
         description: 'Short summary of the last startup Codex probe result.',
-        whereToGet: 'DeepScientist writes this automatically. Use it to understand why startup was blocked last time.',
+        whereToGet: 'EEEE Scientist writes this automatically. Use it to understand why startup was blocked last time.',
       },
     ],
   },
@@ -351,42 +351,42 @@ export const configSections: SettingsSection[] = [
         key: 'connectors.system_enabled.qq',
         label: 'Show QQ connector',
         kind: 'boolean',
-        description: 'If disabled, QQ is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, QQ is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Keep this enabled for the default install path.',
       },
       {
         key: 'connectors.system_enabled.telegram',
         label: 'Show Telegram connector',
         kind: 'boolean',
-        description: 'If disabled, Telegram is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, Telegram is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Enable this only when you plan to configure Telegram on this machine.',
       },
       {
         key: 'connectors.system_enabled.discord',
         label: 'Show Discord connector',
         kind: 'boolean',
-        description: 'If disabled, Discord is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, Discord is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Enable this only when you plan to configure Discord on this machine.',
       },
       {
         key: 'connectors.system_enabled.slack',
         label: 'Show Slack connector',
         kind: 'boolean',
-        description: 'If disabled, Slack is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, Slack is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Enable this only when you plan to configure Slack on this machine.',
       },
       {
         key: 'connectors.system_enabled.feishu',
         label: 'Show Feishu connector',
         kind: 'boolean',
-        description: 'If disabled, Feishu is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, Feishu is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Enable this only when you plan to configure Feishu on this machine.',
       },
       {
         key: 'connectors.system_enabled.whatsapp',
         label: 'Show WhatsApp connector',
         kind: 'boolean',
-        description: 'If disabled, WhatsApp is hidden from the product UI and DeepScientist will not start its background runtime.',
+        description: 'If disabled, WhatsApp is hidden from the product UI and EEEE Scientist will not start its background runtime.',
         whereToGet: 'Enable this only when you plan to configure WhatsApp on this machine.',
       },
       {
@@ -407,14 +407,14 @@ export const configSections: SettingsSection[] = [
         key: 'cloud.enabled',
         label: 'Enable cloud link',
         kind: 'boolean',
-        description: 'Turn on the optional DeepScientist cloud link path.',
+        description: 'Turn on the optional EEEE Scientist cloud link path.',
         whereToGet: 'Leave disabled for fully local-first deployments.',
       },
       {
         key: 'cloud.base_url',
         label: 'Cloud base URL',
         kind: 'url',
-        placeholder: 'https://deepscientist.cc',
+        placeholder: 'https://your-public-host.example',
         description: 'Base URL of the cloud service used for optional sync or token verification.',
         whereToGet: 'Set this only if you operate against a custom or self-hosted cloud endpoint.',
       },
@@ -544,12 +544,12 @@ export const runnerCatalog: RunnerCatalogEntry[] = [
   {
     name: 'codex',
     label: 'Codex',
-    description: 'Primary DeepScientist runner. Controls the CLI binary, model defaults, and sandbox policy.',
+    description: 'Primary EEEE Scientist runner. Controls the CLI binary, model defaults, and sandbox policy.',
   },
   {
     name: 'claude',
     label: 'Claude',
-    description: 'Anthropic Claude Code runner. Uses headless Claude Code CLI with DeepScientist MCP injection and dangerous bypassPermissions defaults.',
+    description: 'Anthropic Claude Code runner. Uses headless Claude Code CLI with EEEE Scientist MCP injection and dangerous bypassPermissions defaults.',
   },
   {
     name: 'kimi',
@@ -559,7 +559,7 @@ export const runnerCatalog: RunnerCatalogEntry[] = [
   {
     name: 'opencode',
     label: 'OpenCode',
-    description: 'OpenCode runner. Uses the OpenCode CLI / JSON event path with DeepScientist MCP injection and permission allow defaults.',
+    description: 'OpenCode runner. Uses the OpenCode CLI / JSON event path with EEEE Scientist MCP injection and permission allow defaults.',
   },
 ]
 
@@ -610,7 +610,7 @@ export const runnerFields: SettingsField[] = [
     label: 'Reasoning effort',
     kind: 'select',
     description: 'Default reasoning intensity used by the runner when the request does not override it. `None` omits this parameter entirely.',
-    whereToGet: 'Use the effort level accepted by the selected runner; choose `None` when you want DeepScientist to avoid sending the reasoning-effort parameter.',
+    whereToGet: 'Use the effort level accepted by the selected runner; choose `None` when you want EEEE Scientist to avoid sending the reasoning-effort parameter.',
     options: [
       { label: 'None', value: '' },
       { label: 'Minimal', value: 'minimal' },
@@ -687,14 +687,14 @@ export const runnerFields: SettingsField[] = [
     kind: 'text',
     placeholder: 'research',
     description: 'Optional Kimi agent name passed through as `kimi --agent <name>`.',
-    whereToGet: 'Leave empty to use the Kimi default agent. Fill this only when your local Kimi setup defines a specific agent profile for DeepScientist turns.',
+    whereToGet: 'Leave empty to use the Kimi default agent. Fill this only when your local Kimi setup defines a specific agent profile for EEEE Scientist turns.',
     runners: ['kimi'],
   },
   {
     key: 'thinking',
     label: 'Thinking mode',
     kind: 'boolean',
-    description: 'Whether DeepScientist should enable `kimi --thinking` for this runner by default.',
+    description: 'Whether EEEE Scientist should enable `kimi --thinking` for this runner by default.',
     whereToGet: 'Enable this only when your Kimi path supports thinking mode and you want it on for most turns.',
     runners: ['kimi'],
   },
@@ -702,7 +702,7 @@ export const runnerFields: SettingsField[] = [
     key: 'yolo',
     label: 'Yolo mode',
     kind: 'boolean',
-    description: 'Whether DeepScientist should pass `--yolo` so Kimi runs without interactive approval prompts.',
+    description: 'Whether EEEE Scientist should pass `--yolo` so Kimi runs without interactive approval prompts.',
     whereToGet: 'Keep enabled for unattended local automation. Disable it only when you intentionally want Kimi to stop for confirmations.',
     runners: ['kimi'],
   },
@@ -721,7 +721,7 @@ export const runnerFields: SettingsField[] = [
     kind: 'text',
     placeholder: 'research',
     description: 'Optional OpenCode agent name passed through as `opencode run --agent <name>`.',
-    whereToGet: 'Leave empty to use the OpenCode default agent. Fill this when you want a specific OpenCode agent profile for DeepScientist turns.',
+    whereToGet: 'Leave empty to use the OpenCode default agent. Fill this when you want a specific OpenCode agent profile for EEEE Scientist turns.',
     runners: ['opencode'],
   },
   {
@@ -755,7 +755,7 @@ export const runnerFields: SettingsField[] = [
     kind: 'number',
     placeholder: '7',
     description: 'Upper bound on total attempts for one project turn, including the first run.',
-    whereToGet: 'Use a small number; DeepScientist hard-caps this at `7` even if a larger value is entered.',
+    whereToGet: 'Use a small number; EEEE Scientist hard-caps this at `7` even if a larger value is entered.',
   },
   {
     key: 'retry_initial_backoff_sec',

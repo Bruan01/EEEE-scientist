@@ -15,7 +15,7 @@
 
 pyiron_base provides core workflow, job orchestration, and HDF5-based data management for large-scale computational materials science studies across local and HPC resources.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

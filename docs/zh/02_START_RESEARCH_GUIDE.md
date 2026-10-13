@@ -67,7 +67,7 @@ https://arxiv.org/abs/2602.00428
 
 `Runtime constraints`
 
-下面这段只是教程参考，不是 DeepScientist 的默认端点配置。粘贴前请把端点、API key 和模型名替换成你自己的真实运行时。
+下面这段只是教程参考，不是 EEEE Scientist 的默认端点配置。粘贴前请把端点、API key 和模型名替换成你自己的真实运行时。
 
 ```text
 - Keep the task definition and evaluation protocol aligned with the official baseline unless a change is explicitly justified.
@@ -354,7 +354,7 @@ type StartResearchContractFields = {
 
 关于 workspace mode 的实际含义：
 
-- DeepScientist 还会区分用户导向的 `copilot` 模式和默认的 `autonomous` 模式。
+- EEEE Scientist 还会区分用户导向的 `copilot` 模式和默认的 `autonomous` 模式。
 - 在 `copilot` 下，当前请求单元完成后通常应该停驻，等待下一条用户消息或 `/resume`。
 - 在 `autonomous` 下，不能因为“当前还没有长任务在跑”就停住；系统应继续推进，直到下一个真实长任务被准备好或启动起来。
 

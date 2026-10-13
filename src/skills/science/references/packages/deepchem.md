@@ -15,7 +15,7 @@
 
 DeepChem provides domain-focused machine learning tools for molecular property prediction, drug discovery, and scientific modeling across chemistry, materials science, quantum chemistry, and biology.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

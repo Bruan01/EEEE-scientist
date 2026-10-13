@@ -1,17 +1,17 @@
 # 24 Claude Code Setup
 
-It reuses the `claude` CLI that already works on your machine, then injects DeepScientist MCP servers and quest-local skills at runtime.
+It reuses the `claude` CLI that already works on your machine, then injects EEEE Scientist MCP servers and quest-local skills at runtime.
 
 The right order is:
 
 1. install and authenticate Claude Code
 2. confirm `claude` works directly in a terminal
 3. run `ds doctor`
-4. only then switch DeepScientist to the `claude` runner
+4. only then switch EEEE Scientist to the `claude` runner
 
 ## Official docs to read first
 
-Read the official Claude Code docs before editing DeepScientist settings:
+Read the official Claude Code docs before editing EEEE Scientist settings:
 
 - Quickstart: `https://docs.anthropic.com/en/docs/claude-code/quickstart`
 - Setup / install: `https://docs.anthropic.com/en/docs/claude-code/getting-started`
@@ -21,11 +21,11 @@ Read the official Claude Code docs before editing DeepScientist settings:
 - Environment variables: `https://code.claude.com/docs/en/env-vars`
 - Ollama + Claude Code: `https://docs.ollama.com/integrations/claude-code`
 
-DeepScientist expects the same local Claude Code setup described there.
+EEEE Scientist expects the same local Claude Code setup described there.
 
-## What DeepScientist actually uses
+## What EEEE Scientist actually uses
 
-DeepScientist currently runs Claude Code in headless mode with a command shape close to:
+EEEE Scientist currently runs Claude Code in headless mode with a command shape close to:
 
 ```bash
 claude -p \
@@ -45,7 +45,7 @@ Then it injects three built-in MCP servers into the run:
 - `artifact`
 - `bash_exec`
 
-It also syncs first-party DeepScientist skills into quest-local Claude Code agents under:
+It also syncs first-party EEEE Scientist skills into quest-local Claude Code agents under:
 
 ```text
 <quest_root>/.claude/agents/
@@ -82,7 +82,7 @@ which claude
 claude --version
 ```
 
-If you need a non-default binary, set the absolute path in DeepScientist `runners.yaml`.
+If you need a non-default binary, set the absolute path in EEEE Scientist `runners.yaml`.
 
 ## Step 2: authenticate Claude Code
 
@@ -108,11 +108,11 @@ The most important local files are usually:
 - `~/.claude/settings.local.json`
 - `~/.claude/agents/`
 
-DeepScientist reads from `runners.claude.config_dir` and copies the relevant files into a quest-local runtime overlay before each run.
+EEEE Scientist reads from `runners.claude.config_dir` and copies the relevant files into a quest-local runtime overlay before each run.
 
 ## Step 3: validate Claude Code directly
 
-Before touching DeepScientist settings, confirm headless Claude Code works on its own.
+Before touching EEEE Scientist settings, confirm headless Claude Code works on its own.
 
 ### Minimal smoke check
 
@@ -140,7 +140,7 @@ If these fail, stop there and fix Claude Code first.
 
 ## Claude settings that matter most
 
-From the current CLI help and settings docs, the DeepScientist-relevant Claude Code knobs are:
+From the current CLI help and settings docs, the EEEE Scientist-relevant Claude Code knobs are:
 
 - `--model`
   - choose the Claude model for the session
@@ -149,17 +149,17 @@ From the current CLI help and settings docs, the DeepScientist-relevant Claude C
 - `--add-dir`
   - add extra directories to tool access scope
 - `--system-prompt` / `--append-system-prompt`
-  - DeepScientist does not rely on these directly; it builds its own prompt and passes it as the run input
+  - EEEE Scientist does not rely on these directly; it builds its own prompt and passes it as the run input
 - `--mcp-config`
-  - DeepScientist does not ask users to maintain this manually for built-in MCP; it injects MCP itself per run
+  - EEEE Scientist does not ask users to maintain this manually for built-in MCP; it injects MCP itself per run
 - `--agent`
-  - available in Claude Code CLI, but DeepScientist currently uses synced quest-local agents rather than a global `runners.yaml` field for agent name selection
+  - available in Claude Code CLI, but EEEE Scientist currently uses synced quest-local agents rather than a global `runners.yaml` field for agent name selection
 
 ## Environment variables and gateways
 
 The official Claude Code settings docs explicitly list `ANTHROPIC_API_KEY`.
 
-For DeepScientist users, the practical env fields are:
+For EEEE Scientist users, the practical env fields are:
 
 - `ANTHROPIC_API_KEY`
   - standard Anthropic API key path
@@ -168,17 +168,17 @@ For DeepScientist users, the practical env fields are:
 - `CLAUDE_CODE_MAX_OUTPUT_TOKENS`
   - if your Claude Code environment or provider supports this limit knob
 
-### Important DeepScientist compatibility note
+### Important EEEE Scientist compatibility note
 
 Some third-party Claude-compatible gateways expose a token as `ANTHROPIC_AUTH_TOKEN` rather than `ANTHROPIC_API_KEY`.
 
-DeepScientist now mirrors:
+EEEE Scientist now mirrors:
 
 - `ANTHROPIC_AUTH_TOKEN -> ANTHROPIC_API_KEY`
 
 when `ANTHROPIC_API_KEY` is empty.
 
-This is a DeepScientist compatibility behavior, not a Claude Code guarantee.
+This is a EEEE Scientist compatibility behavior, not a Claude Code guarantee.
 
 If your direct `claude` terminal run already works with `ANTHROPIC_API_KEY`, prefer that field.
 
@@ -188,8 +188,8 @@ Ollama exposes an Anthropic-compatible API, so Claude Code can point `ANTHROPIC_
 
 Use this path when:
 
-- you want DeepScientist to use the `claude` runner while the actual model is served by Ollama
-- the Ollama model has enough context for DeepScientist's long prompts and MCP tool use
+- you want EEEE Scientist to use the `claude` runner while the actual model is served by Ollama
+- the Ollama model has enough context for EEEE Scientist's long prompts and MCP tool use
 - a direct Claude Code headless smoke check works first
 
 Do not use this as the normal Gemini route. Gemini's official compatibility path is OpenAI-compatible, not Anthropic-compatible; use OpenCode for Gemini unless you have your own Anthropic-compatible Gemini gateway.
@@ -223,9 +223,9 @@ claude -p \
   --tools ""
 ```
 
-If this fails, fix Ollama, the model name, or Claude Code's provider env before changing DeepScientist.
+If this fails, fix Ollama, the model name, or Claude Code's provider env before changing EEEE Scientist.
 
-### 3. Put the same route in DeepScientist
+### 3. Put the same route in EEEE Scientist
 
 ```yaml
 claude:
@@ -239,9 +239,9 @@ claude:
     ANTHROPIC_BASE_URL: "http://localhost:11434"
 ```
 
-DeepScientist mirrors `ANTHROPIC_AUTH_TOKEN` to `ANTHROPIC_API_KEY` when `ANTHROPIC_API_KEY` is empty. Do not rely on an empty `ANTHROPIC_API_KEY: ""` entry in `runners.yaml`; empty env values are ignored.
+EEEE Scientist mirrors `ANTHROPIC_AUTH_TOKEN` to `ANTHROPIC_API_KEY` when `ANTHROPIC_API_KEY` is empty. Do not rely on an empty `ANTHROPIC_API_KEY: ""` entry in `runners.yaml`; empty env values are ignored.
 
-### 4. Validate DeepScientist
+### 4. Validate EEEE Scientist
 
 ```bash
 ds doctor --runner claude
@@ -260,7 +260,7 @@ Gemini is not a normal Claude Code provider path.
 
 If you have a private Anthropic-compatible gateway in front of Gemini, configure it with `ANTHROPIC_BASE_URL`; otherwise use [25 OpenCode Setup](./25_OPENCODE_PROVIDER_SETUP.md) for Gemini.
 
-## Step 4: map Claude Code into DeepScientist settings
+## Step 4: map Claude Code into EEEE Scientist settings
 
 ### Global runtime config
 
@@ -300,7 +300,7 @@ If your direct Claude Code install uses the default account and settings under `
 
 ### Settings-first path after launch
 
-If DeepScientist is already running, use the visual `Models` page first:
+If EEEE Scientist is already running, use the visual `Models` page first:
 
 - route: `/settings/runners`
 
@@ -335,7 +335,7 @@ In the web Settings page:
 - `Runners -> claude.env`
   - put `ANTHROPIC_API_KEY`, `ANTHROPIC_BASE_URL`, and related gateway values here
 
-## Step 5: validate DeepScientist
+## Step 5: validate EEEE Scientist
 
 Run doctor after your terminal-level Claude check passes:
 
@@ -349,7 +349,7 @@ You want the Claude section to confirm:
 - the startup probe returns `HELLO`
 - the configured `config_dir` is readable
 
-Then launch DeepScientist and verify the runner used by a project:
+Then launch EEEE Scientist and verify the runner used by a project:
 
 ```bash
 ds
@@ -359,7 +359,7 @@ or create a project from the web UI and confirm the quest runner is `claude` in 
 
 ## Project-level switching
 
-DeepScientist now supports both levels of switching:
+EEEE Scientist now supports both levels of switching:
 
 ### Global default for new quests
 
@@ -382,9 +382,9 @@ This means:
 - existing quests can stay on Codex
 - a single quest can be switched from Codex to Claude or back later
 
-## DeepScientist-specific runtime behavior
+## EEEE Scientist-specific runtime behavior
 
-For each Claude run, DeepScientist creates a quest-local overlay and injects:
+For each Claude run, EEEE Scientist creates a quest-local overlay and injects:
 
 - quest-local MCP server config
 - quest-local skills mirrored into `.claude/agents/`
@@ -395,7 +395,7 @@ For each Claude run, DeepScientist creates a quest-local overlay and injects:
   - `DS_WORKTREE_ROOT`
   - `DS_RUN_ID`
 
-You do not need to hand-write Claude MCP config for DeepScientist's three built-in MCP namespaces.
+You do not need to hand-write Claude MCP config for EEEE Scientist's three built-in MCP namespaces.
 
 ## Common failure cases
 
@@ -413,7 +413,7 @@ Then either:
 - fix PATH
 - or set `runners.claude.binary` to an absolute path
 
-### Interactive `claude` works, but DeepScientist doctor fails
+### Interactive `claude` works, but EEEE Scientist doctor fails
 
 Usually one of these is wrong:
 
@@ -426,7 +426,7 @@ Usually one of these is wrong:
 
 If direct Claude Code still shows `apiKeySource: none`, set `ANTHROPIC_API_KEY` explicitly.
 
-DeepScientist can mirror `ANTHROPIC_AUTH_TOKEN`, but your own direct terminal validation should still prefer a real `ANTHROPIC_API_KEY` path whenever possible.
+EEEE Scientist can mirror `ANTHROPIC_AUTH_TOKEN`, but your own direct terminal validation should still prefer a real `ANTHROPIC_API_KEY` path whenever possible.
 
 ### Project-level skills are not visible
 
@@ -436,11 +436,11 @@ Check that the quest contains:
 <quest_root>/.claude/agents/
 ```
 
-DeepScientist syncs first-party skills there during quest creation and prompt refresh.
+EEEE Scientist syncs first-party skills there during quest creation and prompt refresh.
 
 ### MCP tools appear in the run, but not in the UI
 
-Current DeepScientist surfaces display Claude tool events through canonical `runner.tool_call` / `runner.tool_result` events.
+Current EEEE Scientist surfaces display Claude tool events through canonical `runner.tool_call` / `runner.tool_result` events.
 
 If the backend works but the UI looks empty, check:
 
@@ -466,4 +466,4 @@ claude:
   env: {}
 ```
 
-Then keep actual credentials in the shell or in the runner env mapping, validate with `claude -p`, and only then start DeepScientist.
+Then keep actual credentials in the shell or in the runner env mapping, validate with `claude -p`, and only then start EEEE Scientist.

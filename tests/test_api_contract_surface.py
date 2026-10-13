@@ -516,7 +516,7 @@ def test_workspace_studio_uses_direct_timeline_surface() -> None:
 
     assert "QuestStudioDirectTimeline" in studio_view_source
     assert "<QuestStudioDirectTimeline" in studio_view_source
-    assert "@DeepScientist" in studio_timeline_source
+    assert "@EEEE Scientist" in studio_timeline_source
     assert "buildStudioTurns(feed)" in studio_timeline_source
     assert "findLatestRenderedOperationId" in studio_timeline_source
     assert "QuestBashExecOperation" in studio_timeline_source
@@ -544,7 +544,7 @@ def test_artifact_tool_views_render_activate_branch_and_delivery_context() -> No
 
     assert "function renderActivateBranch" in artifact_tool_view_source
     assert "function renderConnectorDelivery" in artifact_tool_view_source
-    assert "activate_branch: active ? 'DeepScientist is activating branch...' : 'DeepScientist activated branch.'" in artifact_tool_view_source
+    assert "activate_branch: active ? 'EEEE Scientist is activating branch...' : 'EEEE Scientist activated branch.'" in artifact_tool_view_source
     assert "Returning to a durable research branch should also sync the active workspace and connector context." in artifact_tool_view_source
 
 
@@ -618,7 +618,7 @@ def test_update_reminders_show_manual_npm_command_in_web_surface() -> None:
     assert "systemUpdateAction('remind_later')" in reminder_source
     assert "SystemUpdateDialog" in reminder_source
     assert "prompt_recommended" in reminder_source
-    assert "npm install -g @researai/deepscientist@latest" in dialog_source
+    assert "npm install -g eeee-scientist@latest" in dialog_source
     assert "Sparkles" in update_button_source
     assert "SystemUpdateButton" in app_bar_source
     assert "SystemUpdateButton" in hero_nav_source

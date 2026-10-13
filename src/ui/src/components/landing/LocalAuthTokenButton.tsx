@@ -21,7 +21,7 @@ function copyBundle(locale: 'en' | 'zh') {
     return {
       button: '密码',
       title: '本地访问密码',
-      subtitle: '这个密码保存在当前浏览器中，用于访问本地 DeepScientist daemon。',
+      subtitle: '这个密码保存在当前浏览器中，用于访问本地 EEEE Scientist daemon。',
       copy: '复制',
       copied: '已复制',
       unavailable: '暂时无法读取密码。',
@@ -31,7 +31,7 @@ function copyBundle(locale: 'en' | 'zh') {
   return {
     button: 'Password',
     title: 'Local Access Password',
-    subtitle: 'This password is stored in the current browser and unlocks the local DeepScientist daemon.',
+    subtitle: 'This password is stored in the current browser and unlocks the local EEEE Scientist daemon.',
     copy: 'Copy',
     copied: 'Copied',
     unavailable: 'The password is unavailable right now.',

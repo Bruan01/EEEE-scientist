@@ -15,7 +15,7 @@
 
 SeisSol is a high-order discontinuous Galerkin and ADER solver for seismic wave propagation and dynamic earthquake rupture simulations at scale.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

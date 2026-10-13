@@ -15,7 +15,7 @@
 
 Python library with on-demand databases and correlations for pure-component constants, thermophysical properties, safety information, and phase-equilibrium calculations used in chemical engineering workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

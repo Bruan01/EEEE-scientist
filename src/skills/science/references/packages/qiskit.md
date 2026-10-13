@@ -15,7 +15,7 @@
 
 Qiskit is an open source quantum computing SDK for building circuits, transpiling to target backends, and evaluating observables with sampler and estimator primitives.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

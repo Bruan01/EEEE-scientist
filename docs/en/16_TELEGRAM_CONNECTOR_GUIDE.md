@@ -1,6 +1,6 @@
 # 16 Telegram Connector Guide
 
-Use this guide when you want DeepScientist to continue a quest through Telegram.
+Use this guide when you want EEEE Scientist to continue a quest through Telegram.
 
 Telegram in the current open-source runtime uses the built-in polling path:
 
@@ -10,7 +10,7 @@ Telegram in the current open-source runtime uses the built-in polling path:
 
 ## 1. What Telegram support includes
 
-DeepScientist currently supports Telegram through:
+EEEE Scientist currently supports Telegram through:
 
 - `TelegramPollingService` for inbound polling
 - `GenericRelayChannel` for bindings, inbox/outbox, targets, and runtime status
@@ -29,7 +29,7 @@ This means Telegram already fits the same quest-binding model as the other conne
 7. Fill `bot_token`.
 8. Save the connector.
 9. Send one real private message such as `/start` or `/help` to the bot.
-10. Return to DeepScientist and verify that the runtime has discovered the target conversation.
+10. Return to EEEE Scientist and verify that the runtime has discovered the target conversation.
 
 ## 2.1 Settings page at a glance
 
@@ -71,7 +71,7 @@ Telegram conversations are normalized into quest-aware connector ids like:
 - `telegram:direct:<chat_id>`
 - `telegram:group:<chat_id>`
 
-DeepScientist binds quests to those normalized conversation ids, not to transient webhook state.
+EEEE Scientist binds quests to those normalized conversation ids, not to transient webhook state.
 
 Important rules:
 

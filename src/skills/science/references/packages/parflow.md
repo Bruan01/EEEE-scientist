@@ -15,7 +15,7 @@
 
 ParFlow is a massively parallel integrated hydrologic model for coupled surface and subsurface watershed flow, simulating overland runoff, groundwater, and land-surface processes across complex terrain.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

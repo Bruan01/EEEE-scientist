@@ -124,7 +124,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
+            placeholder: 'EEEE Scientist',
             description: 'Display name used by your local runtime.',
             whereToGet: 'Choose the alias shown in messages and connector cards.',
           },
@@ -189,7 +189,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
+            placeholder: 'EEEE Scientist',
             description: 'Display name used by the local runtime.',
             whereToGet: 'Choose the local alias shown in the workspace and connector cards.',
           },
@@ -263,9 +263,9 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
+            placeholder: 'EEEE Scientist',
             description: 'Local display name for Slack connector messages.',
-            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+            whereToGet: 'Choose the alias shown in EEEE Scientist surfaces.',
           },
           {
             key: 'bot_token',
@@ -345,9 +345,9 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
+            placeholder: 'EEEE Scientist',
             description: 'Local display name for the Feishu connector.',
-            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+            whereToGet: 'Choose the alias shown in EEEE Scientist surfaces.',
           },
           {
             key: 'app_id',
@@ -400,7 +400,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
     icon: connectorBrandIcons.whatsapp,
     portalLabel: 'WhatsApp Cloud API docs',
     portalUrl: 'https://developers.facebook.com/docs/whatsapp/cloud-api/get-started/',
-    deliveryNote: 'Local-session is the required runtime path. DeepScientist stores auth state in the configured session directory.',
+    deliveryNote: 'Local-session is the required runtime path. EEEE Scientist stores auth state in the configured session directory.',
     sections: [
       {
         id: 'identity',
@@ -420,9 +420,9 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
+            placeholder: 'EEEE Scientist',
             description: 'Local display name used by the WhatsApp connector.',
-            whereToGet: 'Choose the alias shown in DeepScientist surfaces.',
+            whereToGet: 'Choose the alias shown in EEEE Scientist surfaces.',
           },
           {
             key: 'auth_method',
@@ -489,8 +489,8 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             key: 'bot_name',
             label: 'Bot name',
             kind: 'text',
-            placeholder: 'DeepScientist',
-            description: 'Display name used by the QQ connector in DeepScientist.',
+            placeholder: 'EEEE Scientist',
+            description: 'Display name used by the QQ connector in EEEE Scientist.',
             whereToGet: 'Choose the alias shown in the workspace and connector cards.',
           },
           {
@@ -525,7 +525,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
       {
         id: 'transport',
         title: 'Gateway behavior',
-        description: 'QQ only uses the built-in gateway direct connection in DeepScientist.',
+        description: 'QQ only uses the built-in gateway direct connection in EEEE Scientist.',
         fields: [
           {
             key: 'require_at_in_groups',
@@ -561,7 +561,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             label: 'Auto-bind DM to active project',
             kind: 'boolean',
             description: 'If enabled, private QQ chats can automatically attach to the current active project.',
-            whereToGet: 'Recommended when one operator mainly drives DeepScientist from QQ. This is enabled by default.',
+            whereToGet: 'Recommended when one operator mainly drives EEEE Scientist from QQ. This is enabled by default.',
           },
         ],
       },
@@ -623,24 +623,24 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
     icon: connectorBrandIcons.weixin,
     portalLabel: 'Weixin iLink API',
     portalUrl: 'https://www.npmjs.com/package/@tencent-weixin/openclaw-weixin',
-    deliveryNote: 'Click bind once, scan the QR code with WeChat, and DeepScientist will save the connector automatically after confirmation.',
+    deliveryNote: 'Click bind once, scan the QR code with WeChat, and EEEE Scientist will save the connector automatically after confirmation.',
     sections: [],
   },
   {
     name: 'lingzhu',
     label: 'Lingzhu (Rokid Glasses)',
-    subtitle: 'Rokid Lingzhu endpoint hosted directly by DeepScientist and exposed through `/metis/agent/api`.',
+    subtitle: 'Rokid Lingzhu endpoint hosted directly by EEEE Scientist and exposed through `/metis/agent/api`.',
     icon: connectorBrandIcons.lingzhu,
     portalLabel: 'Rokid developer forum',
     portalUrl: 'https://forum.rokid.com/post/detail/2831',
     deliveryNote:
-      'DeepScientist auto-generates the Rokid binding values from the current web address. Users only need to copy the generated fields and save once. Real Lingzhu access still requires a public IP or public domain.',
+      'EEEE Scientist auto-generates the Rokid binding values from the current web address. Users only need to copy the generated fields and save once. Real Lingzhu access still requires a public IP or public domain.',
     sections: [
       {
         id: 'endpoint',
         title: 'Gateway endpoint',
         description:
-          'DeepScientist now hosts the Lingzhu-compatible routes itself. These fields control the local and public addresses advertised to Rokid.',
+          'EEEE Scientist now hosts the Lingzhu-compatible routes itself. These fields control the local and public addresses advertised to Rokid.',
         fields: [
           {
             key: 'transport',
@@ -656,24 +656,24 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             label: 'Local host',
             kind: 'text',
             placeholder: '127.0.0.1',
-            description: 'Host used by DeepScientist when it probes its own Lingzhu routes on this machine.',
-            whereToGet: 'Usually keep `127.0.0.1` unless the local DeepScientist daemon is reachable on another host name.',
+            description: 'Host used by EEEE Scientist when it probes its own Lingzhu routes on this machine.',
+            whereToGet: 'Usually keep `127.0.0.1` unless the local EEEE Scientist daemon is reachable on another host name.',
           },
           {
             key: 'gateway_port',
             label: 'Gateway port',
             kind: 'text',
             placeholder: '18789',
-            description: 'Port used to build the DeepScientist Lingzhu health and SSE URLs.',
-            whereToGet: 'Use the same public-facing DeepScientist port that serves the web page or reverse proxy. The wizard usually auto-fills this for you.',
+            description: 'Port used to build the EEEE Scientist Lingzhu health and SSE URLs.',
+            whereToGet: 'Use the same public-facing EEEE Scientist port that serves the web page or reverse proxy. The wizard usually auto-fills this for you.',
           },
           {
             key: 'public_base_url',
             label: 'Public base URL',
             kind: 'url',
             placeholder: 'http://<public-ip>:18789',
-            description: 'Publicly reachable DeepScientist base URL that Rokid devices can actually access.',
-            whereToGet: 'Fill your final public DeepScientist IP or domain here. `127.0.0.1` is not reachable from the glasses.',
+            description: 'Publicly reachable EEEE Scientist base URL that Rokid devices can actually access.',
+            whereToGet: 'Fill your final public EEEE Scientist IP or domain here. `127.0.0.1` is not reachable from the glasses.',
             docUrl: 'https://forum.rokid.com/post/detail/2831',
           },
         ],
@@ -681,7 +681,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
       {
         id: 'auth',
         title: 'Auth and identity',
-        description: 'These values are generated by DeepScientist and are pasted into the Rokid platform.',
+        description: 'These values are generated by EEEE Scientist and are pasted into the Rokid platform.',
         fields: [
           {
             key: 'auth_ak',
@@ -697,7 +697,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             label: 'Agent ID',
             kind: 'text',
             placeholder: 'main',
-            description: 'Lingzhu agent id advertised by DeepScientist for compatibility.',
+            description: 'Lingzhu agent id advertised by EEEE Scientist for compatibility.',
             whereToGet: 'Keep `main` unless your Rokid or compatibility deployment expects a different agent id.',
           },
           {
@@ -727,7 +727,7 @@ export const connectorCatalog: ConnectorCatalogEntry[] = [
             label: 'Request timeout (ms)',
             kind: 'text',
             placeholder: '60000',
-            description: 'Maximum wait time before DeepScientist falls back to a short status and lets the next Lingzhu poll replay buffered output.',
+            description: 'Maximum wait time before EEEE Scientist falls back to a short status and lets the next Lingzhu poll replay buffered output.',
             whereToGet: 'Usually keep `60000` to `120000`. Increase it when upstream research turns are slower and the glasses should wait longer before polling again.',
           },
           {

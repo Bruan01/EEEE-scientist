@@ -194,7 +194,7 @@ def test_admin_logs_and_search_surfaces_are_bounded(temp_home: Path) -> None:
     assert issue["ok"] is True
     assert "body_markdown" in issue
     assert "issue_url_base" in issue
-    assert "github.com/ResearAI/DeepScientist/issues/new" in issue["issue_url_base"]
+    assert "github.com/Bruan01/EEEE-scientist/issues/new" in issue["issue_url_base"]
     assert "## Recommended Fixes / Workarounds" in issue["body_markdown"]
     assert "## Detected Problems" in issue["body_markdown"]
     assert "## Environment" not in issue["body_markdown"]

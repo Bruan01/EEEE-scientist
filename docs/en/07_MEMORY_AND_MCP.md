@@ -1,6 +1,6 @@
 # 07 Memory and MCP: Built-in MCP and Memory Protocol
 
-This note defines the intended meaning of the three built-in DeepScientist MCP namespaces:
+This note defines the intended meaning of the three built-in EEEE Scientist MCP namespaces:
 
 - `memory`
 - `artifact`
@@ -301,7 +301,7 @@ If a quirk should be fixed in code, file an issue and fix it; do not let the fil
 
 ## 9. System quirks
 
-`~/DeepScientist/system_quirks.md` is a runtime-wide append-only document for confirmed DeepScientist runtime or system bugs. It is separate from `framework_quirks.md`:
+`~/DeepScientist/system_quirks.md` is a runtime-wide append-only document for confirmed EEEE Scientist runtime or system bugs. It is separate from `framework_quirks.md`:
 
 - `framework_quirks.md` is for framework-layer pitfalls that may shape future idea, decision, or finalize behavior.
 - `system_quirks.md` is for confirmed system bugs that may help admin/debug issue reports.

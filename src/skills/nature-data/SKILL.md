@@ -15,11 +15,11 @@ skill_role: companion
 This companion skill is adapted from `Yuan1z0825/nature-skills/tree/main/nature-data`.
 See `UPSTREAM_LICENSE.txt` for the upstream MIT license.
 
-## DeepScientist integration
+## EEEE Scientist integration
 
 - Follow the shared interaction contract injected by the system prompt.
 - Use this as a focused writing companion inside `write`, `review`, `rebuttal`, or `finalize` when the active issue is Data Availability, source data, repository selection, dataset citation, restricted data, or FAIR metadata.
-- Keep DeepScientist's evidence contract authoritative: draft availability text only from verified data inventory, repository records, artifact paths, or explicit unresolved fields.
+- Keep EEEE Scientist's evidence contract authoritative: draft availability text only from verified data inventory, repository records, artifact paths, or explicit unresolved fields.
 - Do not invent DOIs, accession numbers, repositories, ethics approvals, access committees, licences, embargoes, or data-use conditions.
 
 Use this skill to turn a manuscript's supporting data into a transparent, Nature-ready data

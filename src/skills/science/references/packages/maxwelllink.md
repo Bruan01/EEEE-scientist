@@ -15,7 +15,7 @@
 
 MaxwellLink is a modular Python framework for self-consistent electromagnetic molecular co-simulation, coupling EM solvers with quantum, force-field, and first-principles molecular dynamics drivers.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

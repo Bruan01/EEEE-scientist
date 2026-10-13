@@ -15,7 +15,7 @@
 
 OpenMOC is a deterministic method-of-characteristics simulator for neutron transport in nuclear reactors, computing flux, power distribution, and multiplication factors for fixed-source and eigenvalue problems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

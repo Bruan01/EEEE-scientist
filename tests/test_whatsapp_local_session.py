@@ -73,7 +73,7 @@ def test_whatsapp_local_session_delivery_queues_sidecar_outbox(temp_home: Path) 
     result = app.channels["whatsapp"].send(
         {
             "conversation_id": "whatsapp:direct:15550001111@s.whatsapp.net",
-            "message": "hello from DeepScientist",
+            "message": "hello from EEEE Scientist",
         }
     )
 

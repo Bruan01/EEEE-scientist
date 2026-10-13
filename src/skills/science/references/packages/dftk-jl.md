@@ -15,7 +15,7 @@
 
 Julia package for plane-wave density-functional theory in solid-state simulations, emphasizing simple extensible algorithms for electronic-structure research with MPI parallelization and GPU support.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

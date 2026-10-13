@@ -15,7 +15,7 @@
 
 Kwant is an open-source Python package for numerical calculations on tight-binding models with a strong focus on quantum transport in mesoscopic systems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 DFTB+ performs fast quantum-mechanical atomistic simulations using density functional tight binding for efficient electronic-structure, molecular dynamics, and materials calculations with Slater-Koster parameter sets.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

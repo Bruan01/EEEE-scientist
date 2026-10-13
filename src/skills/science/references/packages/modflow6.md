@@ -15,7 +15,7 @@
 
 MODFLOW 6 is the USGS modular hydrologic simulator for groundwater flow and transport, supporting integrated surface-water interactions, time-varying stresses, and extensible packages for basin-scale hydrogeologic modeling.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

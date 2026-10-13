@@ -1,13 +1,13 @@
 # 09 `ds doctor`：诊断与修复启动问题
 
-当 DeepScientist 安装后无法正常启动时，请使用 `ds doctor` 做一次本地诊断。
+当 EEEE Scientist 安装后无法正常启动时，请使用 `ds doctor` 做一次本地诊断。
 
 ## 推荐使用流程
 
-1. 先安装 DeepScientist：
+1. 先安装 EEEE Scientist：
 
    ```bash
-   npm install -g @researai/deepscientist
+   npm install -g eeee-scientist
    ```
 
 2. 先确保 Codex 自己已经可用：
@@ -62,7 +62,7 @@
 - Web / TUI bundle 是否存在
 - 当前 Web 端口是否空闲，或者是否已运行正确的 daemon
 
-注意 Codex 这里有一个关键区别：`codex login` 只说明 Codex CLI 完成了登录流程；`ds doctor` 的 runner 检查更严格，它会发起一次真实的非交互式 `codex exec` 请求，并要求模型返回 `HELLO`。所以即使 `codex login` 输出 `Successfully logged in`，`ds doctor` 仍然可能因为模型不可用、provider key 没被 DeepScientist 进程继承、代理环境没传入、或者 `CODEX_HOME` / `~/.codex` 不一致而失败。
+注意 Codex 这里有一个关键区别：`codex login` 只说明 Codex CLI 完成了登录流程；`ds doctor` 的 runner 检查更严格，它会发起一次真实的非交互式 `codex exec` 请求，并要求模型返回 `HELLO`。所以即使 `codex login` 输出 `Successfully logged in`，`ds doctor` 仍然可能因为模型不可用、provider key 没被 EEEE Scientist 进程继承、代理环境没传入、或者 `CODEX_HOME` / `~/.codex` 不一致而失败。
 
 现在 `ds doctor` 会尽量把失败项渲染成更可执行的结构：
 
@@ -77,10 +77,10 @@
 
 ### 没有安装 Codex
 
-DeepScientist 会优先使用你机器上已有的 `codex`，只有本机不可用时才回退到随包依赖。如果两者都不可用，就重新安装 DeepScientist，让随包的 Codex 依赖一起装好：
+EEEE Scientist 会优先使用你机器上已有的 `codex`，只有本机不可用时才回退到随包依赖。如果两者都不可用，就重新安装 EEEE Scientist，让随包的 Codex 依赖一起装好：
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 ```
 
 如果装完以后 `codex` 仍然不可用，请显式安装：
@@ -101,7 +101,7 @@ codex login
 
 先完成一次登录，再重新执行 `ds doctor`。
 
-如果 `codex login` 已经显示成功，但 `ds doctor` 仍然失败，请直接运行 DeepScientist 使用的同类非交互式 smoke test：
+如果 `codex login` 已经显示成功，但 `ds doctor` 仍然失败，请直接运行 EEEE Scientist 使用的同类非交互式 smoke test：
 
 ```bash
 printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -
@@ -115,16 +115,16 @@ printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip
 - `~/DeepScientist/config/runners.yaml`
 - provider-backed profile 需要的 `runners.codex.env`
 
-### Codex profile 在终端里可用，但 DeepScientist 还是失败
+### Codex profile 在终端里可用，但 EEEE Scientist 还是失败
 
-请显式让 DeepScientist 使用同一个 profile：
+请显式让 EEEE Scientist 使用同一个 profile：
 
 ```bash
 ds doctor --codex-profile m27
 ds --codex-profile m27
 ```
 
-如果你当前能用的是另一个不在 `PATH` 上的 Codex，可执行文件路径也可以一起显式传给 DeepScientist：
+如果你当前能用的是另一个不在 `PATH` 上的 Codex，可执行文件路径也可以一起显式传给 EEEE Scientist：
 
 ```bash
 ds doctor --codex /absolute/path/to/codex --codex-profile m27
@@ -135,7 +135,7 @@ ds --codex /absolute/path/to/codex --codex-profile m27
 
 同时检查：
 
-- 启动 DeepScientist 的这个 shell 中，provider API key 仍然可见
+- 启动 EEEE Scientist 的这个 shell 中，provider API key 仍然可见
 - 如果 `codex --profile <name>` 能跑，但 `ds doctor` 或 `ds docker` 仍然提示缺少 provider 环境变量，还要把这个 key 写进 `~/DeepScientist/config/runners.yaml` 的 `runners.codex.env`
 - 该 profile 指向的是 provider 的 Coding Plan endpoint，而不是普通通用 API endpoint
 - 如果你走的是阿里百炼上的 Qwen，只能使用百炼 Coding Plan endpoint；普通百炼 / DashScope 平台的 Qwen API 这里不支持
@@ -144,29 +144,29 @@ ds --codex /absolute/path/to/codex --codex-profile m27
 MiniMax 补充说明：
 
 - 如果 MiniMax 在当前最新版 `@openai/codex` 上失败，直接安装 `npm install -g @openai/codex@0.57.0`
-- 如果 DeepScientist 在启动时检测到 MiniMax profile，但当前 Codex CLI 不是 `0.57.0`，现在会在交互式终端里主动提示是否自动安装 `0.57.0`
+- 如果 EEEE Scientist 在启动时检测到 MiniMax profile，但当前 Codex CLI 不是 `0.57.0`，现在会在交互式终端里主动提示是否自动安装 `0.57.0`
 - 先创建 MiniMax `Coding Plan Key`
 - 如果你要单独在终端里验证 `codex --profile <name>`，先在当前 shell 里执行 `unset OPENAI_API_KEY` 和 `unset OPENAI_BASE_URL`
 - 使用 `https://api.minimaxi.com/v1`
 - MiniMax 官方 Codex CLI 页面当前给出的 `codex-MiniMax-*` 模型名，在本地用提供的 key 实测并不能稳定通过 Codex CLI
-- 当前本地实测可用于 DeepScientist 的模型名是 `MiniMax-M2.7` 和 `MiniMax-M2.5`
+- 当前本地实测可用于 EEEE Scientist 的模型名是 `MiniMax-M2.7` 和 `MiniMax-M2.5`
 - 如果你要走 `m25`，请使用 `MiniMax-M2.5`，不要写成 `codex-MiniMax-M2.5`
-- DeepScientist 现在可以在 probe 和运行时自动适配 MiniMax profile-only 的 `model_provider` / `model` 配置形态
-- 当 provider 设置了 `requires_openai_auth = false` 时，DeepScientist 也会自动移除冲突的 `OPENAI_*` 认证环境变量
+- EEEE Scientist 现在可以在 probe 和运行时自动适配 MiniMax profile-only 的 `model_provider` / `model` 配置形态
+- 当 provider 设置了 `requires_openai_auth = false` 时，EEEE Scientist 也会自动移除冲突的 `OPENAI_*` 认证环境变量
 - 如果你还希望终端里的 `codex --profile <name>` 也直接可用，再在 `~/.codex/config.toml` 顶层补上 `model_provider = "minimax"`，以及对应的顶层 `model`，例如 `MiniMax-M2.7` 或 `MiniMax-M2.5`
-- 当 DeepScientist 检测到 Codex CLI 版本低于 `0.63.0` 时，会自动把 `xhigh` 降级成 `high`
+- 当 EEEE Scientist 检测到 Codex CLI 版本低于 `0.63.0` 时，会自动把 `xhigh` 降级成 `high`
 - 如果 provider 返回 `tool call result does not follow tool call (2013)`，应优先把它当作 tool call / tool result 顺序错误，而不是普通网络抖动
 - 如果 provider 返回 `invalid function arguments json string` 或 `failed to parse tool call arguments` 这类错误，应该先修正 tool 调用串行化/参数编码路径，再继续重试
 
 ### 当前配置的 Codex 模型不可用
 
-DeepScientist 会在启动前强制做一次真实的 Codex hello 探测。当前版本里，这个探测会先使用：
+EEEE Scientist 会在启动前强制做一次真实的 Codex hello 探测。当前版本里，这个探测会先使用：
 
 ```text
 ~/DeepScientist/config/runners.yaml
 ```
 
-里配置的 runner 模型，默认值是 `gpt-5.4`。如果你的 Codex 账号或本地 CLI 配置不能访问这个模型，DeepScientist 现在会自动重试当前 Codex 默认模型，并把后续运行持久化为 `model: inherit`。如果你仍然想指定某个具体模型，再手动改配置并重新执行：
+里配置的 runner 模型，默认值是 `gpt-5.4`。如果你的 Codex 账号或本地 CLI 配置不能访问这个模型，EEEE Scientist 现在会自动重试当前 Codex 默认模型，并把后续运行持久化为 `model: inherit`。如果你仍然想指定某个具体模型，再手动改配置并重新执行：
 
 ```bash
 ds doctor
@@ -182,7 +182,7 @@ ds doctor
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-如果你在 Windows PowerShell（但日常使用 DeepScientist 仍然强烈建议优先使用 WSL2）：
+如果你在 Windows PowerShell（但日常使用 EEEE Scientist 仍然强烈建议优先使用 WSL2）：
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
@@ -190,7 +190,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 ### 本地论文 PDF 编译暂时不可用
 
-如果你希望直接在 DeepScientist 里本地编译论文，可以安装一个轻量级 TinyTeX `pdflatex` 运行时：
+如果你希望直接在 EEEE Scientist 里本地编译论文，可以安装一个轻量级 TinyTeX `pdflatex` 运行时：
 
 ```bash
 ds latex install-runtime
@@ -200,7 +200,7 @@ ds latex install-runtime
 
 ### `20999` 端口被占用
 
-如果是 DeepScientist 自己之前启动的守护进程：
+如果是 EEEE Scientist 自己之前启动的守护进程：
 
 ```bash
 ds --stop
@@ -208,14 +208,14 @@ ds --stop
 
 然后重新执行 `ds`。
 
-如果 `ds doctor` 明确提示当前端口正在服务另一个 DeepScientist home，请使用报错里打印的 home 路径。例如：
+如果 `ds doctor` 明确提示当前端口正在服务另一个 EEEE Scientist home，请使用报错里打印的 home 路径。例如：
 
 ```bash
 ds --home /doctor/打印出来的/home doctor
 ds --home /doctor/打印出来的/home --stop
 ```
 
-这通常说明你之前从一个目录/home 启动了 DeepScientist，现在又在另一个 home 上运行 `ds doctor`。要么继续使用已经运行的那个 home，要么给当前 home 换一个端口。
+这通常说明你之前从一个目录/home 启动了 EEEE Scientist，现在又在另一个 home 上运行 `ds doctor`。要么继续使用已经运行的那个 home，要么给当前 home 换一个端口。
 
 如果是其他服务占用了端口，请修改：
 
@@ -250,7 +250,7 @@ conda activate ds311
 ds
 ```
 
-如果你不手动切换，`ds` 也可以在 DeepScientist home 下自动准备受管的 `uv` + Python 运行时。
+如果你不手动切换，`ds` 也可以在 EEEE Scientist home 下自动准备受管的 `uv` + Python 运行时。
 
 ### Git 用户身份没有配置
 

@@ -22,7 +22,7 @@ export const textViewerManifest: UnifiedPluginManifest = {
   description: "Plain text file viewer with line numbers and search support",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "FileText",
 
   // ============================================================

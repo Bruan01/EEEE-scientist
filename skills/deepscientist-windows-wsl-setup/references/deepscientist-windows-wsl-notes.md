@@ -1,10 +1,10 @@
-# DeepScientist Windows WSL Notes
+# EEEE Scientist Windows WSL Notes
 
 Use this note only after the main skill triggers.
 
 ## Source-of-truth docs
-- Official repo: `https://github.com/ResearAI/DeepScientist`
-- Official Windows WSL2 guide: `https://github.com/ResearAI/DeepScientist/blob/main/docs/en/22_WINDOWS_WSL2_DEPLOYMENT_GUIDE.md`
+- Official repo: `https://github.com/Bruan01/EEEE-scientist`
+- Official Windows WSL2 guide: `https://github.com/Bruan01/EEEE-scientist/blob/main/docs/en/22_WINDOWS_WSL2_DEPLOYMENT_GUIDE.md`
 
 Always check those first because install commands and version pins can change.
 
@@ -33,7 +33,7 @@ If `echo hello` fails with HCS_E_CONNECTION_TIMEOUT:
 ### 2. Create a dedicated distro if needed
 Example:
 ```powershell
-wsl --install Ubuntu-22.04 --name DeepScientist --location <windows-install-path> --version 2 --no-launch --web-download
+wsl --install Ubuntu-22.04 --name EEEE Scientist --location <windows-install-path> --version 2 --no-launch --web-download
 ```
 
 ### 3. Disable Windows PATH injection
@@ -70,9 +70,9 @@ echo 'export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"' >> ~/.bashrc
 echo 'export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"' >> ~/.profile
 ```
 
-### 7. Install DeepScientist and companions
+### 7. Install EEEE Scientist and companions
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 npm install -g @openai/codex@0.57.0
 curl -LsSf https://github.com/astral-sh/uv/releases/latest/download/uv-installer.sh | sh
 ```
@@ -183,7 +183,7 @@ Successful `ds doctor` should include:
 or:
 ```text
 [warn] Codex CLI: Codex startup probe completed.
-  warning: Codex CLI 0.57.0 does not support `xhigh`; DeepScientist downgraded reasoning effort to `high` automatically.
+  warning: Codex CLI 0.57.0 does not support `xhigh`; EEEE Scientist downgraded reasoning effort to `high` automatically.
 ```
 
 Both are acceptable.

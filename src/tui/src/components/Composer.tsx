@@ -80,7 +80,7 @@ export const Composer: React.FC<ComposerProps> = ({
 
       <LoadingIndicator
         active={isRunning}
-        currentLoadingPhrase="DeepScientist is working"
+        currentLoadingPhrase="EEEE Scientist is working"
         rightContent={
           <Text color={theme.text.secondary}>
             {activeQuestId ? `quest:${activeQuestId}` : mode}

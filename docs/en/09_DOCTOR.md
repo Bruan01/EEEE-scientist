@@ -1,8 +1,8 @@
 # 09 `ds doctor`: Repair Startup and Environment Problems
 
-Use `ds doctor` when DeepScientist does not start cleanly after installation.
+Use `ds doctor` when EEEE Scientist does not start cleanly after installation.
 
-If DeepScientist already launches and you can reach the web UI, do not start from raw logs first. Start from the visual operator path:
+If EEEE Scientist already launches and you can reach the web UI, do not start from raw logs first. Start from the visual operator path:
 
 1. open [30 Settings Control Center Guide](./30_SETTINGS_CONTROL_CENTER_GUIDE.md)
 2. check `Summary`, `Runtime`, `Diagnostics`, and `Errors`
@@ -14,10 +14,10 @@ The `Diagnostics` page is the operator-facing surface that pairs best with `ds d
 
 ## Recommended flow
 
-1. Install DeepScientist:
+1. Install EEEE Scientist:
 
    ```bash
-   npm install -g @researai/deepscientist
+   npm install -g eeee-scientist
    ```
 
 2. Make sure Codex itself is working first:
@@ -40,7 +40,7 @@ The `Diagnostics` page is the operator-facing surface that pairs best with `ds d
    npm install -g @openai/codex
    ```
 
-3. Try to start DeepScientist:
+3. Try to start EEEE Scientist:
 
    ```bash
    ds
@@ -75,13 +75,13 @@ authentication flow. The `ds doctor` runner check is stricter: it sends a real
 non-interactive `codex exec` request and expects a `HELLO` response. A machine can
 therefore show "Successfully logged in" from `codex login` while `ds doctor`
 still fails because the model is unavailable, the provider key is missing from
-the DeepScientist process environment, the proxy is not inherited, or the Codex
+the EEEE Scientist process environment, the proxy is not inherited, or the Codex
 profile/config directory differs from the one you tested manually.
 
 `ds doctor` now tries to render failed checks in a more operational form:
 
 - `Problem`: what failed
-- `Why`: why DeepScientist believes it failed
+- `Why`: why EEEE Scientist believes it failed
 - `Fix`: the concrete next steps to try
 - `Evidence`: the quest/run/request clues that matched the diagnosis
 
@@ -93,10 +93,10 @@ and stderr excerpt. Use those fields before retrying blindly.
 
 ### Codex is missing
 
-DeepScientist prefers the `codex` already available on your machine and only uses the bundled dependency as fallback. If neither is present, run the package install again so the bundled Codex dependency is present:
+EEEE Scientist prefers the `codex` already available on your machine and only uses the bundled dependency as fallback. If neither is present, run the package install again so the bundled Codex dependency is present:
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 ```
 
 If `codex` is still unavailable afterward, install it explicitly:
@@ -118,7 +118,7 @@ If you prefer the interactive first-run flow, run `codex` and finish the setup t
 Finish login once, then rerun `ds doctor`.
 
 If `codex login` says success but `ds doctor` still fails, run the same kind of
-non-interactive smoke test that DeepScientist uses:
+non-interactive smoke test that EEEE Scientist uses:
 
 ```bash
 printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -
@@ -133,16 +133,16 @@ key, or the proxy first. If that command succeeds but `ds doctor` fails, compare
 - `~/DeepScientist/config/runners.yaml`
 - any `runners.codex.env` values needed by provider-backed profiles
 
-### Codex profile works in the terminal, but DeepScientist still fails
+### Codex profile works in the terminal, but EEEE Scientist still fails
 
-Run DeepScientist with the same profile explicitly:
+Run EEEE Scientist with the same profile explicitly:
 
 ```bash
 ds doctor --codex-profile m27
 ds --codex-profile m27
 ```
 
-If your working Codex CLI is not the one on `PATH`, point DeepScientist at it explicitly:
+If your working Codex CLI is not the one on `PATH`, point EEEE Scientist at it explicitly:
 
 ```bash
 ds doctor --codex /absolute/path/to/codex --codex-profile m27
@@ -162,29 +162,29 @@ Also check:
 MiniMax-specific note:
 
 - if MiniMax fails on the current `@openai/codex` latest, install `npm install -g @openai/codex@0.57.0`
-- when DeepScientist detects a MiniMax profile on startup and the installed Codex CLI is not `0.57.0`, it now offers to reinstall `0.57.0` automatically in interactive terminal launches
+- when EEEE Scientist detects a MiniMax profile on startup and the installed Codex CLI is not `0.57.0`, it now offers to reinstall `0.57.0` automatically in interactive terminal launches
 - create a MiniMax `Coding Plan Key` first
 - for plain terminal `codex --profile <name>` checks, clear `OPENAI_API_KEY` and `OPENAI_BASE_URL` in the current shell before exporting `MINIMAX_API_KEY`
 - use `https://api.minimaxi.com/v1`
 - the `codex-MiniMax-*` model names shown on MiniMax's current Codex CLI page did not pass reliably through Codex CLI in local testing with the provided key
-- the locally verified DeepScientist model names are `MiniMax-M2.7` and `MiniMax-M2.5`
+- the locally verified EEEE Scientist model names are `MiniMax-M2.7` and `MiniMax-M2.5`
 - for `m25`, use `MiniMax-M2.5`, not `codex-MiniMax-M2.5`
-- DeepScientist can auto-adapt MiniMax's profile-only `model_provider` / `model` config shape during probe and runtime
-- DeepScientist also strips conflicting `OPENAI_*` auth variables automatically for providers that set `requires_openai_auth = false`
+- EEEE Scientist can auto-adapt MiniMax's profile-only `model_provider` / `model` config shape during probe and runtime
+- EEEE Scientist also strips conflicting `OPENAI_*` auth variables automatically for providers that set `requires_openai_auth = false`
 - if you also want plain terminal `codex --profile <name>` to work directly, put `model_provider = "minimax"` and the matching top-level model such as `MiniMax-M2.7` or `MiniMax-M2.5` in `~/.codex/config.toml`
-- DeepScientist automatically downgrades `xhigh` to `high` when it detects a Codex CLI older than `0.63.0`
+- EEEE Scientist automatically downgrades `xhigh` to `high` when it detects a Codex CLI older than `0.63.0`
 - if the provider returns `tool call result does not follow tool call (2013)`, treat it as a request-ordering/protocol error rather than a transient network failure
 - if the provider returns malformed tool-call argument errors such as `invalid function arguments json string` or `failed to parse tool call arguments`, fix the tool-call serialization path before retrying again
 
 ### The configured Codex model is unavailable
 
-DeepScientist blocks startup until Codex passes a real startup hello probe. In the current release, that probe first uses the runner model configured in:
+EEEE Scientist blocks startup until Codex passes a real startup hello probe. In the current release, that probe first uses the runner model configured in:
 
 ```text
 ~/DeepScientist/config/runners.yaml
 ```
 
-The default is `gpt-5.4`. If your Codex account or CLI config cannot access that model, DeepScientist now retries with the current Codex default model and persists `model: inherit` for future runs. If you still want a specific model, edit the runner config manually and rerun:
+The default is `gpt-5.4`. If your Codex account or CLI config cannot access that model, EEEE Scientist now retries with the current Codex default model and persists `model: inherit` for future runs. If you still want a specific model, edit the runner config manually and rerun:
 
 ```bash
 ds doctor
@@ -200,7 +200,7 @@ Normally `ds` will bootstrap a local `uv` automatically. If that bootstrap fails
 curl -LsSf https://astral.sh/uv/install.sh | sh
 ```
 
-On Windows PowerShell (still strongly recommend WSL2 for regular DeepScientist use):
+On Windows PowerShell (still strongly recommend WSL2 for regular EEEE Scientist use):
 
 ```powershell
 powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
@@ -208,7 +208,7 @@ powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | ie
 
 ### Local paper PDF compilation is unavailable
 
-DeepScientist can compile papers without a full TeX Live install if you add a lightweight TinyTeX runtime:
+EEEE Scientist can compile papers without a full TeX Live install if you add a lightweight TinyTeX runtime:
 
 ```bash
 ds latex install-runtime
@@ -226,7 +226,7 @@ ds --stop
 
 Then run `ds` again.
 
-If `ds doctor` says the port is already serving another DeepScientist home, use
+If `ds doctor` says the port is already serving another EEEE Scientist home, use
 the home path printed in the error. For example:
 
 ```bash
@@ -234,7 +234,7 @@ ds --home /path/printed/by/doctor doctor
 ds --home /path/printed/by/doctor --stop
 ```
 
-This usually means you started DeepScientist once from one directory/home and are
+This usually means you started EEEE Scientist once from one directory/home and are
 now running `ds doctor` against another home. Either use the already running home
 or change this home to a different port.
 
@@ -252,7 +252,7 @@ ds --port 21000
 
 ### Python `3.10` or older is active
 
-DeepScientist still prefers the active conda environment when it already satisfies Python `>=3.11`.
+EEEE Scientist still prefers the active conda environment when it already satisfies Python `>=3.11`.
 
 If your current conda environment is too old, either activate a newer one:
 
@@ -271,7 +271,7 @@ conda activate ds311
 ds
 ```
 
-If you do nothing, `ds` can still bootstrap a managed `uv` + Python runtime automatically under the DeepScientist home.
+If you do nothing, `ds` can still bootstrap a managed `uv` + Python runtime automatically under the EEEE Scientist home.
 
 ### Git user identity is missing
 
@@ -304,6 +304,6 @@ Then confirm:
 
 - `ds docker` is kept as a compatibility alias, but the official command is `ds doctor`.
 - The default browser URL stays in the plain local form, for example `http://127.0.0.1:20999`.
-- When local browser auth is enabled, DeepScientist shows a password modal before loading the workspace.
+- When local browser auth is enabled, EEEE Scientist shows a password modal before loading the workspace.
 - You can view the current password in the launch terminal or through `ds --status`.
 - By default the password modal is disabled; use `ds --auth true` when you want the local browser password gate for one launch.

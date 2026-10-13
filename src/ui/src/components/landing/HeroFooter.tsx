@@ -10,7 +10,7 @@ export default function HeroFooter() {
           <div className="flex items-center gap-3">
             <img
               src={BRAND_LOGO_SMALL_SRC}
-              alt="DeepScientist"
+              alt="EEEE Scientist"
               width={32}
               height={32}
               className="h-8 w-8 object-contain"
@@ -19,13 +19,13 @@ export default function HeroFooter() {
               draggable={false}
             />
             <div>
-              <div className="text-sm font-semibold text-[#2D2A26]">DeepScientist</div>
+              <div className="text-sm font-semibold text-[#2D2A26]">EEEE Scientist</div>
               <div className="text-xs text-[#7E8B97]">
                 Autonomous AI research for scientific discovery.
               </div>
             </div>
           </div>
-          <div className="text-xs text-[#9A948C]">© 2026 DeepScientist Research Lab</div>
+          <div className="text-xs text-[#9A948C]">© 2026 EEEE Scientist Research Lab</div>
         </div>
       </div>
     </footer>

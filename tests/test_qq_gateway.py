@@ -110,7 +110,7 @@ def test_qq_gateway_handles_ready_and_normalizes_messages(temp_home: Path) -> No
             "t": "GROUP_AT_MESSAGE_CREATE",
             "d": {
                 "id": "msg-group-1",
-                "content": "@DeepScientist hi",
+                "content": "@EEEE Scientist hi",
                 "group_openid": "group-openid-1",
                 "author": {
                     "member_openid": "member-openid-1",

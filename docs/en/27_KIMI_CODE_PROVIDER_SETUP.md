@@ -1,6 +1,6 @@
 # Kimi Code Provider Setup
 
-Use this guide when you want DeepScientist to run through the official Kimi Code CLI as a separate builtin runner instead of reusing the Claude path.
+Use this guide when you want EEEE Scientist to run through the official Kimi Code CLI as a separate builtin runner instead of reusing the Claude path.
 
 The right order is:
 
@@ -8,17 +8,17 @@ The right order is:
 2. complete the login flow directly in the terminal
 3. confirm `kimi` works on its own
 4. run `ds doctor --runner kimi`
-5. only then switch DeepScientist to the `kimi` runner
+5. only then switch EEEE Scientist to the `kimi` runner
 
-## What DeepScientist expects
+## What EEEE Scientist expects
 
-- Install the official `kimi` CLI and make sure `kimi --version` works in the same shell that launches DeepScientist.
+- Install the official `kimi` CLI and make sure `kimi --version` works in the same shell that launches EEEE Scientist.
 - Complete the first-run login flow once with `kimi login` or by starting `kimi` interactively.
 - Your global Kimi home should normally live at `~/.kimi/`.
 
 ## What success looks like
 
-Before you switch DeepScientist over to Kimi, these should already be true:
+Before you switch EEEE Scientist over to Kimi, these should already be true:
 
 - `kimi --version` prints a real version
 - `kimi login` has completed successfully
@@ -38,7 +38,7 @@ which kimi
 kimi --version
 ```
 
-If `which kimi` prints nothing, fix the shell PATH first before touching DeepScientist settings.
+If `which kimi` prints nothing, fix the shell PATH first before touching EEEE Scientist settings.
 
 ## Step 2: complete Kimi login directly
 
@@ -50,7 +50,7 @@ kimi login
 
 If your local Kimi setup prefers an interactive first-run flow, start `kimi` once directly and complete login there.
 
-Do this before opening DeepScientist settings for Kimi.
+Do this before opening EEEE Scientist settings for Kimi.
 
 ## Step 3: validate Kimi directly
 
@@ -74,7 +74,7 @@ What you want to prove here is simple:
 
 ## Settings-first path after launch
 
-If DeepScientist is already running, use the visual `Models` page first:
+If EEEE Scientist is already running, use the visual `Models` page first:
 
 - route: `/settings/runners`
 
@@ -118,12 +118,12 @@ Use raw `runners.yaml` editing only when:
 
 ## Runtime behavior
 
-- DeepScientist copies your configured `~/.kimi` home into an isolated quest runtime under `.ds/kimi-home/.kimi`.
+- EEEE Scientist copies your configured `~/.kimi` home into an isolated quest runtime under `.ds/kimi-home/.kimi`.
 - Quest-local skills are mirrored into `.kimi/skills`.
-- Builtin DeepScientist MCP servers are injected through a generated `.kimi/mcp.json`.
-- Prompts are sent over stdin, so long DeepScientist turns do not hit argv length limits.
+- Builtin EEEE Scientist MCP servers are injected through a generated `.kimi/mcp.json`.
+- Prompts are sent over stdin, so long EEEE Scientist turns do not hit argv length limits.
 
-## Step 4: validate DeepScientist before switching globally
+## Step 4: validate EEEE Scientist before switching globally
 
 Run:
 
@@ -146,7 +146,7 @@ You can do that in either place:
 - `Settings -> Runtime -> Default runner`
 - `~/DeepScientist/config/config.yaml`
 
-Once DeepScientist is already running, the visual Settings page is the intended path.
+Once EEEE Scientist is already running, the visual Settings page is the intended path.
 
 ## Common failure cases
 
@@ -165,11 +165,11 @@ If needed, set the absolute binary path in the `Models` page or `runners.yaml`.
 
 Usually one of these is wrong:
 
-- the shell used by DeepScientist is not the same shell where `kimi` was tested
+- the shell used by EEEE Scientist is not the same shell where `kimi` was tested
 - `config_dir` points at the wrong Kimi home
 - the local Kimi session was only partially initialized
 
-### Kimi works directly, but DeepScientist still should not use it yet
+### Kimi works directly, but EEEE Scientist still should not use it yet
 
 Do not switch the default runner immediately if:
 

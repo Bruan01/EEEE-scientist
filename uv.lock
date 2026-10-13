@@ -276,7 +276,7 @@ wheels = [
 ]
 
 [[package]]
-name = "deepscientist"
+name = "eeee-scientist"
 version = "1.6.0"
 source = { editable = "." }
 dependencies = [

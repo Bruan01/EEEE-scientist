@@ -58,7 +58,7 @@ ds --stop
 Meaning:
 
 - `ds`: start the daemon, print the local Web URL, try to open the browser, then exit.
-  If you launch with `ds --auth true`, DeepScientist also prints the generated local browser password for that launch.
+  If you launch with `ds --auth true`, EEEE Scientist also prints the generated local browser password for that launch.
 - `ds --tui`: start the daemon and enter the terminal workspace.
 - `ds --both`: open Web and TUI together.
 - `ds --status`: inspect daemon status.

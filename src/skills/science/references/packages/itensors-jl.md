@@ -15,7 +15,7 @@
 
 ITensors.jl is a Julia package for efficient index-aware tensor operations and tensor network primitives used in quantum many-body and numerical physics workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

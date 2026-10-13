@@ -43,7 +43,7 @@ test.describe('copilot workspace', () => {
 
     await expect(page).toHaveURL(/\/projects\/[^/]+$/, { timeout: 30_000 })
     await expect(
-      page.getByText(/I am DeepScientist|我是 DeepScientist，任何事情都可以找我帮忙/)
+      page.getByText(/I am EEEE Scientist|我是 EEEE Scientist，任何事情都可以找我帮忙/)
     ).toBeVisible({ timeout: 30_000 })
 
     const sessionPayload = await page.evaluate(async () => {

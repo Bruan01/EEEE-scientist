@@ -15,7 +15,7 @@
 
 Meep is an open-source finite-difference time-domain simulator for modeling electromagnetic wave propagation, resonances, and scattering in photonic structures across 1D, 2D, 3D, and cylindrical geometries.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

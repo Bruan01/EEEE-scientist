@@ -112,7 +112,7 @@ Candidate briefs should explicitly answer:
 
 If the brief cannot answer those four questions clearly, it is not ready for promotion or implementation.
 
-Treat a candidate brief as the DeepScientist form of a method brief.
+Treat a candidate brief as the EEEE Scientist form of a method brief.
 It should sit between “idea intuition” and “code implementation”.
 
 Preserve this brief-shaping discipline:

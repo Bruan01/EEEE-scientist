@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate the DeepScientist science skill package catalog.
+"""Generate the EEEE Scientist science skill package catalog.
 
 The input is FermiLink's curated skilled-scipkg channel metadata. The output is
-DeepScientist-native routing material: compact package indexes and one package
+EEEE Scientist-native routing material: compact package indexes and one package
 card per curated package. The generated cards intentionally keep package
 knowledge as URLs and routing metadata; they do not vendor package source trees
 or imply solver runtime availability.
@@ -225,7 +225,7 @@ runtime as usable.
 
 {description or f'Use `{package_id}` when the scientific task matches the catalog tags above.'}
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or
@@ -306,7 +306,7 @@ def main() -> int:
         "channel_id": payload.get("channel_id"),
         "generated_at": generated_at,
         "notes": [
-            "DeepScientist uses this as package routing metadata and knowledge URLs.",
+            "EEEE Scientist uses this as package routing metadata and knowledge URLs.",
             "Package source trees are not vendored by this generated catalog.",
             "Package cards do not prove solver runtime availability.",
         ],
@@ -354,7 +354,7 @@ def main() -> int:
     lines = [
         "# Science Package Domain Index",
         "",
-        "This generated index groups FermiLink skilled-scipkg package cards for DeepScientist routing.",
+        "This generated index groups FermiLink skilled-scipkg package cards for EEEE Scientist routing.",
         "Package cards are knowledge pointers only; run package checks before computed work.",
         "",
         f"- Package count: `{len(compact_packages)}`",

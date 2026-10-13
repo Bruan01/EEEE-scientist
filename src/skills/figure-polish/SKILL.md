@@ -20,7 +20,7 @@ Do not use this skill for disposable debug plots unless the user explicitly asks
 
 ## Core principle
 
-DeepScientist figures should feel academic, restrained, and clear.
+EEEE Scientist figures should feel academic, restrained, and clear.
 
 The goal is not to make a plot “fancy”.
 The goal is to make the intended comparison obvious without visual clutter.

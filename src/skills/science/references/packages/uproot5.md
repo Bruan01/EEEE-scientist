@@ -15,7 +15,7 @@
 
 Uproot5 is a pure Python library for reading and writing CERN ROOT files, especially TTrees, and streaming high-energy physics event data into array and dataframe workflows without C++ ROOT.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 FBPIC is a Fourier-Bessel particle-in-cell simulator for relativistic plasma physics, optimized for laser and plasma wakefield acceleration studies on CPU and GPU.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

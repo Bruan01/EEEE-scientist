@@ -24,7 +24,7 @@ export const docViewerManifest: UnifiedPluginManifest = {
   description: "View Office documents including Word, Excel, and PowerPoint",
   version: "1.0.0",
   type: "builtin",
-  author: "DeepScientist Team",
+  author: "EEEE Scientist Team",
   icon: "FileSpreadsheet",
 
   // ============================================================

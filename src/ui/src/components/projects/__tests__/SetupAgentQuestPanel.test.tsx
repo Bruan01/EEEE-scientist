@@ -32,7 +32,7 @@ describe('SetupAgentQuestPanel', () => {
     expect(screen.getByText('Running')).toBeInTheDocument()
     expect(
       screen.getByText(
-        'This agent helps you build a better task form. Ask it about launch and configuration questions. Once the form is ready, click Create Project to start DeepScientist.'
+        'This agent helps you build a better task form. Ask it about launch and configuration questions. Once the form is ready, click Create Project to start EEEE Scientist.'
       )
     ).toBeInTheDocument()
   })

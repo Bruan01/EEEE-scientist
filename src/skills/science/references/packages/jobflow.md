@@ -15,7 +15,7 @@
 
 Jobflow is a Python library for defining, composing, and executing dynamic computational workflows as connected jobs and flows, with remote execution options and persistent scientific output storage.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

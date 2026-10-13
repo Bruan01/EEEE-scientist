@@ -15,7 +15,7 @@
 
 Fortran-based implementation of the D4 atomic-charge dependent London dispersion correction for DFT, providing energies, gradients, pairwise decomposition, periodic support, and C and Python interfaces.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

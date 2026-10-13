@@ -325,26 +325,26 @@ export function McpToolView({ toolContent, panelMode }: ToolViewProps) {
     isMcpBashExec
   ) {
     const label = isMcpReadFile
-      ? `DeepScientist is reading ${mcpTitle}...`
+      ? `EEEE Scientist is reading ${mcpTitle}...`
       : isMcpAppendFile
-        ? `DeepScientist is writing ${mcpTitle}`
+        ? `EEEE Scientist is writing ${mcpTitle}`
         : isMcpPullFile
-          ? `DeepScientist is pulling ${mcpTitle}...`
+          ? `EEEE Scientist is pulling ${mcpTitle}...`
           : isMcpListFile || isMcpListDir
-            ? `DeepScientist is listing ${mcpTitle}...`
+            ? `EEEE Scientist is listing ${mcpTitle}...`
             : isMcpGrepText
-              ? `DeepScientist is grepping for "${mcpSearchQuery || '...'}"...`
+              ? `EEEE Scientist is grepping for "${mcpSearchQuery || '...'}"...`
               : isMcpGrepFiles
-                ? `DeepScientist is finding files for "${mcpSearchPattern || '...'}"...`
+                ? `EEEE Scientist is finding files for "${mcpSearchPattern || '...'}"...`
                 : isMcpGlobFiles
-                  ? `DeepScientist is matching files for "${mcpSearchPattern || '...'}"...`
+                  ? `EEEE Scientist is matching files for "${mcpSearchPattern || '...'}"...`
                   : isMcpWriteMemory
-                    ? `DeepScientist is saving memory "${mcpMemoryTitle || 'Untitled'}"...`
+                    ? `EEEE Scientist is saving memory "${mcpMemoryTitle || 'Untitled'}"...`
                     : isMcpRequestPatch
-                      ? `DeepScientist is applying a patch to ${mcpPatchTarget}...`
+                      ? `EEEE Scientist is applying a patch to ${mcpPatchTarget}...`
                       : isMcpBashExec
-                        ? 'DeepScientist is executing a bash command...'
-                        : 'DeepScientist is planning...'
+                        ? 'EEEE Scientist is executing a bash command...'
+                        : 'EEEE Scientist is planning...'
 
     return (
       <div className="flex h-full min-h-0 flex-col">

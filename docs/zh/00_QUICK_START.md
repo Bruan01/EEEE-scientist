@@ -1,23 +1,23 @@
-# 00 快速开始：启动 DeepScientist 并运行第一个项目
+# 00 快速开始：启动 EEEE Scientist 并运行第一个项目
 
-可以把 DeepScientist 理解成一个长期运行在本地的科研工作区：你定义任务，准备资源，它持续往前推进，并把文件、分支、笔记和结果都留在你的机器上。
+可以把 EEEE Scientist 理解成一个长期运行在本地的科研工作区：你定义任务，准备资源，它持续往前推进，并把文件、分支、笔记和结果都留在你的机器上。
 
-这份文档面向第一次使用 DeepScientist 的用户，写法尽量偏“照着做”：一步做什么、为什么这么做，都讲清楚。
+这份文档面向第一次使用 EEEE Scientist 的用户，写法尽量偏“照着做”：一步做什么、为什么这么做，都讲清楚。
 
 你只需要完成四步：
 
-1. 安装 DeepScientist
+1. 安装 EEEE Scientist
 2. 启动本地运行时
 3. 打开首页
 4. 用一个真实示例创建第一个项目
 
-本文中的截图直接使用当前在线页面 `deepscientist.cc:20999` 作为示例。你本地运行后的页面 `127.0.0.1:20999` 通常会与它保持一致或非常接近。
+本文中的截图用于说明本地 Web 界面。EEEE Scientist 本地实例通常运行在 `127.0.0.1:20999`，页面结构应当与截图保持一致或非常接近。
 
-当前平台支持：DeepScientist 目前完整支持 Linux 和 macOS。原生 Windows 支持目前仍处于实验阶段（强烈建议优先使用 WSL2，尤其是在你希望获得最接近 Linux 的终端行为时）。
+当前平台支持：EEEE Scientist 目前完整支持 Linux 和 macOS。原生 Windows 支持目前仍处于实验阶段（强烈建议优先使用 WSL2，尤其是在你希望获得最接近 Linux 的终端行为时）。
 
 ## 安全建议：先隔离，再启动
 
-在你第一次启动 DeepScientist 前，强烈建议先接受下面这条原则：
+在你第一次启动 EEEE Scientist 前，强烈建议先接受下面这条原则：
 
 - 如果环境允许，优先在 Docker 容器、虚拟机或同等级隔离环境中运行
 - 一律使用非 root 账号启动，不要直接用 root 运行
@@ -25,7 +25,7 @@
 - 不要轻易把 `0.0.0.0` 端口、反向代理地址或网页入口公开分享给别人
 - 如果后面会绑定微信、QQ、Lingzhu 等 connector，更不要把这个站点当成可随意共享的网页
 
-原因很直接：DeepScientist 具备自动执行命令、改文件、安装依赖、发送外部消息和读写项目数据的能力。一旦权限给大了，或者站点被错误暴露，后果可能包括服务器损坏、数据丢失、密钥泄露、connector 被盗用，甚至研究结果被错误伪造却未被及时发现。
+原因很直接：EEEE Scientist 具备自动执行命令、改文件、安装依赖、发送外部消息和读写项目数据的能力。一旦权限给大了，或者站点被错误暴露，后果可能包括服务器损坏、数据丢失、密钥泄露、connector 被盗用，甚至研究结果被错误伪造却未被及时发现。
 
 完整说明见：
 
@@ -43,13 +43,13 @@
   - `opencode` 应先在你的 shell 里直接可用
 - 模型或 API 凭证
 - 如果任务比较重，准备好 GPU 或远程服务器
-- 如果你要长期运行，优先准备 Docker 或其他隔离环境，并准备一个非 root 账号专门启动 DeepScientist
+- 如果你要长期运行，优先准备 Docker 或其他隔离环境，并准备一个非 root 账号专门启动 EEEE Scientist
 - 如果要从已有工作开始，准备好代码仓库、数据或 baseline 链接
 - 如果你希望在网页之外接收进展，也可以先配置一个 connector，例如 QQ
 
 如果你还在选择合适的 Coding Plan / 订阅方案，可以先看这些官方页面：
 
-- 如果你只是想先有一个简单直接的推荐起点，优先从 Codex + OpenAI 登录路径开始。想用 Gemini 时，不要直接在 DeepScientist 里填一个模型名就开始试；先按 [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md) 把 OpenCode + Gemini 跑通。
+- 如果你只是想先有一个简单直接的推荐起点，优先从 Codex + OpenAI 登录路径开始。想用 Gemini 时，不要直接在 EEEE Scientist 里填一个模型名就开始试；先按 [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md) 把 OpenCode + Gemini 跑通。
 - ChatGPT 定价：https://openai.com/chatgpt/pricing/
 - ChatGPT Plus 帮助页：https://help.openai.com/en/articles/6950777-what-is-chatgpt-plus%3F.eps
 - MiniMax Coding Plan：https://platform.minimaxi.com/docs/guides/pricing-codingplan
@@ -57,7 +57,7 @@
 - 阿里百炼 Coding Plan：https://help.aliyun.com/zh/model-studio/coding-plan
 - 火山引擎 Ark Coding Plan：https://www.volcengine.com/docs/82379/1925115?lang=zh
 
-如果你要通过阿里百炼使用 Qwen，请只使用百炼 **Coding Plan** endpoint。普通百炼 / DashScope 平台的 Qwen API，不在当前 Codex-backed DeepScientist 支持范围内。
+如果你要通过阿里百炼使用 Qwen，请只使用百炼 **Coding Plan** endpoint。普通百炼 / DashScope 平台的 Qwen API，不在当前 Codex-backed EEEE Scientist 支持范围内。
 
 如果你只是想先走最稳的一条，优先从 Codex 开始。
 
@@ -68,11 +68,11 @@
 - [27 Kimi Code 配置指南](./27_KIMI_CODE_PROVIDER_SETUP.md)
 - [25 OpenCode 配置指南](./25_OPENCODE_PROVIDER_SETUP.md)
 
-## 1. 先安装 Node.js，再安装 DeepScientist
+## 1. 先安装 Node.js，再安装 EEEE Scientist
 
-DeepScientist 目前完整支持 Linux 和 macOS。原生 Windows 支持目前仍处于实验阶段（强烈建议优先使用 WSL2，尤其是在你希望获得更稳定、更接近 Linux 的 shell 行为时）。
+EEEE Scientist 目前完整支持 Linux 和 macOS。原生 Windows 支持目前仍处于实验阶段（强烈建议优先使用 WSL2，尤其是在你希望获得更稳定、更接近 Linux 的 shell 行为时）。
 
-在安装 DeepScientist 本身之前，请先从 Node.js 官方页面安装 Node.js：
+在安装 EEEE Scientist 本身之前，请先从 Node.js 官方页面安装 Node.js：
 
 https://nodejs.org/en/download
 
@@ -84,12 +84,12 @@ https://nodejs.org/en/download
 运行：
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 ```
 
 这一步会把 `ds` 命令安装到你的机器上。
 
-DeepScientist 现在内建四条 runner 路径：
+EEEE Scientist 现在内建四条 runner 路径：
 
 - `codex`
 - `claude`
@@ -98,8 +98,8 @@ DeepScientist 现在内建四条 runner 路径：
 
 安装相关有一个很重要的差异：
 
-- DeepScientist 会优先使用你机器上已有的 runner CLI；只有存在兼容的 package-local binary 时，才回退到 npm 包里的 helper。
-- 对 `claude`、`kimi` 和 `opencode`，DeepScientist 不会替你完成认证；这些路径都应该先让 CLI 本身跑通，再交给 DeepScientist 复用。
+- EEEE Scientist 会优先使用你机器上已有的 runner CLI；只有存在兼容的 package-local binary 时，才回退到 npm 包里的 helper。
+- 对 `claude`、`kimi` 和 `opencode`，EEEE Scientist 不会替你完成认证；这些路径都应该先让 CLI 本身跑通，再交给 EEEE Scientist 复用。
 
 如果安装完成后 `codex` 仍然不可用，请显式修复：
 
@@ -114,7 +114,7 @@ which codex
 codex login
 ```
 
-如果 `which codex` 没有输出，问题通常不是 DeepScientist 本身，而是 npm 全局 bin 目录没有正确进入 shell 的 PATH。先修复 PATH，再重新执行 `npm install -g @openai/codex`。
+如果 `which codex` 没有输出，问题通常不是 EEEE Scientist 本身，而是 npm 全局 bin 目录没有正确进入 shell 的 PATH。先修复 PATH，再重新执行 `npm install -g @openai/codex`。
 
 如果你后面还要在本地编译论文 PDF，可以再运行：
 
@@ -158,7 +158,7 @@ ds doctor
 codex --profile m27
 ```
 
-然后用同一个 profile 去跑 DeepScientist：
+然后用同一个 profile 去跑 EEEE Scientist：
 
 ```bash
 ds doctor --codex-profile m27
@@ -179,22 +179,22 @@ ds --codex /absolute/path/to/codex --codex-profile m27
 
 这里的 `m27` 是本仓库统一使用的 MiniMax profile 示例名。MiniMax 官方页面当前示例名是 `m21`，但 profile 名只是本地别名；如果你自己用了别的名字，就把命令里的名字一起改掉。
 
-DeepScientist 会在启动前强制做一次真实的 Codex hello 探测。当前 `~/DeepScientist/config/runners.yaml` 里的默认 runner 模型已经是 `inherit`。如果你的旧配置里还固定写着某个显式模型，而你的 provider 又希望模型由 profile 自己决定，请把 `model` 改成 `inherit`；或者直接使用 `--codex-profile <name>`，让这一轮启动自动继承 profile 对应的模型。
+EEEE Scientist 会在启动前强制做一次真实的 Codex hello 探测。当前 `~/DeepScientist/config/runners.yaml` 里的默认 runner 模型已经是 `inherit`。如果你的旧配置里还固定写着某个显式模型，而你的 provider 又希望模型由 profile 自己决定，请把 `model` 改成 `inherit`；或者直接使用 `--codex-profile <name>`，让这一轮启动自动继承 profile 对应的模型。
 
 MiniMax 额外说明：
 
 - 如果当前最新版 `@openai/codex` 和 MiniMax 走不通，直接安装 `npm install -g @openai/codex@0.57.0`
-- 如果 DeepScientist 在启动时检测到 MiniMax profile，但当前 Codex CLI 不是 `0.57.0`，现在会在交互式终端里主动提示是否自动安装 `0.57.0`
+- 如果 EEEE Scientist 在启动时检测到 MiniMax profile，但当前 Codex CLI 不是 `0.57.0`，现在会在交互式终端里主动提示是否自动安装 `0.57.0`
 - 先创建 MiniMax `Coding Plan Key`
 - 如果你要单独在终端里验证 `codex --profile <name>`，先在当前 shell 里执行 `unset OPENAI_API_KEY` 和 `unset OPENAI_BASE_URL`
 - 使用 `https://api.minimaxi.com/v1`
 - MiniMax 官方 Codex CLI 页面当前给出的 `codex-MiniMax-*` 模型名，在本地用提供的 key 实测并不能稳定通过 Codex CLI
-- 当前本地实测可用于 DeepScientist 的模型名是 `MiniMax-M2.7` 和 `MiniMax-M2.5`
+- 当前本地实测可用于 EEEE Scientist 的模型名是 `MiniMax-M2.7` 和 `MiniMax-M2.5`
 - 如果你要走 `m25`，请使用 `MiniMax-M2.5`，不要写成 `codex-MiniMax-M2.5`
-- DeepScientist 现在可以在 probe 和运行时自动适配 MiniMax profile-only 的 `model_provider` / `model` 配置形态
-- 当 provider 设置了 `requires_openai_auth = false` 时，DeepScientist 也会自动移除冲突的 `OPENAI_*` 认证环境变量
+- EEEE Scientist 现在可以在 probe 和运行时自动适配 MiniMax profile-only 的 `model_provider` / `model` 配置形态
+- 当 provider 设置了 `requires_openai_auth = false` 时，EEEE Scientist 也会自动移除冲突的 `OPENAI_*` 认证环境变量
 - 如果你还希望终端里的 `codex --profile <name>` 也直接可用，再在 `~/.codex/config.toml` 顶层补上 `model_provider = "minimax"`，以及对应的顶层 `model`，例如 `MiniMax-M2.7` 或 `MiniMax-M2.5`
-- 当 DeepScientist 检测到旧版 Codex CLI 不支持 `xhigh` 时，会自动把它降级成 `high`
+- 当 EEEE Scientist 检测到旧版 Codex CLI 不支持 `xhigh` 时，会自动把它降级成 `high`
 
 ### 2.3 Claude Code 路径
 
@@ -208,7 +208,7 @@ claude -p "Reply with exactly HELLO." --output-format json --tools ""
 ds doctor --runner claude
 ```
 
-确认通过后，再用 Claude Code 启动 DeepScientist：
+确认通过后，再用 Claude Code 启动 EEEE Scientist：
 
 ```bash
 ds --runner claude
@@ -230,7 +230,7 @@ opencode run --format json --pure "Reply with exactly HELLO"
 ds doctor --runner opencode
 ```
 
-确认通过后，再用 OpenCode 启动 DeepScientist：
+确认通过后，再用 OpenCode 启动 EEEE Scientist：
 
 ```bash
 ds --runner opencode
@@ -265,13 +265,13 @@ ds --runner opencode
 - 推荐始终使用非 root 用户启动
 - 如果只是第一次试跑，不要先把服务暴露到公网
 
-DeepScientist 现在使用 `uv` 管理锁定的本地 Python 运行时。如果你已经激活了 conda 环境，且其中的 Python 满足 `>=3.11`，`ds` 会优先使用它；否则会自动在 DeepScientist home 下准备一份受管 Python。
+EEEE Scientist 现在使用 `uv` 管理锁定的本地 Python 运行时。如果你已经激活了 conda 环境，且其中的 Python 满足 `>=3.11`，`ds` 会优先使用它；否则会自动在 EEEE Scientist home 下准备一份受管 Python。
 
-默认情况下，DeepScientist home 是：
+默认情况下，EEEE Scientist home 是：
 
 - macOS / Linux：`~/DeepScientist`
 
-如果你希望把 DeepScientist home 放到当前目录下，可以运行：
+如果你希望把 EEEE Scientist home 放到当前目录下，可以运行：
 
 ```bash
 ds --here
@@ -282,7 +282,7 @@ ds --here
 重要提醒：
 
 - 现在如果你是在某个目录里用 `ds --here` 启动，后续直接在同一目录执行 `ds --status`、`ds --stop`、`ds --restart`，launcher 通常会优先识别当前目录下的 `./DeepScientist`
-- 如果你是通过显式的 `--home <path>`，或者机器上同时存在多个 DeepScientist home，仍然建议后续管理命令继续显式使用同一个 home
+- 如果你是通过显式的 `--home <path>`，或者机器上同时存在多个 EEEE Scientist home，仍然建议后续管理命令继续显式使用同一个 home
 - 如果你是通过 `DEEPSCIENTIST_HOME` 或 `DS_HOME` 环境变量固定 home，只要后续命令继续使用同一个环境变量配置，也可以
 - 当存在多个非默认 home 时，显式指定 `--home` 仍然是最稳妥的做法
 
@@ -301,7 +301,7 @@ ds --port 21000
 
 这会把网页界面放到 `21000` 端口。
 
-默认情况下，DeepScientist 启动时不会开启本地浏览器密码门禁。
+默认情况下，EEEE Scientist 启动时不会开启本地浏览器密码门禁。
 
 - 如果浏览器没有自动打开，就手动访问普通本地地址，例如 `http://127.0.0.1:20999`
 - 如果你想在某次启动里启用本地浏览器密码，可以用 `ds --auth true`
@@ -314,11 +314,11 @@ ds --port 21000
 
 启动完成后，先打开 `/` 首页。
 
-![DeepScientist 首页](../images/quickstart/00-home.png)
+![EEEE Scientist 首页](../images/quickstart/00-home.png)
 
 运行 12 小时之后，你的项目首页更可能像下面这样：
 
-![DeepScientist 项目首页](../assets/branding/projects.png)
+![EEEE Scientist 项目首页](../assets/branding/projects.png)
 
 你最先会看到两个入口：
 
@@ -331,7 +331,7 @@ ds --port 21000
 
 - 现在系统会先让你选择启动方式
 - `Copilot`：先创建一个安静待命的项目，等你发第一条明确指令
-- `Autonomous`：标准版 DeepScientist，创建后直接开始推进
+- `Autonomous`：标准版 EEEE Scientist，创建后直接开始推进
 
 如果你还不确定该选哪一个，先看 [20 工作区模式指南](./20_WORKSPACE_MODES_GUIDE.md)。
 
@@ -383,7 +383,7 @@ Keep the task definition and evaluation protocol aligned with the original work.
 
 如果这是你第一次跑这个任务，`Reusable baseline` 先留空。
 
-如果你已经把官方 baseline 导入过 registry，那么这里就直接选择它。这样 DeepScientist 会优先 attach 这个可信 baseline，而不是重新从零恢复。
+如果你已经把官方 baseline 导入过 registry，那么这里就直接选择它。这样 EEEE Scientist 会优先 attach 这个可信 baseline，而不是重新从零恢复。
 
 把下面内容粘贴到 `Baseline links`：
 
@@ -406,7 +406,7 @@ https://arxiv.org/abs/2602.00428
 
 把下面内容粘贴到 `Runtime constraints`：
 
-下面这段只是教程参考，不是 DeepScientist 的默认端点配置。粘贴前请把端点、API key 和模型名替换成你自己的真实运行时。
+下面这段只是教程参考，不是 EEEE Scientist 的默认端点配置。粘贴前请把端点、API key 和模型名替换成你自己的真实运行时。
 
 ```text
 - Keep the task definition and evaluation protocol aligned with the official baseline unless a change is explicitly justified.
@@ -498,7 +498,7 @@ https://arxiv.org/abs/2602.00428
 
 ## 7. 打开项目之后会发生什么
 
-创建或打开项目后，DeepScientist 会进入这个项目的工作区。
+创建或打开项目后，EEEE Scientist 会进入这个项目的工作区。
 
 通常第一轮你会做这些事情：
 
@@ -523,7 +523,7 @@ ds --status
 ds --stop
 ```
 
-这会停止当前本地 DeepScientist daemon。
+这会停止当前本地 EEEE Scientist daemon。
 
 卸载代码和运行时，但保留本地数据：
 
@@ -549,10 +549,10 @@ ds uninstall --home /path/to/DeepScientist --yes
 如果你是通过 npm 安装的，并且还想把全局 npm 包本体一起移除，请在 `ds uninstall` 之后再执行：
 
 ```bash
-npm uninstall -g @researai/deepscientist
+npm uninstall -g eeee-scientist
 ```
 
-如果你真的想把本地数据一起删掉，请在卸载后手动删除 DeepScientist home：
+如果你真的想把本地数据一起删掉，请在卸载后手动删除 EEEE Scientist home：
 
 ```bash
 rm -rf /path/to/DeepScientist
@@ -586,9 +586,9 @@ ds doctor
 bash install.sh --dir /data/DeepScientist
 ```
 
-这个命令适合你在源码 checkout 里工作，但希望把 DeepScientist 安装到另一个独立运行目录时使用。
+这个命令适合你在源码 checkout 里工作，但希望把 EEEE Scientist 安装到另一个独立运行目录时使用。
 
-### 如果我已经有一个 DeepScientist home，想安全迁移到新路径，怎么做？
+### 如果我已经有一个 EEEE Scientist home，想安全迁移到新路径，怎么做？
 
 运行：
 
@@ -596,7 +596,7 @@ bash install.sh --dir /data/DeepScientist
 ds migrate /data/DeepScientist
 ```
 
-这是迁移现有 DeepScientist home 的正式方式。
+这是迁移现有 EEEE Scientist home 的正式方式。
 
 ### 如果我确实需要监听所有网卡，怎么启动？
 

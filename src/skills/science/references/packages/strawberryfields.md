@@ -15,7 +15,7 @@
 
 Strawberry Fields is a Python platform for designing, simulating, and optimizing continuous-variable photonic quantum circuits, including near-term algorithms and execution pathways for quantum optical hardware.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

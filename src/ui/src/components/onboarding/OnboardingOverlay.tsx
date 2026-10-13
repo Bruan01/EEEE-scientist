@@ -55,7 +55,7 @@ const COPY: Record<OnboardingLanguage, OverlayCopy> = {
   en: {
     chooserTitle: 'Choose your first tutorial',
     chooserBody:
-      'DeepScientist can walk you through Start Research, the quest workspace, and system supervision. Choose the guide language, skip for now, or turn the reminder off.',
+      'EEEE Scientist can walk you through Start Research, the quest workspace, and system supervision. Choose the guide language, skip for now, or turn the reminder off.',
     chooserZh: 'Chinese guide',
     chooserEn: 'English guide',
     chooserSkip: 'Skip for now',
@@ -72,7 +72,7 @@ const COPY: Record<OnboardingLanguage, OverlayCopy> = {
   zh: {
     chooserTitle: '选择首次教程语言',
     chooserBody:
-      'DeepScientist 会带你走过 Start Research、quest 工作区和系统监管面。你可以选择中文或英文讲解，也可以先跳过或不再提醒。',
+      'EEEE Scientist 会带你走过 Start Research、quest 工作区和系统监管面。你可以选择中文或英文讲解，也可以先跳过或不再提醒。',
     chooserZh: '中文讲解',
     chooserEn: 'English guide',
     chooserSkip: '暂时跳过',
@@ -121,7 +121,7 @@ const MOBILE_ONBOARDING_STEPS: OnboardingStep[] = [
       zh: '从一句清楚的研究需求开始',
     },
     body: {
-      en: 'On mobile, DeepScientist is optimized for starting work, checking progress, reading outputs, and answering decisions. Use Start Research to describe the goal, materials, constraints, and expected artifacts.',
+      en: 'On mobile, EEEE Scientist is optimized for starting work, checking progress, reading outputs, and answering decisions. Use Start Research to describe the goal, materials, constraints, and expected artifacts.',
       zh: '移动端主要用于启动任务、查看进展、阅读产物和处理决策。先点 Start Research，说明目标、材料、限制和预期产物。',
     },
     hint: {
@@ -1113,7 +1113,7 @@ function OnboardingChooser({
                 First Run
               </div>
               <h2 className="mt-1 text-xl font-semibold tracking-tight">
-                选择 DeepScientist 导览语言 / Choose Your DeepScientist Guide
+                选择 EEEE Scientist 导览语言 / Choose Your EEEE Scientist Guide
               </h2>
             </div>
           </div>
@@ -1121,7 +1121,7 @@ function OnboardingChooser({
 
         <div className="feed-scrollbar modal-scrollbar min-h-0 flex-1 overflow-y-auto px-6 py-4">
           <p className="text-sm leading-7 text-[rgba(70,61,49,0.84)]">
-            DeepScientist 会带你理解 Start Research、quest 工作区和系统监管面。
+            EEEE Scientist 会带你理解 Start Research、quest 工作区和系统监管面。
             Choose Chinese or English, skip for now, or turn the reminder off.
           </p>
 

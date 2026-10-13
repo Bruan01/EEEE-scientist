@@ -15,7 +15,7 @@
 
 GWASLab is a Python toolkit for loading, harmonizing, quality-controlling, converting, and visualizing genome-wide association study summary statistics across common GWAS formats and reference resources.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -1,12 +1,12 @@
 # 21 Local Model Backends Guide: vLLM, Ollama, and SGLang
 
-This guide explains how to run DeepScientist against local model backends such as vLLM, Ollama, and SGLang.
+This guide explains how to run EEEE Scientist against local model backends such as vLLM, Ollama, and SGLang.
 
 First, keep the layering clear:
 
-- DeepScientist does not call the local model server directly
-- DeepScientist calls a runner CLI: `codex`, `claude`, or `opencode`
-- the local backend must work in that runner first, and DeepScientist then reuses it
+- EEEE Scientist does not call the local model server directly
+- EEEE Scientist calls a runner CLI: `codex`, `claude`, or `opencode`
+- the local backend must work in that runner first, and EEEE Scientist then reuses it
 
 If you use the Codex runner, the `/v1/responses` checks below are important.
 If you use OpenCode or Claude Code, first read the Ollama sections in:
@@ -24,11 +24,11 @@ There is one practical fallback:
 
 - if your backend is chat-only, you may still be able to use it through **Codex CLI `0.57.0`**
 - that older path can still work with `wire_api = "chat"` when the provider is configured at the top level
-- DeepScientist now checks this automatically during the Codex startup probe; if it sees `wire_api = "chat"` on any active provider config, it requires `codex-cli 0.57.0` before continuing
+- EEEE Scientist now checks this automatically during the Codex startup probe; if it sees `wire_api = "chat"` on any active provider config, it requires `codex-cli 0.57.0` before continuing
 
-## 1. What DeepScientist actually depends on
+## 1. What EEEE Scientist actually depends on
 
-DeepScientist does not talk to vLLM, Ollama, or SGLang directly.
+EEEE Scientist does not talk to vLLM, Ollama, or SGLang directly.
 
 It talks to:
 
@@ -40,9 +40,9 @@ So the compatibility chain is:
 1. your local backend
 2. Codex profile
 3. Codex startup probe
-4. DeepScientist runner
+4. EEEE Scientist runner
 
-If step 2 or step 3 fails, DeepScientist cannot start the Codex runner successfully.
+If step 2 or step 3 fails, EEEE Scientist cannot start the Codex runner successfully.
 
 ## 2. The current Codex rule you must know
 
@@ -67,7 +67,7 @@ In practice that means:
 
 ## 3. Test the backend first
 
-Before touching DeepScientist, verify the backend directly.
+Before touching EEEE Scientist, verify the backend directly.
 
 ### Step 1: list models
 
@@ -131,7 +131,7 @@ That means:
 
 - it can answer raw chat requests
 - but it cannot currently be used by the latest Codex runner
-- and therefore DeepScientist cannot use it through the normal Codex path
+- and therefore EEEE Scientist cannot use it through the normal Codex path
 
 We also tested an older Codex path:
 
@@ -169,7 +169,7 @@ Reply with exactly HELLO.
 EOF
 ```
 
-If this fails, do not continue to DeepScientist yet.
+If this fails, do not continue to EEEE Scientist yet.
 
 ## 5.1 Chat-only fallback for Codex `0.57.0`
 
@@ -204,9 +204,9 @@ Reply with exactly HELLO.
 EOF
 ```
 
-If this older Codex path works, DeepScientist can usually reuse it with the same runner binary and profile strategy.
+If this older Codex path works, EEEE Scientist can usually reuse it with the same runner binary and profile strategy.
 
-## 6. DeepScientist commands after Codex works
+## 6. EEEE Scientist commands after Codex works
 
 Once the direct Codex check works, run:
 
@@ -219,7 +219,7 @@ ds --codex-profile local_vllm
 
 `ds docker` is only a legacy alias for `ds doctor`; it is not a Docker deployment command.
 
-If you want to persist it in DeepScientist:
+If you want to persist it in EEEE Scientist:
 
 ```yaml
 codex:
@@ -245,7 +245,7 @@ Use it when:
 - `/v1/responses` works
 - the model id is visible and stable
 
-If those are true, vLLM is the cleanest current local path for Codex + DeepScientist.
+If those are true, vLLM is the cleanest current local path for Codex + EEEE Scientist.
 
 ### Ollama
 
@@ -280,7 +280,7 @@ If your backend only supports `/v1/chat/completions`, you currently have four pr
 3. downgrade the Codex CLI path to `0.57.0` and use `wire_api = "chat"`
 4. place a Responses-compatible proxy in front of the backend
 
-Right now, this is a Codex CLI limitation, not a DeepScientist-only setting mistake.
+Right now, this is a Codex CLI limitation, not a EEEE Scientist-only setting mistake.
 
 ## 8.1 Which Ollama route should you use?
 
@@ -295,7 +295,7 @@ So Ollama is not a single-path setup.
 
 | Goal | Recommended runner | Validate first |
 |---|---|---|
-| Stay close to the default DeepScientist Codex path | Codex | `ollama run`, `/v1/responses`, `codex exec --profile <ollama-profile>` |
+| Stay close to the default EEEE Scientist Codex path | Codex | `ollama run`, `/v1/responses`, `codex exec --profile <ollama-profile>` |
 | Avoid Codex Responses compatibility details | OpenCode | `opencode run --model ollama/<model>` or a custom provider model string |
 | Use Claude Code with an Anthropic-compatible local endpoint | Claude Code | `claude -p --model <ollama-model>` with `ANTHROPIC_BASE_URL=http://localhost:11434` |
 
@@ -362,7 +362,7 @@ claude -p "Reply with exactly HELLO." --output-format json --model gpt-oss:20b -
 ds doctor --runner claude
 ```
 
-DeepScientist Claude runner config:
+EEEE Scientist Claude runner config:
 
 ```yaml
 claude:
@@ -383,4 +383,4 @@ Use this order every time:
 4. test `ds doctor --codex-profile <name>`
 5. only then launch `ds --codex-profile <name>`
 
-If step 2 fails, stop there. Do not expect DeepScientist to succeed through the latest Codex path.
+If step 2 fails, stop there. Do not expect EEEE Scientist to succeed through the latest Codex path.

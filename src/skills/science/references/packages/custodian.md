@@ -15,7 +15,7 @@
 
 Custodian is a Python framework for just-in-time management of long-running materials and chemistry calculations, providing automated error detection, correction, and restart workflows for high-throughput simulation campaigns.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

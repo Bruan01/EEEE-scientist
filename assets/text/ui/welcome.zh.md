@@ -1,4 +1,4 @@
-# DeepScientist Core
+# EEEE Scientist Core
 
 这是一个围绕 quest 展开的本地科研工作区，包含文件记忆、Git 历史与 Codex 执行能力。
 

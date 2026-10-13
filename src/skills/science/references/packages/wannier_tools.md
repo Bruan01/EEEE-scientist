@@ -15,7 +15,7 @@
 
 WannierTools analyzes Wannier tight binding Hamiltonians to compute topological invariants, surface spectra, Weyl and Dirac features, Berry properties, and transport observables in quantum materials.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -58,7 +58,7 @@ export class DynamicImportRecoveryError extends Error {
   readonly originalError: unknown;
 
   constructor(source: string, originalError: unknown) {
-    super("DeepScientist is refreshing the page to recover the latest UI bundle.");
+    super("EEEE Scientist is refreshing the page to recover the latest UI bundle.");
     this.name = "DynamicImportRecoveryError";
     this.source = source;
     this.originalError = originalError;
@@ -143,5 +143,5 @@ export function getDynamicImportRecoveryMessage(error?: unknown): string {
   if (isDynamicImportRecoveryError(error)) {
     return error.message;
   }
-  return "DeepScientist could not load this UI module. Refresh the page to fetch the latest bundle.";
+  return "EEEE Scientist could not load this UI module. Refresh the page to fetch the latest bundle.";
 }

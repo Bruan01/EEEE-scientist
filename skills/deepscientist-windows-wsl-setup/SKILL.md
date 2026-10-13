@@ -1,25 +1,25 @@
 ---
 name: deepscientist-windows-wsl-setup
-description: Install, repair, and validate DeepScientist on Windows with WSL2 until the Windows browser can open the DeepScientist Web UI. Use when an agent needs to set up or fix DeepScientist on a Windows machine, including WSL distro creation, Linux-side Node/Python prerequisites, Codex auth/relay configuration, WSL proxy troubleshooting, and final `ds doctor` or Web UI verification.
+description: Install, repair, and validate EEEE Scientist on Windows with WSL2 until the Windows browser can open the EEEE Scientist Web UI. Use when an agent needs to set up or fix EEEE Scientist on a Windows machine, including WSL distro creation, Linux-side Node/Python prerequisites, Codex auth/relay configuration, WSL proxy troubleshooting, and final `ds doctor` or Web UI verification.
 ---
 
-# DeepScientist Windows WSL Setup
+# EEEE Scientist Windows WSL Setup
 
 ## One-liner for humans
 
 Copy this to any AI coding agent (Claude Code, Codex, Cursor, etc.) to trigger the install:
 
-> Install DeepScientist on this Windows machine using WSL2. Follow the skill at `deepscientist-windows-wsl-setup/SKILL.md` in the DeepScientist repo for the full procedure. Keep going until `ds doctor` passes and I can open http://127.0.0.1:20999 in my Windows browser.
+> Install EEEE Scientist on this Windows machine using WSL2. Follow the skill at `deepscientist-windows-wsl-setup/SKILL.md` in the EEEE Scientist repo for the full procedure. Keep going until `ds doctor` passes and I can open http://127.0.0.1:20999 in my Windows browser.
 
 ## Workflow
 
-1. Read the current official DeepScientist README and Windows WSL2 deployment guide before changing anything. Use the official repo as the source of truth for install commands and note any version pins or prerequisites that changed.
+1. Read the current official EEEE Scientist README and Windows WSL2 deployment guide before changing anything. Use the official repo as the source of truth for install commands and note any version pins or prerequisites that changed.
 2. Inspect the machine first:
    - `wsl -l -v`
    - `wsl --status`
    - Check whether a usable WSL2 Ubuntu distro already exists.
    - Check whether Linux-side `node`, `npm`, `git`, `uv`, `codex`, and `ds` already exist inside the target distro.
-3. Prefer a dedicated WSL2 Ubuntu distro for DeepScientist instead of modifying `docker-desktop` or converting an unrelated user distro unless the user asks for that explicitly.
+3. Prefer a dedicated WSL2 Ubuntu distro for EEEE Scientist instead of modifying `docker-desktop` or converting an unrelated user distro unless the user asks for that explicitly.
 4. Keep working until these end-state checks pass:
    - Linux-side `codex exec --skip-git-repo-check "Print exactly OK and exit."` succeeds.
    - `ds doctor` reports `[ok] Codex CLI` (or `[warn] Codex CLI: Codex startup probe completed.`).
@@ -55,11 +55,11 @@ $mem = Get-CimInstance Win32_OperatingSystem
 
 ## Distro setup
 
-- If no suitable WSL2 Ubuntu distro exists, install one with a dedicated name such as `DeepScientist`.
+- If no suitable WSL2 Ubuntu distro exists, install one with a dedicated name such as `EEEE Scientist`.
 - Prefer Ubuntu 22.04 or 24.04 unless the official guide says otherwise.
 - If the user already has a broken WSL1 distro, do not repurpose it by default. Create a new WSL2 distro and leave the old one alone.
 - After installation, create a normal Linux user such as `ds` and make it the default user for that distro.
-- Disable Windows PATH injection in the DeepScientist distro to avoid accidentally using Windows-side `npm`, `codex`, or other binaries:
+- Disable Windows PATH injection in the EEEE Scientist distro to avoid accidentally using Windows-side `npm`, `codex`, or other binaries:
 
 ```bash
 printf '[interop]\nappendWindowsPath=false\n' | sudo tee /etc/wsl.conf
@@ -101,15 +101,15 @@ Add to both `~/.bashrc` and `~/.profile`:
 export PATH="$HOME/.npm-global/bin:$HOME/.local/bin:$PATH"
 ```
 
-## DeepScientist installation
+## EEEE Scientist installation
 
-- Install the current official DeepScientist package from npm.
+- Install the current official EEEE Scientist package from npm.
 - Install `uv`.
-- Install the Codex CLI version required by the official DeepScientist guide. If the guide pins a specific version, follow the guide instead of guessing.
+- Install the Codex CLI version required by the official EEEE Scientist guide. If the guide pins a specific version, follow the guide instead of guessing.
 
 Typical pattern:
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 npm install -g @openai/codex@0.57.0
 curl -LsSf https://github.com/astral-sh/uv/releases/latest/download/uv-installer.sh | sh
 ```
@@ -261,7 +261,7 @@ cd /tmp
 codex exec --skip-git-repo-check "Print exactly OK and exit."
 ```
 
-3. Verify DeepScientist:
+3. Verify EEEE Scientist:
 ```bash
 ds doctor
 ```
@@ -272,7 +272,7 @@ git config --global user.name "Your Name"
 git config --global user.email "you@example.com"
 ```
 
-5. Start DeepScientist:
+5. Start EEEE Scientist:
 ```bash
 ds
 ```

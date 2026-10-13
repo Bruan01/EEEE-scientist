@@ -1,7 +1,7 @@
 # Science Skill Provenance
 
 The `science` skill integrates package-routing ideas from FermiLink without
-making FermiLink part of the DeepScientist runtime.
+making FermiLink part of the EEEE Scientist runtime.
 
 ## Upstream Sources
 
@@ -11,7 +11,7 @@ making FermiLink part of the DeepScientist runtime.
 
 ## What Is Included
 
-- DeepScientist-native generated package cards under `references/packages/`.
+- EEEE Scientist-native generated package cards under `references/packages/`.
 - Compact package index under `references/package-index.min.json`.
 - A domain index for progressive disclosure.
 - Package ids, descriptions, tags, knowledge URLs, source archive URLs, and
@@ -25,9 +25,9 @@ making FermiLink part of the DeepScientist runtime.
 - Scientific solver runtimes or compiled executables.
 - A guarantee that any package can run in the user's environment.
 
-## DeepScientist Runtime Boundary
+## EEEE Scientist Runtime Boundary
 
-DeepScientist uses `bash_exec(...)` for all execution and
+EEEE Scientist uses `bash_exec(...)` for all execution and
 `artifact.science(...)` for durable science evidence records. The package cards
 are routing and knowledge pointers only.
 

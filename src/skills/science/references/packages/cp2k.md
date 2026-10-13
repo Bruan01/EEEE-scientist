@@ -15,7 +15,7 @@
 
 CP2K is an atomistic simulation package for quantum chemistry and solid-state physics, supporting DFT and beyond for molecular, periodic, and materials systems with efficient parallel execution.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

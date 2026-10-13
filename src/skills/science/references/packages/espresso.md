@@ -15,7 +15,7 @@
 
 ESPResSo is an extensible molecular dynamics engine for coarse-grained soft-matter systems, supporting advanced electrostatics, hydrodynamics coupling, and flexible Python-driven simulation workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

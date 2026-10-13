@@ -33,7 +33,7 @@ from .tui import watch_tui
 class DeepScientistArgumentParser(argparse.ArgumentParser):
     def error(self, message: str) -> None:
         self.print_usage(sys.stderr)
-        self.exit(2, f"DeepScientist argument error: {message}\nRun `{self.prog} --help` for usage.\n")
+        self.exit(2, f"EEEE Scientist argument error: {message}\nRun `{self.prog} --help` for usage.\n")
 
 
 def _local_ui_url(host: str, port: int) -> str:
@@ -98,10 +98,10 @@ def _daemon_launch_url(home: Path, *, host: str, port: int) -> str:
 def build_parser() -> argparse.ArgumentParser:
     parser = DeepScientistArgumentParser(
         prog="ds",
-        description="DeepScientist Core skeleton",
+        description="EEEE Scientist Core skeleton",
         allow_abbrev=False,
     )
-    parser.add_argument("--home", default=None, help="Override DeepScientist home")
+    parser.add_argument("--home", default=None, help="Override EEEE Scientist home")
     parser.add_argument("--proxy", default=None, help="Explicit outbound HTTP/WS proxy, for example `http://127.0.0.1:7890`.")
     parser.add_argument("--codex", default=None, help="Override the Codex executable path for this invocation.")
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-DeepScientist is a local-first autonomous research studio that manages long-horizon research workflows. It's a Python-based system with a Node.js launcher, web UI, and TUI, designed to keep research projects moving through baselines, experiments, and paper outputs.
+EEEE Scientist is a local-first autonomous research studio that manages long-horizon research workflows. It's a Python-based system with a Node.js launcher, web UI, and TUI, designed to keep research projects moving through baselines, experiments, and paper outputs.
 
 **Core principle**: One quest = one Git repository. All durable state lives in files and Git.
 
@@ -19,7 +19,7 @@ bash install.sh
 # Install with LaTeX runtime
 bash install.sh --with-tinytex
 
-# Start DeepScientist
+# Start EEEE Scientist
 ds
 
 # Check system health
@@ -299,6 +299,6 @@ Before publishing:
 
 ## Support
 
-- Issues: https://github.com/ResearAI/DeepScientist/issues
-- Docs: https://github.com/ResearAI/DeepScientist/tree/main/docs/en
+- Issues: https://github.com/Bruan01/EEEE-scientist/issues
+- Docs: https://github.com/Bruan01/EEEE-scientist/tree/main/docs/en
 - Paper: https://openreview.net/forum?id=cZFgsLq8Gs

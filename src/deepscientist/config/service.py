@@ -455,7 +455,7 @@ This page edits `~/DeepScientist/config/connectors.yaml` directly.
 
 ### Weixin
 
-- scan the QR code first so DeepScientist can persist `bot_token` and `account_id`
+- scan the QR code first so EEEE Scientist can persist `bot_token` and `account_id`
 - keep `transport: ilink_long_poll`
 - every reply depends on the latest inbound `context_token`
 - media send uses the built-in AES + CDN upload path for image, video, and file attachments
@@ -493,10 +493,10 @@ This page edits `~/DeepScientist/config/connectors.yaml` directly.
 
 ### Lingzhu
 
-- Lingzhu is hosted directly by DeepScientist on `/metis/agent/api`
+- Lingzhu is hosted directly by EEEE Scientist on `/metis/agent/api`
 - keep `transport: openclaw_sse`
-- use the same public DeepScientist origin and port that the browser is already serving on
-- save once so DeepScientist can persist `auth_ak`; Rokid must use the same Bearer token
+- use the same public EEEE Scientist origin and port that the browser is already serving on
+- save once so EEEE Scientist can persist `auth_ak`; Rokid must use the same Bearer token
 - `public_base_url` must be a public IP or public domain; loopback and private addresses are invalid for Rokid
 - new Lingzhu tasks must start with `我现在的任务是`; other requests are treated as reconnect or progress polling
 
@@ -537,13 +537,13 @@ This is a safe local smoke test.
 
 - the launcher runs a real hello probe for the selected runner before first daemon start
 - `codex`, `claude`, `kimi`, and `opencode` can each record readiness under `bootstrap.runner_readiness`
-- if the selected runner fails, DeepScientist writes the failure summary back into config and blocks only that requested startup path
+- if the selected runner fails, EEEE Scientist writes the failure summary back into config and blocks only that requested startup path
 - you can start with the default runner first, then configure or switch Claude Code / Kimi Code / OpenCode from Settings
 
 ## Figure and chart style policy
 
 - chart and paper-figure palettes are not configured in `config.yaml`
-- DeepScientist keeps a fixed Morandi palette guide in the system prompt and relevant stage skills
+- EEEE Scientist keeps a fixed Morandi palette guide in the system prompt and relevant stage skills
 - change visual defaults by editing the prompt / skill contract, not by adding per-install palette settings
 """
         if name == "runners":
@@ -557,12 +557,12 @@ This page edits `{home_text}/config/runners.yaml`.
 - enable whichever runners you actually plan to use (`codex`, `claude`, `kimi`, `opencode`)
 - keep the others disabled if their local CLI or credentials are not ready yet
 - set `codex.profile` only when your Codex CLI uses a named provider profile such as `m27`
-- when you launch DeepScientist ad hoc with a provider profile, you can also use `ds --codex-profile <name>`
+- when you launch EEEE Scientist ad hoc with a provider profile, you can also use `ds --codex-profile <name>`
 - when you want a one-off Codex binary override, you can also use `ds --codex /absolute/path/to/codex`
 - keep `codex.model_reasoning_effort: xhigh` unless you explicitly want a lighter default
 - keep `codex.retry_on_failure: true` so transient Codex failures can resume automatically
 - keep retry timing near `10s / 6x / 1800s max` so Codex backs off exponentially and the final retries sit at the 30-minute cap
-- DeepScientist hard-limits one turn to at most `7` total attempts, even if the config says more
+- EEEE Scientist hard-limits one turn to at most `7` total attempts, even if the config says more
 - one-off diagnostics can target a runner without permanently enabling it: `ds doctor --runner claude`, `ds doctor --runner kimi`, or `ds doctor --runner opencode`
 
 ## Test behavior
@@ -703,7 +703,7 @@ Use **Test** when the file exposes runtime dependencies.
             headers={
                 "Accept": "application/json",
                 "Authorization": f"Bearer {resolved_token}",
-                "User-Agent": "DeepScientist/DeepXivTest",
+                "User-Agent": "EEEE-Scientist/DeepXivTest",
             },
         )
         try:
@@ -1077,7 +1077,7 @@ Use **Test** when the file exposes runtime dependencies.
                 if transport != "openclaw_sse":
                     errors.append("lingzhu: `transport` must stay `openclaw_sse`.")
                 if not str(config.get("local_host") or "").strip():
-                    warnings.append("lingzhu: `local_host` is empty; DeepScientist will fall back to `127.0.0.1`.")
+                    warnings.append("lingzhu: `local_host` is empty; EEEE Scientist will fall back to `127.0.0.1`.")
                 if not self._has_secret(config, "auth_ak", "auth_ak_env"):
                     errors.append("lingzhu: requires `auth_ak` for Bearer authentication.")
                 elif lingzhu_auth_ak_needs_rotation(self._secret(config, "auth_ak", "auth_ak_env")):
@@ -1348,7 +1348,7 @@ Use **Test** when the file exposes runtime dependencies.
             elif not chat_id:
                 if name == "qq":
                     warnings.append(
-                        "QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so DeepScientist can auto-detect and save the `openid`."
+                        "QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so EEEE Scientist can auto-detect and save the `openid`."
                     )
                 else:
                     warnings.append("Delivery test is configured, but the target chat id is empty.")
@@ -1402,9 +1402,9 @@ Use **Test** when the file exposes runtime dependencies.
         config = self.load_named("config")
         locale = str(config.get("default_locale") or "").lower()
         if locale.startswith("zh"):
-            return f"老师您好，这是一条来自 DeepScientist 设置页的 {connector_name} 连接测试消息。若您收到这条消息，说明当前绑定与发送链路已经打通。"
+            return f"老师您好，这是一条来自 EEEE Scientist 设置页的 {connector_name} 连接测试消息。若您收到这条消息，说明当前绑定与发送链路已经打通。"
         return (
-            f"Hello — this is a DeepScientist {connector_name} settings test message. "
+            f"Hello — this is an EEEE Scientist {connector_name} settings test message. "
             "If you received it, the connector binding and outbound delivery path are working."
         )
 
@@ -1480,18 +1480,18 @@ Use **Test** when the file exposes runtime dependencies.
     def _codex_missing_binary_guidance(self, config: dict) -> list[str]:
         profile = self._codex_profile_name(config)
         guidance = [
-            "Run `npm install -g @researai/deepscientist` again so the bundled Codex dependency is installed.",
+            "Run `npm install -g eeee-scientist` again so the bundled Codex dependency is installed.",
             "If `codex` is still missing, install it explicitly with `npm install -g @openai/codex`.",
         ]
         if profile:
             guidance.extend(
                 [
-                    f"Then verify `codex --profile {profile}` works from a terminal before starting DeepScientist.",
+                    f"Then verify `codex --profile {profile}` works from a terminal before starting EEEE Scientist.",
                     "If that profile uses a custom provider, make sure its API key and Base URL are configured in Codex first.",
                 ]
             )
         else:
-            guidance.append("Run `codex login` (or just `codex`) once and finish authentication before starting DeepScientist.")
+            guidance.append("Run `codex login` (or just `codex`) once and finish authentication before starting EEEE Scientist.")
         guidance.append(
             "If you use a custom Codex path, either set `runners.codex.binary` or launch with `ds --codex /absolute/path/to/codex`."
         )
@@ -1506,7 +1506,7 @@ Use **Test** when the file exposes runtime dependencies.
             return []
         if "coding.dashscope.aliyuncs.com" not in base_url:
             return [
-                "Alibaba Bailian's generic DashScope / Qwen platform API is not supported by the Codex-backed DeepScientist path.",
+                "Alibaba Bailian's generic DashScope / Qwen platform API is not supported by the Codex-backed EEEE Scientist path.",
                 "If you want to use Qwen here, switch the profile to the Bailian Coding Plan endpoint: `https://coding.dashscope.aliyuncs.com/v1`.",
             ]
         return [
@@ -1534,7 +1534,7 @@ Use **Test** when the file exposes runtime dependencies.
         if requires_openai_auth is not False:
             hints.insert(
                 0,
-                "For local or self-hosted providers, add `requires_openai_auth = false` so DeepScientist can remove conflicting `OPENAI_*` auth variables.",
+                "For local or self-hosted providers, add `requires_openai_auth = false` so EEEE Scientist can remove conflicting `OPENAI_*` auth variables.",
             )
         if not wire_api:
             hints.insert(0, "Your current provider config does not declare `wire_api`; set `wire_api = \"responses\"` first.")
@@ -1566,10 +1566,10 @@ Use **Test** when the file exposes runtime dependencies.
             )
             if metadata.get("requires_openai_auth") is not False:
                 guidance.append(
-                    "Also add `requires_openai_auth = false` to that local provider profile so DeepScientist can remove conflicting `OPENAI_*` auth variables."
+                    "Also add `requires_openai_auth = false` to that local provider profile so EEEE Scientist can remove conflicting `OPENAI_*` auth variables."
                 )
         guidance.append(
-            "Before retrying DeepScientist, run a real request such as "
+            "Before retrying EEEE Scientist, run a real request such as "
             f"`{ConfigManager._codex_direct_hello_probe_command(profile=profile)}` and verify it returns `HELLO`."
         )
         return guidance
@@ -1590,14 +1590,14 @@ Use **Test** when the file exposes runtime dependencies.
         required_text = format_codex_cli_version(required_version)
         detected_text = format_codex_cli_version(detected_version)
         errors = [
-            "This provider uses `wire_api = \"chat\"`, but DeepScientist only probes chat-mode providers with `codex-cli 0.57.0`.",
+            "This provider uses `wire_api = \"chat\"`, but EEEE Scientist only probes chat-mode providers with `codex-cli 0.57.0`.",
         ]
         if detected_text:
             errors.append(f"Detected Codex CLI version: `{detected_text}`.")
         else:
-            errors.append("DeepScientist could not determine the active Codex CLI version from the configured binary.")
+            errors.append("EEEE Scientist could not determine the active Codex CLI version from the configured binary.")
         guidance = [
-            "Install `npm install -g @openai/codex@0.57.0`, or point DeepScientist at a dedicated `0.57.0` binary with `ds --codex /absolute/path/to/codex`.",
+            "Install `npm install -g @openai/codex@0.57.0`, or point EEEE Scientist at a dedicated `0.57.0` binary with `ds --codex /absolute/path/to/codex`.",
             "If you want to stay on a newer Codex CLI, switch the provider/backend to `wire_api = \"responses\"` instead.",
             "For chat-mode fallback configs, keep the compatible top-level `model_provider` / `model` entries in `~/.codex/config.toml`.",
         ]
@@ -1672,20 +1672,20 @@ Use **Test** when the file exposes runtime dependencies.
                     "If the provider expects the model from the Codex profile itself, set `model: inherit` in `~/DeepScientist/config/runners.yaml`.",
                     *provider_hints,
                     *local_hints,
-                    "Then run `ds doctor` and start DeepScientist again.",
+                    "Then run `ds doctor` and start EEEE Scientist again.",
                 ],
             )
         if self._codex_probe_text_looks_auth_related(stdout_text, stderr_text):
             return (
                 [
                     "Codex reported an authentication or first-run setup problem during the startup hello probe.",
-                    "Run `codex login` (or just `codex`) once and complete login before starting DeepScientist.",
+                    "Run `codex login` (or just `codex`) once and complete login before starting EEEE Scientist.",
                 ],
                 [
                     "Run `codex login` (or just `codex`) in a terminal and complete login or first-run setup.",
                     "Then run `printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -` and confirm the real request succeeds.",
                     "If login succeeds but the direct probe still fails, check the configured model, provider profile, proxy, and Codex account access.",
-                    "Then run `ds doctor` and start DeepScientist again.",
+                    "Then run `ds doctor` and start EEEE Scientist again.",
                 ],
             )
         if self._codex_model_unavailable(stdout_text, stderr_text):
@@ -1696,7 +1696,7 @@ Use **Test** when the file exposes runtime dependencies.
                 [
                     "Run `printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -` in the same shell and confirm the current Codex default model works.",
                     "Set `runners.codex.model: inherit` in `~/DeepScientist/config/runners.yaml`, or set it to a model that your Codex account can actually use.",
-                    "Then run `ds doctor` and start DeepScientist again.",
+                    "Then run `ds doctor` and start EEEE Scientist again.",
                 ],
             )
         if self._codex_probe_text_looks_network_related(stdout_text, stderr_text):
@@ -1707,7 +1707,7 @@ Use **Test** when the file exposes runtime dependencies.
                 [
                     "Run `printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -` from the same shell and verify the request succeeds.",
                     "If this host needs a proxy, export `HTTP_PROXY`, `HTTPS_PROXY`, and `NO_PROXY` before launching `ds`; for managed or supervised runs, also put required environment variables under `runners.codex.env`.",
-                    "Then run `ds doctor` and start DeepScientist again.",
+                    "Then run `ds doctor` and start EEEE Scientist again.",
                 ],
             )
         return (
@@ -1718,7 +1718,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "Run `printf 'Reply with exactly HELLO.' | codex --search exec --json --cd /tmp --skip-git-repo-check -` in the same shell and inspect the Codex stderr/stdout.",
                 "If that direct command succeeds but `ds doctor` fails, compare `which codex`, `CODEX_HOME`, proxy variables, and `~/DeepScientist/config/runners.yaml`.",
                 "If the configured model is not available to your Codex account, set `runners.codex.model: inherit` or another accessible model.",
-                "Then run `ds doctor` and start DeepScientist again.",
+                "Then run `ds doctor` and start EEEE Scientist again.",
             ],
         )
 
@@ -1831,7 +1831,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "warnings": [],
                 "errors": [
                     "Codex binary is not installed or could not be resolved.",
-                    "DeepScientist could not resolve the bundled or configured `codex` CLI.",
+                    "EEEE Scientist could not resolve the bundled or configured `codex` CLI.",
                 ],
                 "details": details,
                 "guidance": self._codex_missing_binary_guidance(config),
@@ -1872,7 +1872,7 @@ Use **Test** when the file exposes runtime dependencies.
             compatibility_warnings.append(reasoning_effort_warning)
         if profile and effective_model == "inherit" and not self._codex_should_inherit_model(requested_model):
             compatibility_warnings.append(
-                f"Codex profile `{profile}` is provider-backed. DeepScientist is probing it with `model: inherit`."
+                f"Codex profile `{profile}` is provider-backed. EEEE Scientist is probing it with `model: inherit`."
             )
         base_warnings: list[str] = list(compatibility_warnings)
         if chat_wire_block is not None:
@@ -1938,7 +1938,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "guidance": [
                     *failure_guidance,
                     "If `codex` is missing on PATH, install it explicitly with `npm install -g @openai/codex`.",
-                    "Confirm the configured model is available to your Codex setup. DeepScientist currently probes Codex with the configured runner model first.",
+                    "Confirm the configured model is available to your Codex setup. EEEE Scientist currently probes Codex with the configured runner model first.",
                 ],
             }
 
@@ -1981,7 +1981,7 @@ Use **Test** when the file exposes runtime dependencies.
                     )
                     fallback_warning = (
                         f"Configured Codex model `{requested_model}` is not available. "
-                        "DeepScientist fell back to the current Codex default model."
+                        "EEEE Scientist fell back to the current Codex default model."
                     )
                     return {
                         "ok": True,
@@ -1990,7 +1990,7 @@ Use **Test** when the file exposes runtime dependencies.
                         "errors": [],
                         "details": details,
                         "guidance": [
-                            "DeepScientist switched the Codex runner model to `inherit` so future runs keep using the current Codex default model.",
+                            "EEEE Scientist switched the Codex runner model to `inherit` so future runs keep using the current Codex default model.",
                         ],
                     }
             else:
@@ -2015,7 +2015,7 @@ Use **Test** when the file exposes runtime dependencies.
             if stderr_text:
                 warnings.append("Codex returned stderr during the startup probe.")
             if details.get("model_fallback_attempted") and not details.get("model_fallback_used"):
-                warnings.append("DeepScientist also tried the current Codex default model, but that fallback probe did not succeed.")
+                warnings.append("EEEE Scientist also tried the current Codex default model, but that fallback probe did not succeed.")
             errors.extend(
                 self._codex_probe_failure_guidance(
                     config,
@@ -2031,7 +2031,7 @@ Use **Test** when the file exposes runtime dependencies.
         )[1]
         if not ok and missing_env_key and profile:
             errors.append(
-                f"Codex profile `{profile}` requires environment variable `{missing_env_key}`, but DeepScientist did not receive it."
+                f"Codex profile `{profile}` requires environment variable `{missing_env_key}`, but EEEE Scientist did not receive it."
             )
             failure_guidance = [
                 *self._missing_provider_env_guidance(
@@ -2204,7 +2204,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "errors": ["Claude Code did not answer the startup probe within 90 seconds."],
                 "details": details,
                 "guidance": [
-                    "Run a small headless Claude Code request manually and confirm it can answer before starting DeepScientist.",
+                    "Run a small headless Claude Code request manually and confirm it can answer before starting EEEE Scientist.",
                 ],
             }
         finally:
@@ -2304,7 +2304,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "errors": ["OpenCode did not answer the startup probe within 90 seconds."],
                 "details": details,
                 "guidance": [
-                    "Run a small `opencode run --format json` request manually and confirm it can answer before starting DeepScientist.",
+                    "Run a small `opencode run --format json` request manually and confirm it can answer before starting EEEE Scientist.",
                 ],
             }
         finally:
@@ -2417,7 +2417,7 @@ Use **Test** when the file exposes runtime dependencies.
                 "errors": ["Kimi Code did not answer the startup probe within 90 seconds."],
                 "details": details,
                 "guidance": [
-                    "Run a small `kimi --print --output-format stream-json` request manually and confirm it can answer before starting DeepScientist.",
+                    "Run a small `kimi --print --output-format stream-json` request manually and confirm it can answer before starting EEEE Scientist.",
                 ],
             }
         finally:

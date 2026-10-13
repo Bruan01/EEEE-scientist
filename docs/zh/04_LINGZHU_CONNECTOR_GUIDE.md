@@ -1,13 +1,13 @@
-# 04 Lingzhu 连接器指南：把 Rokid Glasses 绑定到 DeepScientist
+# 04 Lingzhu 连接器指南：把 Rokid Glasses 绑定到 EEEE Scientist
 
 Lingzhu 现在是一个极简的一步式绑定流程。
 
-DeepScientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容路由：
+EEEE Scientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容路由：
 
 - `GET /metis/agent/api/health`
 - `POST /metis/agent/api/sse`
 
-真实设备要想接入，Rokid 平台里填写的地址必须就是外部可以访问到的 DeepScientist 公网地址，不能是 `127.0.0.1`、`localhost` 或私网地址。
+真实设备要想接入，Rokid 平台里填写的地址必须就是外部可以访问到的 EEEE Scientist 公网地址，不能是 `127.0.0.1`、`localhost` 或私网地址。
 
 参考：
 
@@ -18,8 +18,8 @@ DeepScientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容�
 
 先确认：
 
-- DeepScientist 已正常启动
-- 你当前打开的 DeepScientist 网页地址就是最终对外可访问的公网地址
+- EEEE Scientist 已正常启动
+- 你当前打开的 EEEE Scientist 网页地址就是最终对外可访问的公网地址
 - 如果当前网页地址是本地地址或私网地址，Lingzhu 不应直接保存
 
 ## 2. 页面里现在保留什么
@@ -52,7 +52,7 @@ DeepScientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容�
 
 - `Custom agent URL` 会自动生成成 `https://<你的公网地址>/metis/agent/api/sse`
 - `AK` 会自动随机生成，并在保存后长期复用，不会每次都变
-- logo 使用 DeepScientist 的 PNG 资源，方便直接上传到 Rokid
+- logo 使用 EEEE Scientist 的 PNG 资源，方便直接上传到 Rokid
 
 ![Rokid 平台创建三方智能体](../images/lingzhu/rokid-agent-platform-create.png)
 
@@ -63,8 +63,8 @@ DeepScientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容�
 1. 打开 `项目开发 -> 三方智能体 -> 创建`
 2. 选择“自定义智能体”
 3. 把弹窗里自动生成的字段逐项复制过去
-4. 图标上传 DeepScientist PNG logo
-5. Rokid 表单填写完成后，回到 DeepScientist 点击保存
+4. 图标上传 EEEE Scientist PNG logo
+5. Rokid 表单填写完成后，回到 EEEE Scientist 点击保存
 
 保存完成后，Lingzhu 绑定就算完成。
 
@@ -81,8 +81,8 @@ DeepScientist 会直接在自己的 daemon / Web 端口上提供 Lingzhu 兼容�
 使用规则：
 
 - 新任务必须以 `我现在的任务是 ...` 开头
-- 只有这个前缀后面的正文才会被当成新的 DeepScientist 任务
-- 如果只是想继续拿中间进展，不要重复这个前缀，直接说 `找DeepScientist` 或 `继续`
+- 只有这个前缀后面的正文才会被当成新的 EEEE Scientist 任务
+- 如果只是想继续拿中间进展，不要重复这个前缀，直接说 `找EEEE Scientist` 或 `继续`
 
 如果你同时跑多个 quest，Lingzhu 更适合快速创建或查看关键进展，不适合当多任务总控台。多任务入口选择见 [34 多任务入口选择](./34_MULTITASK_ORCHESTRATION_GUIDE.md)。
 

@@ -56,7 +56,7 @@ export function ChatBox({
   inputDisabled,
   compact,
   rows = 1,
-  placeholder = 'Give DeepScientist a task to work on...',
+  placeholder = 'Give EEEE Scientist a task to work on...',
   inputRef,
   containerClassName,
   panelClassName,

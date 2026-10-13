@@ -1,6 +1,6 @@
 # 20 工作区模式指南：Copilot 与 Autonomous
 
-这篇文档专门解释 DeepScientist 创建项目时最重要的两种模式：
+这篇文档专门解释 EEEE Scientist 创建项目时最重要的两种模式：
 
 - `Copilot`
 - `Autonomous`
@@ -18,7 +18,7 @@
 ## 1. 一句话总结
 
 - `Copilot`：安静启动、用户主导、做完当前请求单元后通常停驻
-- `Autonomous`：标准版 DeepScientist，默认继续推进 quest
+- `Autonomous`：标准版 EEEE Scientist，默认继续推进 quest
 
 ## 2. 你是在哪里选择它的
 
@@ -40,7 +40,7 @@
 
 Copilot 模式是“用户主导的工作区”。
 
-适合你想让 DeepScientist 主动帮忙，但又希望每个工作单元都由你来明确主导的场景，例如：
+适合你想让 EEEE Scientist 主动帮忙，但又希望每个工作单元都由你来明确主导的场景，例如：
 
 - 看仓库
 - 读论文
@@ -71,7 +71,7 @@ Copilot 模式是“用户主导的工作区”。
 
 Copilot 模式对 continuation 是刻意保守的。
 
-在当前请求单元完成之后，DeepScientist 正常应该：
+在当前请求单元完成之后，EEEE Scientist 正常应该：
 
 - 说明这轮做了什么
 - 把上下文和结果持久化
@@ -91,7 +91,7 @@ Copilot 模式对 continuation 是刻意保守的。
 - 你想先看、先问、先改，再决定是否启动长任务
 - 当前任务边界还不清楚
 - 你预期会频繁交互式迭代
-- 你想让 DeepScientist 更像“科研 IDE 搭子”，而不是自治 operator
+- 你想让 EEEE Scientist 更像“科研 IDE 搭子”，而不是自治 operator
 
 ### 3.5 什么时候不适合选
 
@@ -105,7 +105,7 @@ Copilot 模式对 continuation 是刻意保守的。
 
 ### 4.1 它是什么
 
-Autonomous 模式就是标准版 DeepScientist 的工作方式。
+Autonomous 模式就是标准版 EEEE Scientist 的工作方式。
 
 适用于 quest 应该自己持续推进、普通路线选择默认由系统承担的情况。
 
@@ -139,7 +139,7 @@ Autonomous 模式下，continuation 可以分成两个阶段来理解。
 
 #### A. 还没有真实长任务
 
-如果真实的外部长时间任务还没有跑起来，DeepScientist 不应该停住。
+如果真实的外部长时间任务还没有跑起来，EEEE Scientist 不应该停住。
 
 它应该继续用后续 turns 去：
 
@@ -170,7 +170,7 @@ Autonomous 模式下，continuation 可以分成两个阶段来理解。
 - quest 应该自己持续往前推
 - 你预期会有真实长时间实验或分析工作
 - 你希望 milestone 之后系统自动继续路由
-- 你想用标准版 DeepScientist 的完整研究操作系统行为
+- 你想用标准版 EEEE Scientist 的完整研究操作系统行为
 
 ### 4.5 什么时候不适合选
 
@@ -211,7 +211,7 @@ Autonomous 模式下，continuation 可以分成两个阶段来理解。
 你可以用这个简单规则：
 
 1. 如果你想让项目先安静待命，等你说第一句明确指令，再开始干活，选 `Copilot`。
-2. 如果你想让 DeepScientist 一创建项目就开始把合同变成真实工作，选 `Autonomous`。
+2. 如果你想让 EEEE Scientist 一创建项目就开始把合同变成真实工作，选 `Autonomous`。
 3. 如果你暂时拿不准，先用 `Copilot` 更稳；路线清楚后再进入更长时间的自治推进。
 
 ## 8. 常见误解

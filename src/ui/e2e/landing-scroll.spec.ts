@@ -39,7 +39,7 @@ test.describe('landing page scroll', () => {
           latest_version: '1.0.0',
           update_available: false,
           busy: false,
-          manual_update_command: 'npm install -g @researai/deepscientist@latest',
+          manual_update_command: 'npm install -g eeee-scientist@latest',
         }),
       })
     })

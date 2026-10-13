@@ -96,8 +96,8 @@ const heroBundles: Record<Locale, HeroBundle> = {
       tagline: 'Survey · Experiment · Publish',
       primaryCta: 'Start Research',
       secondaryCta: 'List Quests',
-      supportLine: 'DeepScientist keeps your full research loop local, reproducible, and continuously moving.',
-      moreContentUrl: 'https://deepscientist.cc',
+      supportLine: 'EEEE Scientist keeps your full research loop local, reproducible, and continuously moving.',
+      moreContentUrl: 'https://github.com/Bruan01/EEEE-scientist',
       moreContentLine: 'More content at',
     },
     researchSteps: [
@@ -255,8 +255,8 @@ const heroBundles: Record<Locale, HeroBundle> = {
       tagline: '调研 · 实验 · 发表',
       primaryCta: '开始研究',
       secondaryCta: '查看 Quest',
-      supportLine: 'DeepScientist 让完整研究闭环保持本地、可复现，并持续推进。',
-      moreContentUrl: 'https://deepscientist.cc',
+      supportLine: 'EEEE Scientist 让完整研究闭环保持本地、可复现，并持续推进。',
+      moreContentUrl: 'https://github.com/Bruan01/EEEE-scientist',
       moreContentLine: '更多内容见',
     },
     researchSteps: [

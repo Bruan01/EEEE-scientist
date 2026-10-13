@@ -15,7 +15,7 @@
 
 Quantum ESPRESSO is an open source suite for plane wave density functional theory, phonons, and ab initio molecular dynamics in electronic structure simulations of materials.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

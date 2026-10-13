@@ -343,7 +343,7 @@ export const LogoIcon: React.FC<IconProps> = ({ className, size = 28 }) => (
   <>
     <img
       src={BRAND_LOGO_SMALL_SRC}
-      alt="DeepScientist"
+      alt="EEEE Scientist"
       width={size}
       height={size}
       className={className ? `object-contain ${className} dark:hidden` : 'object-contain dark:hidden'}
@@ -353,7 +353,7 @@ export const LogoIcon: React.FC<IconProps> = ({ className, size = 28 }) => (
     />
     <img
       src={BRAND_LOGO_SMALL_SRC_INVERTED}
-      alt="DeepScientist"
+      alt="EEEE Scientist"
       width={size}
       height={size}
       className={className ? `hidden object-contain ${className} dark:block` : 'hidden object-contain dark:block'}

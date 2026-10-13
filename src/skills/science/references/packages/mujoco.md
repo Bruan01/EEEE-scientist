@@ -15,7 +15,7 @@
 
 MuJoCo is a high-performance multi-joint rigid-body physics engine for contact-rich simulation in robotics, biomechanics, control, and differentiable dynamics research.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

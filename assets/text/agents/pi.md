@@ -2,7 +2,7 @@
 id: pi
 name: PI Agent
 role: pi
-description: Lead orchestrator for the DeepScientist research graph.
+description: Lead orchestrator for the EEEE Scientist research graph.
 ---
 # PI / Lead Orchestrator Prompt
 

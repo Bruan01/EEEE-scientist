@@ -1,8 +1,8 @@
 # 29 Slack Connector Guide
 
-Use this guide when you want to configure and operate the built-in Slack connector through the DeepScientist `Settings` page.
+Use this guide when you want to configure and operate the built-in Slack connector through the EEEE Scientist `Settings` page.
 
-Slack uses the built-in Socket Mode path in the current open-source runtime. The intended operator flow is visual-first: launch DeepScientist, open `Settings`, then complete the connector setup there.
+Slack uses the built-in Socket Mode path in the current open-source runtime. The intended operator flow is visual-first: launch EEEE Scientist, open `Settings`, then complete the connector setup there.
 
 ## 1. Open The Connector Page
 
@@ -32,7 +32,7 @@ Use the Slack page when you need to:
 7. keep `transport: socket_mode`
 8. fill `bot_token` and `app_token`
 9. save the connector
-10. send one real Slack message so DeepScientist can discover the runtime target
+10. send one real Slack message so EEEE Scientist can discover the runtime target
 
 ## 4. What To Check On This Page
 

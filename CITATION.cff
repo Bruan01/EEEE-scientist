@@ -1,10 +1,10 @@
 cff-version: 1.2.0
-message: "If DeepScientist materially helped your research, please cite the DeepScientist paper."
-title: "DeepScientist"
+message: "If EEEE Scientist materially helped your research, cite the upstream DeepScientist paper and identify this fork."
+title: "EEEE Scientist"
 type: software
 license: Apache-2.0
-repository-code: "https://github.com/ResearAI/DeepScientist"
-url: "https://github.com/ResearAI/DeepScientist"
+repository-code: "https://github.com/Bruan01/EEEE-scientist"
+url: "https://github.com/Bruan01/EEEE-scientist"
 authors:
   - family-names: Weng
     given-names: Yixuan

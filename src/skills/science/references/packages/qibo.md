@@ -15,7 +15,7 @@
 
 Qibo is an open-source full-stack framework for building, simulating, and executing quantum circuits, with device-agnostic backends for CPU or GPU simulation and quantum hardware control.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

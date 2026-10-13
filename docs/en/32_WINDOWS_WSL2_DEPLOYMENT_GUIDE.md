@@ -1,13 +1,13 @@
 # 32 Windows + WSL2 Deployment Guide
 
-This guide helps Windows 10/11 users deploy DeepScientist through WSL2, keep the Linux image on drive `D:`, configure npm global installs without `sudo`, and use Alibaba Bailian Coding Plan as the Codex backend.
+This guide helps Windows 10/11 users deploy EEEE Scientist through WSL2, keep the Linux image on drive `D:`, configure npm global installs without `sudo`, and use Alibaba Bailian Coding Plan as the Codex backend.
 
 It covers:
 
 - installing WSL2
 - moving the Ubuntu image to `D:`
 - configuring npm global installs into the user directory
-- installing DeepScientist and the pinned Codex CLI version
+- installing EEEE Scientist and the pinned Codex CLI version
 - configuring Alibaba Bailian Coding Plan
 - common troubleshooting steps
 
@@ -105,10 +105,10 @@ echo 'export PATH="$HOME/.npm-global/bin:$PATH"' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-## 4. Install DeepScientist and the pinned Codex CLI version
+## 4. Install EEEE Scientist and the pinned Codex CLI version
 
 ```bash
-npm install -g @researai/deepscientist
+npm install -g eeee-scientist
 npm install -g @openai/codex@0.57.0
 ```
 
@@ -173,7 +173,7 @@ Type a short prompt such as `hello`, confirm a valid model reply, then exit.
 
 ## 6. Install `uv`
 
-DeepScientist relies on `uv` for Python runtime management:
+EEEE Scientist relies on `uv` for Python runtime management:
 
 ```bash
 curl -LsSf https://github.com/astral-sh/uv/releases/latest/download/uv-installer.sh | sh
@@ -182,7 +182,7 @@ source ~/.bashrc
 uv --version
 ```
 
-## 7. Run diagnostics and start DeepScientist
+## 7. Run diagnostics and start EEEE Scientist
 
 ### 7.1 Run doctor
 
@@ -228,7 +228,7 @@ ds --stop
 | `wsl --import` shows `HCS_E_HYPERV_NOT_INSTALLED` | Enable virtualization in BIOS, run `bcdedit /set hypervisorlaunchtype auto`, then reboot |
 | `npm install -g` fails with permissions | Recheck the npm global directory configuration from step 3 |
 | `ds doctor` says the Codex version is incompatible | Confirm that `@openai/codex@0.57.0` is installed |
-| Codex works but DeepScientist does not start | Make sure you launched with `--codex-profile bailian` |
+| Codex works but EEEE Scientist does not start | Make sure you launched with `--codex-profile bailian` |
 | `wire_api = "chat"` shows a deprecation warning | It is currently safe to ignore; migrate to `responses` later when the provider supports it |
 | `uv` download fails | Use a proxy or fall back to `pip install uv --user` |
 
@@ -264,7 +264,7 @@ This guide was manually verified on:
 - Node.js 20.x
 - npm 10.8.2
 - Codex CLI 0.57.0
-- DeepScientist 1.6.0
+- EEEE Scientist 1.6.0
 - Alibaba Bailian Coding Plan with `qwen3.5-plus`
 
 If package versions, Codex compatibility, or Bailian API behavior changes later, recheck the latest official references first:

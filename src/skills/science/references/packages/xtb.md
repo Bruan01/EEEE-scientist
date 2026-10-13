@@ -15,7 +15,7 @@
 
 xTB is a semiempirical extended tight-binding quantum chemistry package for fast molecular energies, structures, frequencies, and conformational analyses across large systems with broad element coverage.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

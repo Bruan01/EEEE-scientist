@@ -779,7 +779,7 @@ def test_generic_connector_ack_reports_stalled_startup(temp_home: Path, monkeypa
     )
 
     assert response["accepted"] is True
-    assert "正在启动 DeepScientist" in str(response["reply"]["payload"]["text"] or "")
+    assert "正在启动 EEEE Scientist" in str(response["reply"]["payload"]["text"] or "")
 
 
 def test_generic_connector_ack_prefers_started_state_over_stale_runner_readiness(
@@ -833,7 +833,7 @@ def test_generic_connector_ack_prefers_started_state_over_stale_runner_readiness
     text_payload = str(response["reply"]["payload"]["text"] or "")
     assert response["accepted"] is True
     assert "已经成功收到消息" in text_payload
-    assert "DeepScientist 仍然不在线哟" not in text_payload
+    assert "EEEE Scientist 仍然不在线哟" not in text_payload
 
 
 def test_generic_connector_ack_reports_runner_offline(temp_home: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -882,7 +882,7 @@ def test_generic_connector_ack_reports_runner_offline(temp_home: Path, monkeypat
 
     text_payload = str(response["reply"]["payload"]["text"] or "")
     assert response["accepted"] is True
-    assert "DeepScientist 仍然不在线哟" in text_payload
+    assert "EEEE Scientist 仍然不在线哟" in text_payload
     assert "Claude Code" in text_payload
 
 
@@ -912,5 +912,5 @@ def test_runner_turn_error_notifies_bound_connector_about_unexpected_stop(temp_h
 
     assert captured
     message = str(captured[-1]["message"] or "")
-    assert "DeepScientist 意外停止运行" in message or "unexpectedly" in message.lower()
+    assert "EEEE Scientist 意外停止运行" in message or "unexpectedly" in message.lower()
     assert "Codex" in message

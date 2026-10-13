@@ -15,7 +15,7 @@
 
 Coffea provides columnar high-energy collider physics analysis tools with event processing, histogramming, corrections, and scalable execution from laptops to clusters in Python.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -15,7 +15,7 @@
 
 Astroquery provides a unified Python interface for querying online astronomical catalogs, mission archives, and object databases through service-specific modules and standardized query methods.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

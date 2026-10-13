@@ -15,7 +15,7 @@
 
 Geant4 is a C++ toolkit for Monte Carlo simulation of particle interactions with matter across detector design, radiation transport, medical physics, and space science applications.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

@@ -1,6 +1,6 @@
 # 20 Workspace Modes Guide: Copilot vs Autonomous
 
-This page explains the two normal project-start modes in DeepScientist:
+This page explains the two normal project-start modes in EEEE Scientist:
 
 - `Copilot`
 - `Autonomous`
@@ -18,7 +18,7 @@ If you want the exact startup payload and form field contract, read [02 Start Re
 ## 1. One-sentence summary
 
 - `Copilot`: quiet start, user-directed, stops after the current requested unit unless you ask it to continue
-- `Autonomous`: standard DeepScientist, keeps pushing the quest forward on its own
+- `Autonomous`: standard EEEE Scientist, keeps pushing the quest forward on its own
 
 ## 2. Where You Choose This
 
@@ -40,7 +40,7 @@ After that choice, the two flows diverge.
 
 Copilot mode is the user-directed workspace.
 
-It is for cases where you want DeepScientist to help actively, but you still want to steer each unit of work:
+It is for cases where you want EEEE Scientist to help actively, but you still want to steer each unit of work:
 
 - inspect a repo
 - read a paper
@@ -70,7 +70,7 @@ In practical terms:
 
 Copilot mode is intentionally conservative about continuation.
 
-After the current requested unit is complete, DeepScientist should normally:
+After the current requested unit is complete, EEEE Scientist should normally:
 
 - summarize what changed
 - preserve context durably
@@ -90,7 +90,7 @@ Choose `Copilot` when:
 - you want to inspect before launching expensive work
 - the task is still ambiguous
 - you expect to iterate interactively
-- you want DeepScientist to behave more like a strong research IDE partner than a long-running autonomous operator
+- you want EEEE Scientist to behave more like a strong research IDE partner than a long-running autonomous operator
 
 ### 3.5 Bad fit
 
@@ -104,7 +104,7 @@ Avoid `Copilot` when:
 
 ### 4.1 What it is
 
-Autonomous mode is the standard DeepScientist path.
+Autonomous mode is the standard EEEE Scientist path.
 
 It is meant for quests where the system should keep making ordinary route choices on its own and continue until the next real checkpoint is reached.
 
@@ -138,7 +138,7 @@ Autonomous mode has two practical continuation regimes.
 
 #### A. No real long-running external task yet
 
-If no real long-running external task exists yet, DeepScientist should not park.
+If no real long-running external task exists yet, EEEE Scientist should not park.
 
 It should keep using the next turns to:
 
@@ -152,7 +152,7 @@ This is the “active preparation / launch” phase.
 
 Once a real detached task is already running, continuation changes shape.
 
-At that point, DeepScientist should not busy-loop through rapid model turns just to imitate continuous execution.
+At that point, EEEE Scientist should not busy-loop through rapid model turns just to imitate continuous execution.
 
 Instead:
 
@@ -168,7 +168,7 @@ Choose `Autonomous` when:
 
 - the quest should keep moving on its own
 - you expect real long-running experiment or analysis work
-- you want DeepScientist to keep routing after milestones
+- you want EEEE Scientist to keep routing after milestones
 - you want the standard research-operating-system behavior
 
 ### 4.5 Bad fit
@@ -192,7 +192,7 @@ That difference matters more than the labels themselves.
 
 Both modes preserve context durably, but they resume differently.
 
-On later turns, DeepScientist now carries a compact resume spine that can include:
+On later turns, EEEE Scientist now carries a compact resume spine that can include:
 
 - the latest durable user message
 - the latest assistant checkpoint
@@ -210,7 +210,7 @@ But the continuation policy still differs:
 Use this fast rule:
 
 1. If you want the project to wait quietly until you tell it what to do, choose `Copilot`.
-2. If you want DeepScientist to begin turning the quest contract into real work immediately, choose `Autonomous`.
+2. If you want EEEE Scientist to begin turning the quest contract into real work immediately, choose `Autonomous`.
 3. If you are unsure, start with `Copilot`; you can still move into longer-running work once the route is clearer.
 
 ## 8. Common Misunderstandings

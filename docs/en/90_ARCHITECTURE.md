@@ -6,7 +6,7 @@ It describes the implementation that actually exists in this checkout. When code
 
 ## Goals
 
-DeepScientist is a small, local-first research operating system with these stable constraints:
+EEEE Scientist is a small, local-first research operating system with these stable constraints:
 
 - the authoritative runtime is Python
 - `npm` is the install and launch path
@@ -40,7 +40,7 @@ Important repository areas:
 
 The normal user path is:
 
-1. `npm install -g @researai/deepscientist`
+1. `npm install -g eeee-scientist`
 2. run `ds`
 3. `bin/ds.js` ensures a locked uv-managed Python runtime is ready under `~/DeepScientist/runtime/python-env`
 4. the launcher starts the Python daemon
@@ -152,7 +152,7 @@ Git behavior stays inside `artifact`. Managed local tooling is a daemon/runtime 
 
 ## Registry-First Extension Points
 
-DeepScientist prefers small explicit registries over large dispatch branches.
+EEEE Scientist prefers small explicit registries over large dispatch branches.
 
 Current registry-backed areas include:
 

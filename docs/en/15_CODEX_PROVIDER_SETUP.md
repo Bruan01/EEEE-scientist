@@ -25,11 +25,11 @@ Use the current Codex docs and the target provider docs as the source of truth:
 - Ollama + Codex: `https://docs.ollama.com/integrations/codex`
 - Gemini OpenAI compatibility: `https://ai.google.dev/gemini-api/docs/openai`
 
-For DeepScientist, the important mapping is:
+For EEEE Scientist, the important mapping is:
 
 - Codex provider, profile, and model selection still live in `~/.codex/config.toml`
-- the DeepScientist Codex runner mainly forwards `--profile`, `--model`, approval policy, sandbox mode, reasoning effort, and env
-- DeepScientist does not currently append `--oss` or `--local-provider`, so use a named Codex profile when you want repeatable Ollama usage inside DeepScientist
+- the EEEE Scientist Codex runner mainly forwards `--profile`, `--model`, approval policy, sandbox mode, reasoning effort, and env
+- EEEE Scientist does not currently append `--oss` or `--local-provider`, so use a named Codex profile when you want repeatable Ollama usage inside EEEE Scientist
 - if a provider only exposes OpenAI Chat Completions and not Responses API, the latest Codex path may not be the best fit; prefer [25 OpenCode Setup](./25_OPENCODE_PROVIDER_SETUP.md) for that case
 
 ## What files matter
@@ -62,10 +62,10 @@ Always follow this order:
 1. install Codex CLI and confirm the binary is the one you expect
 2. prepare `~/.codex/config.toml`
 3. validate `codex` or `codex --profile <name>` directly
-4. validate DeepScientist with `ds doctor`
-5. launch DeepScientist with the same Codex profile
+4. validate EEEE Scientist with `ds doctor`
+5. launch EEEE Scientist with the same Codex profile
 
-`codex login` is not the same as the DeepScientist startup probe. Login only
+`codex login` is not the same as the EEEE Scientist startup probe. Login only
 checks authentication setup. `ds doctor` sends a real non-interactive Codex
 request and expects a `HELLO` response. If login succeeds but `ds doctor` fails,
 run this direct smoke test from the same shell:
@@ -93,7 +93,7 @@ which codex
 codex --version
 ```
 
-If you need a specific binary, keep its absolute path and pass it to DeepScientist with `--codex`.
+If you need a specific binary, keep its absolute path and pass it to EEEE Scientist with `--codex`.
 
 Example:
 
@@ -157,7 +157,7 @@ env_key = "MYPROVIDER_API_KEY"
 requires_openai_auth = false
 ```
 
-Then export the key in the shell before starting Codex or DeepScientist:
+Then export the key in the shell before starting Codex or EEEE Scientist:
 
 ```bash
 export MYPROVIDER_API_KEY="..."
@@ -284,13 +284,13 @@ codex exec --profile provider_alias "Reply with exactly OK."
 ```
 
 If this fails, stop there and fix Codex first. For the closest match to
-DeepScientist's probe, prefer:
+EEEE Scientist's probe, prefer:
 
 ```bash
 printf 'Reply with exactly HELLO.' | codex --search --profile provider_alias exec --json --cd /tmp --skip-git-repo-check -
 ```
 
-## Step 5: map that setup into DeepScientist
+## Step 5: map that setup into EEEE Scientist
 
 ## Where to put the provider key
 
@@ -311,7 +311,7 @@ codex exec --profile m25 "Reply with exactly OK."
 ### 2. `~/.codex/config.toml`
 
 This file usually tells Codex **which environment variable name** or **which bearer token field** it should use.
-It does **not** guarantee that DeepScientist will magically receive that key in every runtime context.
+It does **not** guarantee that EEEE Scientist will magically receive that key in every runtime context.
 
 Examples:
 
@@ -348,24 +348,24 @@ codex:
     MINIMAX_API_KEY: "YOUR_REAL_KEY"
 ```
 
-This is the most reliable DeepScientist-side fix when the provider works in plain `codex --profile ...` but fails inside DeepScientist runner execution.
+This is the most reliable EEEE Scientist-side fix when the provider works in plain `codex --profile ...` but fails inside EEEE Scientist runner execution.
 
 ### Which one should you choose?
 
 - If you are only testing Codex manually in one shell: shell `export` is enough.
 - If you want Codex to know which variable name to read: set `env_key` in `~/.codex/config.toml`.
-- If DeepScientist or `ds docker` still reports a missing provider env var: also set the key in `~/DeepScientist/config/runners.yaml` under `runners.codex.env`.
+- If EEEE Scientist or `ds docker` still reports a missing provider env var: also set the key in `~/DeepScientist/config/runners.yaml` under `runners.codex.env`.
 
 ### Docker and daemon note
 
 This is where most confusion comes from.
 
 A shell-level `export MINIMAX_API_KEY=...` only affects the current shell and the processes spawned from it.
-If DeepScientist is launched by another daemon, service, container, or supervisor process, that runtime may not inherit the same shell environment.
+If EEEE Scientist is launched by another daemon, service, container, or supervisor process, that runtime may not inherit the same shell environment.
 
 So for Docker or long-running daemon setups, `runners.yaml -> runners.codex.env` is usually the safer place.
 
-There are three supported DeepScientist usage patterns.
+There are three supported EEEE Scientist usage patterns.
 
 ### 1. Default OpenAI login path
 
@@ -386,7 +386,7 @@ ds --codex-profile glm
 
 ### 3. Persistent runner config
 
-If you want DeepScientist to keep using the same Codex profile by default, set it in `runners.yaml`.
+If you want EEEE Scientist to keep using the same Codex profile by default, set it in `runners.yaml`.
 
 ```yaml
 codex:
@@ -404,8 +404,8 @@ Important:
 
 - `profile` should usually be your local Codex profile alias, such as `glm`, `ark`, `bailian`, `m25`, or `m27-local`
 - for provider-backed Codex profiles, prefer `model: inherit`
-- only hard-code `model:` in DeepScientist if you are sure the provider accepts that exact explicit model id
-- DeepScientist launches Codex from an isolated runtime home under `.ds/codex-home`, but copies your configured `~/.codex` auth, config, skills, agents, and prompts into that runtime copy first
+- only hard-code `model:` in EEEE Scientist if you are sure the provider accepts that exact explicit model id
+- EEEE Scientist launches Codex from an isolated runtime home under `.ds/codex-home`, but copies your configured `~/.codex` auth, config, skills, agents, and prompts into that runtime copy first
 - if `ds doctor` reports a failed startup probe, read its `probe command`, `exit code`, `stderr excerpt`, and `stdout excerpt`; those fields describe the real Codex request failure, not just login state
 
 ## One-off overrides without editing `config.toml`
@@ -420,7 +420,7 @@ codex -c model_provider="yunyi" -c model="gpt-5.4"
 codex exec -c model_reasoning_effort="high" "Reply with exactly OK."
 ```
 
-This is useful for quick checks, but for repeatable DeepScientist runs, profiles in `~/.codex/config.toml` are cleaner.
+This is useful for quick checks, but for repeatable EEEE Scientist runs, profiles in `~/.codex/config.toml` are cleaner.
 
 ## OpenAI
 
@@ -430,7 +430,7 @@ This is useful for quick checks, but for repeatable DeepScientist runs, profiles
 - successful `codex login`
 - a direct `codex` or `codex exec "Reply with exactly OK."` check
 
-### DeepScientist commands
+### EEEE Scientist commands
 
 ```bash
 ds doctor
@@ -450,12 +450,12 @@ codex:
 
 ## Ollama
 
-Ollama publishes both OpenAI-compatible API docs and a Codex integration. For DeepScientist, turn that into a named Codex profile first, then run DeepScientist with `ds doctor --codex-profile <name>`.
+Ollama publishes both OpenAI-compatible API docs and a Codex integration. For EEEE Scientist, turn that into a named Codex profile first, then run EEEE Scientist with `ds doctor --codex-profile <name>`.
 
 Use this path when:
 
 - Ollama is already stable on the machine
-- the target model has enough context and coding/tool ability for DeepScientist runs
+- the target model has enough context and coding/tool ability for EEEE Scientist runs
 - `http://localhost:11434/v1/responses` works, or the official Ollama Codex integration generated a working Codex profile
 
 Avoid this path when:
@@ -497,7 +497,7 @@ curl http://localhost:11434/v1/responses \
   }'
 ```
 
-If `/v1/responses` fails, upgrade Ollama or change the model before trying DeepScientist through the latest Codex path.
+If `/v1/responses` fails, upgrade Ollama or change the model before trying EEEE Scientist through the latest Codex path.
 
 ### 3. Generate or write a Codex profile
 
@@ -513,7 +513,7 @@ After that, inspect:
 sed -n '1,220p' ~/.codex/config.toml
 ```
 
-For DeepScientist, make sure you have a named profile similar to:
+For EEEE Scientist, make sure you have a named profile similar to:
 
 ```toml
 [model_providers.ollama-launch]
@@ -538,7 +538,7 @@ codex exec --profile ollama-launch "Reply with exactly OK."
 
 If this fails, fix Ollama or the Codex profile first.
 
-### 5. Use the same profile in DeepScientist
+### 5. Use the same profile in EEEE Scientist
 
 One-off:
 
@@ -575,9 +575,9 @@ and typically reads:
 export GEMINI_API_KEY="..."
 ```
 
-Gemini is not the recommended default route for Codex + DeepScientist because Gemini's OpenAI-compatible docs focus on Chat Completions while the current Codex provider path is more Responses-oriented. If you want Gemini, prefer [25 OpenCode Setup](./25_OPENCODE_PROVIDER_SETUP.md).
+Gemini is not the recommended default route for Codex + EEEE Scientist because Gemini's OpenAI-compatible docs focus on Chat Completions while the current Codex provider path is more Responses-oriented. If you want Gemini, prefer [25 OpenCode Setup](./25_OPENCODE_PROVIDER_SETUP.md).
 
-If you still want to experiment with Codex + Gemini as a chat-only provider, use a profile like this and validate Codex before touching DeepScientist:
+If you still want to experiment with Codex + Gemini as a chat-only provider, use a profile like this and validate Codex before touching EEEE Scientist:
 
 ```toml
 [model_providers.gemini_chat]
@@ -840,4 +840,4 @@ If a provider-backed profile still fails:
 8. run `ds doctor --codex-profile <name>`
 9. only then run `ds --codex-profile <name>`
 
-If `codex --profile <name>` fails but you believe the provider config is correct, fix Codex first. DeepScientist should not be the first place you debug provider auth.
+If `codex --profile <name>` fails but you believe the provider config is correct, fix Codex first. EEEE Scientist should not be the first place you debug provider auth.

@@ -1,21 +1,21 @@
-# 03 QQ Connector Guide: Use QQ With DeepScientist
+# 03 QQ Connector Guide: Use QQ With EEEE Scientist
 
-This guide explains how to talk to DeepScientist through QQ and how to configure the QQ connector from the DeepScientist `Settings` page.
+This guide explains how to talk to EEEE Scientist through QQ and how to configure the QQ connector from the EEEE Scientist `Settings` page.
 
-This guide assumes the current built-in DeepScientist QQ runtime:
+This guide assumes the current built-in EEEE Scientist QQ runtime:
 
 - official QQ Gateway direct connection
 - no public callback URL required
 - no `relay_url` required
 - no extra QQ plugin installation
 
-If you previously followed an OpenClaw or NanoClaw article, note the key difference: DeepScientist already includes the QQ connector runtime. You configure it from `Settings > Connectors > QQ` instead of installing a separate plugin from the CLI.
+If you previously followed an OpenClaw or NanoClaw article, note the key difference: EEEE Scientist already includes the QQ connector runtime. You configure it from `Settings > Connectors > QQ` instead of installing a separate plugin from the CLI.
 
 ## 1. What you get after setup
 
 After finishing this guide, you should be able to:
 
-- chat with DeepScientist from QQ private messages
+- chat with EEEE Scientist from QQ private messages
 - let QQ auto-bind to the latest active project
 - use `/new`, `/use latest`, `/status`, and related commands from QQ
 - see the detected `openid` in the `Settings` page
@@ -26,7 +26,7 @@ After finishing this guide, you should be able to:
 
 Before configuring anything, make sure all of these are already true:
 
-- DeepScientist is installed and the daemon / web UI is already running
+- EEEE Scientist is installed and the daemon / web UI is already running
 - you can open `Settings > Connectors`
 - you already have the QQ bot `AppID` and `AppSecret`
 - you have a real QQ account ready to send the first private message to the bot
@@ -69,7 +69,7 @@ https://q.qq.com/qqbot/openclaw/login.html
 
 After creation, record these two values right away:
 
-| Field | Meaning | Required by DeepScientist |
+| Field | Meaning | Required by EEEE Scientist |
 | --- | --- | --- |
 | `AppID` | Unique bot identifier | Yes |
 | `AppSecret` | Secret used to call the QQ Bot API | Yes |
@@ -78,13 +78,13 @@ Important pitfalls:
 
 - `AppSecret` is usually shown only once when created or reset.
 - If you lose it, you will normally need to reset it in the console.
-- DeepScientist only needs these two credentials to start the built-in QQ gateway direct path.
+- EEEE Scientist only needs these two credentials to start the built-in QQ gateway direct path.
 
-## 3. What you do **not** need in DeepScientist
+## 3. What you do **not** need in EEEE Scientist
 
 This matters a lot if you are coming from an OpenClaw-style guide.
 
-In DeepScientist, you do **not** need to:
+In EEEE Scientist, you do **not** need to:
 
 - install `@sliverp/qqbot`
 - run `openclaw channels add ...`
@@ -92,7 +92,7 @@ In DeepScientist, you do **not** need to:
 - configure `relay_url`
 - manually fill `openid` before the first inbound QQ message
 
-DeepScientist currently uses this path:
+EEEE Scientist currently uses this path:
 
 - fixed `transport: gateway_direct`
 - direct `app_id + app_secret`
@@ -171,12 +171,12 @@ Expected result:
 Before the first inbound private message, you may still see a warning like:
 
 ```text
-QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so DeepScientist can auto-detect and save the `openid`.
+QQ readiness is healthy, but no OpenID has been learned yet. Save credentials, then send one private QQ message so EEEE Scientist can auto-detect and save the `openid`.
 ```
 
 This usually does **not** mean your credentials are wrong. It means:
 
-- DeepScientist can already exchange `access_token` and probe `/gateway`
+- EEEE Scientist can already exchange `access_token` and probe `/gateway`
 - but it still does not know which QQ `openid` should receive an active outbound test message
 
 In other words:
@@ -201,7 +201,7 @@ or:
 hello
 ```
 
-If the connector is working, DeepScientist will auto-detect the `openid` for that private conversation and save it into `main_chat_id`.
+If the connector is working, EEEE Scientist will auto-detect the `openid` for that private conversation and save it into `main_chat_id`.
 
 ### Step 5: go back to the Settings page and confirm the state
 
@@ -220,7 +220,7 @@ Now click:
 
 - `Send probe`
 
-If it succeeds, DeepScientist can now:
+If it succeeds, EEEE Scientist can now:
 
 - actively send messages to that QQ user
 - receive new messages from that QQ user
@@ -237,7 +237,7 @@ When the connector is fully working, you should usually see all of these:
 
 ## 5.3 Automatic main-experiment metric charts
 
-When QQ is the bound quest connector, DeepScientist now auto-sends metric timeline charts after each recorded main experiment.
+When QQ is the bound quest connector, EEEE Scientist now auto-sends metric timeline charts after each recorded main experiment.
 
 Current behavior:
 
@@ -247,7 +247,7 @@ Current behavior:
 - any point that beats baseline gets a star marker
 - the latest point is filled with a deep Morandi red
 - earlier points are filled with a deep Morandi blue
-- if multiple metrics are present, DeepScientist sends them sequentially with about a 2 second gap
+- if multiple metrics are present, EEEE Scientist sends them sequentially with about a 2 second gap
 
 These charts are generated from quest-local files and delivered as native QQ images.
 
@@ -259,12 +259,12 @@ If you need to disable this automatic chart delivery, turn off `auto_send_main_e
 | --- | --- | --- |
 | `app_id is required` / `app_secret is required` | The credentials are incomplete | Fill the missing field in Settings and save again |
 | `401` / `invalid credential` / token exchange failed | The `AppID` or `AppSecret` is wrong, or the secret was reset | Recheck the QQ console values and save them again |
-| `QQ readiness is healthy, but no OpenID has been learned yet...` | The credentials probably work, but DeepScientist still does not know which QQ user should receive an active outbound message | Send one private QQ message to the bot first so the runtime can discover the `openid` |
-| `QQ callback flow usually needs public_callback_url...` | This comes from an older callback/relay model, not the current DeepScientist direct path | Keep `transport = gateway_direct` and do not add a public callback URL |
+| `QQ readiness is healthy, but no OpenID has been learned yet...` | The credentials probably work, but EEEE Scientist still does not know which QQ user should receive an active outbound message | Send one private QQ message to the bot first so the runtime can discover the `openid` |
+| `QQ callback flow usually needs public_callback_url...` | This comes from an older callback/relay model, not the current EEEE Scientist direct path | Keep `transport = gateway_direct` and do not add a public callback URL |
 | `QQ relay mode needs relay_url...` | The transport was switched to relay mode by mistake | Change it back to `gateway_direct` |
 | `Detected OpenID` stays empty | The bot has not received the first private QQ message yet, or the gateway did not restart cleanly after config changes | Save the config first, then send a private QQ message, and restart the gateway if needed |
 
-## 6. How to talk to DeepScientist from QQ
+## 6. How to talk to EEEE Scientist from QQ
 
 Common commands:
 
@@ -287,9 +287,9 @@ Recommended usage:
 
 ### 7.1 Assuming QQ needs a public callback
 
-The current DeepScientist QQ path does **not** require a public callback.
+The current EEEE Scientist QQ path does **not** require a public callback.
 
-If you see these ideas from older guides, ignore them for DeepScientist:
+If you see these ideas from older guides, ignore them for EEEE Scientist:
 
 - `public_callback_url`
 - `relay_url`
@@ -305,7 +305,7 @@ That is a different problem from invalid `app_id` or `app_secret`.
 
 ### 7.3 Thinking you must manually discover `openid`
 
-In DeepScientist, the easiest path is not manual lookup. Instead:
+In EEEE Scientist, the easiest path is not manual lookup. Instead:
 
 1. save `App ID` and `App secret`
 2. send one private QQ message to the bot
@@ -354,4 +354,4 @@ If you only want the shortest path that works:
 Notes:
 
 - the bot-registration flow and screenshots in this guide are based on the Tencent Cloud article above
-- the actual DeepScientist connector behavior follows the current built-in DeepScientist QQ runtime, not the OpenClaw plugin workflow
+- the actual EEEE Scientist connector behavior follows the current built-in EEEE Scientist QQ runtime, not the OpenClaw plugin workflow

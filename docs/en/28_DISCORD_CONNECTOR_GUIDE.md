@@ -1,6 +1,6 @@
 # 28 Discord Connector Guide
 
-Use this guide when you want to configure and operate the built-in Discord connector through the DeepScientist `Settings` page.
+Use this guide when you want to configure and operate the built-in Discord connector through the EEEE Scientist `Settings` page.
 
 Discord now lives under the same connector surface as QQ, Telegram, Slack, Feishu, WhatsApp, WeChat, and Lingzhu. You do not need a separate relay process or a public callback URL for the recommended path.
 

@@ -86,7 +86,7 @@ def test_cli_parser_reports_clear_argument_errors(capsys) -> None:  # type: igno
 
     captured = capsys.readouterr()
     assert exc_info.value.code == 2
-    assert "DeepScientist argument error:" in captured.err
+    assert "EEEE Scientist argument error:" in captured.err
     assert "unrecognized arguments: --bogus" in captured.err
     assert "Run `ds --help` for usage." in captured.err
 
@@ -149,9 +149,9 @@ def test_doctor_report_covers_ready_local_install(monkeypatch, temp_home: Path) 
     rendered = render_doctor_report(report)
 
     assert report["ok"] is True
-    assert "DeepScientist doctor" in rendered
+    assert "EEEE Scientist doctor" in rendered
     assert "Codex startup probe completed." in rendered
-    assert "Everything looks ready. Run `ds` to start DeepScientist." in rendered
+    assert "Everything looks ready. Run `ds` to start EEEE Scientist." in rendered
 
 
 def test_doctor_reports_optional_latex_runtime(monkeypatch, temp_home: Path) -> None:
@@ -454,7 +454,7 @@ def test_doctor_web_port_guidance_mentions_conflicting_home(monkeypatch, temp_ho
     check = _check_ui_port(temp_home, manager)
 
     assert check["ok"] is False
-    assert "another DeepScientist home" in check["summary"]
+    assert "another EEEE Scientist home" in check["summary"]
     guidance = "\n".join(check["guidance"])
     assert f"ds --home {other_home} doctor" in guidance
     assert f"ds --home {other_home} --stop" in guidance

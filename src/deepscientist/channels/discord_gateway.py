@@ -210,8 +210,8 @@ class DiscordGatewayService:
                     "intents": DISCORD_GATEWAY_INTENTS,
                     "properties": {
                         "os": platform.system().lower() or "linux",
-                        "browser": "deepscientist",
-                        "device": "deepscientist",
+                        "browser": "eeee-scientist",
+                        "device": "eeee-scientist",
                     },
                 },
             }

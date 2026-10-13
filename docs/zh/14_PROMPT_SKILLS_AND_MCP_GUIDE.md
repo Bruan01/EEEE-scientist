@@ -1,6 +1,6 @@
 # 14 Prompt、Skills 与 MCP 指南
 
-这篇文档解释的是：DeepScientist 每一轮到底是怎么被驱动起来的。
+这篇文档解释的是：EEEE Scientist 每一轮到底是怎么被驱动起来的。
 
 适合这些场景：
 
@@ -15,7 +15,7 @@
 
 ## 1. 一句话总结
 
-DeepScientist 不是靠一份静态大 prompt 工作的。
+EEEE Scientist 不是靠一份静态大 prompt 工作的。
 
 每一轮 turn，系统都会重新根据下面这些内容组装 prompt：
 
@@ -58,9 +58,9 @@ DeepScientist 不是靠一份静态大 prompt 工作的。
 
 受管 quest-local prompt 镜像：
 
-- DeepScientist 仍然会优先读取 `quest_root/.codex/prompts/` 下存在的 prompt 片段。
+- EEEE Scientist 仍然会优先读取 `quest_root/.codex/prompts/` 下存在的 prompt 片段。
 - 但这棵树现在是“自动维护的受管副本”，不再默认视为永久手工 fork。
-- 每次真实 runner turn 开始前，DeepScientist 都会把当前 active quest-local prompt 树与仓库 `src/prompts/` 做比较；只要仓库源变了，或者 quest 本地副本漂移了，就会刷新 active 副本。
+- 每次真实 runner turn 开始前，EEEE Scientist 都会把当前 active quest-local prompt 树与仓库 `src/prompts/` 做比较；只要仓库源变了，或者 quest 本地副本漂移了，就会刷新 active 副本。
 - 刷新之前，旧的 active prompt 树会先备份到 `quest_root/.codex/prompt_versions/<backup_id>/`。
 - 所以默认情况下，旧 quest 也会吃到最新 prompt 合同；如果你需要回放历史 prompt，再显式选择某个备份版本。
 
@@ -99,7 +99,7 @@ DeepScientist 不是靠一份静态大 prompt 工作的。
 
 ### 4.1 `system.md`
 
-这是全局 DeepScientist 行为合同。
+这是全局 EEEE Scientist 行为合同。
 
 它会定义：
 
@@ -241,7 +241,7 @@ builder 会直接把这些 quest 文件读进 prompt：
 - mailbox 消息要怎么确认
 - 如何把进展压缩成人类可读的更新
 
-所以 DeepScientist 虽然是同一套 runtime，但在这些场景里可以表现不同：
+所以 EEEE Scientist 虽然是同一套 runtime，但在这些场景里可以表现不同：
 
 - 长实验
 - connector 回复
@@ -270,7 +270,7 @@ builder 会直接把这些 quest 文件读进 prompt：
 
 ### 4.10 Priority memory
 
-DeepScientist 不是随机往 prompt 里塞 memory 的。
+EEEE Scientist 不是随机往 prompt 里塞 memory 的。
 
 `PromptBuilder` 会根据 stage 使用不同的 memory plan。
 
@@ -298,7 +298,7 @@ agent 不应该在每一轮都看到完全同一批 memory。
 但现在有一个关键变化：
 
 - `.codex/prompts/` 不应再理解为长期手工维护的 override 树。
-- 每次真实运行前，DeepScientist 都会把 active quest-local copy 修回当前仓库 prompt 真相。
+- 每次真实运行前，EEEE Scientist 都会把 active quest-local copy 修回当前仓库 prompt 真相。
 - 所以如果你手工改了 active copy，这种改动会在下次运行时被视为漂移：先备份，再替换。
 - 历史 prompt 会保存在 `.codex/prompt_versions/<backup_id>/`。
 
@@ -307,7 +307,7 @@ agent 不应该在每一轮都看到完全同一批 memory。
 - `ds daemon --prompt-version <official_version>`
 - `ds run --prompt-version <official_version> ...`
 
-DeepScientist 会把它解析成“该正式版本号下最新的一份 prompt 备份”。如果你想精确回放某一次具体备份，而不是该版本下最新的一份，也仍然可以直接传备份目录名。
+EEEE Scientist 会把它解析成“该正式版本号下最新的一份 prompt 备份”。如果你想精确回放某一次具体备份，而不是该版本下最新的一份，也仍然可以直接传备份目录名。
 
 如果只是想继续使用当前受管 active prompt，就用 `latest`。
 
@@ -315,7 +315,7 @@ DeepScientist 会把它解析成“该正式版本号下最新的一份 prompt �
 
 ## 6. Skills 是怎么分层的
 
-DeepScientist 当前有两层 skill：
+EEEE Scientist 当前有两层 skill：
 
 1. 标准 stage skills
 2. companion skills
@@ -352,7 +352,7 @@ DeepScientist 当前有两层 skill：
 
 ### 6.3 最关键的设计点
 
-DeepScientist 的 daemon 不应该变成一个巨大的硬编码科研调度器。
+EEEE Scientist 的 daemon 不应该变成一个巨大的硬编码科研调度器。
 
 真正的分工是：
 
@@ -360,7 +360,7 @@ DeepScientist 的 daemon 不应该变成一个巨大的硬编码科研调度器�
 - skill 定义当前阶段纪律
 - runtime 负责持久化状态与路由 turn
 
-这就是 DeepScientist 最核心的设计选择之一。
+这就是 EEEE Scientist 最核心的设计选择之一。
 
 ## 7. 每个 skill 通常会留下什么 durable 输出
 
@@ -387,7 +387,7 @@ DeepScientist 的 daemon 不应该变成一个巨大的硬编码科研调度器�
 
 ## 8. 内建 MCP 结构
 
-DeepScientist 故意把内建 MCP 面压得很小。
+EEEE Scientist 故意把内建 MCP 面压得很小。
 
 只有下面三个 namespace 是内建的：
 
@@ -542,7 +542,7 @@ artifact 名字虽然多，但本质上还是一个家族。
 7. 输出被持久化进文件、artifact、memory cards、logs 和 Git 状态
 8. `artifact.interact(...)` 保持用户可见线程不断线
 
-这也是 DeepScientist 更像一个持续科研工作坊，而不是无状态聊天的原因。
+这也是 EEEE Scientist 更像一个持续科研工作坊，而不是无状态聊天的原因。
 
 ## 11. 什么时候该改 prompt、skill 或 MCP 代码
 

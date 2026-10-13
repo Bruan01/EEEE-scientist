@@ -15,7 +15,7 @@
 
 openEMS is an open-source EC-FDTD electromagnetic field solver for simulating antennas, RF and microwave structures, and wave propagation in three-dimensional computational electromagnetics workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

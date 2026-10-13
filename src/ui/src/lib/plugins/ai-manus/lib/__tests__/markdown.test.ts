@@ -15,7 +15,7 @@ describe('ai-manus markdown', () => {
 
   it('renders workspace file links as inline buttons when requested', () => {
     const html = renderMarkdown(
-      'Open [plan.md](http://deepscientist.cc:20999/ssdwork/DeepScientist/quests/104/plan.md).',
+      'Open [plan.md](http://127.0.0.1:20999/ssdwork/DeepScientist/quests/104/plan.md).',
       {
         resolveWorkspaceFileLink: (href) => href.includes('/quests/104/plan.md'),
       }
@@ -23,7 +23,7 @@ describe('ai-manus markdown', () => {
 
     expect(html).toContain('button')
     expect(html).toContain('ai-manus-inline-link')
-    expect(html).toContain('data-file-href="http://deepscientist.cc:20999/ssdwork/DeepScientist/quests/104/plan.md"')
+    expect(html).toContain('data-file-href="http://127.0.0.1:20999/ssdwork/DeepScientist/quests/104/plan.md"')
     expect(html).not.toContain('target="_blank"')
   })
 
@@ -38,14 +38,14 @@ describe('ai-manus markdown', () => {
 
   it('preserves citation rendering alongside workspace file links', () => {
     const rendered = renderMarkdownWithCitations(
-      'Review [plan.md](http://deepscientist.cc:20999/ssdwork/DeepScientist/quests/104/plan.md) [1].',
+      'Review [plan.md](http://127.0.0.1:20999/ssdwork/DeepScientist/quests/104/plan.md) [1].',
       [{ index: 1, file_path: 'paper.md', line_start: 4, line_end: 6 }],
       {
         resolveWorkspaceFileLink: (href) => href.includes('/quests/104/plan.md'),
       }
     )
 
-    expect(rendered.html).toContain('data-file-href="http://deepscientist.cc:20999/ssdwork/DeepScientist/quests/104/plan.md"')
+    expect(rendered.html).toContain('data-file-href="http://127.0.0.1:20999/ssdwork/DeepScientist/quests/104/plan.md"')
     expect(rendered.html).toContain('data-cite-key="c1"')
   })
 })

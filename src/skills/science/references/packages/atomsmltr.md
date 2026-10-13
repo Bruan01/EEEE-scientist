@@ -15,7 +15,7 @@
 
 atomSmltr is a modular Python toolkit for simulating laser-cooled atoms in custom laser and magnetic field geometries with trajectory integration.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

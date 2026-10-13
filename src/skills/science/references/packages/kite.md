@@ -15,7 +15,7 @@
 
 KITE is a Python/C++ package for large-scale real-space tight-binding simulations of electronic structure and bulk quantum transport in disordered materials, including DC/AC conductivity, DoS, and wave-packet dynamics.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

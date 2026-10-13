@@ -15,7 +15,7 @@
 
 The Virtual Brain main codebase provides neuroscience tools for whole-brain network simulation, multimodal data analysis, and framework components for workflows, storage, and visualization.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

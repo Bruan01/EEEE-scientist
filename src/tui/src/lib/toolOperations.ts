@@ -197,48 +197,48 @@ export function buildToolOperationContent(
   if (label === 'tool_call') {
     switch (intent) {
       case 'web_search':
-        return subject ? `DeepScientist is Searching the Web for ${subject}...` : 'DeepScientist is Searching the Web...'
+        return subject ? `EEEE Scientist is Searching the Web for ${subject}...` : 'EEEE Scientist is Searching the Web...'
       case 'search':
-        return subject ? `DeepScientist is Searching ${subject}...` : 'DeepScientist is Searching...'
+        return subject ? `EEEE Scientist is Searching ${subject}...` : 'EEEE Scientist is Searching...'
       case 'read':
-        return subject ? `DeepScientist is Reading ${subject}...` : 'DeepScientist is Reading...'
+        return subject ? `EEEE Scientist is Reading ${subject}...` : 'EEEE Scientist is Reading...'
       case 'write':
-        return subject ? `DeepScientist is Writing ${subject}...` : 'DeepScientist is Writing...'
+        return subject ? `EEEE Scientist is Writing ${subject}...` : 'EEEE Scientist is Writing...'
       case 'artifact':
-        return subject ? `DeepScientist is Recording ${subject}...` : 'DeepScientist is Recording Progress...'
+        return subject ? `EEEE Scientist is Recording ${subject}...` : 'EEEE Scientist is Recording Progress...'
       case 'memory':
-        return subject ? `DeepScientist is Updating Memory ${subject}...` : 'DeepScientist is Updating Memory...'
+        return subject ? `EEEE Scientist is Updating Memory ${subject}...` : 'EEEE Scientist is Updating Memory...'
       case 'web':
-        return subject ? `DeepScientist is Browsing ${subject}...` : 'DeepScientist is Browsing...'
+        return subject ? `EEEE Scientist is Browsing ${subject}...` : 'EEEE Scientist is Browsing...'
       case 'shell':
-        return 'DeepScientist is Running a Shell Command...'
+        return 'EEEE Scientist is Running a Shell Command...'
       case 'file':
-        return subject ? `DeepScientist is Inspecting ${subject}...` : 'DeepScientist is Inspecting Files...'
+        return subject ? `EEEE Scientist is Inspecting ${subject}...` : 'EEEE Scientist is Inspecting Files...'
       default:
-        return `DeepScientist is Using ${toolName || 'a tool'}...`
+        return `EEEE Scientist is Using ${toolName || 'a tool'}...`
     }
   }
 
   switch (intent) {
     case 'web_search':
-      return subject ? `DeepScientist Finished Searching the Web for ${subject}.` : 'DeepScientist Finished Searching the Web.'
+      return subject ? `EEEE Scientist Finished Searching the Web for ${subject}.` : 'EEEE Scientist Finished Searching the Web.'
     case 'search':
-      return subject ? `DeepScientist Finished Searching ${subject}.` : 'DeepScientist Finished Searching.'
+      return subject ? `EEEE Scientist Finished Searching ${subject}.` : 'EEEE Scientist Finished Searching.'
     case 'read':
-      return subject ? `DeepScientist Finished Reading ${subject}.` : 'DeepScientist Finished Reading.'
+      return subject ? `EEEE Scientist Finished Reading ${subject}.` : 'EEEE Scientist Finished Reading.'
     case 'write':
-      return subject ? `DeepScientist Updated ${subject}.` : 'DeepScientist Updated Files.'
+      return subject ? `EEEE Scientist Updated ${subject}.` : 'EEEE Scientist Updated Files.'
     case 'artifact':
-      return subject ? `DeepScientist Recorded Progress for ${subject}.` : 'DeepScientist Recorded Progress.'
+      return subject ? `EEEE Scientist Recorded Progress for ${subject}.` : 'EEEE Scientist Recorded Progress.'
     case 'memory':
-      return subject ? `DeepScientist Updated Memory ${subject}.` : 'DeepScientist Updated Memory.'
+      return subject ? `EEEE Scientist Updated Memory ${subject}.` : 'EEEE Scientist Updated Memory.'
     case 'web':
-      return subject ? `DeepScientist Finished Browsing ${subject}.` : 'DeepScientist Finished Browsing.'
+      return subject ? `EEEE Scientist Finished Browsing ${subject}.` : 'EEEE Scientist Finished Browsing.'
     case 'shell':
-      return 'DeepScientist Finished Running a Shell Command.'
+      return 'EEEE Scientist Finished Running a Shell Command.'
     case 'file':
-      return subject ? `DeepScientist Inspected ${subject}.` : 'DeepScientist Inspected Files.'
+      return subject ? `EEEE Scientist Inspected ${subject}.` : 'EEEE Scientist Inspected Files.'
     default:
-      return `DeepScientist Finished Using ${toolName || 'a tool'}.`
+      return `EEEE Scientist Finished Using ${toolName || 'a tool'}.`
   }
 }

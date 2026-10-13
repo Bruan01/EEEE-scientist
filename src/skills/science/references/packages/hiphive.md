@@ -15,7 +15,7 @@
 
 hiphive builds sparse high-order interatomic force constant models from first-principles data to enable phonon calculations, lattice dynamics analysis, and anharmonic thermal transport workflows in crystalline materials.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

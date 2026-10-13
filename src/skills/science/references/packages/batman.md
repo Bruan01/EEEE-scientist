@@ -15,7 +15,7 @@
 
 BATMAN is a Python package for very fast computation of exoplanet transit light curves, supporting multiple limb-darkening laws for fitting and simulating planetary transit photometry.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

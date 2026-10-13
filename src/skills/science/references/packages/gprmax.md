@@ -15,7 +15,7 @@
 
 gprMax is an open-source 3D finite-difference time-domain simulator for electromagnetic wave propagation, primarily used for ground penetrating radar modelling and subsurface investigations.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

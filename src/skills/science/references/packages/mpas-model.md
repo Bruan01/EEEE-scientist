@@ -15,7 +15,7 @@
 
 MPAS-Model is an unstructured-mesh earth system modeling framework for atmosphere, ocean, sea ice, and land ice simulations used in climate, regional climate, and weather research.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

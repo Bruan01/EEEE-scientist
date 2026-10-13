@@ -15,7 +15,7 @@
 
 Python package for chemical engineering thermodynamics and phase equilibrium, providing pure component and mixture property models, transport correlations, and rigorous flash calculation workflows.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

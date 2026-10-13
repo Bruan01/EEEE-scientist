@@ -15,7 +15,7 @@
 
 Atomate2 provides composable high-throughput computational materials science workflows for running and managing VASP and related calculations of electronic, vibrational, and defect properties at scale.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

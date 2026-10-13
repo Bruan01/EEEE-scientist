@@ -46,7 +46,7 @@ body:
       label: Environment
       description: Include browser, OS, DS version, Python/Node versions, GPU/runtime details when relevant.
       placeholder: |
-        - DeepScientist version:
+        - EEEE Scientist version:
         - Browser:
         - OS:
         - Python:

@@ -1,6 +1,7 @@
 # 26 Citation And Attribution
 
-This page explains how we hope people cite and acknowledge DeepScientist.
+This page explains how we hope people cite the upstream DeepScientist work and
+acknowledge EEEE Scientist when this fork materially contributes.
 
 This document is intentionally gentle:
 
@@ -10,17 +11,17 @@ This document is intentionally gentle:
 
 ## Short version
 
-If DeepScientist materially helps a paper, report, benchmark write-up, or public research artifact, please:
+If EEEE Scientist materially helps a paper, report, benchmark write-up, or public research artifact, please:
 
-1. cite the DeepScientist paper
+1. cite the upstream DeepScientist paper and identify this fork
 2. disclose meaningful AI assistance honestly
 3. avoid presenting AI-generated or AI-simulated results as purely human or purely real if that would mislead readers
 
-If you only used DeepScientist in a minor operational way, such as opening files, launching a shell, or checking a repository layout, citation is usually not necessary.
+If you only used EEEE Scientist in a minor operational way, such as opening files, launching a shell, or checking a repository layout, citation is usually not necessary.
 
 ## When we strongly encourage citation
 
-Citation is strongly encouraged when DeepScientist materially contributes to work such as:
+Citation is strongly encouraged when EEEE Scientist materially contributes to work such as:
 
 - research planning or task decomposition
 - baseline restoration or experiment orchestration
@@ -30,11 +31,11 @@ Citation is strongly encouraged when DeepScientist materially contributes to wor
 
 The practical rule is simple:
 
-- if DeepScientist changed the substance, speed, or shape of the research output in a meaningful way, please cite it
+- if EEEE Scientist changed the substance, speed, or shape of the research output in a meaningful way, please cite it
 
 ## When citation is usually not necessary
 
-Citation is usually unnecessary when DeepScientist was used only as:
+Citation is usually unnecessary when EEEE Scientist was used only as:
 
 - a local launcher
 - a terminal convenience layer
@@ -62,19 +63,19 @@ url={https://openreview.net/forum?id=cZFgsLq8Gs}
 
 ## Suggested acknowledgment text
 
-If DeepScientist materially assisted the project, a short acknowledgment like the following is usually enough:
+If EEEE Scientist materially assisted the project, a short acknowledgment like the following is usually enough:
 
 ```text
-We used DeepScientist to assist parts of the research workflow, including selected planning, implementation, experiment orchestration, analysis, and/or writing support. Final judgments, claims, and reported real experimental results remain the responsibility of the human authors.
+We used EEEE Scientist to assist parts of the research workflow, including selected planning, implementation, experiment orchestration, analysis, and/or writing support. Final judgments, claims, and reported real experimental results remain the responsibility of the human authors.
 ```
 
 You can shorten or adapt this wording to match venue norms.
 
 ## Optional FermiLink attribution
 
-DeepScientist's science-evidence workflow was informed by FermiLink's
+EEEE Scientist's science-evidence workflow was informed by FermiLink's
 scientific simulation and package-knowledge design. If your project materially
-uses FermiLink itself, cite it directly in addition to DeepScientist.
+uses FermiLink itself, cite it directly in addition to EEEE Scientist.
 
 Repository:
 
@@ -90,7 +91,7 @@ Paper:
 
 ## AI assistance disclosure
 
-We strongly encourage clear disclosure when DeepScientist contributed to:
+We strongly encourage clear disclosure when EEEE Scientist contributed to:
 
 - writing
 - coding

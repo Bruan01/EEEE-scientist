@@ -75,8 +75,8 @@ export function QuestMcpOperation({
         ? metadata.session_id
         : `quest:${questId}`,
     sender_type: 'agent',
-    sender_label: 'DeepScientist',
-    sender_name: 'DeepScientist',
+    sender_label: 'EEEE Scientist',
+    sender_name: 'EEEE Scientist',
     ...(resolvedIdentity.server ? { mcp_server: resolvedIdentity.server } : {}),
     ...(resolvedIdentity.tool ? { mcp_tool: resolvedIdentity.tool } : {}),
     ...(metadata as EventMetadata | undefined),

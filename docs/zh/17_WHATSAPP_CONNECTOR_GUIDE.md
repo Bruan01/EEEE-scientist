@@ -1,6 +1,6 @@
 # 17 WhatsApp Connector 指南
 
-当你希望通过 WhatsApp 继续推进 DeepScientist quest 时，请阅读这份指南。
+当你希望通过 WhatsApp 继续推进 EEEE Scientist quest 时，请阅读这份指南。
 
 当前开源版本里的 WhatsApp 推荐路径使用本地 local-session 方案：
 
@@ -27,7 +27,7 @@
 5. 保存连接器配置。
 6. 完成本地 WhatsApp 会话登录流程。
 7. 从 WhatsApp 发送一条真实消息。
-8. 回到 DeepScientist，确认目标会话已经被自动发现。
+8. 回到 EEEE Scientist，确认目标会话已经被自动发现。
 
 ## 3. 关键配置字段
 
@@ -55,7 +55,7 @@ WhatsApp 会话会被规范化成 quest-aware connector id，例如：
 - `whatsapp:direct:<jid>`
 - `whatsapp:group:<jid>`
 
-DeepScientist 绑定的是这个规范化后的 conversation id，而不是临时浏览器状态或短期 session 状态。
+EEEE Scientist 绑定的是这个规范化后的 conversation id，而不是临时浏览器状态或短期 session 状态。
 
 重要规则：
 
@@ -69,11 +69,11 @@ DeepScientist 绑定的是这个规范化后的 conversation id，而不是临�
 
 当前开源版本里的 WhatsApp 路径是 local-session 导向的：
 
-- 运行时状态会镜像写入 DeepScientist 的 connector 日志目录
+- 运行时状态会镜像写入 EEEE Scientist 的 connector 日志目录
 - 入站消息会从本地 session inbox 中被消费
 - 出站消息会被写入本地 session outbox
 
-这也符合 DeepScientist 的本地优先设计。
+这也符合 EEEE Scientist 的本地优先设计。
 
 ## 6. 群聊行为
 

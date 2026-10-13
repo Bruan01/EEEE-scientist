@@ -1,8 +1,16 @@
 {
-  "name": "@researai/deepscientist",
+  "name": "eeee-scientist",
   "version": "1.6.0",
-  "description": "DeepScientist is not just a fully open-source autonomous scientific discovery system. It is also a research map that keeps growing from every round.",
+  "description": "EEEE Scientist is a local-first research workspace and a secondary-development fork based on DeepScientist.",
   "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bruan01/EEEE-scientist.git"
+  },
+  "homepage": "https://github.com/Bruan01/EEEE-scientist",
+  "bugs": {
+    "url": "https://github.com/Bruan01/EEEE-scientist/issues"
+  },
   "files": [
     "AGENTS.md",
     "README.md",
@@ -31,6 +39,7 @@
   "bin": {
     "ds": "bin/ds.js",
     "ds-cli": "bin/ds.js",
+    "eeee-scientist": "bin/ds.js",
     "resear": "bin/ds.js",
     "research": "bin/ds.js"
   },

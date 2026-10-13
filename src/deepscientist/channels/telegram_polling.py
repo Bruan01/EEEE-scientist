@@ -220,7 +220,7 @@ class TelegramPollingService:
             if isinstance(values, list):
                 entities.extend(item for item in values if isinstance(item, dict))
         mentioned = any(item.get("type") == "mention" for item in entities)
-        bot_name = str(self.config.get("bot_name") or "DeepScientist").strip()
+        bot_name = str(self.config.get("bot_name") or "EEEE Scientist").strip()
         normalized_text = self._normalize_command_target(text, bot_name=bot_name)
         return {
             "chat_type": chat_type,

@@ -1,7 +1,7 @@
 # Science Task Brief Template
 
 SetupAgent may use this shape as startup context for natural-science tasks.
-It is inspired by FermiLink's `goal.md` discipline, but DeepScientist should
+It is inspired by FermiLink's `goal.md` discipline, but EEEE Scientist should
 not require the main agent to materialize a `goal.md` file.
 
 ```markdown

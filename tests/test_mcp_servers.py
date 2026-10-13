@@ -1198,8 +1198,8 @@ def test_artifact_prepare_github_issue_tool_returns_route_effect(
                 "ok": True,
                 "title": "GPU scheduling issue on local daemon",
                 "body_markdown": "# Summary\n\nGPU scheduling issue on local daemon\n",
-                "issue_url_base": "https://github.com/ResearAI/DeepScientist/issues/new",
-                "repo_url": "https://github.com/ResearAI/DeepScientist",
+                "issue_url_base": "https://github.com/Bruan01/EEEE-scientist/issues/new",
+                "repo_url": "https://github.com/Bruan01/EEEE-scientist",
                 "generated_at": "2026-04-14T00:00:00+00:00",
             }
 

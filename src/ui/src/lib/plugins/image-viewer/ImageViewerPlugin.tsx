@@ -35,7 +35,7 @@ import ImageCanvas, { type ImageInfo } from "./components/ImageCanvas";
 // Demo Image URL
 // ============================================================
 
-const DEMO_IMAGE_URL = "https://via.placeholder.com/1920x1080?text=DeepScientist+Image+Viewer";
+const DEMO_IMAGE_URL = "https://via.placeholder.com/1920x1080?text=EEEE Scientist+Image+Viewer";
 
 // ============================================================
 // Helper Functions

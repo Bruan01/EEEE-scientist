@@ -213,7 +213,7 @@ const copy = {
     baselineRoot: 'Reference starting point',
     baselineRootPlaceholder: 'Select a reusable reference starting point (optional)',
     baselineRootHelp:
-      'This is the comparator starting point for this project, not necessarily an industry baseline. It can be a previously confirmed run, an official implementation, or a local existing system that you want DeepScientist to reuse first.',
+      'This is the comparator starting point for this project, not necessarily an industry baseline. It can be a previously confirmed run, an official implementation, or a local existing system that you want EEEE Scientist to reuse first.',
     baselineVariant: 'Reference variant',
     baselineVariantHelp: 'Optional: choose a specific variant when the reference entry contains multiple variants.',
     baselineUrls: 'Reference implementation links / local paths',
@@ -4587,7 +4587,7 @@ export function CreateProjectDialog({
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-white/72 shadow-[inset_0_0_0_1px_rgba(45,42,38,0.08)]">
                 <img
                   src={assetUrl('logo.svg')}
-                  alt="DeepScientist"
+                  alt="EEEE Scientist"
                   className="h-7 w-7 object-contain"
                 />
               </div>

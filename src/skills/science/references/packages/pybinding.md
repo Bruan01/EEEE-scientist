@@ -15,7 +15,7 @@
 
 pybinding is a scientific Python library for constructing and solving tight-binding models of crystalline materials to study electronic structure and quantum transport in solid-state systems.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

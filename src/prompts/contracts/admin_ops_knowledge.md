@@ -30,7 +30,7 @@ Use this knowledge base as the compact system map for administrator diagnosis an
 
 ## Runtime Directories
 
-- DeepScientist home: `~/DeepScientist/`
+- EEEE Scientist home: `~/DeepScientist/`
 - runtime: `~/DeepScientist/runtime/`
 - config: `~/DeepScientist/config/`
 - memory: `~/DeepScientist/memory/`
@@ -48,7 +48,7 @@ Use this knowledge base as the compact system map for administrator diagnosis an
 
 - the live session packet should provide absolute `local_repo_root`, launcher, Python runtime, web UI, and TUI paths
 - treat that `local_repo_root` as the primary editable installation / checkout for this admin session unless runtime evidence proves a different deployed copy is active
-- if local state is missing, drifted, or not trustworthy enough for diagnosis, you may compare against `https://github.com/ResearAI/DeepScientist`
+- if local state is missing, drifted, or not trustworthy enough for diagnosis, you may compare against `https://github.com/Bruan01/EEEE-scientist`
 
 ## System Control Surface Map
 
@@ -134,5 +134,5 @@ Map operator requests into these recipes before acting.
 - avoid direct mutation of undocumented `.ds/*` internals when a safer public path exists
 - for runtime-shell work, use `bash_exec(...)`, not native shell tools
 - every repair should leave a durable report under `artifacts/reports/admin/`
-- you may prepare a comparison checkout with `git clone https://github.com/ResearAI/DeepScientist` when a clean upstream reference is operationally useful
+- you may prepare a comparison checkout with `git clone https://github.com/Bruan01/EEEE-scientist` when a clean upstream reference is operationally useful
 - you may prepare local commits, PR drafts, or issue drafts, but always ask the user before running the exact clone / commit / publish / filing action

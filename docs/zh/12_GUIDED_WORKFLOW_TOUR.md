@@ -1,10 +1,10 @@
 # 12 引导式工作流教程：从首页到真实工作区
 
-这篇文档的目标，是让你在安装完成之后，真正理解 DeepScientist 的使用路径。
+这篇文档的目标，是让你在安装完成之后，真正理解 EEEE Scientist 的使用路径。
 
 适合你在这些情况下阅读：
 
-- 你已经成功启动过一次 DeepScientist
+- 你已经成功启动过一次 EEEE Scientist
 - 你已经能打开首页
 - 你想知道每一步该点什么、该怎么填、每个界面到底是干什么的
 
@@ -14,7 +14,7 @@
 
 ## 1. 先分清两种使用方式
 
-DeepScientist 常见有两种使用方式：
+EEEE Scientist 常见有两种使用方式：
 
 1. 真实项目模式
 2. 引导教程模式
@@ -166,7 +166,7 @@ DeepScientist 常见有两种使用方式：
 - 你希望在浏览器外也收到进展或里程碑
 - 该 connector 已经配置正确
 
-当前 DeepScientist 对每个 quest 只绑定一个外部 connector 目标。
+当前 EEEE Scientist 对每个 quest 只绑定一个外部 connector 目标。
 
 ### 4.7 Research paper、Research intensity、Decision mode、Launch mode
 

@@ -15,7 +15,7 @@
 
 PennyLane is an open-source Python framework for building and optimizing quantum circuits, hybrid quantum-classical models, and quantum chemistry workflows across simulators and hardware backends.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or

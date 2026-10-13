@@ -79,7 +79,7 @@ test('createPythonRuntimePlan falls back to uv-managed python when active conda 
   assert.equal(plan.minimumVersionRequest, '3.11');
 });
 
-test('buildUvRuntimeEnv pins uv state inside the DeepScientist runtime tree', () => {
+test('buildUvRuntimeEnv pins uv state inside the EEEE Scientist runtime tree', () => {
   const home = path.join(path.sep, 'tmp', 'DeepScientistHome');
   const env = __internal.buildUvRuntimeEnv(home, {
     EXTRA_MARKER: '1',
@@ -180,11 +180,11 @@ test('detectInstallMode distinguishes npm packages from source checkouts', () =>
 test('updateManualCommand always points users to the npm upgrade command', () => {
   assert.equal(
     __internal.updateManualCommand('npm-package'),
-    'npm install -g @researai/deepscientist@latest'
+    'npm install -g eeee-scientist@latest'
   );
   assert.equal(
     __internal.updateManualCommand('source-checkout'),
-    'npm install -g @researai/deepscientist@latest'
+    'npm install -g eeee-scientist@latest'
   );
 });
 
@@ -244,11 +244,11 @@ test('normalizeLauncherRelaunchArgs rewrites home flags and appends --skip-updat
 test('officialRepositoryLine points to the public GitHub repository', () => {
   assert.equal(
     __internal.stripAnsi(__internal.officialRepositoryLine()),
-    'Official open-source repository: https://github.com/ResearAI/DeepScientist'
+    'Project repository: https://github.com/Bruan01/EEEE-scientist'
   );
 });
 
-test('resolveUvBinary prefers the DeepScientist-local uv install over PATH', () => {
+test('resolveUvBinary prefers the EEEE Scientist-local uv install over PATH', () => {
   const home = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-uv-home-'));
   const localUv = __internal.runtimeUvBinaryPath(home);
   fs.mkdirSync(path.dirname(localUv), { recursive: true });
@@ -292,7 +292,7 @@ test('resolveHome uses ./DeepScientist under the current working directory when 
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-here-'));
   process.chdir(tempDir);
   try {
-    assert.equal(__internal.resolveHome(['--here']), path.join(tempDir, 'DeepScientist'));
+    assert.equal(__internal.resolveHome(['--here']), path.join(process.cwd(), 'DeepScientist'));
   } finally {
     process.chdir(originalCwd);
     fs.rmSync(tempDir, { recursive: true, force: true });
@@ -302,7 +302,7 @@ test('resolveHome uses ./DeepScientist under the current working directory when 
 test('resolveManagementHome prefers ./DeepScientist when the current directory has managed daemon state', () => {
   const originalCwd = process.cwd();
   const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-manage-here-'));
-  const hereHome = path.join(tempDir, 'DeepScientist');
+  const hereHome = path.join(fs.realpathSync(tempDir), 'DeepScientist');
   fs.mkdirSync(path.join(hereHome, 'runtime'), { recursive: true });
   fs.writeFileSync(
     path.join(hereHome, 'runtime', 'daemon.json'),
@@ -320,6 +320,7 @@ test('resolveManagementHome prefers ./DeepScientist when the current directory h
 
 test('resolveManagementHome falls back to the only indexed managed home when no explicit selector is present', () => {
   const tempHome = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-manage-index-'));
+  const expectedHome = fs.realpathSync(tempHome);
   const tempUserHome = fs.mkdtempSync(path.join(os.tmpdir(), 'ds-manage-userhome-'));
   const indexRoot = path.join(os.homedir(), '.deepscientist');
   const indexPath = path.join(indexRoot, 'install-index.json');
@@ -347,7 +348,7 @@ test('resolveManagementHome falls back to the only indexed managed home when no 
     'utf8'
   );
   try {
-    assert.equal(__internal.resolveManagementHome(['--stop'], { stop: true }), tempHome);
+    assert.equal(__internal.resolveManagementHome(['--stop'], { stop: true }), expectedHome);
   } finally {
     if (typeof originalHome === 'string') process.env.HOME = originalHome;
     else delete process.env.HOME;
@@ -622,7 +623,7 @@ test('runGlobalNpmUninstall respects npm_config_prefix for npm-package installs'
     const result = __internal.runGlobalNpmUninstall();
     assert.equal(result.ok, true);
     const args = JSON.parse(fs.readFileSync(capturePath, 'utf8'));
-    assert.deepEqual(args, ['uninstall', '-g', '@researai/deepscientist', '--prefix', '/tmp/custom-prefix']);
+    assert.deepEqual(args, ['uninstall', '-g', 'eeee-scientist', '--prefix', '/tmp/custom-prefix']);
   } finally {
     if (typeof originalPath === 'string') process.env.PATH = originalPath;
     else delete process.env.PATH;

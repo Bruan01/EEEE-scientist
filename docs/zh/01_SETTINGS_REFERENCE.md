@@ -1,6 +1,6 @@
-# 01 设置参考：如何配置 DeepScientist
+# 01 设置参考：如何配置 EEEE Scientist
 
-本手册对应当前 DeepScientist `Settings` 页面与其实际落盘配置，写法参考 PyTorch API reference 的“摘要 + 参数 + 默认值 + 行为影响 + 示例”风格。它不是泛泛的产品介绍，而是面向实际配置、排障与日常运维的字段级参考。
+本手册对应当前 EEEE Scientist `Settings` 页面与其实际落盘配置，写法参考 PyTorch API reference 的“摘要 + 参数 + 默认值 + 行为影响 + 示例”风格。它不是泛泛的产品介绍，而是面向实际配置、排障与日常运维的字段级参考。
 
 相关实现来源：
 
@@ -37,7 +37,7 @@
 
 ### 摘要
 
-`config.yaml` 是 DeepScientist 的主运行时配置文件，控制主目录、默认语言、daemon 行为、Web/TUI 地址、日志、Git、技能同步，以及少量可选的 cloud / ACP 兼容设置。
+`config.yaml` 是 EEEE Scientist 的主运行时配置文件，控制主目录、默认语言、daemon 行为、Web/TUI 地址、日志、Git、技能同步，以及少量可选的 cloud / ACP 兼容设置。
 
 ### 结构
 
@@ -84,7 +84,7 @@ connectors:
   direct_chat_enabled: true
 cloud:
   enabled: false
-  base_url: https://deepscientist.cc
+  base_url: https://your-public-host.example
   token: null
   token_env: DEEPSCIENTIST_TOKEN
   verify_token_on_start: false
@@ -101,11 +101,11 @@ acp:
 **`home`**
 
 - 类型：`string`
-- 默认值：安装时的 DeepScientist 主目录，通常为 `~/DeepScientist`
+- 默认值：安装时的 EEEE Scientist 主目录，通常为 `~/DeepScientist`
 - 页面标签：`Home path`
 - 作用：这是配置、项目、memory、plugins、logs、cache 的根路径。
 - 何时修改：仅在你明确使用自定义安装目录时修改。
-- 注意事项：这不是单个项目路径，而是整个 DeepScientist 的运行时根目录。
+- 注意事项：这不是单个项目路径，而是整个 EEEE Scientist 的运行时根目录。
 
 **`default_runner`**
 
@@ -125,7 +125,7 @@ acp:
 - 页面标签：`Default locale`
 - 作用：影响系统 prompt 与运行时文案默认使用的语言。
 - 何时修改：希望整个系统固定偏向中文或英文时修改。
-- 注意事项：第一次浏览器初始化完成后，如果你在 `Settings` 手动修改这里，DeepScientist 会把它视为用户显式选择，后续不再自动跟随浏览器覆盖。
+- 注意事项：第一次浏览器初始化完成后，如果你在 `Settings` 手动修改这里，EEEE Scientist 会把它视为用户显式选择，后续不再自动跟随浏览器覆盖。
 
 ### 页面体验：精简模式
 
@@ -324,7 +324,7 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
   - `src/skills/experiment/SKILL.md`
   - `src/skills/analysis-campaign/SKILL.md`
   - `src/skills/write/SKILL.md`
-- DeepScientist 统一使用固定的莫兰迪配色指引，而不是每台机器各自配置。
+- EEEE Scientist 统一使用固定的莫兰迪配色指引，而不是每台机器各自配置。
 - 具体的长期参考页为 `docs/zh/08_FIGURE_STYLE_GUIDE.md`。
 - 如果需要调整默认视觉语言，应修改 prompt / skill 合同，而不是再新增设置项。
 
@@ -351,12 +351,12 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
 - 默认值：`true`
 - 页面标签：`Sync project skills on open`
 - 作用：打开已有项目时刷新本地技能镜像。
-- Prompt 说明：会刷新当前 DeepScientist home 下已发现 quest 的本地技能与 prompt 镜像。
+- Prompt 说明：会刷新当前 EEEE Scientist home 下已发现 quest 的本地技能与 prompt 镜像。
 
 受管 prompt 行为：
 
 - `.codex/prompts/` 现在应被视为“当前 active prompt 树”的受管副本，而不是长期手工维护的 override。
-- 每次真实 runner turn 开始前，DeepScientist 都会把 quest 本地 active prompt 树和仓库当前 `src/prompts/` 做比较，并自动修复漂移。
+- 每次真实 runner turn 开始前，EEEE Scientist 都会把 quest 本地 active prompt 树和仓库当前 `src/prompts/` 做比较，并自动修复漂移。
 - 如果 active prompt 树与仓库源不同，系统会先把旧树备份到 `.codex/prompt_versions/<backup_id>/`，再写入新的 active 副本。
 - 这个运行前同步是针对“本次 turn 实际使用的 quest_root”执行的，所以即使 quest 不在默认 `home/quests` 下面，也仍然会更新。
 - 运行时覆盖：`ds daemon --prompt-version latest` 使用当前受管 active prompt；`ds daemon --prompt-version <official_version>` 会优先选择该正式版本号下最新的一份 prompt 备份。
@@ -366,7 +366,7 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
 受管 auto-continue 行为：
 
 - `workspace_mode = copilot`
-  - 完成当前请求单元后，DeepScientist 通常停驻，等待下一条用户消息或 `/resume`
+  - 完成当前请求单元后，EEEE Scientist 通常停驻，等待下一条用户消息或 `/resume`
 - `workspace_mode = autonomous`
   - 如果真实外部长任务还没跑起来，就继续用后续 turns 做准备、启动或耐久路由
   - 一旦真实外部长任务已经在跑，auto-continue 就切成低频巡检，默认大约每 `240` 秒一轮
@@ -412,7 +412,7 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
 **`cloud.base_url`**
 
 - 类型：`string`
-- 默认值：`https://deepscientist.cc`
+- 默认值：`https://your-public-host.example`
 - 页面标签：`Cloud base URL`
 - 作用：云服务基础地址。
 
@@ -484,7 +484,7 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
 
 ### 摘要
 
-`runners.yaml` 定义 DeepScientist 实际调用哪个 CLI runner、默认模型怎么选、失败后如何重试，以及不同 runner 的专属透传参数。
+`runners.yaml` 定义 EEEE Scientist 实际调用哪个 CLI runner、默认模型怎么选、失败后如何重试，以及不同 runner 的专属透传参数。
 
 当前内建 runner 有四种：
 
@@ -497,7 +497,7 @@ ds --tui --debug --debug-log /tmp/deepscientist_tui_debug.jsonl
 - `opencode`
   - OpenCode CLI 路径，也包括直接在 OpenCode 里管理的 provider/model 配置
 
-Settings 页面只负责把 DeepScientist 映射到一个已经可用的 CLI runner。Gemini、Ollama、MiniMax、GLM、百炼等 provider 的详细接入仍然先在对应 CLI 中完成：
+Settings 页面只负责把 EEEE Scientist 映射到一个已经可用的 CLI runner。Gemini、Ollama、MiniMax、GLM、百炼等 provider 的详细接入仍然先在对应 CLI 中完成：
 
 - Codex provider / profile：见 [15 Codex Provider 配置](./15_CODEX_PROVIDER_SETUP.md)
 - Claude Code / Anthropic-compatible / Ollama：见 [24 Claude Code 配置指南](./24_CLAUDE_CODE_PROVIDER_SETUP.md)
@@ -625,7 +625,7 @@ opencode:
 - 默认值：四个 runner 都是 `inherit`。
 - 推荐规则：
   - 如果希望 CLI 自己决定 provider/model，就保持 `inherit`
-  - 只有在你明确要让 DeepScientist 每次 turn 都强制指定模型时，才写死
+  - 只有在你明确要让 EEEE Scientist 每次 turn 都强制指定模型时，才写死
 
 **`model_reasoning_effort`**
 
@@ -759,7 +759,7 @@ opencode:
 - 新 quest 会跟随 `config.default_runner`。
 - 老 quest 可以在项目设置里单独覆盖 runner。
 - 如果工作流依赖长时间 `bash_exec`，不要随意把 `mcp_tool_timeout_sec` 调小。
-- 对 Kimi 来说，更关键的是 `mcp_tool_timeout_ms`，因为上游默认值比 DeepScientist 常见的长时间 `bash_exec` 等待要短得多。
+- 对 Kimi 来说，更关键的是 `mcp_tool_timeout_ms`，因为上游默认值比 EEEE Scientist 常见的长时间 `bash_exec` 等待要短得多。
 - 对 Claude 来说，默认单工具超时已经很大；更常见的问题是 MCP server 启动超时，可以用 `mcp_timeout_ms` 调整。
 - 对 OpenCode 来说，`mcp_timeout_ms` 只影响 MCP 工具发现 / 启动，不影响单次 MCP 调用执行时长。
 
@@ -850,7 +850,7 @@ opencode:
 **`bot_name`**
 
 - 类型：`string`
-- 默认值：`DeepScientist`
+- 默认值：`EEEE Scientist`
 - 作用：本地显示名称。
 
 **`bot_token`**
@@ -1060,9 +1060,9 @@ legacy Meta Cloud 字段：
 
 ### `qq`
 
-摘要：QQ 在 DeepScientist 中是一级 connector，主路径就是 `gateway_direct`，不需要公网 callback。
+摘要：QQ 在 EEEE Scientist 中是一级 connector，主路径就是 `gateway_direct`，不需要公网 callback。
 
-快速上手：参见 [《03 QQ 连接器指南：如何用 QQ 与 DeepScientist 沟通》](./03_QQ_CONNECTOR_GUIDE.md)。
+快速上手：参见 [《03 QQ 连接器指南：如何用 QQ 与 EEEE Scientist 沟通》](./03_QQ_CONNECTOR_GUIDE.md)。
 
 推荐路径：
 
@@ -1083,7 +1083,7 @@ legacy Meta Cloud 字段：
 **`bot_name`**
 
 - 类型：`string`
-- 默认值：`DeepScientist`
+- 默认值：`EEEE Scientist`
 - 作用：QQ 连接器在本地 UI 与消息中的显示名。
 
 **`app_id`**

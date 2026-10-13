@@ -15,7 +15,7 @@
 
 Modular Ocean Model (MOM6) is a finite-volume ocean general circulation model for ocean-only and coupled climate simulations, supporting tracer transport, stratified dynamics, and realistic large-scale ocean process studies.
 
-## DeepScientist Runtime Rule
+## EEEE Scientist Runtime Rule
 
 This card is package knowledge and routing context only. It does not mean the
 solver, Python module, CLI binary, compiled backend, license server, dataset, or
