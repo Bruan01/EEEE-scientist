@@ -1003,6 +1003,66 @@ export interface CodexTokenUsagePayload {
   runs?: CodexTokenUsageRun[]
 }
 
+export interface ExperimentLedgerItem {
+  experiment_id: string
+  run_id?: string | null
+  title: string
+  status: string
+  source_kind?: string
+  artifact_path?: string | null
+  research_question?: string | null
+  hypothesis?: string | null
+  baseline_ref?: Record<string, unknown>
+  dataset_scope?: string | null
+  configuration?: Record<string, unknown>
+  config_paths?: string[]
+  seed?: number | string | null
+  command?: string | null
+  metrics_summary?: Record<string, unknown>
+  primary_metric?: {
+    id?: string
+    value?: number | string | null
+    baseline_value?: number | string | null
+    delta_vs_baseline?: number | string | null
+    direction?: string | null
+  } | null
+  metric_rows?: Array<Record<string, unknown>>
+  conclusion?: string | null
+  verdict?: string | null
+  evidence_paths?: string[]
+  changed_files?: string[]
+  environment?: Record<string, unknown>
+  replicate_group_id?: string | null
+  branch?: string | null
+  campaign_id?: string | null
+  slice_id?: string | null
+  idea_id?: string | null
+  flow_type?: string | null
+  evaluation_summary?: Record<string, unknown>
+  created_at?: string | null
+  updated_at?: string | null
+}
+
+export interface ExperimentLedgerPayload {
+  ok?: boolean
+  quest_id: string
+  schema_version?: number
+  count: number
+  items: ExperimentLedgerItem[]
+  summary: {
+    total: number
+    planned?: number
+    running?: number
+    completed?: number
+    failed?: number
+    blocked?: number
+    warning?: number
+    superseded?: number
+    latest_experiment_id?: string | null
+    latest_updated_at?: string | null
+  }
+}
+
 export interface BaselineCompareEntry {
   entry_key: string
   baseline_id?: string | null

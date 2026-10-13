@@ -1110,6 +1110,10 @@ npm --prefix src/ui run build</pre>
     def quest_artifacts(self, quest_id: str) -> dict:
         return self.app.quest_service.artifacts(quest_id)
 
+    def experiment_ledger(self, quest_id: str) -> dict:
+        quest_root = self._fresh_quest_service()._quest_root(quest_id)
+        return self.app.artifact_service.get_experiment_ledger(quest_root)
+
     def history(self, quest_id: str) -> list[dict]:
         return self.app.quest_service.history(quest_id)
 

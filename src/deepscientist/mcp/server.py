@@ -1321,6 +1321,88 @@ def build_artifact_server(context: McpContext) -> FastMCP:
         )
 
     @server.tool(
+        name="record_experiment",
+        description=(
+            "Create or update one Experiment Ledger row. Record the hypothesis, exact configuration, "
+            "dataset scope, seed, metrics, evidence paths, and conclusion. This does not execute the experiment; "
+            "use bash_exec for execution and call this tool when the plan or result changes."
+        ),
+    )
+    def record_experiment(
+        experiment_id: str,
+        title: str = "",
+        research_question: str = "",
+        hypothesis: str = "",
+        status: str = "planned",
+        baseline_ref: dict[str, Any] | None = None,
+        dataset_scope: str = "",
+        configuration: dict[str, Any] | None = None,
+        seed: int | str | None = None,
+        command: str = "",
+        run_id: str | None = None,
+        replicate_group_id: str | None = None,
+        metrics_summary: dict[str, Any] | None = None,
+        metric_rows: list[dict[str, Any]] | None = None,
+        primary_metric: dict[str, Any] | None = None,
+        conclusion: str = "",
+        verdict: str = "",
+        evidence_paths: list[str] | None = None,
+        changed_files: list[str] | None = None,
+        config_paths: list[str] | None = None,
+        environment: dict[str, Any] | None = None,
+        comment: str | dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        try:
+            result = service.record_experiment(
+                context.require_quest_root(),
+                experiment_id=experiment_id,
+                title=title,
+                research_question=research_question,
+                hypothesis=hypothesis,
+                status=status,
+                baseline_ref=baseline_ref,
+                dataset_scope=dataset_scope,
+                configuration=configuration,
+                seed=seed,
+                command=command,
+                run_id=run_id,
+                replicate_group_id=replicate_group_id,
+                metrics_summary=metrics_summary,
+                metric_rows=metric_rows,
+                primary_metric=primary_metric,
+                conclusion=conclusion,
+                verdict=verdict,
+                evidence_paths=evidence_paths,
+                changed_files=changed_files,
+                config_paths=config_paths,
+                environment=environment,
+                comment=comment,
+                workspace_root=context.worktree_root,
+            )
+            return finalize_state_changing_artifact_tool(result, tool_name="record_experiment")
+        except (ValueError, FileNotFoundError, RuntimeError) as exc:
+            return finalize_artifact_tool(
+                _artifact_guided_error_payload(
+                    service,
+                    context.require_quest_root(),
+                    tool_name="record_experiment",
+                    exc=exc,
+                ),
+                tool_name="record_experiment",
+            )
+
+    @server.tool(
+        name="get_experiment_ledger",
+        description=(
+            "Read the compact Experiment Ledger for the current quest. It includes explicit experiment records "
+            "and compatible historical main/analysis run artifacts, deduplicated by experiment id."
+        ),
+        annotations=_read_only_tool_annotations(title="Get experiment ledger"),
+    )
+    def get_experiment_ledger(comment: str | dict[str, Any] | None = None) -> dict[str, Any]:
+        return service.get_experiment_ledger(context.require_quest_root())
+
+    @server.tool(
         name="science",
         description=(
             "Record and update Science Evidence Graph nodes under the artifact namespace. "

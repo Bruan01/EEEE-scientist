@@ -18,6 +18,7 @@ import type {
   GraphPayload,
   MemoryCard,
   MetricsTimelinePayload,
+  ExperimentLedgerPayload,
   OpenDocumentPayload,
   QuestChatAttachmentUploadPayload,
   QuestSearchPayload,
@@ -505,6 +506,29 @@ export const client = {
       return Promise.resolve(payload)
     }
     return api<MetricsTimelinePayload>(`/api/quests/${questId}/metrics/timeline`)
+  },
+  experimentLedger: (questId: string) => {
+    if (isDemoProjectId(questId)) {
+      return Promise.resolve<ExperimentLedgerPayload>({
+        ok: true,
+        quest_id: questId,
+        count: 0,
+        items: [],
+        summary: {
+          total: 0,
+          planned: 0,
+          running: 0,
+          completed: 0,
+          failed: 0,
+          blocked: 0,
+          warning: 0,
+          superseded: 0,
+          latest_experiment_id: null,
+          latest_updated_at: null,
+        },
+      })
+    }
+    return api<ExperimentLedgerPayload>(`/api/quests/${questId}/experiments/ledger`)
   },
   codexTokenUsage: (questId: string) => {
     if (isDemoProjectId(questId)) {

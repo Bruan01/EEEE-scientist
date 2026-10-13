@@ -8,6 +8,7 @@ ARTIFACT_DIRS = {
     "answer": "answers",
     "milestone": "milestones",
     "run": "runs",
+    "experiment": "experiments",
     "report": "reports",
     "approval": "approvals",
     "graph": "graphs",
@@ -161,6 +162,8 @@ def validate_artifact_payload(payload: dict) -> list[str]:
             errors.append(f"Unknown decision action: {action}")
     if kind == "run" and not payload.get("run_kind"):
         errors.append("Run artifact requires `run_kind`.")
+    if kind == "experiment" and not (payload.get("experiment_id") or payload.get("exp_id") or payload.get("run_id")):
+        errors.append("Experiment artifact requires `experiment_id`, `exp_id`, or `run_id`.")
     return errors
 
 
@@ -173,6 +176,8 @@ def guidance_for_kind(kind: str) -> str:
         return "Decision recorded. Follow the chosen action and notify the user with the reason."
     if kind == "run":
         return "Run recorded. Compare metrics, then decide whether to continue, branch, or stop."
+    if kind == "experiment":
+        return "Experiment ledger entry recorded. Keep its configuration, evidence, and conclusion linked to the run."
     if kind == "milestone":
         return "Milestone recorded. Send a concise progress update to the active surface."
     if kind == "answer":

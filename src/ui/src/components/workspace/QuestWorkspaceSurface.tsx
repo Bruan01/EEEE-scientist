@@ -56,6 +56,7 @@ import type {
   BaselineComparePayload,
   BaselineCompareSeries,
   CodexTokenUsagePayload,
+  ExperimentLedgerPayload,
   FeedItem,
   GitBranchesPayload,
   GuidanceVm,
@@ -3278,6 +3279,8 @@ function QuestDetails({
     React.useState<CodexTokenUsagePayload | null>(null)
   const [baselineCompare, setBaselineCompare] =
     React.useState<BaselineComparePayload | null>(null)
+  const [experimentLedger, setExperimentLedger] =
+    React.useState<ExperimentLedgerPayload | null>(null)
   const latestRunningBashHint = React.useMemo(() => {
     if (!latestRunningBash) {
       return `${snapshot?.counts?.bash_session_count || 0} recorded sessions`
@@ -3861,6 +3864,30 @@ function QuestDetails({
     }
   }, [baselineCompareSignature, questId])
 
+  const experimentLedgerSignature = React.useMemo(
+    () => [snapshot?.updated_at || '', metricsTimelineRunSignature].join(':'),
+    [metricsTimelineRunSignature, snapshot?.updated_at]
+  )
+
+  React.useEffect(() => {
+    let cancelled = false
+    void client
+      .experimentLedger(questId)
+      .then((payload) => {
+        if (!cancelled) {
+          setExperimentLedger(payload)
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setExperimentLedger(null)
+        }
+      })
+    return () => {
+      cancelled = true
+    }
+  }, [experimentLedgerSignature, questId])
+
   return (
     <div
       className="feed-scrollbar h-full overflow-y-auto overflow-x-hidden"
@@ -3949,6 +3976,106 @@ function QuestDetails({
           ) : (
             <div className="rounded-[24px] border border-dashed border-black/[0.10] px-4 py-6 text-sm text-muted-foreground dark:border-white/[0.12]">
               Confirm more than one baseline or variant to populate cross-baseline comparison here.
+            </div>
+          )}
+        </DetailSection>
+
+        <DetailSection
+          title="Experiment Ledger"
+          hint="每个实验只看一条主线：假设、数据范围、关键指标、证据和结论。历史 main/analysis 运行会自动纳入。"
+          actions={<WorkspaceRefreshButton onRefresh={onRefresh} label="Refresh experiments" />}
+        >
+          {experimentLedger ? (
+            <div className="space-y-4">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+                <OverviewMetric
+                  icon={<FlaskConical className="h-4 w-4" />}
+                  label="Total"
+                  value={experimentLedger.summary.total}
+                  hint="Ledger rows"
+                />
+                <OverviewMetric
+                  icon={<Clock3 className="h-4 w-4" />}
+                  label="Running"
+                  value={experimentLedger.summary.running || 0}
+                  hint={`${experimentLedger.summary.planned || 0} planned`}
+                />
+                <OverviewMetric
+                  icon={<BarChart3 className="h-4 w-4" />}
+                  label="Completed"
+                  value={experimentLedger.summary.completed || 0}
+                  hint={`${experimentLedger.summary.failed || 0} failed`}
+                />
+                <OverviewMetric
+                  icon={<AlertTriangle className="h-4 w-4" />}
+                  label="Blocked"
+                  value={experimentLedger.summary.blocked || 0}
+                  hint="Needs a decision"
+                />
+              </div>
+              {experimentLedger.items.length > 0 ? (
+                <div className="space-y-3">
+                  {experimentLedger.items.slice(0, 8).map((item) => (
+                    <div
+                      key={item.experiment_id}
+                      className="rounded-[20px] border border-black/[0.08] bg-white/70 px-4 py-3 dark:border-white/[0.10] dark:bg-white/[0.03]"
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <div className="flex flex-wrap items-center gap-2">
+                            <div className="break-words text-sm font-medium text-foreground">
+                              {item.title || item.experiment_id}
+                            </div>
+                            <StatusPill>{item.status}</StatusPill>
+                          </div>
+                          <div className="mt-1 break-words text-xs text-muted-foreground">
+                            {[item.experiment_id, item.dataset_scope || null, item.run_id ? `run ${item.run_id}` : null]
+                              .filter(Boolean)
+                              .join(' · ')}
+                          </div>
+                        </div>
+                        {item.primary_metric ? (
+                          <div className="shrink-0 text-right">
+                            <div className="text-sm font-semibold text-foreground">
+                              {item.primary_metric.id || 'metric'} = {formatMetricValue(item.primary_metric.value)}
+                            </div>
+                            {item.primary_metric.delta_vs_baseline != null ? (
+                              <div className="mt-1 text-xs text-muted-foreground">
+                                Δ {formatMetricValue(item.primary_metric.delta_vs_baseline)} vs baseline
+                              </div>
+                            ) : null}
+                          </div>
+                        ) : null}
+                      </div>
+                      <div className="mt-3 grid gap-2 text-xs leading-6 text-muted-foreground sm:grid-cols-2">
+                        <div>
+                          <span className="font-medium text-foreground">Hypothesis: </span>
+                          {clampText(item.hypothesis || item.research_question || '未记录', 180)}
+                        </div>
+                        <div>
+                          <span className="font-medium text-foreground">Evidence: </span>
+                          {item.evidence_paths?.length ? `${item.evidence_paths.length} paths` : '未记录'}
+                          {item.updated_at ? ` · ${formatRelativeTime(item.updated_at)}` : ''}
+                        </div>
+                      </div>
+                      {item.conclusion ? (
+                        <div className="mt-2 break-words text-xs leading-6 text-muted-foreground">
+                          <span className="font-medium text-foreground">Conclusion: </span>
+                          {clampText(item.conclusion, 220)}
+                        </div>
+                      ) : null}
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="rounded-[24px] border border-dashed border-black/[0.10] px-4 py-6 text-sm text-muted-foreground dark:border-white/[0.12]">
+                  还没有实验记录。先用 `artifact.record_experiment` 登记假设和配置，执行后再补指标与证据。
+                </div>
+              )}
+            </div>
+          ) : (
+            <div className="rounded-[24px] border border-dashed border-black/[0.10] px-4 py-6 text-sm text-muted-foreground dark:border-white/[0.12]">
+              实验账本暂时没有返回数据。
             </div>
           )}
         </DetailSection>

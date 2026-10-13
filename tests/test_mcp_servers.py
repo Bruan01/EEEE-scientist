@@ -380,6 +380,8 @@ def test_artifact_mcp_server_tools_cover_core_flows(temp_home: Path) -> None:
         tools = await server.list_tools()
         assert [tool.name for tool in tools] == [
             "record",
+            "record_experiment",
+            "get_experiment_ledger",
             "science",
             "checkpoint",
             "git",

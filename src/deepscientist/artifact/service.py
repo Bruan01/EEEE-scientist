@@ -53,6 +53,7 @@ from ..memory.frontmatter import dump_markdown_document, load_markdown_document
 from .arxiv import fetch_arxiv_metadata, read_arxiv_content
 from .charts import render_main_experiment_metric_timeline_chart
 from .guidance import build_guidance_for_record, guidance_summary
+from .experiment_ledger import build_experiment_ledger, normalize_experiment_payload
 from .metrics import (
     baseline_metric_lines,
     build_metrics_timeline,
@@ -9484,6 +9485,99 @@ class ArtifactService:
             if ui_effects:
                 result["ui_effects"] = ui_effects
         return result
+
+    def record_experiment(
+        self,
+        quest_root: Path,
+        *,
+        experiment_id: str,
+        title: str = "",
+        research_question: str = "",
+        hypothesis: str = "",
+        status: str = "planned",
+        baseline_ref: dict[str, Any] | None = None,
+        dataset_scope: str = "",
+        configuration: dict[str, Any] | None = None,
+        seed: int | str | None = None,
+        command: str = "",
+        run_id: str | None = None,
+        replicate_group_id: str | None = None,
+        metrics_summary: dict[str, Any] | None = None,
+        metric_rows: list[dict[str, Any]] | None = None,
+        primary_metric: dict[str, Any] | None = None,
+        conclusion: str = "",
+        verdict: str = "",
+        evidence_paths: list[str] | None = None,
+        changed_files: list[str] | None = None,
+        config_paths: list[str] | None = None,
+        environment: dict[str, Any] | None = None,
+        comment: str | dict[str, Any] | None = None,
+        workspace_root: Path | None = None,
+    ) -> dict[str, Any]:
+        """Record one explicit experiment-plan/result row without checkpointing Git."""
+
+        normalized_id = str(experiment_id or "").strip()
+        if not normalized_id:
+            return {"ok": False, "errors": ["Experiment requires `experiment_id`."], "warnings": []}
+        payload: dict[str, Any] = {
+            "kind": "experiment",
+            "artifact_id": normalized_id,
+            "experiment_id": normalized_id,
+            "title": str(title or "").strip() or normalized_id,
+            "research_question": str(research_question or "").strip(),
+            "hypothesis": str(hypothesis or "").strip(),
+            "status": str(status or "planned").strip() or "planned",
+            "baseline_ref": dict(baseline_ref or {}),
+            "dataset_scope": str(dataset_scope or "").strip(),
+            "configuration": dict(configuration or {}),
+            "seed": seed,
+            "command": str(command or "").strip(),
+            "run_id": str(run_id or "").strip() or None,
+            "replicate_group_id": str(replicate_group_id or "").strip() or None,
+            "metrics_summary": dict(metrics_summary or {}),
+            "metric_rows": list(metric_rows or []),
+            "primary_metric": dict(primary_metric or {}),
+            "conclusion": str(conclusion or "").strip(),
+            "verdict": str(verdict or "").strip(),
+            "evidence_paths": [str(item).strip() for item in (evidence_paths or []) if str(item).strip()],
+            "changed_files": [str(item).strip() for item in (changed_files or []) if str(item).strip()],
+            "config_paths": [str(item).strip() for item in (config_paths or []) if str(item).strip()],
+            "environment": dict(environment or {}),
+        }
+        if comment is not None:
+            payload["comment"] = comment
+        return self.record(
+            quest_root,
+            payload,
+            checkpoint=False,
+            workspace_root=workspace_root,
+        )
+
+    def get_experiment_ledger(self, quest_root: Path) -> dict[str, Any]:
+        """Return explicit experiment records plus compatible historical run artifacts."""
+
+        records: list[dict[str, Any]] = []
+        for item in self.quest_service._collect_artifacts(quest_root):
+            payload = item.get("payload") if isinstance(item.get("payload"), dict) else {}
+            if not payload:
+                continue
+            folder_kind = str(item.get("kind") or "").strip().lower()
+            payload_kind = str(payload.get("kind") or "").strip().lower()
+            if folder_kind in {"experiments", "experiment"} or payload_kind == "experiment":
+                source_kind = "experiment"
+            elif folder_kind in {"runs", "run"} or payload_kind == "run":
+                source_kind = "run"
+            else:
+                continue
+            normalized = dict(item)
+            normalized["kind"] = source_kind
+            records.append(normalized)
+        ledger = build_experiment_ledger(records)
+        return {
+            "ok": True,
+            "quest_id": self._quest_id(quest_root),
+            **ledger,
+        }
 
     @staticmethod
     def _science_string_list(value: list[str] | None) -> list[str]:

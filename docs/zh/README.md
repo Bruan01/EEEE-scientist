@@ -102,6 +102,8 @@ EEEE Scientist 灵活且易于使用，支持：
   按真实产品流程，逐步理解从首页到工作区应该怎么使用。
 - [02 Start Research 参考](./02_START_RESEARCH_GUIDE.md)
   如果你想真正理解 `Start Research` 弹窗里每个字段该怎么填、会提交什么，就接着看这篇。
+- [35 实验账本指南](./35_EXPERIMENT_LEDGER_GUIDE.md)
+  如果你想用更少的界面理解每个实验的假设、配置、指标、证据和结论，先看这篇。
 
 ## 如果你想把项目启动得更稳
 
@@ -143,6 +145,8 @@ EEEE Scientist 灵活且易于使用，支持：
   说明 daemon、工作区、canvas 和 connector 视图之间的关系。
 - [07 Memory 与 MCP](./07_MEMORY_AND_MCP.md)
   说明 memory、artifact 和内置 MCP 的行为。
+- [35 实验账本指南](./35_EXPERIMENT_LEDGER_GUIDE.md)
+  说明实验账本如何复用现有 artifact 和运行记录。
 - [19 External Controller 指南](./19_EXTERNAL_CONTROLLER_GUIDE.md)
   说明如何在不改 core runtime 的前提下，基于 mailbox 和 `quest_control` 构建可选的外层治理控制器。
 

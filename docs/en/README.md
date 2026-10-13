@@ -65,6 +65,8 @@ Built-in runners today:
   Follow the real product flow from landing page to workspace, step by step.
 - [02 Start Research Guide](./02_START_RESEARCH_GUIDE.md)
   Read this next if you want to understand each field in the `Start Research` dialog and what it actually submits.
+- [35 Experiment Ledger Guide](./35_EXPERIMENT_LEDGER_GUIDE.md)
+  Read this if you want one compact view of hypotheses, configurations, metrics, evidence, and conclusions.
 
 ## If you want to launch a project well
 
@@ -112,6 +114,8 @@ Built-in runners today:
   Explains how the daemon, workspace, canvas, and connector views fit together.
 - [07 Memory and MCP](./07_MEMORY_AND_MCP.md)
   Explains memory, artifacts, and built-in MCP behavior.
+- [35 Experiment Ledger Guide](./35_EXPERIMENT_LEDGER_GUIDE.md)
+  Explains how the ledger reuses existing artifact and run records.
 - [19 External Controller Guide](./19_EXTERNAL_CONTROLLER_GUIDE.md)
   Shows how to build optional outer-orchestration guards on top of mailbox and `quest_control` without patching core runtime code.
 
