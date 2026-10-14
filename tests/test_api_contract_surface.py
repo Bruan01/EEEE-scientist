@@ -89,6 +89,7 @@ def test_backend_routes_cover_shared_web_and_tui_surface() -> None:
         ("GET", "/api/quests/q-001/events", "quest_events"),
         ("GET", "/api/quests/q-001/artifacts", "quest_artifacts"),
         ("GET", "/api/quests/q-001/experiments/ledger", "experiment_ledger"),
+        ("POST", "/api/quests/q-001/experiments/exp-001/reproducibility", "experiment_reproducibility"),
         ("GET", "/api/quests/q-001/workflow", "workflow"),
         ("GET", "/api/quests/q-001/bash/sessions", "bash_sessions"),
         ("GET", "/api/quests/q-001/bash/sessions/stream", "bash_sessions_stream"),

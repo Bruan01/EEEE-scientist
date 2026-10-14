@@ -402,6 +402,17 @@ class BashExecService:
         payload["status"] = _coerce_session_status(payload.get("status"))
         payload["last_progress"] = payload.get("last_progress") or read_json(self.progress_path(quest_root, str(payload.get("bash_id") or "")), None)
         payload["kind"] = str(payload.get("kind") or "exec")
+        payload["experiment_id"] = _normalize_string(payload.get("experiment_id")) or None
+        process_pid = payload.get("process_pid")
+        monitor_pid = payload.get("monitor_pid")
+        payload["process_alive"] = bool(
+            payload["status"] in {"running", "terminating"}
+            and (is_process_alive(process_pid) or is_process_alive(monitor_pid))
+        )
+        try:
+            payload["output_bytes"] = self.terminal_log_path(quest_root, str(payload.get("bash_id") or "")).stat().st_size
+        except OSError:
+            payload["output_bytes"] = 0
         payload = self._enrich_watchdog_fields(payload)
         return payload
 
@@ -445,6 +456,7 @@ class BashExecService:
     def _summary_session_payload(meta: dict[str, Any]) -> dict[str, Any]:
         return {
             "bash_id": meta.get("bash_id") or meta.get("id"),
+            "experiment_id": meta.get("experiment_id"),
             "command": meta.get("command"),
             "kind": meta.get("kind") or "exec",
             "label": meta.get("label"),
@@ -1071,6 +1083,7 @@ class BashExecService:
         timeout_seconds: int | None,
         env_keys: list[str],
         comment: str | dict[str, Any] | None = None,
+        experiment_id: str | None = None,
         kind: str = "exec",
         shell_family: str | None = None,
         shell_name: str | None = None,
@@ -1095,6 +1108,7 @@ class BashExecService:
             "started_by_user_id": started_by_user_id,
             "stopped_by_user_id": None,
             "comment": comment,
+            "experiment_id": _normalize_string(experiment_id) or None,
             "command": command,
             "launch_argv": list(launch_argv or []),
             "shell_family": shell_family,
@@ -1157,6 +1171,7 @@ class BashExecService:
         env: dict[str, Any] | None = None,
         timeout_seconds: int | None = None,
         comment: str | dict[str, Any] | None = None,
+        experiment_id: str | None = None,
     ) -> dict[str, Any]:
         if not _normalize_string(command):
             raise ValueError("command_required")
@@ -1179,6 +1194,7 @@ class BashExecService:
             timeout_seconds=timeout_seconds,
             env_keys=sorted(env_payload),
             comment=comment,
+            experiment_id=experiment_id,
             kind="exec",
             shell_family=launch.family,
             shell_name=launch.shell_name,
@@ -1639,6 +1655,9 @@ class BashExecService:
             "signal_age_seconds": session.get("signal_age_seconds"),
             "watchdog_after_seconds": session.get("watchdog_after_seconds"),
             "watchdog_overdue": session.get("watchdog_overdue"),
+            "experiment_id": session.get("experiment_id"),
+            "process_alive": session.get("process_alive"),
+            "output_bytes": session.get("output_bytes"),
         }
         if include_log:
             result.update(self._log_preview_payload(quest_root, str(session["bash_id"])))

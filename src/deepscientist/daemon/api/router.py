@@ -106,6 +106,7 @@ ROUTES: list[tuple[str, re.Pattern[str], str]] = [
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/events$"), "quest_events"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/artifacts$"), "quest_artifacts"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/experiments/ledger$"), "experiment_ledger"),
+    ("POST", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/experiments/(?P<experiment_id>[^/]+)/reproducibility$"), "experiment_reproducibility"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/workflow$"), "workflow"),
     ("GET", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/layout$"), "quest_layout"),
     ("POST", re.compile(r"^/api/quests/(?P<quest_id>[^/]+)/layout$"), "quest_layout_update"),

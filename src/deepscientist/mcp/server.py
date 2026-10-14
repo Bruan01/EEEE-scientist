@@ -1325,7 +1325,7 @@ def build_artifact_server(context: McpContext) -> FastMCP:
         description=(
             "Create or update one Experiment Ledger row. Record the hypothesis, exact configuration, "
             "dataset scope, seed, metrics, evidence paths, and conclusion. This does not execute the experiment; "
-            "use bash_exec for execution and call this tool when the plan or result changes."
+            "use bash_exec(experiment_id=...) for execution and call this tool when the plan or result changes."
         ),
     )
     def record_experiment(
@@ -1339,6 +1339,7 @@ def build_artifact_server(context: McpContext) -> FastMCP:
         configuration: dict[str, Any] | None = None,
         seed: int | str | None = None,
         command: str = "",
+        bash_id: str | None = None,
         run_id: str | None = None,
         replicate_group_id: str | None = None,
         metrics_summary: dict[str, Any] | None = None,
@@ -1365,6 +1366,7 @@ def build_artifact_server(context: McpContext) -> FastMCP:
                 configuration=configuration,
                 seed=seed,
                 command=command,
+                bash_id=bash_id,
                 run_id=run_id,
                 replicate_group_id=replicate_group_id,
                 metrics_summary=metrics_summary,
@@ -1401,6 +1403,24 @@ def build_artifact_server(context: McpContext) -> FastMCP:
     )
     def get_experiment_ledger(comment: str | dict[str, Any] | None = None) -> dict[str, Any]:
         return service.get_experiment_ledger(context.require_quest_root())
+
+    @server.tool(
+        name="export_reproducibility_bundle",
+        description=(
+            "Generate a redacted, reference-only reproducibility bundle for one Experiment Ledger row. "
+            "The bundle records the command, environment, Git reference, metrics, evidence hashes, and bounded logs; "
+            "it never copies datasets or checkpoints."
+        ),
+        annotations=_read_only_tool_annotations(title="Export reproducibility bundle"),
+    )
+    def export_reproducibility_bundle(
+        experiment_id: str,
+        comment: str | dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        return service.export_experiment_reproducibility(
+            context.require_quest_root(),
+            experiment_id,
+        )
 
     @server.tool(
         name="science",
@@ -2688,6 +2708,7 @@ def build_bash_exec_server(context: McpContext) -> FastMCP:
         include_log: bool = False,
         wait: bool = False,
         force: bool = False,
+        experiment_id: str | None = None,
         comment: str | dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         quest_root = context.require_quest_root().resolve()
@@ -2916,6 +2937,7 @@ def build_bash_exec_server(context: McpContext) -> FastMCP:
             env=env,
             timeout_seconds=normalized_timeout_seconds,
             comment=comment,
+            experiment_id=experiment_id,
         )
         if normalized_mode == "detach":
             return finalize(service.build_tool_result(context, session=session, include_log=False))

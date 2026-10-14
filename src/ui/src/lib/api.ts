@@ -523,12 +523,35 @@ export const client = {
           blocked: 0,
           warning: 0,
           superseded: 0,
+          cancelled: 0,
+          quiet: 0,
+          suspected_stalled: 0,
           latest_experiment_id: null,
           latest_updated_at: null,
         },
       })
     }
     return api<ExperimentLedgerPayload>(`/api/quests/${questId}/experiments/ledger`)
+  },
+  exportExperimentReproducibility: (questId: string, experimentId: string) => {
+    if (isDemoProjectId(questId)) {
+      return Promise.resolve({
+        ok: false,
+        errors: ['Demo projects do not execute experiments.'],
+      })
+    }
+    return api<{
+      ok: boolean
+      experiment_id?: string
+      path?: string
+      manifest_path?: string
+      files?: string[]
+      reproducibility?: ExperimentLedgerPayload['items'][number]['reproducibility']
+      errors?: string[]
+    }>(
+      `/api/quests/${questId}/experiments/${encodeURIComponent(experimentId)}/reproducibility`,
+      { method: 'POST', body: JSON.stringify({}) }
+    )
   },
   codexTokenUsage: (questId: string) => {
     if (isDemoProjectId(questId)) {

@@ -1041,6 +1041,34 @@ export interface ExperimentLedgerItem {
   evaluation_summary?: Record<string, unknown>
   created_at?: string | null
   updated_at?: string | null
+  execution?: {
+    runner?: string | null
+    executor?: string | null
+    bash_id?: string | null
+    command?: string | null
+    working_directory?: string | null
+    started_at?: string | null
+    updated_at?: string | null
+    finished_at?: string | null
+    status?: string | null
+    exit_code?: number | null
+    last_output_at?: string | null
+    last_progress_at?: string | null
+    last_progress?: Record<string, unknown> | null
+    silent_seconds?: number | null
+    progress_age_seconds?: number | null
+    signal_age_seconds?: number | null
+    process_alive?: boolean | null
+    output_bytes?: number | null
+    health?: string | null
+    health_reason?: string | null
+    health_thresholds?: Record<string, number>
+  } | null
+  reproducibility?: {
+    available?: boolean
+    path?: string | null
+    manifest_path?: string | null
+  } | null
 }
 
 export interface ExperimentLedgerPayload {
@@ -1058,6 +1086,9 @@ export interface ExperimentLedgerPayload {
     blocked?: number
     warning?: number
     superseded?: number
+    cancelled?: number
+    quiet?: number
+    suspected_stalled?: number
     latest_experiment_id?: string | null
     latest_updated_at?: string | null
   }

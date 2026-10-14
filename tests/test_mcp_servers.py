@@ -382,6 +382,7 @@ def test_artifact_mcp_server_tools_cover_core_flows(temp_home: Path) -> None:
             "record",
             "record_experiment",
             "get_experiment_ledger",
+            "export_reproducibility_bundle",
             "science",
             "checkpoint",
             "git",
@@ -2256,12 +2257,14 @@ def test_bash_exec_mcp_server_supports_detach_read_list_and_kill(temp_home: Path
                 {
                     "command": "printf 'alpha\\n'; sleep 1; printf 'omega\\n'; sleep 30",
                     "mode": "detach",
+                    "experiment_id": "exp-mcp-bash",
                     "comment": {"stage": "baseline", "goal": "smoke"},
                 },
             )
         )
         assert detached["status"] == "running"
         assert detached["kind"] == "exec"
+        assert detached["experiment_id"] == "exp-mcp-bash"
         assert detached["comment"] == {"stage": "baseline", "goal": "smoke"}
         assert detached["cwd"] == str(quest_root)
         assert detached["watchdog_after_seconds"] == 1800

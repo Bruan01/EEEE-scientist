@@ -1112,7 +1112,26 @@ npm --prefix src/ui run build</pre>
 
     def experiment_ledger(self, quest_id: str) -> dict:
         quest_root = self._fresh_quest_service()._quest_root(quest_id)
-        return self.app.artifact_service.get_experiment_ledger(quest_root)
+        return self.app.artifact_service.get_experiment_ledger(
+            quest_root,
+            bash_sessions=self.app.bash_exec_service.list_sessions(quest_root, limit=500),
+        )
+
+    def experiment_reproducibility(
+        self,
+        quest_id: str,
+        experiment_id: str,
+        body: dict | None = None,
+    ) -> dict | tuple[int, dict]:
+        quest_root = self._fresh_quest_service()._quest_root(quest_id)
+        result = self.app.artifact_service.export_experiment_reproducibility(
+            quest_root,
+            experiment_id,
+            bash_sessions=self.app.bash_exec_service.list_sessions(quest_root, limit=500),
+        )
+        if not result.get("ok"):
+            return 404, result
+        return result
 
     def history(self, quest_id: str) -> list[dict]:
         return self.app.quest_service.history(quest_id)

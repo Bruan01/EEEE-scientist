@@ -4,6 +4,7 @@ from pathlib import Path
 
 from deepscientist.artifact import ArtifactService
 from deepscientist.artifact.experiment_ledger import build_experiment_ledger
+from deepscientist.artifact.reproducibility import generate_reproducibility_bundle
 from deepscientist.config import ConfigManager
 from deepscientist.daemon.app import DaemonApp
 from deepscientist.home import ensure_home_layout, repo_root
@@ -102,3 +103,70 @@ def test_artifact_service_reads_explicit_and_historical_experiments(temp_home: P
     api_payload = DaemonApp(temp_home).handlers.experiment_ledger(quest["quest_id"])
     assert api_payload["ok"] is True
     assert api_payload["count"] == 2
+
+
+def test_experiment_ledger_attaches_health_without_stopping_session() -> None:
+    payload = build_experiment_ledger(
+        [
+            {
+                "kind": "experiment",
+                "payload": {
+                    "kind": "experiment",
+                    "experiment_id": "exp-quiet",
+                    "status": "running",
+                    "command": "python train.py",
+                },
+            }
+        ],
+        sessions=[
+            {
+                "bash_id": "bash-quiet",
+                "experiment_id": "exp-quiet",
+                "command": "python train.py",
+                "status": "running",
+                "process_alive": True,
+                "signal_age_seconds": 180,
+                "silent_seconds": 180,
+                "progress_age_seconds": 180,
+            }
+        ],
+    )
+
+    item = payload["items"][0]
+    assert item["status"] == "running"
+    assert item["execution"]["health"] == "quiet"
+    assert item["execution"]["process_alive"] is True
+    assert payload["summary"]["quiet"] == 1
+    assert payload["summary"]["suspected_stalled"] == 0
+
+
+def test_reproducibility_bundle_is_reference_only_and_redacted(tmp_path: Path) -> None:
+    evidence = tmp_path / "result.json"
+    evidence.write_text('{"accuracy": 0.91}\n', encoding="utf-8")
+    log_path = tmp_path / "terminal.log"
+    log_path.write_text("token=TOP_SECRET\naccuracy=0.91\n", encoding="utf-8")
+    result = generate_reproducibility_bundle(
+        tmp_path,
+        item={
+            "experiment_id": "exp-redacted",
+            "status": "completed",
+            "command": "TOKEN=TOP_SECRET python train.py",
+            "evidence_paths": ["result.json"],
+            "metrics_summary": {"accuracy": 0.91},
+            "environment": {"api_key": "TOP_SECRET"},
+        },
+        session={
+            "bash_id": "bash-001",
+            "status": "completed",
+            "log_path": "terminal.log",
+        },
+    )
+
+    bundle = tmp_path / result["path"]
+    assert result["ok"] is True
+    assert (bundle / "manifest.json").exists()
+    assert (bundle / "run.sh").stat().st_mode & 0o111
+    assert not (bundle / "result.json").exists()
+    contents = "\n".join(path.read_text(encoding="utf-8", errors="replace") for path in bundle.rglob("*") if path.is_file())
+    assert "TOP_SECRET" not in contents
+    assert "[REDACTED]" in contents

@@ -28,6 +28,9 @@ _STATUS_ALIASES = {
     "error": "failed",
     "failure": "failed",
     "failed": "failed",
+    "cancelled": "cancelled",
+    "canceled": "cancelled",
+    "terminated": "cancelled",
     "blocked": "blocked",
     "warning": "warning",
     "superseded": "superseded",
@@ -38,6 +41,7 @@ _STATUS_ORDER = (
     "running",
     "completed",
     "failed",
+    "cancelled",
     "blocked",
     "warning",
     "superseded",
@@ -215,6 +219,9 @@ def normalize_experiment_payload(
         details.get("dataset_scope"),
     )
     primary_metric = _primary_metric(raw, details, metrics_summary)
+    execution = _mapping(raw.get("execution"))
+    bash_id = _first_text(raw.get("bash_id"), execution.get("bash_id"))
+    reproducibility = _mapping(raw.get("reproducibility"))
     row: dict[str, Any] = {
         "experiment_id": experiment_id,
         "run_id": run_id,
@@ -242,6 +249,12 @@ def normalize_experiment_payload(
         "created_at": _first_text(raw.get("created_at")),
         "updated_at": _first_text(raw.get("updated_at"), raw.get("created_at")),
     }
+    if execution or bash_id:
+        row["execution"] = execution
+        if bash_id:
+            row["execution"]["bash_id"] = bash_id
+    if reproducibility:
+        row["reproducibility"] = reproducibility
     for key in ("branch", "parent_branch", "campaign_id", "slice_id", "idea_id", "flow_type"):
         value = _first_text(raw.get(key), details.get(key))
         if value:
@@ -257,7 +270,121 @@ def _source_priority(item: Mapping[str, Any]) -> int:
     return 2 if str(item.get("source_kind") or "").strip() == "experiment" else 1
 
 
-def build_experiment_ledger(records: Iterable[Mapping[str, Any]]) -> dict[str, Any]:
+def _as_optional_int(value: Any) -> int | None:
+    if isinstance(value, bool):
+        return None
+    try:
+        return int(value) if value is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def _session_health(session: Mapping[str, Any]) -> tuple[str, str]:
+    status = normalize_status(session.get("status"), default="failed")
+    if status == "running":
+        process_alive = session.get("process_alive")
+        if process_alive is False:
+            return "suspected_stalled", "The session is marked running but its process heartbeat is gone."
+        signal_age = _as_optional_int(session.get("signal_age_seconds"))
+        if signal_age is not None and signal_age >= 600:
+            return "suspected_stalled", "No output, progress marker, or process signal for at least 10 minutes."
+        if signal_age is not None and signal_age >= 120:
+            return "quiet", "The process is alive but has produced no output or progress for at least 2 minutes."
+        return "healthy", "Recent output, progress, or process heartbeat is present."
+    if status == "terminating":
+        return "quiet", "The session is being stopped; no automatic kill was requested by the monitor."
+    if status == "completed":
+        return "completed", "The bash session completed."
+    if status == "cancelled":
+        return "cancelled", "The bash session was stopped."
+    return "failed", "The bash session ended without a successful completion status."
+
+
+def attach_experiment_sessions(
+    items: Iterable[Mapping[str, Any]],
+    sessions: Iterable[Mapping[str, Any]],
+) -> list[dict[str, Any]]:
+    """Attach existing bash session telemetry to ledger rows without writing state."""
+
+    normalized_sessions = [dict(session) for session in sessions if isinstance(session, Mapping)]
+    by_experiment: dict[str, dict[str, Any]] = {}
+    by_bash_id: dict[str, dict[str, Any]] = {}
+    for session in normalized_sessions:
+        experiment_id = _text(session.get("experiment_id"))
+        bash_id = _text(session.get("bash_id") or session.get("id"))
+        if experiment_id:
+            by_experiment[experiment_id] = session
+        if bash_id:
+            by_bash_id[bash_id] = session
+
+    result: list[dict[str, Any]] = []
+    for raw_item in items:
+        item = dict(raw_item)
+        execution = dict(item.get("execution") or {}) if isinstance(item.get("execution"), Mapping) else {}
+        experiment_id = _text(item.get("experiment_id"))
+        bash_id = _first_text(execution.get("bash_id"), item.get("bash_id"))
+        session = by_bash_id.get(bash_id) if bash_id else None
+        if session is None and experiment_id:
+            session = by_experiment.get(experiment_id)
+        if session is None:
+            command = _text(item.get("command"))
+            matching = [
+                candidate
+                for candidate in normalized_sessions
+                if command and _text(candidate.get("command")) == command
+            ]
+            if len(matching) == 1:
+                session = matching[0]
+        if session is None:
+            result.append(item)
+            continue
+
+        session_status = normalize_status(session.get("status"), default="failed")
+        health, health_reason = _session_health(session)
+        session_bash_id = _text(session.get("bash_id") or session.get("id"))
+        execution.update(
+            {
+                "runner": _text(execution.get("runner")) or "codex",
+                "executor": _text(execution.get("executor")) or "bash_exec",
+                "bash_id": session_bash_id or bash_id,
+                "command": _text(session.get("command")) or item.get("command"),
+                "working_directory": _text(session.get("cwd") or session.get("workdir")),
+                "started_at": session.get("started_at"),
+                "updated_at": session.get("updated_at"),
+                "finished_at": session.get("finished_at"),
+                "status": session.get("status"),
+                "exit_code": session.get("exit_code"),
+                "last_output_at": session.get("last_output_at"),
+                "last_progress_at": session.get("last_progress_at"),
+                "last_progress": session.get("last_progress"),
+                "silent_seconds": session.get("silent_seconds"),
+                "progress_age_seconds": session.get("progress_age_seconds"),
+                "signal_age_seconds": session.get("signal_age_seconds"),
+                "process_alive": session.get("process_alive"),
+                "output_bytes": session.get("output_bytes"),
+                "health": health,
+                "health_reason": health_reason,
+                "health_thresholds": {
+                    "quiet_after_seconds": 120,
+                    "suspected_stalled_after_seconds": 600,
+                },
+            }
+        )
+        item["execution"] = execution
+        if session_status in {"running", "completed", "failed", "cancelled"} and str(item.get("status") or "") in {
+            "planned",
+            "running",
+        }:
+            item["status"] = "cancelled" if session_status == "terminated" else session_status
+        result.append(item)
+    return result
+
+
+def build_experiment_ledger(
+    records: Iterable[Mapping[str, Any]],
+    *,
+    sessions: Iterable[Mapping[str, Any]] | None = None,
+) -> dict[str, Any]:
     """Build a compact, deduplicated ledger from artifact wrappers or payloads."""
 
     selected: dict[str, dict[str, Any]] = {}
@@ -299,19 +426,30 @@ def build_experiment_ledger(records: Iterable[Mapping[str, Any]]) -> dict[str, A
         key=lambda item: (str(item.get("updated_at") or item.get("created_at") or ""), str(item.get("experiment_id") or "")),
         reverse=True,
     )
+    if sessions is not None:
+        items = attach_experiment_sessions(items, sessions)
     counts = {status: 0 for status in _STATUS_ORDER}
+    quiet_count = 0
+    suspected_stalled_count = 0
     for item in items:
         status = str(item.get("status") or "planned")
         counts.setdefault(status, 0)
         counts[status] += 1
+        health = str((item.get("execution") or {}).get("health") or "")
+        if health == "quiet":
+            quiet_count += 1
+        elif health == "suspected_stalled":
+            suspected_stalled_count += 1
     latest = items[0] if items else None
     return {
-        "schema_version": 1,
+        "schema_version": 2,
         "count": len(items),
         "items": items,
         "summary": {
             "total": len(items),
             **counts,
+            "quiet": quiet_count,
+            "suspected_stalled": suspected_stalled_count,
             "latest_experiment_id": latest.get("experiment_id") if latest else None,
             "latest_updated_at": latest.get("updated_at") if latest else None,
         },

@@ -40,6 +40,7 @@ import LabQuestGraphCanvas from '@/lib/plugins/lab/components/LabQuestGraphCanva
 import { useI18n } from '@/lib/i18n/useI18n'
 import { useLabCopilotStore } from '@/lib/stores/lab-copilot'
 import { useLabGraphSelectionStore } from '@/lib/stores/lab-graph-selection'
+import { useInterfacePreferencesStore } from '@/lib/stores/interface-preferences'
 import { cn } from '@/lib/utils'
 import { getProgressPercent } from '@/lib/utils/bash-progress'
 import { QuestSettingsSurface } from '@/components/workspace/QuestSettingsSurface'
@@ -3255,6 +3256,7 @@ function QuestDetails({
   const deferredFeed = React.useDeferredValue(feed)
   const deferredDocuments = React.useDeferredValue(documents)
   const deferredMemory = React.useDeferredValue(memory)
+  const compactMode = useInterfacePreferencesStore((state) => state.compactMode)
   const nodeCount = branches?.nodes.length ?? 0
   const ideaCount =
     branches?.nodes.filter((item) => item.branch_kind === 'idea').length ?? 0
@@ -3281,6 +3283,16 @@ function QuestDetails({
     React.useState<BaselineComparePayload | null>(null)
   const [experimentLedger, setExperimentLedger] =
     React.useState<ExperimentLedgerPayload | null>(null)
+  const [experimentLogs, setExperimentLogs] =
+    React.useState<Record<string, BashLogEntry[]>>({})
+  const [experimentLogOpen, setExperimentLogOpen] =
+    React.useState<Record<string, boolean>>({})
+  const [experimentLogLoading, setExperimentLogLoading] =
+    React.useState<Record<string, boolean>>({})
+  const [experimentExporting, setExperimentExporting] =
+    React.useState<Record<string, boolean>>({})
+  const [experimentNotices, setExperimentNotices] =
+    React.useState<Record<string, string>>({})
   const latestRunningBashHint = React.useMemo(() => {
     if (!latestRunningBash) {
       return `${snapshot?.counts?.bash_session_count || 0} recorded sessions`
@@ -3869,24 +3881,86 @@ function QuestDetails({
     [metricsTimelineRunSignature, snapshot?.updated_at]
   )
 
-  React.useEffect(() => {
-    let cancelled = false
-    void client
-      .experimentLedger(questId)
-      .then((payload) => {
-        if (!cancelled) {
-          setExperimentLedger(payload)
-        }
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setExperimentLedger(null)
-        }
-      })
-    return () => {
-      cancelled = true
+  const loadExperimentLedger = React.useCallback(async () => {
+    try {
+      const payload = await client.experimentLedger(questId)
+      setExperimentLedger(payload)
+    } catch {
+      setExperimentLedger(null)
     }
-  }, [experimentLedgerSignature, questId])
+  }, [questId])
+
+  React.useEffect(() => {
+    void loadExperimentLedger()
+  }, [experimentLedgerSignature, loadExperimentLedger])
+
+  React.useEffect(() => {
+    const timer = window.setInterval(() => {
+      void loadExperimentLedger()
+    }, 30_000)
+    return () => window.clearInterval(timer)
+  }, [loadExperimentLedger])
+
+  const toggleExperimentLogs = React.useCallback(
+    async (experimentId: string, bashId: string) => {
+      const nextOpen = !experimentLogOpen[experimentId]
+      setExperimentLogOpen((current) => ({ ...current, [experimentId]: nextOpen }))
+      if (!nextOpen || experimentLogs[experimentId]) return
+      setExperimentLogLoading((current) => ({ ...current, [experimentId]: true }))
+      try {
+        const result = await getBashLogs(questId, bashId, { limit: 120, order: 'asc' })
+        setExperimentLogs((current) => ({
+          ...current,
+          [experimentId]: result.entries,
+        }))
+      } catch {
+        setExperimentNotices((current) => ({
+          ...current,
+          [experimentId]: '日志读取失败，请稍后重试。',
+        }))
+      } finally {
+        setExperimentLogLoading((current) => ({ ...current, [experimentId]: false }))
+      }
+    },
+    [experimentLogOpen, experimentLogs, questId]
+  )
+
+  const copyExperimentCommand = React.useCallback(async (experimentId: string, command: string) => {
+    try {
+      await navigator.clipboard.writeText(command)
+      setExperimentNotices((current) => ({ ...current, [experimentId]: '命令已复制。' }))
+    } catch {
+      setExperimentNotices((current) => ({
+        ...current,
+        [experimentId]: '当前浏览器不允许复制，请手动选择命令。',
+      }))
+    }
+  }, [])
+
+  const exportExperimentBundle = React.useCallback(
+    async (experimentId: string) => {
+      setExperimentExporting((current) => ({ ...current, [experimentId]: true }))
+      try {
+        const result = await client.exportExperimentReproducibility(questId, experimentId)
+        if (!result.ok) {
+          throw new Error(result.errors?.join('；') || '复现包生成失败。')
+        }
+        setExperimentNotices((current) => ({
+          ...current,
+          [experimentId]: `复现包已生成：${result.path || result.manifest_path || 'artifacts/experiments'}`,
+        }))
+        await loadExperimentLedger()
+      } catch (error) {
+        setExperimentNotices((current) => ({
+          ...current,
+          [experimentId]: error instanceof Error ? error.message : '复现包生成失败。',
+        }))
+      } finally {
+        setExperimentExporting((current) => ({ ...current, [experimentId]: false }))
+      }
+    },
+    [loadExperimentLedger, questId]
+  )
 
   return (
     <div
@@ -3983,11 +4057,19 @@ function QuestDetails({
         <DetailSection
           title="Experiment Ledger"
           hint="每个实验只看一条主线：假设、数据范围、关键指标、证据和结论。历史 main/analysis 运行会自动纳入。"
-          actions={<WorkspaceRefreshButton onRefresh={onRefresh} label="Refresh experiments" />}
+          actions={
+            <WorkspaceRefreshButton
+              onRefresh={async () => {
+                await onRefresh()
+                await loadExperimentLedger()
+              }}
+              label="Refresh experiments"
+            />
+          }
         >
           {experimentLedger ? (
             <div className="space-y-4">
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
                 <OverviewMetric
                   icon={<FlaskConical className="h-4 w-4" />}
                   label="Total"
@@ -3999,6 +4081,18 @@ function QuestDetails({
                   label="Running"
                   value={experimentLedger.summary.running || 0}
                   hint={`${experimentLedger.summary.planned || 0} planned`}
+                />
+                <OverviewMetric
+                  icon={<Activity className="h-4 w-4" />}
+                  label="Quiet"
+                  value={experimentLedger.summary.quiet || 0}
+                  hint="Alive, no signal for 2m"
+                />
+                <OverviewMetric
+                  icon={<AlertTriangle className="h-4 w-4" />}
+                  label="Stalled"
+                  value={experimentLedger.summary.suspected_stalled || 0}
+                  hint="No signal for 10m"
                 />
                 <OverviewMetric
                   icon={<BarChart3 className="h-4 w-4" />}
@@ -4016,7 +4110,7 @@ function QuestDetails({
               {experimentLedger.items.length > 0 ? (
                 <div className="space-y-3">
                   {experimentLedger.items.slice(0, 8).map((item) => (
-                    <div
+                    <article
                       key={item.experiment_id}
                       className="rounded-[20px] border border-black/[0.08] bg-white/70 px-4 py-3 dark:border-white/[0.10] dark:bg-white/[0.03]"
                     >
@@ -4027,6 +4121,13 @@ function QuestDetails({
                               {item.title || item.experiment_id}
                             </div>
                             <StatusPill>{item.status}</StatusPill>
+                            {item.execution?.health ? (
+                              <StatusPill>
+                                {item.execution.health === 'suspected_stalled'
+                                  ? 'suspected stalled'
+                                  : item.execution.health}
+                              </StatusPill>
+                            ) : null}
                           </div>
                           <div className="mt-1 break-words text-xs text-muted-foreground">
                             {[item.experiment_id, item.dataset_scope || null, item.run_id ? `run ${item.run_id}` : null]
@@ -4047,24 +4148,97 @@ function QuestDetails({
                           </div>
                         ) : null}
                       </div>
-                      <div className="mt-3 grid gap-2 text-xs leading-6 text-muted-foreground sm:grid-cols-2">
-                        <div>
-                          <span className="font-medium text-foreground">Hypothesis: </span>
-                          {clampText(item.hypothesis || item.research_question || '未记录', 180)}
+                      {!compactMode ? (
+                        <div className="mt-3 grid gap-2 text-xs leading-6 text-muted-foreground sm:grid-cols-2">
+                          <div>
+                            <span className="font-medium text-foreground">Hypothesis: </span>
+                            {clampText(item.hypothesis || item.research_question || '未记录', 180)}
+                          </div>
+                          <div>
+                            <span className="font-medium text-foreground">Evidence: </span>
+                            {item.evidence_paths?.length ? `${item.evidence_paths.length} paths` : '未记录'}
+                            {item.updated_at ? ` · ${formatRelativeTime(item.updated_at)}` : ''}
+                          </div>
                         </div>
-                        <div>
-                          <span className="font-medium text-foreground">Evidence: </span>
-                          {item.evidence_paths?.length ? `${item.evidence_paths.length} paths` : '未记录'}
-                          {item.updated_at ? ` · ${formatRelativeTime(item.updated_at)}` : ''}
-                        </div>
-                      </div>
-                      {item.conclusion ? (
+                      ) : null}
+                      {item.conclusion && !compactMode ? (
                         <div className="mt-2 break-words text-xs leading-6 text-muted-foreground">
                           <span className="font-medium text-foreground">Conclusion: </span>
                           {clampText(item.conclusion, 220)}
                         </div>
                       ) : null}
-                    </div>
+                      {item.execution ? (
+                        <div className="mt-3 rounded-[16px] border border-dashed border-black/[0.10] bg-black/[0.02] px-3 py-3 text-xs leading-6 text-muted-foreground dark:border-white/[0.12] dark:bg-white/[0.03]">
+                          <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                            <span>
+                              {item.execution.process_alive === false ? 'process not alive' : 'process alive'}
+                            </span>
+                            {typeof item.execution.silent_seconds === 'number' ? (
+                              <span>silent {Math.floor(item.execution.silent_seconds / 60)}m</span>
+                            ) : null}
+                            {item.execution.bash_id ? <span className="font-mono">{item.execution.bash_id}</span> : null}
+                          </div>
+                          {!compactMode && item.execution.health_reason ? (
+                            <div className="mt-1 break-words">{item.execution.health_reason}</div>
+                          ) : null}
+                          {!compactMode && item.execution.command ? (
+                            <pre className="mt-2 max-h-20 overflow-auto whitespace-pre-wrap break-words rounded-lg bg-black/[0.04] px-2 py-1.5 font-mono text-[11px] leading-5 text-foreground dark:bg-white/[0.06]">
+                              {item.execution.command}
+                            </pre>
+                          ) : null}
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {item.execution.bash_id ? (
+                              <button
+                                type="button"
+                                className="rounded-full border border-black/[0.10] px-2.5 py-1 text-[11px] text-foreground transition hover:bg-black/[0.05] dark:border-white/[0.12] dark:hover:bg-white/[0.08]"
+                                onClick={() => {
+                                  void toggleExperimentLogs(item.experiment_id, item.execution?.bash_id || '')
+                                }}
+                              >
+                                {experimentLogLoading[item.experiment_id]
+                                  ? '读取日志…'
+                                  : experimentLogOpen[item.experiment_id]
+                                    ? '收起日志'
+                                    : '查看日志'}
+                              </button>
+                            ) : null}
+                            {item.execution.command ? (
+                              <button
+                                type="button"
+                                className="rounded-full border border-black/[0.10] px-2.5 py-1 text-[11px] text-foreground transition hover:bg-black/[0.05] dark:border-white/[0.12] dark:hover:bg-white/[0.08]"
+                                onClick={() => {
+                                  void copyExperimentCommand(item.experiment_id, item.execution?.command || '')
+                                }}
+                              >
+                                复制命令
+                              </button>
+                            ) : null}
+                            <button
+                              type="button"
+                              className="rounded-full border border-black/[0.10] px-2.5 py-1 text-[11px] text-foreground transition hover:bg-black/[0.05] dark:border-white/[0.12] dark:hover:bg-white/[0.08]"
+                              onClick={() => {
+                                void exportExperimentBundle(item.experiment_id)
+                              }}
+                              disabled={experimentExporting[item.experiment_id]}
+                            >
+                              {experimentExporting[item.experiment_id] ? '生成中…' : '导出复现包'}
+                            </button>
+                          </div>
+                          {experimentLogOpen[item.experiment_id] ? (
+                            <pre className="mt-3 max-h-64 overflow-auto whitespace-pre-wrap break-words rounded-xl bg-[#171717] px-3 py-2 font-mono text-[11px] leading-5 text-[#f5f1e9]">
+                              {(experimentLogs[item.experiment_id] || [])
+                                .map((entry) => `[${entry.timestamp}] ${entry.line}`)
+                                .join('\n') || '暂无日志输出。'}
+                            </pre>
+                          ) : null}
+                          {experimentNotices[item.experiment_id] ? (
+                            <div className="mt-2 break-words text-[11px] text-muted-foreground">
+                              {experimentNotices[item.experiment_id]}
+                            </div>
+                          ) : null}
+                        </div>
+                      ) : null}
+                    </article>
                   ))}
                 </div>
               ) : (

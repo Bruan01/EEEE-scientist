@@ -54,6 +54,7 @@ from .arxiv import fetch_arxiv_metadata, read_arxiv_content
 from .charts import render_main_experiment_metric_timeline_chart
 from .guidance import build_guidance_for_record, guidance_summary
 from .experiment_ledger import build_experiment_ledger, normalize_experiment_payload
+from .reproducibility import bundle_status, generate_reproducibility_bundle
 from .metrics import (
     baseline_metric_lines,
     build_metrics_timeline,
@@ -185,6 +186,12 @@ class ArtifactService:
         self.arxiv_library = ArxivLibraryService()
         self._optimization_frontier_cache_lock = threading.Lock()
         self._optimization_frontier_cache: dict[str, dict[str, Any]] = {}
+        self._bash_exec_service: Any | None = None
+
+    def attach_bash_exec_service(self, service: Any) -> None:
+        """Reuse the daemon's existing bash service for read-only ledger enrichment."""
+
+        self._bash_exec_service = service
 
     @staticmethod
     def _notification_text(value: object) -> str | None:
@@ -9500,6 +9507,7 @@ class ArtifactService:
         configuration: dict[str, Any] | None = None,
         seed: int | str | None = None,
         command: str = "",
+        bash_id: str | None = None,
         run_id: str | None = None,
         replicate_group_id: str | None = None,
         metrics_summary: dict[str, Any] | None = None,
@@ -9532,6 +9540,7 @@ class ArtifactService:
             "configuration": dict(configuration or {}),
             "seed": seed,
             "command": str(command or "").strip(),
+            "bash_id": str(bash_id or "").strip() or None,
             "run_id": str(run_id or "").strip() or None,
             "replicate_group_id": str(replicate_group_id or "").strip() or None,
             "metrics_summary": dict(metrics_summary or {}),
@@ -9544,6 +9553,12 @@ class ArtifactService:
             "config_paths": [str(item).strip() for item in (config_paths or []) if str(item).strip()],
             "environment": dict(environment or {}),
         }
+        if bash_id:
+            payload["execution"] = {
+                "runner": "codex",
+                "executor": "bash_exec",
+                "bash_id": str(bash_id).strip(),
+            }
         if comment is not None:
             payload["comment"] = comment
         return self.record(
@@ -9553,7 +9568,26 @@ class ArtifactService:
             workspace_root=workspace_root,
         )
 
-    def get_experiment_ledger(self, quest_root: Path) -> dict[str, Any]:
+    def _collect_bash_sessions(self, quest_root: Path) -> list[dict[str, Any]]:
+        sessions_root = quest_root / ".ds" / "bash_exec"
+        if not sessions_root.exists():
+            return []
+        service = self._bash_exec_service
+        if service is None:
+            from ..bash_exec.service import BashExecService
+
+            service = BashExecService(self.home)
+        try:
+            return service.list_sessions(quest_root, limit=500)
+        except (FileNotFoundError, OSError, RuntimeError):
+            return []
+
+    def get_experiment_ledger(
+        self,
+        quest_root: Path,
+        *,
+        bash_sessions: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
         """Return explicit experiment records plus compatible historical run artifacts."""
 
         records: list[dict[str, Any]] = []
@@ -9572,12 +9606,57 @@ class ArtifactService:
             normalized = dict(item)
             normalized["kind"] = source_kind
             records.append(normalized)
-        ledger = build_experiment_ledger(records)
+        sessions = self._collect_bash_sessions(quest_root) if bash_sessions is None else bash_sessions
+        ledger = build_experiment_ledger(records, sessions=sessions)
+        for item in ledger.get("items", []):
+            if isinstance(item, dict):
+                item["reproducibility"] = bundle_status(
+                    quest_root,
+                    str(item.get("experiment_id") or "experiment"),
+                )
         return {
             "ok": True,
             "quest_id": self._quest_id(quest_root),
             **ledger,
         }
+
+    def export_experiment_reproducibility(
+        self,
+        quest_root: Path,
+        experiment_id: str,
+        *,
+        bash_sessions: list[dict[str, Any]] | None = None,
+    ) -> dict[str, Any]:
+        ledger = self.get_experiment_ledger(quest_root, bash_sessions=bash_sessions)
+        target = next(
+            (
+                item
+                for item in ledger.get("items", [])
+                if str(item.get("experiment_id") or "").strip() == str(experiment_id or "").strip()
+            ),
+            None,
+        )
+        if not isinstance(target, dict):
+            return {
+                "ok": False,
+                "errors": [f"Unknown experiment `{experiment_id}`."],
+                "warnings": [],
+            }
+        sessions = self._collect_bash_sessions(quest_root) if bash_sessions is None else bash_sessions
+        execution = target.get("execution") if isinstance(target.get("execution"), dict) else {}
+        bash_id = str(execution.get("bash_id") or "").strip()
+        session = next(
+            (
+                item
+                for item in sessions
+                if str(item.get("bash_id") or item.get("id") or "").strip() == bash_id
+            ),
+            None,
+        )
+        result = generate_reproducibility_bundle(quest_root, item=target, session=session)
+        target["reproducibility"] = bundle_status(quest_root, str(target.get("experiment_id") or experiment_id))
+        result["reproducibility"] = target["reproducibility"]
+        return result
 
     @staticmethod
     def _science_string_list(value: list[str] | None) -> list[str]:
