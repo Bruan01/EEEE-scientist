@@ -37,6 +37,9 @@ ds --proxy http://127.0.0.1:7897
 ~~~
 
 - 增加轻量 Codex Token 统计：进入项目的 Details → Overall，在 Codex tokens 查看当前项目累计用量；其他运行时不统计。
+- 实验 checkpoint 只把 metadata、指标、报告和 manifest 纳入 Git；大模型权重保留在实验目录中，通过路径或 manifest 引用。Git 写操作会串行化，同时保护大文件，避免误加入 Git 索引。
+- Git 驱动的 Canvas 投影会在后台构建，并对只读探测设置超时。WSL 的 DrvFS/9p 文件系统卡住时，不会无限阻塞 session 请求；前端会保留上一次 Canvas，并显示 queued、building 或 stale 状态。
+- Web 对话和 Studio 提供可收起的运行时活动流，展示收到请求、创建 run、读取/保存记忆、记录 artifact、重试和完成等状态，但不会把记忆正文复制到活动列表中。
 - 保留现有运行时目录和连接器状态格式，已有本地项目可以继续使用。
 
 ## 从本仓库安装
@@ -108,6 +111,10 @@ ds --home /path/to/eeee-scientist-home
 ~~~text
 http://127.0.0.1:7897
 ~~~
+
+如果运行在 WSL 中，建议把运行时主目录和 quest 工作区放在 Linux 文件系统中，
+例如 <code>/home</code> 下，以获得更好的 Git、worktree 和构建性能。<code>/mnt/c</code>
+仍然支持，但 DrvFS/9p 的 I/O 可能让仓库扫描和前端构建明显变慢。
 
 ## 二次开发
 

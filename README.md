@@ -50,6 +50,17 @@ ds --proxy http://127.0.0.1:7897
 
 - Lightweight Codex token accounting is shown in a project at Details,
   Overall, and Codex tokens. Other runners are intentionally excluded.
+- Experiment checkpoints keep metadata, metrics, reports, and manifests in Git;
+  large model weights remain in the experiment directory and are referenced by
+  paths or manifests. Git mutations are serialized, and large files are
+  protected from accidental indexing.
+- Git-backed Canvas projections are built in the background with bounded
+  read-only probes. A stalled WSL DrvFS/9p filesystem no longer blocks a
+  session request indefinitely; the Web UI reports queued, building, or stale
+  projection states while retaining the last cached Canvas.
+- The Web conversation and Studio expose a collapsible runtime activity trail
+  for requests, runs, memory loading/writes, artifacts, retries, and completion
+  without copying memory contents into the activity list.
 - Connector and Weixin state is kept in the existing durable runtime layout,
   so the fork can continue existing local projects.
 
@@ -129,6 +140,12 @@ set the runtime proxy value to:
 ~~~text
 http://127.0.0.1:7897
 ~~~
+
+When running under WSL, keeping the runtime home and quest workspaces in the
+Linux filesystem (for example, under <code>/home</code>) is recommended for
+Git, worktree, and build performance. <code>/mnt/c</code> remains supported,
+but its DrvFS/9p I/O can make repository scans and frontend builds noticeably
+slower.
 
 ## Development
 
