@@ -903,6 +903,35 @@ def test_quest_session_prewarms_details_and_canvas_projections(temp_home: Path) 
     assert "git_canvas" in projections
 
 
+def test_quest_session_does_not_wait_for_git_projection_signature(
+    temp_home: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    app = DaemonApp(temp_home, browser_auth_enabled=False)
+    quest = app.quest_service.create("nonblocking session projection quest")
+    entered = threading.Event()
+    release = threading.Event()
+    original_signature = app.quest_service._projection_source_signature
+
+    def _blocked_signature(quest_root: Path, kind: str) -> str:
+        entered.set()
+        assert release.wait(timeout=3), "projection worker did not receive release signal"
+        return original_signature(quest_root, kind)
+
+    monkeypatch.setattr(app.quest_service, "_projection_source_signature", _blocked_signature)
+
+    started_at = time.monotonic()
+    session = app.handlers.quest_session(quest["quest_id"])
+    elapsed = time.monotonic() - started_at
+
+    assert session["ok"] is True
+    assert elapsed < 0.5
+    assert entered.wait(timeout=2), "projection signature was not deferred to a worker"
+    release.set()
+
+
 def test_quest_session_snapshot_preserves_copilot_workspace_mode(temp_home: Path) -> None:
     ensure_home_layout(temp_home)
     ConfigManager(temp_home).ensure_files()
@@ -929,9 +958,10 @@ def test_runtime_state_update_schedules_details_projection_refresh(
     quest_root = Path(quest["quest_root"])
     queued: list[str] = []
 
-    def _capture_queue(target_root: Path, kind: str, *, source_signature: str) -> None:
+    def _capture_queue(target_root: Path, kind: str, *, defer_source_signature: bool = False, source_signature: str | None = None) -> None:
         assert target_root == quest_root
-        assert source_signature
+        assert defer_source_signature is True
+        assert source_signature is None
         queued.append(kind)
 
     monkeypatch.setattr(app.quest_service, "_queue_projection_build", _capture_queue)
@@ -956,9 +986,10 @@ def test_research_state_update_schedules_details_and_canvas_projection_refresh(
     quest_root = Path(quest["quest_root"])
     queued: list[str] = []
 
-    def _capture_queue(target_root: Path, kind: str, *, source_signature: str) -> None:
+    def _capture_queue(target_root: Path, kind: str, *, defer_source_signature: bool = False, source_signature: str | None = None) -> None:
         assert target_root == quest_root
-        assert source_signature
+        assert defer_source_signature is True
+        assert source_signature is None
         queued.append(kind)
 
     monkeypatch.setattr(app.quest_service, "_queue_projection_build", _capture_queue)
@@ -968,7 +999,7 @@ def test_research_state_update_schedules_details_and_canvas_projection_refresh(
         current_workspace_branch="ideas/projection-refresh",
     )
 
-    assert queued == ["details", "canvas"]
+    assert queued == ["details", "canvas", "git_canvas"]
 
 
 def test_runtime_state_updates_do_not_revert_status_on_concurrent_writes(temp_home: Path) -> None:

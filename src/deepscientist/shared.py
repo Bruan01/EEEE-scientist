@@ -190,15 +190,42 @@ def run_command(
     *,
     cwd: Path | None = None,
     check: bool = True,
+    timeout: float | None = None,
 ) -> subprocess.CompletedProcess[str]:
-    return subprocess.run(
-        args,
-        cwd=str(cwd) if cwd else None,
-        check=check,
-        capture_output=True,
+    kwargs: dict[str, Any] = {
+        "cwd": str(cwd) if cwd else None,
+        "check": check,
+        "capture_output": True,
         **utf8_text_subprocess_kwargs(),
         **process_session_popen_kwargs(hide_window=True, new_process_group=False),
-    )
+    }
+    if timeout is not None:
+        kwargs["timeout"] = max(float(timeout), 0.0)
+    try:
+        return subprocess.run(args, **kwargs)
+    except subprocess.TimeoutExpired as exc:
+        # Read-only probes (notably Git projection probes on DrvFS/9p) must
+        # be able to fail closed when the kernel-side filesystem call stalls.
+        # Preserve the historical exception behavior for check=True callers;
+        # check=False callers receive a normal failed CompletedProcess.
+        if check:
+            raise
+
+        def _timeout_text(value: object) -> str:
+            if isinstance(value, bytes):
+                return value.decode(_TEXT_SUBPROCESS_ENCODING, errors=_TEXT_SUBPROCESS_ERRORS)
+            return str(value or "")
+
+        stderr = _timeout_text(exc.stderr)
+        if stderr:
+            stderr = f"{stderr.rstrip()}\n"
+        stderr += f"Command timed out after {float(timeout):g}s."
+        return subprocess.CompletedProcess(
+            args=args,
+            returncode=124,
+            stdout=_timeout_text(exc.stdout),
+            stderr=stderr,
+        )
 
 
 def run_command_bytes(

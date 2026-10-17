@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import time
 from pathlib import Path
 from urllib.parse import quote
 
@@ -32,6 +33,18 @@ def _confirm_local_baseline(artifact: ArtifactService, quest_root: Path, baselin
             "metrics": [{"metric_id": "acc", "direction": "higher"}],
         },
     )
+
+
+def _wait_for_git_branches(app: DaemonApp, quest_id: str, *, timeout: float = 10.0) -> dict:
+    deadline = time.monotonic() + timeout
+    payload: dict = {}
+    while time.monotonic() < deadline:
+        payload = app.handlers.git_branches(quest_id)
+        state = str(((payload.get("projection_status") or {}).get("state") or "")).strip().lower()
+        if state in {"ready", "failed"}:
+            return payload
+        time.sleep(0.05)
+    return payload
 
 
 def _write_run_artifact(
@@ -140,7 +153,7 @@ def test_git_branch_canvas_distinguishes_major_and_analysis_branches(temp_home: 
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
 
     assert nodes["main"]["branch_kind"] == "quest"
@@ -257,7 +270,7 @@ def test_git_branch_canvas_reads_artifacts_from_worktrees(temp_home: Path) -> No
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     analysis_branch = campaign["slices"][0]["branch"]
 
@@ -320,7 +333,7 @@ def test_git_branch_canvas_supports_copilot_workspace_mode(temp_home: Path) -> N
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     edges = branches["edges"]
 
@@ -382,7 +395,7 @@ def test_git_branch_canvas_dedupes_mirrored_main_experiment_counts(temp_home: Pa
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
 
     assert nodes["run/main-dedupe-001"]["latest_result"]["run_id"] == "main-dedupe-001"
@@ -444,7 +457,7 @@ def test_git_branch_canvas_preserves_structured_main_result_over_later_unstructu
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     run_node = nodes[main_result["branch"]]
 
@@ -515,7 +528,7 @@ def test_git_branch_canvas_keeps_latest_metric_aligned_with_selected_structured_
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     run_node = nodes[main_result["branch"]]
 
@@ -718,7 +731,7 @@ def test_git_branch_canvas_marks_breakthrough_and_metrics_timeline(temp_home: Pa
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
 
     assert nodes["run/main-graph-001"]["breakthrough"] is True
@@ -893,7 +906,7 @@ def test_git_branch_canvas_analysis_slice_exposes_metrics_from_metric_id_rows(te
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     analysis_branch = campaign["slices"][0]["branch"]
     nodes = {item["ref"]: item for item in branches["nodes"]}
     latest_result = nodes[analysis_branch]["latest_result"]
@@ -954,7 +967,7 @@ def test_git_branch_canvas_parents_follow_up_analysis_to_current_workspace_node(
     assert activated["branch"] == parent["branch"]
 
     app = DaemonApp(temp_home)
-    before_campaign = app.handlers.git_branches(quest_id)
+    before_campaign = _wait_for_git_branches(app, quest_id)
     before_nodes = {item["ref"]: item for item in before_campaign["nodes"]}
     assert before_campaign["active_workspace_ref"] == parent["branch"]
     assert before_campaign["research_head_ref"] == head["branch"]
@@ -977,7 +990,7 @@ def test_git_branch_canvas_parents_follow_up_analysis_to_current_workspace_node(
     )
     analysis_branch = campaign["slices"][0]["branch"]
 
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
 
     assert head["branch"] != parent["branch"]
@@ -1098,7 +1111,7 @@ def test_git_branch_canvas_marks_active_paper_branch_after_analysis_completion(t
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     paper_branch = str(completed["research_state"]["current_workspace_branch"] or "").strip()
     parent_branch = str(completed["research_state"]["paper_parent_branch"] or "").strip()
@@ -1196,7 +1209,7 @@ def test_git_branch_canvas_parents_writing_facing_analysis_to_paper_line(temp_ho
     )
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     nodes = {item["ref"]: item for item in branches["nodes"]}
     analysis_branch = campaign["slices"][0]["branch"]
     paper_branch = str(campaign["manifest"]["paper_line_branch"] or "").strip()
@@ -1225,7 +1238,7 @@ def test_git_actions_keep_canvas_as_branch_graph_for_copilot(temp_home: Path) ->
     artifact.git_action(quest_root, action="commit", message="git graph commit", allow_empty=False)
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     refs = {item["ref"]: item for item in branches["nodes"]}
 
     assert set(refs) == {"main", "feature/git-graph"}
@@ -1260,7 +1273,7 @@ def test_git_branch_created_from_idea_branch_stays_connected_in_canvas(temp_home
     artifact.git_action(quest_root, action="branch", branch="feature/from-idea")
 
     app = DaemonApp(temp_home)
-    branches = app.handlers.git_branches(quest_id)
+    branches = _wait_for_git_branches(app, quest_id)
     refs = {item["ref"]: item for item in branches["nodes"]}
 
     assert idea_branch in refs

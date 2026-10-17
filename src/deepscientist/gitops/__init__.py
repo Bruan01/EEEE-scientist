@@ -10,6 +10,7 @@ from .diff import (
 from .graph import export_git_graph
 from .service import (
     GIT_CHECKPOINT_MAX_FILE_BYTES,
+    GIT_READ_TIMEOUT_SECONDS,
     branch_exists,
     canonical_worktree_root,
     checkpoint_repo,
@@ -22,19 +23,20 @@ from .service import (
 )
 
 __all__ = [
+    "GIT_CHECKPOINT_MAX_FILE_BYTES",
+    "GIT_READ_TIMEOUT_SECONDS",
     "branch_exists",
     "canonical_worktree_root",
+    "checkpoint_repo",
     "commit_detail",
     "compare_refs",
-    "checkpoint_repo",
     "create_worktree",
     "current_branch",
     "diff_file_between_refs",
     "diff_file_for_commit",
     "ensure_branch",
-    "git_operation_lock",
-    "GIT_CHECKPOINT_MAX_FILE_BYTES",
     "export_git_graph",
+    "git_operation_lock",
     "head_commit",
     "init_repo",
     "list_branch_canvas",

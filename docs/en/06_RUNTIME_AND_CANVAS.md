@@ -523,6 +523,16 @@ This inspects Git refs and quest branch metadata, then produces:
 - `views.ideas`
 - `views.analysis`
 
+Canvas source signatures and Git scans run in the background. The session endpoint never
+waits for a Git probe on the request thread; while a refresh is pending, the UI may show the
+last cached canvas with a `queued`, `building`, or `stale` projection status. Read-only Git
+probes are bounded so a WSL DrvFS/9p stall cannot turn a session request into an indefinite
+hang.
+
+`bash_exec` also forces Git commands launched through its PTY to use `cat` as the pager and
+disables interactive credential prompts. A command such as `git diff` therefore cannot leave
+an unattended pager waiting for input and make a monitor look permanently stuck.
+
 ### 15.1 Branch nodes
 
 Each branch node includes fields such as:

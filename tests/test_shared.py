@@ -1,7 +1,7 @@
 from __future__ import annotations
 
-from pathlib import Path
 import subprocess
+from pathlib import Path
 
 from deepscientist import shared
 
@@ -40,7 +40,7 @@ def test_resolve_runner_binary_prefers_path_codex_over_bundled_fallback(monkeypa
         "_resolve_executable_reference",
         lambda reference: str(system_codex) if reference == "codex" else None,
     )
-    monkeypatch.setattr(shared, "_codex_repo_roots", lambda: [bundled_root])
+    monkeypatch.setattr(shared, "_runner_repo_roots", lambda: [bundled_root])
 
     assert shared.resolve_runner_binary("codex", runner_name="codex") == str(system_codex)
 
@@ -54,7 +54,7 @@ def test_resolve_runner_binary_uses_bundled_codex_as_fallback(monkeypatch, tmp_p
     monkeypatch.delenv("DEEPSCIENTIST_CODEX_BINARY", raising=False)
     monkeypatch.delenv("DS_CODEX_BINARY", raising=False)
     monkeypatch.setattr(shared, "_resolve_executable_reference", lambda reference: None)
-    monkeypatch.setattr(shared, "_codex_repo_roots", lambda: [bundled_root])
+    monkeypatch.setattr(shared, "_runner_repo_roots", lambda: [bundled_root])
 
     assert shared.resolve_runner_binary("codex", runner_name="codex") == str(bundled_binary)
 
@@ -67,7 +67,7 @@ def test_run_command_hides_windows_console(monkeypatch, tmp_path: Path) -> None:
         captured["new_process_group"] = new_process_group
         return {"creationflags": 1536}
 
-    def fake_run(args, **kwargs):  # noqa: ANN001
+    def fake_run(args, **kwargs):
         captured["args"] = args
         captured["kwargs"] = kwargs
         return subprocess.CompletedProcess(args=args, returncode=0, stdout="ok", stderr="")
@@ -120,6 +120,22 @@ def test_run_command_bytes_hides_windows_console(monkeypatch, tmp_path: Path) ->
         "capture_output": True,
         "creationflags": 1536,
     }
+
+
+def test_run_command_timeout_returns_failed_process_for_non_checking_probe(
+    monkeypatch,
+    tmp_path: Path,
+) -> None:
+    def fake_run(args, **kwargs):
+        raise subprocess.TimeoutExpired(cmd=args, timeout=0.25, output="partial", stderr="slow")
+
+    monkeypatch.setattr(shared.subprocess, "run", fake_run)
+
+    result = shared.run_command(["git", "status"], cwd=tmp_path, check=False, timeout=0.25)
+
+    assert result.returncode == 124
+    assert result.stdout == "partial"
+    assert "Command timed out after 0.25s." in result.stderr
 
 
 def test_ensure_utf8_subprocess_env_sets_python_defaults() -> None:

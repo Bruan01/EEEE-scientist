@@ -1,12 +1,12 @@
 from __future__ import annotations
 
+import time
 from collections.abc import Iterator
 from contextlib import contextmanager
 from pathlib import Path
 
 from ..file_lock import advisory_file_lock
 from ..shared import ensure_dir, read_json, run_command, slugify, utc_now, write_json
-
 
 # Git checkpoints are intended for source, metadata, metrics, and reports. A
 # model/checkpoint file above this limit is kept in the experiment worktree and
@@ -26,6 +26,9 @@ _EPHEMERAL_RUNTIME_ROOTS = (
     ".ds/claude-home",
     ".ds/opencode-home",
 )
+GIT_READ_TIMEOUT_SECONDS = 3.0
+_GIT_PATH_PROBE_RETRIES = 3
+_GIT_PATH_PROBE_RETRY_DELAY_SECONDS = 0.05
 
 
 def _is_ephemeral_runtime_path(path: str) -> bool:
@@ -72,22 +75,34 @@ def git_operation_lock(repo: Path) -> Iterator[None]:
         yield
 
 
-def _git_paths(repo: Path, args: list[str]) -> list[str]:
-    result = run_command(["git", *args, "-z"], cwd=repo, check=False)
-    if result.returncode != 0:
-        return []
-    return [item for item in result.stdout.split("\0") if item]
+def _git_paths(repo: Path, args: list[str], *, strict: bool = False) -> list[str]:
+    command_args = list(args)
+    try:
+        option_end = command_args.index("--")
+    except ValueError:
+        command_args.append("-z")
+    else:
+        command_args.insert(option_end, "-z")
+    result = None
+    for attempt in range(_GIT_PATH_PROBE_RETRIES):
+        result = run_command(["git", *command_args], cwd=repo, check=False)
+        if result.returncode == 0:
+            return [item for item in result.stdout.split("\0") if item]
+        if attempt + 1 < _GIT_PATH_PROBE_RETRIES:
+            time.sleep(_GIT_PATH_PROBE_RETRY_DELAY_SECONDS)
+    if strict and result is not None:
+        command = " ".join(["git", *command_args])
+        detail = str(result.stderr or result.stdout or "").strip()
+        suffix = f": {detail}" if detail else ""
+        raise RuntimeError(f"Git path probe failed after {_GIT_PATH_PROBE_RETRIES} attempts ({command}){suffix}")
+    return []
 
 
 def _ignored_model_paths(repo: Path) -> list[str]:
-    result = run_command(
-        ["git", "ls-files", "-o", "-i", "--exclude-standard", "-z", "--", *_LOCAL_MODEL_PATHSPECS],
-        cwd=repo,
-        check=False,
+    return _git_paths(
+        repo,
+        ["ls-files", "-o", "-i", "--exclude-standard", "--", *_LOCAL_MODEL_PATHSPECS],
     )
-    if result.returncode != 0:
-        return []
-    return [item for item in result.stdout.split("\0") if item]
 
 
 def _large_file_records(repo: Path, paths: list[str], max_file_bytes: int) -> list[dict[str, object]]:
@@ -168,25 +183,40 @@ def init_repo(repo: Path) -> None:
     run_command(["git", "branch", "-M", "main"], cwd=repo, check=False)
 
 
-def current_branch(repo: Path) -> str:
-    result = run_command(["git", "branch", "--show-current"], cwd=repo, check=False)
+def current_branch(repo: Path, *, timeout: float | None = GIT_READ_TIMEOUT_SECONDS) -> str:
+    result = run_command(
+        ["git", "branch", "--show-current"],
+        cwd=repo,
+        check=False,
+        timeout=timeout,
+    )
     branch = result.stdout.strip()
     return branch or "main"
 
 
-def head_commit(repo: Path) -> str | None:
-    result = run_command(["git", "rev-parse", "HEAD"], cwd=repo, check=False)
+def head_commit(repo: Path, *, timeout: float | None = GIT_READ_TIMEOUT_SECONDS) -> str | None:
+    result = run_command(
+        ["git", "rev-parse", "HEAD"],
+        cwd=repo,
+        check=False,
+        timeout=timeout,
+    )
     commit = result.stdout.strip()
     return commit or None
 
 
-def has_changes(repo: Path) -> bool:
-    result = run_command(["git", "status", "--porcelain"], cwd=repo, check=False)
+def has_changes(repo: Path, *, timeout: float | None = GIT_READ_TIMEOUT_SECONDS) -> bool:
+    result = run_command(["git", "status", "--porcelain"], cwd=repo, check=False, timeout=timeout)
     return bool(result.stdout.strip())
 
 
-def branch_exists(repo: Path, branch: str) -> bool:
-    result = run_command(["git", "rev-parse", "--verify", branch], cwd=repo, check=False)
+def branch_exists(repo: Path, branch: str, *, timeout: float | None = GIT_READ_TIMEOUT_SECONDS) -> bool:
+    result = run_command(
+        ["git", "rev-parse", "--verify", branch],
+        cwd=repo,
+        check=False,
+        timeout=timeout,
+    )
     return result.returncode == 0
 
 
@@ -262,13 +292,29 @@ def checkpoint_repo(
     """Create a metadata-first checkpoint without importing large local files."""
 
     with git_operation_lock(repo):
-        candidate_paths = [
-            path
-            for path in _git_paths(repo, ["ls-files", "-m", "-o", "--exclude-standard"])
-            if not _is_ephemeral_runtime_path(path)
-        ]
-        candidate_paths.extend(_ignored_model_paths(repo))
-        staged_paths = _git_paths(repo, ["diff", "--cached", "--name-only"])
+        try:
+            candidate_paths = [
+                path
+                for path in _git_paths(
+                    repo,
+                    ["ls-files", "-m", "-o", "--exclude-standard"],
+                    strict=True,
+                )
+                if not _is_ephemeral_runtime_path(path)
+            ]
+            candidate_paths.extend(_ignored_model_paths(repo))
+            staged_paths = _git_paths(repo, ["diff", "--cached", "--name-only"], strict=True)
+        except RuntimeError as exc:
+            return {
+                "committed": False,
+                "branch": current_branch(repo),
+                "head": head_commit(repo),
+                "stdout": "",
+                "stderr": str(exc),
+                "excluded_large_files": [],
+                "weights_manifests": [],
+                "staging_failed": True,
+            }
         large_records = _large_file_records(repo, candidate_paths + staged_paths, max_file_bytes)
         manifest_paths = _write_local_file_manifests(repo, large_records)
 
@@ -314,11 +360,20 @@ def checkpoint_repo(
                 "staging_failed": True,
             }
 
-        staged_large_records = _large_file_records(
-            repo,
-            _git_paths(repo, ["diff", "--cached", "--name-only"]),
-            max_file_bytes,
-        )
+        try:
+            staged_paths = _git_paths(repo, ["diff", "--cached", "--name-only"], strict=True)
+        except RuntimeError as exc:
+            return {
+                "committed": False,
+                "branch": current_branch(repo),
+                "head": head_commit(repo),
+                "stdout": add_result.stdout,
+                "stderr": str(exc),
+                "excluded_large_files": large_records,
+                "weights_manifests": manifest_paths,
+                "staging_failed": True,
+            }
+        staged_large_records = _large_file_records(repo, staged_paths, max_file_bytes)
         if staged_large_records:
             return {
                 "committed": False,
@@ -381,5 +436,6 @@ def log_graph_lines(repo: Path, limit: int = 40) -> list[str]:
         ],
         cwd=repo,
         check=False,
+        timeout=GIT_READ_TIMEOUT_SECONDS,
     )
     return [line for line in result.stdout.splitlines() if line.strip()]

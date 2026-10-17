@@ -38,6 +38,37 @@ MAX_TERMINAL_LOG_LINE_CHARS = 32_768
 TERMINAL_LOG_PREVIEW_EDGE_CHARS = 4_096
 
 
+def _build_shell_env(tool_env: str) -> dict[str, str]:
+    """Build a non-blocking shell environment for a bash_exec child."""
+
+    env_payload = os.environ.copy()
+    env_payload.setdefault("PYTHONUNBUFFERED", "1")
+    env_payload.setdefault("TERM", "xterm-256color")
+    env_payload.setdefault("COLORTERM", "truecolor")
+    if tool_env:
+        try:
+            extra_env = json.loads(tool_env)
+        except json.JSONDecodeError:
+            extra_env = {}
+        if isinstance(extra_env, dict):
+            for key, value in extra_env.items():
+                if not isinstance(key, str) or value is None:
+                    continue
+                env_payload[key] = str(value)
+
+    # bash_exec may use a PTY, so Git can decide that it should open a
+    # pager. A pager waiting for input leaves the monitor alive forever and
+    # makes the experiment look like it is stuck in Git I/O.
+    env_payload.update(
+        {
+            "GIT_PAGER": "cat",
+            "PAGER": "cat",
+            "GIT_TERMINAL_PROMPT": "0",
+        }
+    )
+    return env_payload
+
+
 def _append_jsonl(path: Path, payload: dict[str, Any]) -> None:
     ensure_dir(path.parent)
     with path.open("a", encoding="utf-8") as handle:
@@ -324,20 +355,7 @@ def run_monitor(session_dir: Path) -> int:
         _atomic_write_json(input_cursor_path, {"offset": sum(1 for _ in iter_jsonl(input_path)), "updated_at": utc_now()})
 
     tool_env = os.environ.pop("DS_BASH_EXEC_TOOL_ENV", "")
-    env_payload = os.environ.copy()
-    env_payload.setdefault("PYTHONUNBUFFERED", "1")
-    env_payload.setdefault("TERM", "xterm-256color")
-    env_payload.setdefault("COLORTERM", "truecolor")
-    if tool_env:
-        try:
-            extra_env = json.loads(tool_env)
-        except json.JSONDecodeError:
-            extra_env = {}
-        if isinstance(extra_env, dict):
-            for key, value in extra_env.items():
-                if not isinstance(key, str) or value is None:
-                    continue
-                env_payload[key] = str(value)
+    env_payload = _build_shell_env(tool_env)
 
     ensure_dir(session_dir)
     ensure_dir(log_path.parent)

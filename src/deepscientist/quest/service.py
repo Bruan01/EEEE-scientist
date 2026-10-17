@@ -24,7 +24,15 @@ from ..artifact.metrics import build_baseline_compare_payload, build_metrics_tim
 from ..config import ConfigManager
 from ..connector_runtime import conversation_identity_key, normalize_conversation_id, parse_conversation_id
 from ..file_lock import advisory_file_lock
-from ..gitops import current_branch, export_git_graph, head_commit, init_repo, list_branch_canvas, list_commit_canvas
+from ..gitops import (
+    GIT_READ_TIMEOUT_SECONDS,
+    current_branch,
+    export_git_graph,
+    head_commit,
+    init_repo,
+    list_branch_canvas,
+    list_commit_canvas,
+)
 from ..home import repo_root
 from ..registries import BaselineRegistry
 from ..shared import append_jsonl, ensure_dir, generate_id, iter_jsonl, read_json, read_jsonl, read_jsonl_tail, read_text, read_yaml, resolve_within, run_command, run_command_bytes, sha256_text, slugify, utc_now, write_json, write_text, write_yaml
@@ -1307,13 +1315,14 @@ class QuestService:
             ],
             cwd=quest_root,
             check=False,
+            timeout=GIT_READ_TIMEOUT_SECONDS,
         )
         refs = [line.strip() for line in str(result.stdout or "").splitlines() if line.strip()]
         if result.returncode != 0:
             refs = [f"error:{result.returncode}:{str(result.stderr or '').strip()}"]
         return {
-            "current_ref": current_branch(quest_root),
-            "head": head_commit(quest_root),
+            "current_ref": current_branch(quest_root, timeout=GIT_READ_TIMEOUT_SECONDS),
+            "head": head_commit(quest_root, timeout=GIT_READ_TIMEOUT_SECONDS),
             "refs": refs,
         }
 
@@ -1472,7 +1481,7 @@ class QuestService:
         quest_root: Path,
         kind: str,
         *,
-        source_signature: str,
+        source_signature: str | None,
         payload_wrapper: dict[str, Any] | None,
     ) -> dict[str, Any]:
         manifest = self._read_projection_manifest(quest_root)
@@ -1491,8 +1500,17 @@ class QuestService:
         payload_ready = (
             isinstance(payload_wrapper, dict)
             and isinstance(payload_wrapper.get("payload"), dict)
+            and bool(source_signature)
             and payload_signature == source_signature
         )
+        # A refresh can be computing a new source signature while an older
+        # payload is still available. Report the refresh instead of briefly
+        # claiming that the old payload is current.
+        if self._projection_build_active(quest_root, kind):
+            status["state"] = "building" if status.get("state") != "queued" else "queued"
+            status["progress_total"] = max(int(status.get("progress_total") or 0), _PROJECTION_BUILD_TOTAL_STEPS)
+            status["current_step"] = status.get("current_step") or "Building projection"
+            return status
         if payload_ready:
             status.update(
                 {
@@ -1506,11 +1524,6 @@ class QuestService:
                     "error": None,
                 }
             )
-            return status
-        if self._projection_build_active(quest_root, kind):
-            status["state"] = "building" if status.get("state") != "queued" else "queued"
-            status["progress_total"] = max(int(status.get("progress_total") or 0), _PROJECTION_BUILD_TOTAL_STEPS)
-            status["current_step"] = status.get("current_step") or "Building projection"
             return status
         if isinstance(payload_wrapper, dict) and isinstance(payload_wrapper.get("payload"), dict):
             status.update(
@@ -1529,78 +1542,156 @@ class QuestService:
             return status
         return self._default_projection_status(kind)
 
-    def _queue_projection_build(self, quest_root: Path, kind: str, *, source_signature: str) -> None:
-        if self._projection_build_active(quest_root, kind):
-            return
+    def _queue_projection_build(
+        self,
+        quest_root: Path,
+        kind: str,
+        *,
+        source_signature: str | None = None,
+        defer_source_signature: bool = False,
+    ) -> None:
+        # Source signatures include Git state. Never calculate them in the
+        # request thread: on WSL/DrvFS a Git subprocess can wait in the
+        # kernel while the request appears frozen. The worker also owns the
+        # manifest I/O so this method only takes in-memory locks and starts a
+        # daemon thread.
+        if defer_source_signature:
+            source_signature = None
+        build_key = self._projection_build_key(quest_root, kind)
+        signature_holder: list[str | None] = [source_signature]
 
-        with self._projection_lock(quest_root, kind):
-            payload_wrapper = self._read_projection_payload_file(quest_root, kind)
-            if (
-                isinstance(payload_wrapper, dict)
-                and str(payload_wrapper.get("source_signature") or "").strip() == source_signature
-                and isinstance(payload_wrapper.get("payload"), dict)
-            ):
-                ready_status = self._default_projection_status(kind)
-                ready_status.update(
-                    {
-                        "state": "ready",
-                        "source_signature": source_signature,
-                        "generated_at": str(payload_wrapper.get("generated_at") or "").strip() or None,
-                        "last_success_at": str(payload_wrapper.get("generated_at") or "").strip() or None,
-                        "progress_current": _PROJECTION_BUILD_TOTAL_STEPS,
-                        "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
-                    }
-                )
-                self._write_projection_manifest_locked(quest_root, kind, ready_status)
-                return
-            queued_status = self._default_projection_status(kind)
-            queued_status.update(
+        def _remove_active_worker() -> None:
+            with self._quest_projection_builds_lock:
+                active = self._quest_projection_builds.get(build_key)
+                if active is threading.current_thread():
+                    self._quest_projection_builds.pop(build_key, None)
+
+        def _write_status(status: dict[str, Any]) -> None:
+            with self._projection_lock(quest_root, kind):
+                self._write_projection_manifest_locked(quest_root, kind, status)
+
+        def _update_progress(current: int, step: str | None) -> None:
+            manifest = self._read_projection_manifest(quest_root)
+            projections = manifest.get("projections") if isinstance(manifest.get("projections"), dict) else {}
+            status = self._normalize_projection_status(kind, projections.get(kind))
+            status.update(
                 {
-                    "state": "queued",
-                    "source_signature": source_signature,
-                    "progress_current": 0,
+                    "state": "building",
+                    "source_signature": signature_holder[0],
+                    "progress_current": max(0, min(current, _PROJECTION_BUILD_TOTAL_STEPS)),
                     "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
-                    "current_step": "Queued for background rebuild",
+                    "current_step": step,
                     "error": None,
                 }
             )
-            self._write_projection_manifest_locked(quest_root, kind, queued_status)
-
-        build_key = self._projection_build_key(quest_root, kind)
-
-        def _update_progress(current: int, step: str | None) -> None:
-            with self._projection_lock(quest_root, kind):
-                manifest = self._read_projection_manifest(quest_root)
-                projections = manifest.get("projections") if isinstance(manifest.get("projections"), dict) else {}
-                status = self._normalize_projection_status(kind, projections.get(kind))
-                status.update(
-                    {
-                        "state": "building",
-                        "source_signature": source_signature,
-                        "progress_current": max(0, min(current, _PROJECTION_BUILD_TOTAL_STEPS)),
-                        "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
-                        "current_step": step,
-                        "error": None,
-                    }
-                )
-                self._write_projection_manifest_locked(quest_root, kind, status)
+            _write_status(status)
 
         def _worker() -> None:
             try:
-                _update_progress(0, "Preparing projection inputs")
-                payload = self._build_projection_payload(
-                    quest_root,
-                    kind,
-                    source_signature=source_signature,
-                    update_progress=_update_progress,
-                )
+                if signature_holder[0] is None:
+                    queued_status = self._default_projection_status(kind)
+                    queued_status.update(
+                        {
+                            "state": "queued",
+                            "progress_current": 0,
+                            "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
+                            "current_step": "Reading projection inputs",
+                            "error": None,
+                        }
+                    )
+                    _write_status(queued_status)
+                    signature_holder[0] = self._projection_source_signature(quest_root, kind)
+
+                resolved_signature = str(signature_holder[0] or "").strip()
+                if not resolved_signature:
+                    raise RuntimeError("Projection source signature was empty.")
+
+                with self._projection_lock(quest_root, kind):
+                    payload_wrapper = self._read_projection_payload_file(quest_root, kind)
+                    if (
+                        isinstance(payload_wrapper, dict)
+                        and str(payload_wrapper.get("source_signature") or "").strip() == resolved_signature
+                        and isinstance(payload_wrapper.get("payload"), dict)
+                    ):
+                        ready_status = self._default_projection_status(kind)
+                        ready_status.update(
+                            {
+                                "state": "ready",
+                                "source_signature": resolved_signature,
+                                "generated_at": str(payload_wrapper.get("generated_at") or "").strip() or None,
+                                "last_success_at": str(payload_wrapper.get("generated_at") or "").strip() or None,
+                                "progress_current": _PROJECTION_BUILD_TOTAL_STEPS,
+                                "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
+                            }
+                        )
+                        self._write_projection_manifest_locked(quest_root, kind, ready_status)
+                        return
+                    queued_status = self._default_projection_status(kind)
+                    queued_status.update(
+                        {
+                            "state": "queued",
+                            "source_signature": resolved_signature,
+                            "progress_current": 0,
+                            "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
+                            "current_step": "Queued for background rebuild",
+                            "error": None,
+                        }
+                    )
+                    self._write_projection_manifest_locked(quest_root, kind, queued_status)
+
+                payload: dict[str, Any] | None = None
+                stable_source = False
+                for build_attempt in range(3):
+                    _update_progress(0, "Preparing projection inputs")
+                    payload = self._build_projection_payload(
+                        quest_root,
+                        kind,
+                        source_signature=resolved_signature,
+                        update_progress=_update_progress,
+                    )
+                    verified_signature = self._projection_source_signature(quest_root, kind)
+                    if verified_signature == resolved_signature:
+                        stable_source = True
+                        break
+                    # Files/Git changed while the payload was being built.
+                    # Rebuild against the newer signature instead of marking
+                    # an older payload as ready.
+                    signature_holder[0] = verified_signature
+                    resolved_signature = verified_signature
+                    if build_attempt < 2:
+                        queued_status = self._default_projection_status(kind)
+                        queued_status.update(
+                            {
+                                "state": "queued",
+                                "source_signature": resolved_signature,
+                                "progress_current": 0,
+                                "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
+                                "current_step": "Inputs changed; rebuilding projection",
+                                "error": None,
+                            }
+                        )
+                        _write_status(queued_status)
+                if not stable_source or payload is None:
+                    stale_status = self._default_projection_status(kind)
+                    stale_status.update(
+                        {
+                            "state": "stale",
+                            "source_signature": resolved_signature,
+                            "progress_current": 0,
+                            "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
+                            "current_step": "Inputs changed during projection build",
+                            "error": "Projection inputs kept changing during rebuild.",
+                        }
+                    )
+                    _write_status(stale_status)
+                    return
                 _update_progress(_PROJECTION_BUILD_TOTAL_STEPS, "Writing projection")
                 generated_at = utc_now()
                 with self._projection_lock(quest_root, kind):
                     self._write_projection_payload_locked(
                         quest_root,
                         kind,
-                        source_signature=source_signature,
+                        source_signature=resolved_signature,
                         payload=payload,
                         generated_at=generated_at,
                     )
@@ -1608,7 +1699,7 @@ class QuestService:
                     ready_status.update(
                         {
                             "state": "ready",
-                            "source_signature": source_signature,
+                            "source_signature": resolved_signature,
                             "generated_at": generated_at,
                             "last_success_at": generated_at,
                             "progress_current": _PROJECTION_BUILD_TOTAL_STEPS,
@@ -1624,7 +1715,7 @@ class QuestService:
                     failed_status.update(
                         {
                             "state": "failed",
-                            "source_signature": source_signature,
+                            "source_signature": signature_holder[0],
                             "progress_current": 0,
                             "progress_total": _PROJECTION_BUILD_TOTAL_STEPS,
                             "current_step": None,
@@ -1633,10 +1724,7 @@ class QuestService:
                     )
                     self._write_projection_manifest_locked(quest_root, kind, failed_status)
             finally:
-                with self._quest_projection_builds_lock:
-                    active = self._quest_projection_builds.get(build_key)
-                    if active is threading.current_thread():
-                        self._quest_projection_builds.pop(build_key, None)
+                _remove_active_worker()
 
         worker = threading.Thread(
             target=_worker,
@@ -1644,8 +1732,11 @@ class QuestService:
             name=f"ds-projection-{quest_root.name}-{kind}",
         )
         with self._quest_projection_builds_lock:
+            active = self._quest_projection_builds.get(build_key)
+            if active is not None and active.is_alive():
+                return
             self._quest_projection_builds[build_key] = worker
-        worker.start()
+            worker.start()
 
     def _recent_codex_runs(self, quest_root: Path, *, limit: int = 5) -> list[dict[str, Any]]:
         history_root = quest_root / ".ds" / "codex_history"
@@ -1855,13 +1946,13 @@ class QuestService:
         default_ref = (
             str(research_state.get("research_head_branch") or "").strip()
             or str(research_state.get("current_workspace_branch") or "").strip()
-            or current_branch(quest_root)
+            or "main"
         )
         return {
             "quest_id": quest_id,
             "default_ref": default_ref,
             "current_ref": default_ref,
-            "head": head_commit(quest_root),
+            "head": None,
             "nodes": [],
             "edges": [],
             "views": {
@@ -1872,27 +1963,42 @@ class QuestService:
 
     def _placeholder_git_canvas_payload(self, quest_id: str, quest_root: Path) -> dict[str, Any]:
         research_state = self.read_research_state(quest_root)
+        current_ref = (
+            str(research_state.get("current_workspace_branch") or "").strip()
+            or str(research_state.get("research_head_branch") or "").strip()
+            or "main"
+        )
         return {
             "quest_id": quest_id,
             "workspace_mode": str(research_state.get("workspace_mode") or "copilot").strip() or "copilot",
-            "head": head_commit(quest_root),
-            "current_ref": current_branch(quest_root),
+            "head": None,
+            "current_ref": current_ref,
             "nodes": [],
             "edges": [],
         }
 
     def _projected_payload(self, quest_id: str, kind: str) -> dict[str, Any]:
         quest_root = self._quest_root(quest_id)
-        source_signature = self._projection_source_signature(quest_root, kind)
         payload_wrapper = self._read_projection_payload_file(quest_root, kind)
+        manifest = self._read_projection_manifest(quest_root)
+        projections = manifest.get("projections") if isinstance(manifest.get("projections"), dict) else {}
+        manifest_status = self._normalize_projection_status(kind, projections.get(kind))
         payload_ready = (
             isinstance(payload_wrapper, dict)
-            and str(payload_wrapper.get("source_signature") or "").strip() == source_signature
             and isinstance(payload_wrapper.get("payload"), dict)
+            and manifest_status.get("state") == "ready"
         )
         if not payload_ready:
-            self._queue_projection_build(quest_root, kind, source_signature=source_signature)
+            self._queue_projection_build(
+                quest_root,
+                kind,
+                defer_source_signature=True,
+            )
             payload_wrapper = self._read_projection_payload_file(quest_root, kind)
+            manifest = self._read_projection_manifest(quest_root)
+            projections = manifest.get("projections") if isinstance(manifest.get("projections"), dict) else {}
+            manifest_status = self._normalize_projection_status(kind, projections.get(kind))
+        source_signature = str(manifest_status.get("source_signature") or "").strip() or None
         status = self._present_projection_status(
             quest_root,
             kind,
@@ -1916,10 +2022,22 @@ class QuestService:
 
     def prime_projection(self, quest_id: str, kind: str) -> None:
         quest_root = self._quest_root(quest_id)
+        if self._projection_build_active(quest_root, kind):
+            return
+        manifest = self._read_projection_manifest(quest_root)
+        projections = manifest.get("projections") if isinstance(manifest.get("projections"), dict) else {}
+        status = self._normalize_projection_status(kind, projections.get(kind))
+        payload_wrapper = self._read_projection_payload_file(quest_root, kind)
+        if (
+            status.get("state") == "ready"
+            and isinstance(payload_wrapper, dict)
+            and isinstance(payload_wrapper.get("payload"), dict)
+        ):
+            return
         self._queue_projection_build(
             quest_root,
             kind,
-            source_signature=self._projection_source_signature(quest_root, kind),
+            defer_source_signature=True,
         )
 
     def schedule_projection_refresh(
@@ -1951,7 +2069,7 @@ class QuestService:
                 self._queue_projection_build(
                     quest_root,
                     kind,
-                    source_signature=self._projection_source_signature(quest_root, kind),
+                    defer_source_signature=True,
                 )
             except Exception:
                 continue
@@ -3938,6 +4056,19 @@ class QuestService:
             )
         except Exception:
             guidance = None
+        cached_canvas_wrapper = self._read_projection_payload_file(quest_root, "canvas")
+        cached_canvas_payload = (
+            cached_canvas_wrapper.get("payload")
+            if isinstance(cached_canvas_wrapper, dict)
+            and isinstance(cached_canvas_wrapper.get("payload"), dict)
+            else {}
+        )
+        cached_branch = (
+            str(research_state.get("current_workspace_branch") or "").strip()
+            or str(research_state.get("research_head_branch") or "").strip()
+            or str(cached_canvas_payload.get("current_ref") or "").strip()
+            or None
+        )
         payload = {
             "quest_id": quest_yaml.get("quest_id", quest_id),
             "title": quest_yaml.get("title", quest_id),
@@ -4009,8 +4140,11 @@ class QuestService:
             "bound_conversations": self._binding_sources_payload(quest_root).get("sources") or ["local:default"],
             "created_at": quest_yaml.get("created_at"),
             "updated_at": quest_yaml.get("updated_at"),
-            "branch": current_branch(workspace_root),
-            "head": head_commit(workspace_root),
+            # Git-derived values are supplied from the last completed
+            # projection. Do not run Git synchronously while serving a
+            # snapshot: a DrvFS/9p stall must not block the API thread.
+            "branch": cached_branch,
+            "head": cached_canvas_payload.get("head"),
             "graph_svg_path": str(graph_svg) if graph_svg.exists() else None,
             "summary": {
                 "status_line": status_line,

@@ -3,7 +3,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from deepscientist.bash_exec import BashExecService
-from deepscientist.bash_exec.monitor import _drain_buffer, _render_terminal_log_line
+from deepscientist.bash_exec.monitor import _build_shell_env, _drain_buffer, _render_terminal_log_line
 from deepscientist.home import ensure_home_layout
 from deepscientist.shared import read_json, write_json
 
@@ -33,6 +33,14 @@ def test_render_terminal_log_line_truncates_huge_single_line_output() -> None:
     assert rendered.endswith(":suffix")
     assert "full content remains in log.jsonl" in rendered
     assert len(rendered) < len(line)
+
+
+def test_shell_environment_disables_interactive_git_pagers() -> None:
+    env = _build_shell_env('{"PAGER":"less","GIT_PAGER":"less"}')
+
+    assert env["PAGER"] == "cat"
+    assert env["GIT_PAGER"] == "cat"
+    assert env["GIT_TERMINAL_PROMPT"] == "0"
 
 
 def test_reconcile_session_sets_finished_at_when_existing_value_is_empty(temp_home: Path) -> None:

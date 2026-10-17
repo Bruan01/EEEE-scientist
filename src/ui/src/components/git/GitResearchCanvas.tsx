@@ -445,28 +445,40 @@ export function GitResearchCanvas({
 
   useEffect(() => {
     let cancelled = false
-    setLoading(true)
-    setError(null)
-    void client
-      .gitBranches(questId)
-      .then((next) => {
-        if (!cancelled) {
+    let retryTimer: ReturnType<typeof setTimeout> | null = null
+
+    const load = (initial: boolean) => {
+      if (initial) {
+        setLoading(true)
+        setError(null)
+      }
+      void client
+        .gitBranches(questId)
+        .then((next) => {
+          if (cancelled) return
           setPayload(next)
-        }
-      })
-      .catch((nextError: unknown) => {
-        if (!cancelled) {
-          setPayload(null)
-          setError(nextError instanceof Error ? nextError.message : 'Failed to load branch canvas.')
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setLoading(false)
-        }
-      })
+          const state = String(next.projection_status?.state || '').trim().toLowerCase()
+          if (state === 'queued' || state === 'building' || state === 'stale') {
+            retryTimer = setTimeout(() => load(false), 600)
+          }
+        })
+        .catch((nextError: unknown) => {
+          if (!cancelled) {
+            setPayload(null)
+            setError(nextError instanceof Error ? nextError.message : 'Failed to load branch canvas.')
+          }
+        })
+        .finally(() => {
+          if (!cancelled && initial) {
+            setLoading(false)
+          }
+        })
+    }
+
+    load(true)
     return () => {
       cancelled = true
+      if (retryTimer) clearTimeout(retryTimer)
     }
   }, [questId, graph?.head])
 

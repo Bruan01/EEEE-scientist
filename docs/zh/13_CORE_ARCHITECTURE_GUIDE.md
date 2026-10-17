@@ -141,6 +141,10 @@ Branch Map 依赖 branch ref、commit 元数据、artifact 记录和 worktree �
 中的本地路径找到权重即可。已经产生的大型 Git 对象不会被自动重写，旧仓库迁移需要
 单独确认清单和可恢复性后再做。
 
+Canvas 投影刷新在后台完成。session/status 请求优先返回缓存或占位数据，不在请求线程同步执行 Git
+source-signature；只读 Git 查询有短超时，WSL DrvFS/9p 上的 I/O 阻塞会表现为 `stale`/`failed` 投影状态，
+而不是让前端一直等待。实验命令和显式 checkpoint 的长时行为不受这条只读保护影响。
+
 这正是 EEEE Scientist 能变成 persistent research map，而不是一次性对话的原因。
 
 ## 6. `Start Research` 真正创建了什么

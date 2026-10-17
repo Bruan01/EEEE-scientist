@@ -179,6 +179,12 @@ weight path. Live Explorer/status calls can still scan the worktree, so keeping
 large outputs ignored is important for UI responsiveness as well as object
 database size.
 
+Projection refreshes are deliberately asynchronous. Session/status requests return the
+cached projection or a placeholder and queue Git-backed source-signature work in a daemon
+worker. Read-only Git probes use a short timeout; a stalled DrvFS/9p Git call is reported as
+stale/failed projection state instead of holding the HTTP request indefinitely. Long-running
+experiment commands and explicit checkpoint mutations keep their own execution semantics.
+
 ## Public MCP Boundary
 
 The public built-in MCP surface must remain:

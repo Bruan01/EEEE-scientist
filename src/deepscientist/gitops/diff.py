@@ -6,7 +6,12 @@ from typing import Any
 
 from ..artifact.metrics import extract_latest_metric
 from ..shared import read_json, run_command, slugify
-from .service import branch_exists, current_branch, head_commit
+from .service import (
+    GIT_READ_TIMEOUT_SECONDS,
+    branch_exists,
+    current_branch,
+    head_commit,
+)
 
 
 def list_branch_canvas(repo: Path, *, quest_id: str) -> dict[str, Any]:
@@ -955,11 +960,21 @@ def _commit_count(repo: Path, ref: str) -> int:
 
 def _require_ref(repo: Path, ref: str) -> None:
     if not branch_exists(repo, ref):
-        result = run_command(["git", "rev-parse", "--verify", ref], cwd=repo, check=False)
+        result = run_command(
+            ["git", "rev-parse", "--verify", ref],
+            cwd=repo,
+            check=False,
+            timeout=GIT_READ_TIMEOUT_SECONDS,
+        )
         if result.returncode != 0:
             raise ValueError(f"Unknown git ref: {ref}")
 
 
 def _git_stdout(repo: Path, args: list[str]) -> str:
-    result = run_command(["git", *args], cwd=repo, check=False)
+    result = run_command(
+        ["git", *args],
+        cwd=repo,
+        check=False,
+        timeout=GIT_READ_TIMEOUT_SECONDS,
+    )
     return result.stdout

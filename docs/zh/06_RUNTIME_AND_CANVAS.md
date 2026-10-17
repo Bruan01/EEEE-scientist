@@ -257,6 +257,13 @@ Branch Map 读取的是分支引用、提交元数据、artifacts 和 worktree �
 blob，所以权重变成本地文件不会导致节点找不到。旧的 Git 大对象不会被这次框架保护逻辑
 自动删除；需要在当前 Git 操作结束后单独做迁移和空间回收。
 
+Canvas 的 source signature 和 Git 扫描在后台执行。session 请求线程不会等待 Git 探测；刷新尚未完成时，
+前端会保留上一次缓存的画布，并显示 `queued`、`building` 或 `stale` 状态。只读 Git 探测有明确的超时，
+因此 WSL 的 DrvFS/9p 文件系统卡住时，不会把整个 session 请求无限期拖住。
+
+`bash_exec` 通过 PTY 启动 Git 命令时也会强制使用 `cat` pager，并关闭交互式凭据提示。这样类似
+`git diff` 的命令不会留下等待输入的 pager，导致 monitor 看起来永久卡住。
+
 Canvas 不依赖一份中心化 graph 文件。
 
 当前主要从两类来源重建：
