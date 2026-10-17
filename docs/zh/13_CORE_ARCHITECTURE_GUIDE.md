@@ -119,6 +119,28 @@ TUI 不是另一套独立产品，也不是另一份状态。
 - memory
 - shell 历史
 
+### Git checkpoint 与大模型权重
+
+quest 中的 Git 是源代码、分支引用、artifact 元数据、指标、报告和
+manifest 的持久索引，不是大模型权重的存储层。
+
+当前 checkpoint 保护逻辑包括：
+
+- 主仓库和 linked worktree 通过 Git common dir 共用一把串行锁；
+- 超过默认 256 MiB 的文件不会进入本次 staging，实验目录中的小型元数据仍然可以提交；
+- 被排除的实验文件会在对应实验目录生成 `weights_manifest.json`，记录本地相对路径和大小；
+- 新建 quest 的 `.gitignore` 会忽略常见权重扩展名。
+
+`.ds/codex-home/`、`.ds/claude-home/` 和 `.ds/opencode-home/` 是 provider 的隔离
+运行时 home，里面主要是认证、SQLite 状态、缓存和会话材料，也不会进入新的 checkpoint。
+quest 恢复依赖的是 quest 文档、memory、artifacts、run 记录以及 `.ds` 的事件/历史文件。
+旧 quest 中已经被 Git 跟踪的这些缓存不会自动改写，迁移时只应从 index 移除缓存路径，保留本地文件。
+
+Branch Map 依赖 branch ref、commit 元数据、artifact 记录和 worktree 元数据，
+不依赖权重 blob。因此权重不进入 Git index 不会让节点消失；运行时依据 manifest
+中的本地路径找到权重即可。已经产生的大型 Git 对象不会被自动重写，旧仓库迁移需要
+单独确认清单和可恢复性后再做。
+
 这正是 EEEE Scientist 能变成 persistent research map，而不是一次性对话的原因。
 
 ## 6. `Start Research` 真正创建了什么

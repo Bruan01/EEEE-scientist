@@ -46,6 +46,7 @@ import { getProgressPercent } from '@/lib/utils/bash-progress'
 import { QuestSettingsSurface } from '@/components/workspace/QuestSettingsSurface'
 import { QuestMemorySurface } from '@/components/workspace/QuestMemorySurface'
 import { QuestStageSurface } from '@/components/workspace/QuestStageSurface'
+import { BranchMapExplainer } from '@/components/workspace/BranchMapExplainer'
 import type { BashLogEntry, BashProgress, BashSession } from '@/lib/types/bash'
 import {
   isBashProgressMarker,
@@ -4292,9 +4293,9 @@ function QuestDetails({
             />
             <OverviewMetric
               icon={<GitBranch className="h-4 w-4" />}
-              label="Graph"
-              value={`${nodeCount} nodes`}
-              hint={`${ideaCount} ideas · ${analysisCount} analysis branches`}
+              label="Branch Map"
+              value={`${nodeCount} Git nodes`}
+              hint={`${ideaCount} ideas · ${analysisCount} analysis branches · canvas placeholders excluded`}
             />
             <OverviewMetric
               icon={<FlaskConical className="h-4 w-4" />}
@@ -4489,6 +4490,7 @@ function QuestDetails({
               Durable guidance will appear after the next stage-significant update.
             </div>
           )}
+          <BranchMapExplainer branches={branches} />
         </DetailSection>
 
         <DetailSection

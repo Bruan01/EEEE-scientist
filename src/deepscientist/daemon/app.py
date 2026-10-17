@@ -115,6 +115,7 @@ _TERMINAL_PREWARM_DEBOUNCE_SECONDS = 20.0
 _STALLED_RUNNING_TURN_INACTIVITY_SECONDS = 30 * 60
 _STALLED_RUNNING_TURN_INTERRUPT_TIMEOUT_SECONDS = 5.0
 _IMMEDIATE_READ_INTERRUPT_TIMEOUT_SECONDS = 5.0
+_COMPLETED_RUN_RECONCILE_GRACE_SECONDS = 5.0
 _RESUME_CONTINUE_TEXT = "Continue"
 CODEX_RETRY_DEFAULT_MAX_ATTEMPTS = 7
 PREVIOUS_CODEX_RETRY_DEFAULT_MAX_ATTEMPTS = 5
@@ -623,6 +624,7 @@ class DaemonApp:
             profiles_payload.append(profile_payload)
         if profiles_payload:
             payload["profiles"] = profiles_payload
+        payload["lifecycle"] = self._connector_lifecycle(payload)
         return payload
 
     @staticmethod
@@ -646,6 +648,133 @@ class DaemonApp:
             except (TypeError, ValueError):
                 continue
         return False
+
+    @staticmethod
+    def _connector_has_discovered_session(snapshot: dict[str, object]) -> bool:
+        """Return whether the connector exposes a selectable conversation target.
+
+        The lifecycle deliberately treats a discovered target as a separate
+        milestone from account authentication.  A connector can be healthy
+        and authenticated while still having no conversation that the project
+        can bind to.
+        """
+        for key in ("last_conversation_id", "main_chat_id"):
+            if str(snapshot.get(key) or "").strip():
+                return True
+        for key in ("default_target",):
+            if isinstance(snapshot.get(key), dict) and snapshot.get(key):
+                return True
+        for key in ("discovered_targets", "recent_conversations", "known_targets"):
+            value = snapshot.get(key)
+            if isinstance(value, list) and any(isinstance(item, dict) and item for item in value):
+                return True
+        try:
+            return int(snapshot.get("target_count") or 0) > 0
+        except (TypeError, ValueError):
+            return False
+
+    @classmethod
+    def _connector_lifecycle(cls, snapshot: dict[str, object]) -> dict[str, object]:
+        """Project raw connector telemetry onto the three user-facing stages.
+
+        The stage is the highest durable milestone reached.  ``steps`` keeps
+        the three stages visible even when the connector is not ready, so the
+        UI can explain the next action instead of exposing a collection of
+        low-level transport states.
+        """
+        connector_name = str(snapshot.get("name") or "").strip().lower()
+        if connector_name == "local":
+            return {
+                "stage": None,
+                "stage_index": 0,
+                "status": "not_applicable",
+                "next_action": None,
+                "reason": "local_connector",
+                "steps": [
+                    {"key": "account_connected", "status": "not_applicable"},
+                    {"key": "session_discovered", "status": "not_applicable"},
+                    {"key": "project_bound", "status": "not_applicable"},
+                ],
+            }
+
+        enabled = bool(snapshot.get("enabled"))
+        connection_state = str(snapshot.get("connection_state") or "").strip().lower()
+        auth_state = str(snapshot.get("auth_state") or "").strip().lower()
+        account_error_states = {
+            "disabled",
+            "disconnected",
+            "error",
+            "failed",
+            "missing_credentials",
+            "missing_configuration",
+            "missing_dependency",
+            "needs_credentials",
+            "needs_dependency",
+            "stopped",
+        }
+        account_ready_states = {"connected", "ready", "reachable", "configured", "starting", "connecting"}
+        auth_ready = auth_state in {"ready", "connected", "authenticated"}
+        account_connected = (
+            enabled
+            and auth_ready
+            and connection_state in account_ready_states
+            and connection_state not in account_error_states
+            and auth_state not in account_error_states
+        )
+        has_session = cls._connector_has_discovered_session(snapshot)
+        try:
+            has_binding = int(snapshot.get("binding_count") or 0) > 0
+        except (TypeError, ValueError):
+            has_binding = False
+        if not has_binding:
+            bindings = snapshot.get("bindings")
+            has_binding = isinstance(bindings, list) and any(isinstance(item, dict) and item for item in bindings)
+
+        if has_binding:
+            stage = "project_bound"
+            stage_index = 3
+            status = "complete"
+            next_action = None
+            reason = "project_bound"
+        elif has_session:
+            stage = "session_discovered"
+            stage_index = 2
+            status = "in_progress"
+            next_action = "bind_project"
+            reason = "waiting_for_project_binding"
+        elif account_connected:
+            stage = "account_connected"
+            stage_index = 1
+            status = "in_progress"
+            next_action = "discover_session"
+            reason = "waiting_for_first_session"
+        else:
+            stage = None
+            stage_index = 0
+            status = "blocked"
+            next_action = "connect_account"
+            reason = "connector_disabled" if not enabled else "account_not_ready"
+            if connection_state in account_error_states or auth_state in account_error_states:
+                reason = "connector_error" if "error" in {connection_state, auth_state} else reason
+
+        step_keys = ("account_connected", "session_discovered", "project_bound")
+        steps = []
+        for index, key in enumerate(step_keys, start=1):
+            if stage_index >= index:
+                step_status = "complete"
+            elif stage_index == index - 1:
+                step_status = "blocked" if status == "blocked" else "current"
+            else:
+                step_status = "pending"
+            steps.append({"key": key, "status": step_status})
+        return {
+            "stage": stage,
+            "stage_index": stage_index,
+            "status": status,
+            "next_action": next_action,
+            "reason": reason,
+            "steps": steps,
+        }
 
     def connector_availability_summary(self) -> dict[str, object]:
         available_connectors: list[dict[str, object]] = []
@@ -684,6 +813,7 @@ class DaemonApp:
                     "binding_count": int(item.get("binding_count") or 0),
                     "target_count": int(item.get("target_count") or 0),
                     "has_delivery_target": has_target,
+                    "lifecycle": item.get("lifecycle"),
                 }
             )
 
@@ -2266,13 +2396,18 @@ class DaemonApp:
         if not active_run_id:
             self._refresh_turn_worker_state(quest_id)
             return snapshot
-        turn_state = self._refresh_turn_worker_state(quest_id)
-        if turn_state.get("running"):
-            return snapshot
-
         quest_root = self.quest_service._quest_root(quest_id)
         result_payload = read_json(quest_root / ".ds" / "runs" / active_run_id / "result.json", {})
         completed_at = str(result_payload.get("completed_at") or "").strip() if isinstance(result_payload, dict) else ""
+        completed_timestamp = self._parse_event_timestamp(completed_at)
+        completed_run_is_stable = bool(
+            completed_timestamp is not None
+            and (datetime.now(UTC) - completed_timestamp).total_seconds() >= _COMPLETED_RUN_RECONCILE_GRACE_SECONDS
+        )
+        turn_state = self._refresh_turn_worker_state(quest_id)
+        if turn_state.get("running") and not completed_run_is_stable:
+            return snapshot
+
         exit_code = result_payload.get("exit_code") if isinstance(result_payload, dict) else None
         previous_status = (
             str(snapshot.get("runtime_status") or snapshot.get("status") or snapshot.get("display_status") or "running").strip()
@@ -2364,6 +2499,7 @@ class DaemonApp:
                 run_id=active_run_id or None,
                 reason="stalled_turn_recovery",
                 user_id="auto:stalled-turn-recovery",
+                preserve_detached=True,
             )
             turn_state = self._wait_for_turn_worker_exit(
                 quest_id,
@@ -2485,6 +2621,7 @@ class DaemonApp:
             run_id=str(previous_snapshot.get("active_run_id") or "").strip() or None,
             reason=f"quest_{action}",
             user_id=source,
+            allow_unscoped=action == "stop",
         )
         if action == "stop" and source == "local-admin":
             cancel_reason = "cancelled_by_daemon_shutdown" if source == "local-admin" else "cancelled_by_stop"
@@ -2553,22 +2690,29 @@ class DaemonApp:
             }
 
         interrupted = False
-        try:
-            runner = self.get_runner(runner_name)
-        except KeyError:
-            runner = None
+        runner = None
+        if active_run_id:
+            try:
+                runner = self.get_runner(runner_name)
+            except KeyError:
+                runner = None
         with self._turn_lock:
             state = self._turn_state.setdefault(quest_id, {"running": False, "pending": False})
             state["pending"] = False
             state["stop_requested"] = True
-        runner_supports_interrupt = runner is not None and hasattr(runner, "interrupt")
+        runner_supports_interrupt = bool(active_run_id and runner is not None and hasattr(runner, "interrupt"))
         if runner_supports_interrupt:
             interrupted = bool(getattr(runner, "interrupt")(quest_id))
-        stopped_bash_session_ids = self._stop_active_bash_exec_sessions(
-            quest_id,
-            run_id=active_run_id,
-            reason="immediate_read",
-            user_id=source,
+        stopped_bash_session_ids = (
+            self._stop_active_bash_exec_sessions(
+                quest_id,
+                run_id=active_run_id,
+                reason="immediate_read",
+                user_id=source,
+                preserve_detached=True,
+            )
+            if active_run_id
+            else []
         )
         turn_state = self._wait_for_turn_worker_exit(
             quest_id,
@@ -2590,7 +2734,9 @@ class DaemonApp:
             stopped_count = len(stopped_bash_session_ids)
             if stopped_count > 0:
                 detail_parts.append(f"stopped_bash_sessions={stopped_count}")
-            if runner is None:
+            if not active_run_id:
+                detail_parts.append("reason=active_run_id_missing")
+            elif runner is None:
                 detail_parts.append("reason=runner_not_available")
             elif not runner_supports_interrupt:
                 detail_parts.append("reason=runner_has_no_interrupt")
@@ -2837,6 +2983,8 @@ class DaemonApp:
         run_id: str | None,
         reason: str,
         user_id: str,
+        allow_unscoped: bool = False,
+        preserve_detached: bool = False,
     ) -> list[str]:
         quest_root = self.quest_service._quest_root(quest_id)
         try:
@@ -2853,8 +3001,16 @@ class DaemonApp:
             status = str(session.get("status") or "").strip().lower()
             if kind == "terminal" or status in {"completed", "failed", "terminated"}:
                 continue
-            session_run_id = str(session.get("agent_instance_id") or session.get("task_id") or "").strip()
-            if run_id and session_run_id and session_run_id != run_id:
+            session_run_ids = {
+                str(session.get("agent_instance_id") or "").strip(),
+                str(session.get("task_id") or "").strip(),
+            } - {""}
+            if run_id:
+                if run_id not in session_run_ids:
+                    continue
+            elif not allow_unscoped:
+                continue
+            if preserve_detached and str(session.get("mode") or "").strip().lower() == "detach":
                 continue
             try:
                 self.bash_exec_service.request_stop(

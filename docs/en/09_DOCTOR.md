@@ -175,6 +175,7 @@ MiniMax-specific note:
 - EEEE Scientist automatically downgrades `xhigh` to `high` when it detects a Codex CLI older than `0.63.0`
 - if the provider returns `tool call result does not follow tool call (2013)`, treat it as a request-ordering/protocol error rather than a transient network failure
 - if the provider returns malformed tool-call argument errors such as `invalid function arguments json string` or `failed to parse tool call arguments`, fix the tool-call serialization path before retrying again
+- if Codex reports `apply_patch verification failed`, reread the target file and regenerate the patch; EEEE Scientist treats this deterministic workspace mismatch as non-retryable
 
 ### The configured Codex model is unavailable
 

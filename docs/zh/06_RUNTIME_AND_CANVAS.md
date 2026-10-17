@@ -21,6 +21,9 @@
 - 前端 Canvas（Lab）
   - `src/ui/src/lib/api/lab.ts`
   - `src/ui/src/lib/plugins/lab/components/LabQuestGraphCanvas.tsx`
+  - `src/ui/src/lib/runtimeActivity.ts`
+  - `src/ui/src/components/workspace/RuntimeActivityTimeline.tsx`
+  - `src/ui/src/components/workspace/RuntimeStatusBanner.tsx`
 
 ## 2. 一句话总结
 
@@ -204,6 +207,11 @@ builder 现在会注入一个 surface block，明确告诉 agent：这一轮主�
 
 用于可审计、可恢复的 shell 运行（训练、评测、长脚本等）。
 
+当 Web UI 请求“立即阅读”排队消息时，daemon 只会中断与当前 active run
+精确归属一致的会话；`mode=detach` 的后台实验会被保留。如果当前 run ID
+缺失，也不会退化成停止整个 quest 的所有 bash 会话。明确执行 quest 的
+`stop` 仍然是广泛停止该 quest 工作的管理操作。
+
 ## 9. 为什么 `artifact.interact(...)` 是中枢
 
 `artifact.interact(...)` 同时承担：
@@ -234,6 +242,21 @@ builder 现在会注入一个 surface block，明确告诉 agent：这一轮主�
 
 ## 11. Canvas（Git 图）如何构建
 
+### 11.1 实验权重与 Git 索引
+
+实验目录中的 metadata、metrics、report 和 manifest 会进入 Git；大模型权重保留在
+实验目录，并由 `weights_manifest.json` 记录路径。checkpoint 会在所有 worktree
+共享的 Git common dir 上串行执行，同时保护超过默认 256 MiB 的文件，避免再次把权重
+通过 `git add -A` 写进 Git 对象库。
+
+`.ds/codex-home/`、`.ds/claude-home/` 和 `.ds/opencode-home/` 属于 provider 的本地运行时缓存，
+新的 checkpoint 也会排除它们；真正用于恢复的是 quest 文档、memory、artifacts、run 记录以及
+`.ds` 的事件/历史文件。旧 quest 已经被跟踪的缓存不会自动改写，必须在单独迁移窗口中确认恢复能力后再处理。
+
+Branch Map 读取的是分支引用、提交元数据、artifacts 和 worktree 元数据，不需要权重
+blob，所以权重变成本地文件不会导致节点找不到。旧的 Git 大对象不会被这次框架保护逻辑
+自动删除；需要在当前 Git 操作结束后单独做迁移和空间回收。
+
 Canvas 不依赖一份中心化 graph 文件。
 
 当前主要从两类来源重建：
@@ -245,6 +268,8 @@ Canvas 不依赖一份中心化 graph 文件。
 
 1. 不同 idea / 不同主实现的 major branches
 2. 在同一主实验线下分出多个 analysis branches，最终合并回主线写论文
+
+Branch Map 的节点数以真实 Git branch ref 为准。只有创建了新的 ref 才会增加一个持久化节点，常见来源包括：新建 idea、准备隔离的实验工作区、analysis campaign 的每个 slice、写作/论文工作区，或手动执行分支操作。已有分支上的提交、重复运行、普通 artifact 更新、阶段变化和连接器绑定只会更新原节点，不会增加节点。Lab 画布还可能显示 baseline 根节点和“下一步”占位节点；它们是解释性节点，不是真实 Git 分支。
 
 额外实验的当前运行时约束也已经固定：
 
@@ -269,3 +294,12 @@ daemon 的实时刷新依赖：
 - 文件与 artifacts 是持久化真相
 - events 是实时操作流
 - ACP 只是兼容包装层
+
+### 12.1 对话中的运行时状态
+
+Web 对话面板会把最新 quest snapshot 与事件流连接状态一起展示，区分：正常、运行中、重试中、重连中、等待、暂停、已完成和异常。
+当发生重试时，还会显示第几次尝试，并把常见原因翻译成可读提示，例如上游 503/容量不足、网络或 VPN/TUN/证书链问题、认证失效、超时，以及本地补丁上下文不匹配。
+
+对话面板和 Studio 还会基于同一条事件流显示一条可折叠的精简运行时活动流，包括收到请求、创建 run、拉取最近记忆、搜索/读取/保存/提升 memory、记录 artifact、重试以及 run 完成/失败。对话面板默认收起，避免遮挡消息内容；需要时可以展开查看详细活动。精简活动流不会复制 memory 正文，只保留 scope、数量、标题和相对 quest 的路径等安全元数据。
+
+这只是解释性 UI，不会启动、停止或修改 run。

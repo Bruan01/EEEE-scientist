@@ -5,6 +5,7 @@ import { AlertTriangle, ChevronDown, ChevronUp, FileText, Link2, Plus, RefreshCw
 import { Link } from 'react-router-dom'
 
 import { ConnectorTargetRadioGroup, type ConnectorTargetRadioItem } from '@/components/connectors/ConnectorTargetRadioGroup'
+import { ConnectorLifecycleSteps } from '@/components/connectors/ConnectorLifecycleSteps'
 import { EnhancedCard } from '@/components/ui/enhanced-card'
 import { Button } from '@/components/ui/button'
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible'
@@ -903,6 +904,29 @@ export function QuestSettingsSurface({
               </div>
 
               <Separator className="bg-border/50" />
+
+              {connectors.some(
+                (connector) =>
+                  String(connector.name || '').trim().toLowerCase() !== 'local' &&
+                  (Boolean(connector.enabled) || Number(connector.binding_count || 0) > 0 || Number(connector.target_count || 0) > 0)
+              ) ? (
+                <div className="space-y-2">
+                  <div className="text-[11px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                    {t('connector_lifecycle_title', undefined, 'Connector setup progress')}
+                  </div>
+                  <div className="space-y-2">
+                    {connectors
+                      .filter(
+                        (connector) =>
+                          String(connector.name || '').trim().toLowerCase() !== 'local' &&
+                          (Boolean(connector.enabled) || Number(connector.binding_count || 0) > 0 || Number(connector.target_count || 0) > 0)
+                      )
+                      .map((connector) => (
+                        <ConnectorLifecycleSteps key={connector.name} snapshot={connector} />
+                      ))}
+                  </div>
+                </div>
+              ) : null}
 
               {connectors.length === 0 ? (
                 <div className="text-sm text-muted-foreground">

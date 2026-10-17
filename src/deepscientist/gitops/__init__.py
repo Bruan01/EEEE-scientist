@@ -9,12 +9,14 @@ from .diff import (
 )
 from .graph import export_git_graph
 from .service import (
+    GIT_CHECKPOINT_MAX_FILE_BYTES,
     branch_exists,
     canonical_worktree_root,
     checkpoint_repo,
     create_worktree,
     current_branch,
     ensure_branch,
+    git_operation_lock,
     head_commit,
     init_repo,
 )
@@ -30,6 +32,8 @@ __all__ = [
     "diff_file_between_refs",
     "diff_file_for_commit",
     "ensure_branch",
+    "git_operation_lock",
+    "GIT_CHECKPOINT_MAX_FILE_BYTES",
     "export_git_graph",
     "head_commit",
     "init_repo",

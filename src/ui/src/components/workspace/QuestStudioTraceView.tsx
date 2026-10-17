@@ -11,6 +11,8 @@ import type { FeedItem, QuestSummary } from '@/types'
 import { QuestCopilotComposer } from './QuestCopilotComposer'
 import { QuestCopilotPaneLayout } from './QuestCopilotPaneLayout'
 import { QuestStudioDirectTimeline } from './QuestStudioDirectTimeline'
+import { RuntimeActivityTimeline } from './RuntimeActivityTimeline'
+import { RuntimeStatusBanner } from './RuntimeStatusBanner'
 
 type ConnectorCommand = {
   name: string
@@ -29,6 +31,7 @@ type QuestStudioTraceViewProps = {
   snapshot?: QuestSummary | null
   loading: boolean
   restoring: boolean
+  liveRun?: boolean
   streaming: boolean
   activeToolCount: number
   connectionState: 'connecting' | 'connected' | 'reconnecting' | 'error'
@@ -53,6 +56,7 @@ export function QuestStudioTraceView({
   snapshot,
   loading,
   restoring,
+  liveRun,
   streaming,
   activeToolCount,
   connectionState,
@@ -79,29 +83,19 @@ export function QuestStudioTraceView({
     messageId: string
     kind: 'read_now' | 'withdraw'
   } | null>(null)
-  const statusLine = React.useMemo(() => {
-    if (error) {
-      return error
-    }
-    if (restoring || loading) {
-      return t('copilot_trace_restoring', undefined, 'Restoring recent Studio trace…')
-    }
-    if (connectionState === 'connecting') {
-      return t('copilot_trace_connecting', undefined, 'Connecting to Studio trace…')
-    }
-    if (connectionState === 'reconnecting') {
-      return t('copilot_trace_reconnecting', undefined, 'Reconnecting to Studio trace…')
-    }
-    if (streaming) {
-      return activeToolCount > 0
-        ? t('copilot_trace_streaming_tools', { count: activeToolCount }, 'Streaming reply · {count} tools running')
-        : t('copilot_trace_streaming', undefined, 'Streaming reply')
-    }
-    if (activeToolCount > 0) {
-      return t('copilot_trace_tools_running', { count: activeToolCount }, '{count} tools running')
-    }
-    return t('copilot_trace_ready', undefined, 'Studio trace ready')
-  }, [activeToolCount, connectionState, error, loading, restoring, streaming, t])
+  const statusLine = (
+    <RuntimeStatusBanner
+      snapshot={snapshot}
+      connectionState={connectionState}
+      error={error}
+      loading={loading}
+      restoring={restoring}
+      stopping={stopping}
+      liveRun={liveRun}
+      streaming={streaming}
+      activeToolCount={activeToolCount}
+    />
+  )
 
   const handleSubmit = React.useCallback(async () => {
     const trimmed = input.trim()
@@ -336,6 +330,12 @@ export function QuestStudioTraceView({
         <div className="flex min-h-0 flex-1 flex-col">
           {waitingBanner}
           {beforeFeed}
+          <RuntimeActivityTimeline
+            feed={feed}
+            snapshot={snapshot}
+            compact
+            includeGenericTools={false}
+          />
           <QuestStudioDirectTimeline
             questId={questId}
             feed={feed}

@@ -138,6 +138,47 @@ The quest layout contract is defined in `src/deepscientist/quest/layout.py`. If 
 - responsibility:
   - managed, stoppable, durable shell sessions
 
+## Git Checkpoints And Large Experiment Outputs
+
+Quest Git is the durable index for source, branch refs, artifact metadata,
+metrics, and reports. It is not the storage layer for model weights or other
+large checkpoint blobs.
+
+`gitops.checkpoint_repo()` applies three safeguards:
+
+- checkpoints run under a lock in the repository's Git common directory, so
+  the main checkout and linked worktrees do not mutate the same Git object
+  database concurrently;
+- files above the checkpoint size limit (256 MiB by default) are excluded from
+  staging, while small metadata files in the same experiment can still be
+  committed;
+- excluded experiment files are listed in `weights_manifest.json` under the
+  experiment directory with their local relative paths and sizes. The file is
+  committed as metadata; the large files remain in the experiment worktree.
+
+The isolated provider homes under `.ds/codex-home/`, `.ds/claude-home/`, and
+`.ds/opencode-home/` are also checkpoint-excluded. They contain provider auth,
+SQLite state, caches, and session material; quest recovery uses the durable
+quest event stream, run records, artifacts, memory, and runner history instead.
+Older quests may already have these files tracked, so ignoring them does not
+rewrite existing history. A separate migration must verify recovery first and
+then remove only the cache paths from the index while preserving the files.
+
+New quest `.gitignore` files also exclude common model-weight extensions under
+experiment directories. Existing quests are protected by the checkpoint
+preflight, but already-created Git objects are not rewritten automatically.
+Any migration of an existing repository must first verify that the local
+manifest and experiment paths are recoverable, then remove old blobs in a
+separate maintenance window.
+
+Branch Map does not use model blobs to identify nodes. It reads refs, commit
+metadata, artifact records, and worktree metadata. Therefore a local-only
+weight path in a manifest does not make a branch or run disappear; Git history
+can show the metadata commit while the experiment runtime resolves the local
+weight path. Live Explorer/status calls can still scan the worktree, so keeping
+large outputs ignored is important for UI responsiveness as well as object
+database size.
+
 ## Public MCP Boundary
 
 The public built-in MCP surface must remain:

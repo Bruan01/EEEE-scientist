@@ -1,4 +1,12 @@
-import type { ConnectorBindingSnapshot, ConnectorRecentConversation, ConnectorSnapshot, ConnectorTargetSnapshot } from '@/types'
+import type {
+  ConnectorBindingSnapshot,
+  ConnectorLifecycleSnapshot,
+  ConnectorLifecycleStage,
+  ConnectorLifecycleStep,
+  ConnectorRecentConversation,
+  ConnectorSnapshot,
+  ConnectorTargetSnapshot,
+} from '@/types'
 
 const CONNECTOR_PROFILE_CHAT_ID_SEPARATOR = '::'
 const MULTI_INSTANCE_CONNECTOR_NAMES = new Set(['qq', 'telegram', 'discord', 'slack', 'feishu', 'whatsapp'])
@@ -266,6 +274,91 @@ export function normalizeConnectorTargets(snapshot: ConnectorSnapshot): Connecto
     )
   }
   return Array.from(merged.values()).sort(sortTargets)
+}
+
+const CONNECTOR_LIFECYCLE_STAGES: ConnectorLifecycleStage[] = [
+  'account_connected',
+  'session_discovered',
+  'project_bound',
+]
+
+function hasConnectorBinding(snapshot: ConnectorSnapshot) {
+  return Number(snapshot.binding_count || 0) > 0 || (snapshot.bindings || []).some((item) => Boolean(item?.conversation_id))
+}
+
+function hasConnectorSession(snapshot: ConnectorSnapshot) {
+  return Boolean(
+    String(snapshot.last_conversation_id || '').trim() ||
+      String(snapshot.main_chat_id || '').trim() ||
+      snapshot.default_target?.conversation_id ||
+      Number(snapshot.target_count || 0) > 0 ||
+      (snapshot.discovered_targets || []).length > 0 ||
+      (snapshot.recent_conversations || []).length > 0 ||
+      (snapshot.known_targets || []).length > 0
+  )
+}
+
+function hasConnectedAccount(snapshot: ConnectorSnapshot) {
+  const connectionState = String(snapshot.connection_state || '').trim().toLowerCase()
+  const authState = String(snapshot.auth_state || '').trim().toLowerCase()
+  return Boolean(
+    snapshot.enabled &&
+      ['connected', 'ready', 'reachable', 'configured', 'starting', 'connecting'].includes(connectionState) &&
+      ['ready', 'connected', 'authenticated'].includes(authState)
+  )
+}
+
+export function connectorLifecycle(snapshot: ConnectorSnapshot): ConnectorLifecycleSnapshot {
+  if (snapshot.lifecycle?.steps?.length === CONNECTOR_LIFECYCLE_STAGES.length) {
+    return snapshot.lifecycle
+  }
+
+  if (String(snapshot.name || '').trim().toLowerCase() === 'local') {
+    return {
+      stage: null,
+      stage_index: 0,
+      status: 'not_applicable',
+      next_action: null,
+      reason: 'local_connector',
+      steps: CONNECTOR_LIFECYCLE_STAGES.map((key) => ({ key, status: 'not_applicable' })),
+    }
+  }
+
+  const stageIndex = hasConnectorBinding(snapshot) ? 3 : hasConnectorSession(snapshot) ? 2 : hasConnectedAccount(snapshot) ? 1 : 0
+  const stage = stageIndex ? CONNECTOR_LIFECYCLE_STAGES[stageIndex - 1] : null
+  const steps: ConnectorLifecycleStep[] = CONNECTOR_LIFECYCLE_STAGES.map((key, index) => ({
+    key,
+    status:
+      stageIndex >= index + 1
+        ? 'complete'
+        : stageIndex === index
+          ? stageIndex === 0
+            ? 'blocked'
+            : 'current'
+          : 'pending',
+  }))
+  return {
+    stage,
+    stage_index: stageIndex,
+    status: stageIndex === 3 ? 'complete' : stageIndex > 0 ? 'in_progress' : 'blocked',
+    next_action:
+      stageIndex === 3
+        ? null
+        : stageIndex === 2
+          ? 'bind_project'
+          : stageIndex === 1
+            ? 'discover_session'
+            : 'connect_account',
+    reason:
+      stageIndex === 3
+        ? 'project_bound'
+        : stageIndex === 2
+          ? 'waiting_for_project_binding'
+          : stageIndex === 1
+            ? 'waiting_for_first_session'
+            : 'account_not_ready',
+    steps,
+  }
 }
 
 export function connectorInstanceMode(

@@ -1493,6 +1493,8 @@ export const AppContainer: React.FC<{
         connectionState: snapshot?.connection_state || snapshot?.auth_state || 'idle',
         bindingCount: snapshot?.binding_count,
         targetCount: snapshot?.target_count,
+        lifecycleStage: snapshot?.lifecycle?.stage,
+        lifecycleStageIndex: snapshot?.lifecycle?.stage_index,
         supportMode: supportsGuidedConnector(name) ? 'guided' : 'raw',
       }
     })

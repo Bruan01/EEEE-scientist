@@ -82,6 +82,14 @@ After success, the WeChat card shows:
 
 That is the saved connector binding.
 
+The project binding flow is intentionally shown as three stages:
+
+1. **Account connected** — QR login succeeded and the runtime is online.
+2. **Session discovered** — send one message from WeChat so EEEE Scientist can learn the conversation target.
+3. **Project bound** — open the project settings, select that session, and save the binding.
+
+QR login completes only the first stage. It does not by itself create a selectable project target.
+
 ![QR scan and confirmation flow](../images/weixin/weixin-qr-confirm.svg)
 
 ## 4. Verify with one text or media message

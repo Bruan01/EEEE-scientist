@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { ConnectorLifecycleSteps } from '@/components/connectors/ConnectorLifecycleSteps'
 import { SettingsGuideCard } from '@/components/settings/SettingsGuideCard'
 import { adminEnumLabel, adminLocaleFromLanguage, pickAdminCopy } from '@/components/settings/settingsOpsCopy'
 import { Badge } from '@/components/ui/badge'
@@ -30,6 +31,7 @@ const PAGE_COPY = {
 - **state** tells you whether the runtime currently looks healthy.
 - **bindings** tells you how many quest routes currently point at this connector.
 - **targets** tells you how many delivery or conversation targets are currently visible.
+- **setup stage** follows the path **account connected → session discovered → project bound**.
 - **last error** is the fastest operator clue when a connector degrades.
 `,
     connectors: 'Connectors',
@@ -39,6 +41,7 @@ const PAGE_COPY = {
     state: 'State',
     bindings: 'Bindings',
     targets: 'Targets',
+    lifecycle: 'Setup stage',
     lastError: 'Last error',
   },
   zh: {
@@ -56,6 +59,7 @@ const PAGE_COPY = {
 - **状态** 表示运行时现在看起来是否健康。
 - **绑定数** 表示当前有多少 quest 路由指向这个连接器。
 - **目标数** 表示当前看见了多少投递或会话目标。
+- **接入阶段** 按 **账号已连接 → 已发现会话 → 已绑定项目** 展示下一步。
 - **最近错误** 是连接器退化时最快的运维线索。
 `,
     connectors: '连接器',
@@ -65,6 +69,7 @@ const PAGE_COPY = {
     state: '状态',
     bindings: '绑定数',
     targets: '目标数',
+    lifecycle: '接入阶段',
     lastError: '最近错误',
   },
 } as const
@@ -118,6 +123,7 @@ export function SettingsConnectorHealthSection() {
               <TableHead>{copy.state}</TableHead>
               <TableHead>{copy.bindings}</TableHead>
               <TableHead>{copy.targets}</TableHead>
+              <TableHead>{copy.lifecycle}</TableHead>
               <TableHead>{copy.lastError}</TableHead>
             </TableRow>
           </TableHeader>
@@ -146,6 +152,9 @@ export function SettingsConnectorHealthSection() {
                 </TableCell>
                 <TableCell>{item.binding_count || 0}</TableCell>
                 <TableCell>{item.target_count || 0}</TableCell>
+                <TableCell>
+                  <ConnectorLifecycleSteps snapshot={item} compact />
+                </TableCell>
                 <TableCell className="max-w-[460px] truncate text-xs text-soft-text-secondary">{item.last_error || '—'}</TableCell>
               </TableRow>
             ))}

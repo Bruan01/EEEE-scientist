@@ -17,11 +17,13 @@ import { buildQuestTranscriptMessages, type QuestTranscriptMessage } from '@/lib
 import { useFileTreeStore } from '@/lib/stores/file-tree'
 import { useAutoFollowScroll } from '@/lib/useAutoFollowScroll'
 import { cn } from '@/lib/utils'
-import type { FeedItem } from '@/types'
+import type { FeedItem, QuestSummary } from '@/types'
 import { QuestCopilotComposer } from './QuestCopilotComposer'
 import { QuestMessageAttachments } from './QuestMessageAttachments'
 import { QuestCopilotPaneLayout } from './QuestCopilotPaneLayout'
 import { QuestUserReadStateMeta } from './QuestUserReadStateMeta'
+import { RuntimeActivityTimeline } from './RuntimeActivityTimeline'
+import { RuntimeStatusBanner } from './RuntimeStatusBanner'
 import {
   getWorkspaceFileReferenceLabel,
   isLikelyWorkspaceFileReference,
@@ -43,8 +45,10 @@ type MessageQueueActionResult = {
 type QuestConnectorChatViewProps = {
   questId: string
   feed: FeedItem[]
+  snapshot?: QuestSummary | null
   loading: boolean
   restoring: boolean
+  liveRun?: boolean
   streaming: boolean
   activeToolCount: number
   connectionState: 'connecting' | 'connected' | 'reconnecting' | 'error'
@@ -196,8 +200,10 @@ function MessageBubble({
 export function QuestConnectorChatView({
   questId,
   feed,
+  snapshot = null,
   loading,
   restoring,
+  liveRun,
   streaming,
   activeToolCount,
   connectionState,
@@ -242,7 +248,7 @@ export function QuestConnectorChatView({
   const { isNearBottom } = useAutoFollowScroll({
     scrollRef: listRef,
     contentRef,
-    deps: [chatMessages.length, streaming, activeToolCount],
+    deps: [chatMessages.length, feed.length, streaming, activeToolCount],
   })
   const prependAnchorRef = React.useRef<{ active: boolean; scrollHeight: number; scrollTop: number }>({
     active: false,
@@ -493,26 +499,19 @@ export function QuestConnectorChatView({
     prependAnchorRef.current.active = false
   }, [chatMessages.length, loadingOlderHistory])
 
-  const statusLine = React.useMemo(() => {
-    if (error) {
-      return error
-    }
-    if (restoring || loading) {
-      return t('copilot_quest_status_restoring')
-    }
-    if (connectionState === 'connecting') {
-      return t('copilot_quest_status_connecting')
-    }
-    if (connectionState === 'reconnecting') {
-      return t('copilot_quest_status_reconnecting')
-    }
-    if (streaming || activeToolCount > 0) {
-      return activeToolCount > 0
-        ? t('copilot_quest_status_working_tools', { count: activeToolCount })
-        : t('copilot_quest_status_working')
-    }
-    return undefined
-  }, [activeToolCount, connectionState, error, loading, restoring, streaming, t])
+  const statusLine = (
+    <RuntimeStatusBanner
+      snapshot={snapshot}
+      connectionState={connectionState}
+      error={error}
+      loading={loading}
+      restoring={restoring}
+      stopping={stopping}
+      liveRun={liveRun}
+      streaming={streaming}
+      activeToolCount={activeToolCount}
+    />
+  )
 
   return (
     <QuestCopilotPaneLayout
@@ -590,6 +589,8 @@ export function QuestConnectorChatView({
                   markdownComponents={markdownComponents}
                 />
               ))}
+
+              <RuntimeActivityTimeline feed={feed} snapshot={snapshot} />
 
               {chatMessages.length === 0 ? (
                 <div className="pl-1 text-xs text-muted-foreground">

@@ -52,6 +52,7 @@ dist.bak.*/
 /runtime/
 /tmp-*.png
 /Codex
+/DeepScientist/
 *.docx
 # Local EEEE Scientist install helper
 /test_install_for_me.sh

@@ -99,6 +99,14 @@ export interface QuestSummary {
   continuation_policy?: string
   continuation_reason?: string | null
   continuation_updated_at?: string | null
+  retry_state?: {
+    turn_id?: string | null
+    attempt_index?: number | null
+    max_attempts?: number | null
+    last_run_id?: string | null
+    last_error?: string | null
+    next_retry_at?: string | null
+  } | null
   waiting_notice?: {
     status?: string | null
     reason?: string | null
@@ -391,6 +399,24 @@ export interface ConnectorSnapshot {
   discovered_targets?: ConnectorTargetSnapshot[]
   profiles?: ConnectorProfileSnapshot[]
   details?: Record<string, unknown>
+  lifecycle?: ConnectorLifecycleSnapshot | null
+}
+
+export type ConnectorLifecycleStage = 'account_connected' | 'session_discovered' | 'project_bound'
+export type ConnectorLifecycleStepStatus = 'complete' | 'current' | 'pending' | 'blocked' | 'not_applicable'
+
+export interface ConnectorLifecycleStep {
+  key: ConnectorLifecycleStage
+  status: ConnectorLifecycleStepStatus
+}
+
+export interface ConnectorLifecycleSnapshot {
+  stage?: ConnectorLifecycleStage | null
+  stage_index?: number
+  status?: 'complete' | 'in_progress' | 'blocked' | 'not_applicable' | string
+  next_action?: 'connect_account' | 'discover_session' | 'bind_project' | string | null
+  reason?: string | null
+  steps?: ConnectorLifecycleStep[]
 }
 
 export interface ConnectorProfileSnapshot {
@@ -437,6 +463,7 @@ export interface ConnectorAvailabilitySnapshot {
     binding_count?: number
     target_count?: number
     has_delivery_target?: boolean
+    lifecycle?: ConnectorLifecycleSnapshot | null
   }>
 }
 
@@ -1679,6 +1706,11 @@ export type FeedItem =
       label: string
       content: string
       createdAt?: string
+      eventType?: string | null
+      runId?: string | null
+      skillId?: string | null
+      status?: string | null
+      data?: Record<string, unknown>
     }
 
 export type AgentComment = {

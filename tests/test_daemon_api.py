@@ -5256,6 +5256,123 @@ def test_read_now_endpoint_surfaces_interrupt_failure_details(temp_home: Path) -
     assert payload["message_ids"] == [queued["id"]]
 
 
+def test_read_now_does_not_interrupt_unscoped_detached_experiment(
+    temp_home: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    app = DaemonApp(temp_home)
+    quest = app.quest_service.create("immediate read detached experiment safety quest")
+    quest_id = quest["quest_id"]
+    quest_root = Path(quest["quest_root"])
+
+    class NoInterruptRunner:
+        binary = ""
+
+        def __init__(self) -> None:
+            self.interrupt_calls: list[str] = []
+
+        def interrupt(self, target_quest_id: str) -> bool:
+            self.interrupt_calls.append(target_quest_id)
+            return True
+
+    runner = NoInterruptRunner()
+    app.runners["codex"] = runner
+
+    release_worker = threading.Event()
+
+    def _stale_worker() -> None:
+        while not release_worker.is_set():
+            time.sleep(0.02)
+
+    stale_worker = threading.Thread(target=_stale_worker, daemon=True, name=f"pytest-read-now-stale-{quest_id}")
+    stale_worker.start()
+    app._turn_state[quest_id] = {
+        "running": True,
+        "pending": False,
+        "stop_requested": False,
+        "reason": "user_message",
+        "worker": stale_worker,
+    }
+
+    context = McpContext(
+        home=temp_home,
+        quest_id=quest_id,
+        quest_root=quest_root,
+        run_id="run-detached-experiment-001",
+        active_anchor="experiment",
+        conversation_id=f"quest:{quest_id}",
+        agent_role="pi",
+        worker_id=None,
+        worktree_root=None,
+        team_mode="single",
+    )
+    session = app.bash_exec_service.start_session(
+        context,
+        command="sleep 30",
+        mode="detach",
+    )
+    bash_id = str(session["bash_id"])
+    assert (
+        app._stop_active_bash_exec_sessions(
+            quest_id,
+            run_id=None,
+            reason="pytest-unscoped-safety-check",
+            user_id="pytest",
+        )
+        == []
+    )
+    assert (
+        app._stop_active_bash_exec_sessions(
+            quest_id,
+            run_id="run-detached-experiment-001",
+            reason="pytest-detached-safety-check",
+            user_id="pytest",
+            preserve_detached=True,
+        )
+        == []
+    )
+
+    monkeypatch.setattr(
+        app,
+        "_wait_for_turn_worker_exit",
+        lambda target_quest_id, timeout_seconds: {
+            "running": True,
+            "worker": stale_worker,
+        },
+    )
+    queued = app.quest_service.append_message(
+        quest_id,
+        role="user",
+        content="Please read this immediately.",
+        source="web-react",
+        client_message_id="msg-read-now-detached-001",
+    )
+
+    try:
+        payload = app.handlers.quest_message_read_now(
+            quest_id,
+            {
+                "message_id": queued["id"],
+                "source": "web-react",
+            },
+        )
+
+        assert payload["ok"] is False
+        assert payload["status"] == "interrupt_failed"
+        assert "active_run_id=none" in payload["message"]
+        assert "reason=active_run_id_missing" in payload["message"]
+        assert runner.interrupt_calls == []
+        detached = app.bash_exec_service.get_session(quest_root, bash_id)
+        assert detached["status"] == "running"
+    finally:
+        app.bash_exec_service.request_stop(quest_root, bash_id, reason="pytest-cleanup")
+        app.bash_exec_service.wait_for_session(quest_root, bash_id, timeout_seconds=10)
+        release_worker.set()
+        stale_worker.join(timeout=2)
+
+
 def test_withdraw_endpoint_removes_unread_message_from_queue(temp_home: Path) -> None:
     ensure_home_layout(temp_home)
     ConfigManager(temp_home).ensure_files()
@@ -6051,6 +6168,63 @@ def test_submit_user_message_reconciles_stale_active_turn_and_starts_new_run(tem
         and item.get("abandoned_run_id") == stale_run_id
         for item in events
     )
+
+
+def test_reconcile_stale_active_turn_clears_stable_completed_run_with_live_worker(
+    temp_home: Path,
+) -> None:
+    ensure_home_layout(temp_home)
+    ConfigManager(temp_home).ensure_files()
+    app = DaemonApp(temp_home)
+    quest = app.quest_service.create("stable completed run reconciliation quest")
+    quest_id = quest["quest_id"]
+    quest_root = Path(quest["quest_root"])
+    stale_run_id = "run-completed-but-worker-live-001"
+    app.quest_service.mark_turn_started(quest_id, run_id=stale_run_id, status="running")
+    stale_run_root = ensure_dir(quest_root / ".ds" / "runs" / stale_run_id)
+    write_json(
+        stale_run_root / "result.json",
+        {
+            "ok": True,
+            "run_id": stale_run_id,
+            "model": "inherit",
+            "exit_code": 0,
+            "output_text": "completed",
+            "stderr_text": "",
+            "completed_at": (datetime.now(UTC) - timedelta(seconds=10)).isoformat(),
+        },
+    )
+
+    worker_release = threading.Event()
+
+    def _old_worker() -> None:
+        worker_release.wait(timeout=5)
+
+    old_worker = threading.Thread(target=_old_worker, daemon=True, name=f"pytest-live-worker-{quest_id}")
+    old_worker.start()
+    app._turn_state[quest_id] = {
+        "running": True,
+        "pending": False,
+        "stop_requested": False,
+        "reason": "user_message",
+        "worker": old_worker,
+    }
+
+    snapshot = app._reconcile_stale_active_turn(quest_id)
+
+    assert snapshot["active_run_id"] is None
+    assert snapshot["status"] == "active"
+    events = app.quest_service.events(quest_id)["events"]
+    assert any(
+        item.get("type") == "quest.turn_state_reconciled"
+        and item.get("abandoned_run_id") == stale_run_id
+        and item.get("completed_at")
+        for item in events
+    )
+
+    worker_release.set()
+    old_worker.join(timeout=2)
+    assert old_worker.is_alive() is False
 
 
 def _mark_turn_started_with_retry(

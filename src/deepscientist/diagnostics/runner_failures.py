@@ -56,6 +56,7 @@ _CODEX_UPSTREAM_ERROR_MARKERS = (
     "internal server error",
     "temporarily unavailable",
     "server overloaded",
+    "selected model is at capacity",
 )
 
 _CODEX_UPSTREAM_STATUS_MARKERS = (
@@ -64,6 +65,11 @@ _CODEX_UPSTREAM_STATUS_MARKERS = (
     "502 bad gateway",
     "503 service unavailable",
     "504 gateway timeout",
+)
+
+_CODEX_LOCAL_NON_RETRYABLE_MARKERS = (
+    "apply_patch verification failed",
+    "patch verification failed",
 )
 
 
@@ -130,6 +136,24 @@ def diagnose_runner_failure(
             ),
             retriable=True,
             matched_text="codex upstream provider error",
+        )
+
+    if normalized_runner == "codex" and any(
+        marker in lower for marker in _CODEX_LOCAL_NON_RETRYABLE_MARKERS
+    ):
+        return FailureDiagnosis(
+            code="codex_local_patch_verification_error",
+            problem="Codex could not apply a requested patch because the target text no longer matched.",
+            why=(
+                "This is a deterministic local workspace mismatch. Replaying the same turn leaves the same "
+                "patch context unchanged and does not repair the target file."
+            ),
+            guidance=(
+                "Re-read the target file and regenerate the patch against its current contents.",
+                "Do not keep retrying the same turn until the patch context has been refreshed.",
+            ),
+            retriable=False,
+            matched_text="apply_patch verification failed",
         )
 
     if (

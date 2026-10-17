@@ -305,6 +305,16 @@ function normalizeUpdate(raw: Record<string, unknown>): FeedItem {
     label: String(data.label ?? raw.event_type ?? 'event'),
     content: String(data.summary ?? data.run_id ?? raw.event_type ?? 'Event updated.'),
     createdAt: String(raw.created_at ?? ''),
+    eventType: eventType || null,
+    runId:
+      typeof data.run_id === 'string'
+        ? data.run_id
+        : typeof raw.run_id === 'string'
+          ? raw.run_id
+          : null,
+    skillId: typeof data.skill_id === 'string' ? data.skill_id : null,
+    status: typeof data.status === 'string' ? data.status : null,
+    data,
   }
 }
 
@@ -776,12 +786,16 @@ function shouldRefreshWorkflow(item: FeedItem) {
 function shouldRefreshSessionSnapshot(item: FeedItem) {
   if (item.type === 'artifact') return true
   if (item.type !== 'event') return false
+  const label = item.label.trim()
+  const eventType = item.eventType?.trim() || ''
   return (
-    item.label === 'run_started' ||
-    item.label === 'run_finished' ||
-    item.label === 'run_failed' ||
-    item.label === 'quest.control' ||
-    item.label === 'artifact.recorded'
+    label === 'run_started' ||
+    label === 'run_finished' ||
+    label === 'run_failed' ||
+    label === 'quest.control' ||
+    label === 'artifact.recorded' ||
+    label.startsWith('run_retry_') ||
+    eventType.startsWith('runner.turn_retry_')
   )
 }
 

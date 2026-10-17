@@ -115,6 +115,10 @@ def test_new_creates_standalone_git_repo(temp_home: Path) -> None:
     quest_root = Path(snapshot["quest_root"])
     assert (quest_root / ".git").exists()
     assert (quest_root / ".gitignore").exists()
+    gitignore_text = (quest_root / ".gitignore").read_text(encoding="utf-8")
+    assert ".ds/codex-home/" in gitignore_text
+    assert ".ds/claude-home/" in gitignore_text
+    assert "artifacts/experiments/**/*.safetensors" in gitignore_text
     assert (quest_root / "quest.yaml").exists()
     assert (quest_root / "tmp").exists()
     assert (quest_root / "userfiles").exists()

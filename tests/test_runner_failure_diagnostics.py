@@ -28,6 +28,7 @@ def test_codex_provider_account_errors_are_non_retryable_blockers(message: str) 
     [
         "unexpected status 429 Too Many Requests: rate limit exceeded",
         "unexpected status 503 Service Unavailable",
+        "Selected model is at capacity. Please try a different model.",
         '{"error":{"message":"502 Bad Gateway from upstream provider","http_code":"502"}}',
         "504 gateway timeout from upstream model provider",
     ],
@@ -48,4 +49,18 @@ def test_codex_bad_request_protocol_errors_stay_non_retryable_local_diagnostics(
 
     assert diagnosis is not None
     assert diagnosis.code == "minimax_tool_result_sequence_error"
+    assert diagnosis.retriable is False
+
+
+def test_codex_patch_verification_errors_are_non_retryable_local_diagnostics() -> None:
+    diagnosis = diagnose_runner_failure(
+        runner_name="codex",
+        stderr_text=(
+            "codex_core::tools::router: apply_patch verification failed: "
+            "Failed to find expected lines in PLAN.md"
+        ),
+    )
+
+    assert diagnosis is not None
+    assert diagnosis.code == "codex_local_patch_verification_error"
     assert diagnosis.retriable is False

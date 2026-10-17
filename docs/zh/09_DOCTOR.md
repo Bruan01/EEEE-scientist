@@ -157,6 +157,7 @@ MiniMax 补充说明：
 - 当 EEEE Scientist 检测到 Codex CLI 版本低于 `0.63.0` 时，会自动把 `xhigh` 降级成 `high`
 - 如果 provider 返回 `tool call result does not follow tool call (2013)`，应优先把它当作 tool call / tool result 顺序错误，而不是普通网络抖动
 - 如果 provider 返回 `invalid function arguments json string` 或 `failed to parse tool call arguments` 这类错误，应该先修正 tool 调用串行化/参数编码路径，再继续重试
+- 如果 Codex 返回 `apply_patch verification failed`，应先重新读取目标文件并按当前内容生成补丁；EEEE Scientist 会把这种确定性的工作区不匹配标记为不可重试
 
 ### 当前配置的 Codex 模型不可用
 

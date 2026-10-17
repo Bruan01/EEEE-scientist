@@ -31,6 +31,8 @@ export type ConnectorMenuEntry = {
   connectionState?: string | null
   bindingCount?: number
   targetCount?: number
+  lifecycleStage?: string | null
+  lifecycleStageIndex?: number
   supportMode: 'guided' | 'raw'
 }
 
@@ -304,6 +306,8 @@ export const ConfigScreen: React.FC<ConfigScreenProps> = ({ panel, availableHeig
       description: item.subtitle,
       secondary: [
         item.connectionState || 'unknown',
+        typeof item.lifecycleStageIndex === 'number' ? `stage ${item.lifecycleStageIndex}/3` : null,
+        item.lifecycleStage || null,
         typeof item.bindingCount === 'number' ? `bindings ${item.bindingCount}` : null,
         typeof item.targetCount === 'number' ? `targets ${item.targetCount}` : null,
         item.supportMode === 'guided' ? 'guided setup' : 'raw config only',

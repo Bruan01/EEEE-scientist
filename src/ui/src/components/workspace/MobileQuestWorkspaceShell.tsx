@@ -1075,8 +1075,10 @@ export function MobileQuestWorkspaceShell({
                   <QuestConnectorChatView
                     questId={projectId}
                     feed={workspace.feed}
+                    snapshot={workspace.snapshot}
                     loading={workspace.loading}
                     restoring={workspace.restoring}
+                    liveRun={effectiveHasLiveRun}
                     streaming={effectiveStreaming}
                     activeToolCount={effectiveActiveToolCount}
                     connectionState={workspace.connectionState}
@@ -1099,6 +1101,7 @@ export function MobileQuestWorkspaceShell({
                     snapshot={workspace.snapshot}
                     loading={workspace.loading}
                     restoring={workspace.restoring}
+                    liveRun={effectiveHasLiveRun}
                     streaming={effectiveStreaming}
                     activeToolCount={effectiveActiveToolCount}
                     connectionState={workspace.connectionState}

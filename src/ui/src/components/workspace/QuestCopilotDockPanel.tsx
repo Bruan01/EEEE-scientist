@@ -9,6 +9,7 @@ import type {
   CopilotPrefill,
 } from '@/lib/plugins/ai-manus/view-types'
 import { useI18n } from '@/lib/i18n/useI18n'
+import type { QuestSummary } from '@/types'
 
 import { QuestConnectorChatView } from './QuestConnectorChatView'
 import { useCopilotDockCallbacks } from './CopilotDockOverlay'
@@ -66,14 +67,35 @@ function resolveStatusText(args: {
   error?: string | null
   activeToolCount: number
   connectionState: 'connecting' | 'connected' | 'reconnecting' | 'error'
+  snapshot?: QuestSummary | null
   snapshotStatus?: string | null
   readyLabel?: string | null
   t: (key: string, variables?: Record<string, string | number>, fallback?: string) => string
 }) {
-  const { loading, restoring, stopping, hasLiveRun, error, activeToolCount, connectionState, snapshotStatus, readyLabel, t } = args
+  const {
+    loading,
+    restoring,
+    stopping,
+    hasLiveRun,
+    error,
+    activeToolCount,
+    connectionState,
+    snapshot,
+    snapshotStatus,
+    readyLabel,
+    t,
+  } = args
   if (stopping) return t('copilot_quest_status_stopping')
   if (restoring) return t('copilot_quest_status_restoring')
   if (loading) return t('copilot_quest_status_loading')
+  const displayStatus = String(snapshot?.display_status || '').trim().toLowerCase()
+  if (
+    displayStatus === 'retrying' ||
+    snapshot?.retry_state?.last_error ||
+    (snapshot?.retry_state?.attempt_index ?? 0) > 0
+  ) {
+    return t('runtime_status_retrying', undefined, 'Retrying')
+  }
   if (connectionState === 'reconnecting') return t('copilot_quest_status_reconnecting')
   if (connectionState === 'connecting') return t('copilot_quest_status_connecting')
   if (hasLiveRun || activeToolCount > 0) {
@@ -183,6 +205,7 @@ export function QuestCopilotDockPanel({
         error: workspace.error,
         activeToolCount: effectiveActiveToolCount,
         connectionState: workspace.connectionState,
+        snapshot: workspace.snapshot,
         snapshotStatus: workspace.snapshot?.summary?.status_line ?? null,
         readyLabel:
           mode === 'studio'
@@ -202,6 +225,7 @@ export function QuestCopilotDockPanel({
       workspace.error,
       workspace.loading,
       workspace.restoring,
+      workspace.snapshot,
       workspace.snapshot?.summary?.status_line,
       waitingNoticeLabel,
       waitingNoticeReason,
@@ -312,8 +336,10 @@ export function QuestCopilotDockPanel({
         <QuestConnectorChatView
           questId={questId}
           feed={workspace.feed}
+          snapshot={workspace.snapshot}
           loading={workspace.loading}
           restoring={workspace.restoring}
+          liveRun={effectiveHasLiveRun}
           streaming={effectiveStreaming}
           activeToolCount={effectiveActiveToolCount}
           connectionState={workspace.connectionState}
@@ -337,6 +363,7 @@ export function QuestCopilotDockPanel({
           snapshot={workspace.snapshot}
           loading={workspace.loading}
           restoring={workspace.restoring}
+          liveRun={effectiveHasLiveRun}
           streaming={effectiveStreaming}
           activeToolCount={effectiveActiveToolCount}
           connectionState={workspace.connectionState}

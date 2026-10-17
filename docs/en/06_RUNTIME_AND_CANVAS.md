@@ -28,6 +28,9 @@ The behavior described here is derived from these files:
 - `src/deepscientist/gitops/diff.py`
 - `src/ui/src/lib/api/lab.ts`
 - `src/ui/src/lib/plugins/lab/components/LabQuestGraphCanvas.tsx`
+- `src/ui/src/lib/runtimeActivity.ts`
+- `src/ui/src/components/workspace/RuntimeActivityTimeline.tsx`
+- `src/ui/src/components/workspace/RuntimeStatusBanner.tsx`
 
 ## 2. One-Sentence Summary
 
@@ -307,6 +310,33 @@ It supports:
 
 This is the correct shell path for long-running, auditable quest-local commands.
 
+### 9.4 Large experiment files and Git
+
+Experiment metadata, metrics, reports, and manifests are durable Git inputs.
+Large model weights stay in the experiment directory and are referenced by a
+local `weights_manifest.json` instead of being copied into Git objects. The
+checkpoint path serializes Git mutations across linked worktrees and skips
+files above the safety limit, so a completed run does not turn into a
+multi-gigabyte `git add -A` operation.
+
+The provider runtime homes under `.ds/codex-home/`, `.ds/claude-home/`, and
+`.ds/opencode-home/` are treated as local caches rather than quest evidence;
+they are excluded from new checkpoints. Durable recovery still comes from
+quest documents, memory, artifacts, run records, and the `.ds` event/history
+files. Existing tracked cache files are left untouched until an explicit
+migration window.
+
+Branch Map still uses branch refs, commit metadata, artifacts, and worktree
+metadata, so removing a weight blob from the Git index does not remove the
+research node. It only means that the weight itself is local-only and must be
+available at the path recorded in the manifest.
+
+When the web UI requests an immediate read of queued user messages, the daemon
+interrupts only sessions owned by the exact active runner run. Detached
+(`mode=detach`) experiment sessions are preserved, and a missing active run ID
+never falls back to stopping every bash session in the quest. An explicit quest
+`stop` remains the administrative operation for stopping quest work broadly.
+
 ## 10. Why `artifact.interact(...)` Is Central
 
 `artifact.interact(...)` is the real continuity spine across:
@@ -424,6 +454,16 @@ So the runtime model remains:
 - quest events are the live operational stream
 - ACP is a compatibility envelope layered on top
 
+### 13.1 Runtime status shown during conversation
+
+The web conversation surface renders the latest quest snapshot alongside the event-stream connection state.
+It distinguishes normal, running, retrying, reconnecting, waiting, paused, completed, and error states.
+When a retry is active, the banner also shows the attempt count and translates common causes such as upstream 503/capacity errors, network/VPN/TUN or certificate failures, authentication expiry, timeouts, and local patch-context mismatches.
+
+The conversation and Studio surfaces also show a compact, collapsible runtime activity trail reconstructed from the same event stream. It can show request receipt, run creation, recent-memory loading, memory search/read/write/promotion, artifact recording, retrying, and run completion/failure. The conversation view starts collapsed so it does not cover the transcript; users can expand it when they need the detailed trail. Memory bodies are not copied into this compact trail; it keeps only safe metadata such as scope, item count, title, and a quest-relative path.
+
+This is an explanatory UI only: it does not start, stop, or alter a run.
+
 ## 14. How Operational Views Are Reconstructed
 
 Neither workflow nor Canvas is stored as one authoritative graph document.
@@ -508,6 +548,14 @@ Each branch node includes fields such as:
 - `latest_metric`
 - `latest_summary`
 - `recent_artifacts`
+
+The Branch Map count is based on real Git branch refs. A durable node is added
+when a new ref is created, for example by a new idea submission, an isolated
+experiment workspace, an analysis-campaign slice, a writing/paper workspace,
+or a manual branch operation. A commit, rerun, ordinary artifact update, stage
+change, or connector binding updates an existing node and does not add another
+one. The Lab canvas may also show a synthetic baseline root and a next-stage
+placeholder; those are explanatory nodes, not Git refs.
 
 ### 15.2 Branch edges
 

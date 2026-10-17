@@ -119,6 +119,16 @@ export type ConnectorProfileSnapshot = {
   binding_count?: number
 }
 
+export type ConnectorLifecycleStage = 'account_connected' | 'session_discovered' | 'project_bound'
+
+export type ConnectorLifecycleSnapshot = {
+  stage?: ConnectorLifecycleStage | null
+  stage_index?: number
+  status?: 'complete' | 'in_progress' | 'blocked' | 'not_applicable' | string
+  next_action?: 'connect_account' | 'discover_session' | 'bind_project' | string | null
+  reason?: string | null
+}
+
 export type ConnectorSnapshot = {
   name: string
   display_mode?: string
@@ -144,6 +154,7 @@ export type ConnectorSnapshot = {
   discovered_targets?: ConnectorTargetSnapshot[]
   profiles?: ConnectorProfileSnapshot[]
   details?: Record<string, unknown>
+  lifecycle?: ConnectorLifecycleSnapshot | null
 }
 
 export type ConnectorAvailabilitySnapshot = {
@@ -159,6 +170,7 @@ export type ConnectorAvailabilitySnapshot = {
     binding_count?: number
     target_count?: number
     has_delivery_target?: boolean
+    lifecycle?: ConnectorLifecycleSnapshot | null
   }>
 }
 
